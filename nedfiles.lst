@@ -50,6 +50,7 @@ Network/IPv6/RoutingTable6.ned
 Network/LDP/NewLDP.ned
 Network/MPLS/LIBTable.ned
 Network/MPLS/MPLSModule.ned
+Network/OSPFv2/OSPFRouting.ned
 Network/Queue/DropTailQoSQueue.ned
 Network/Queue/DropTailQueue.ned
 Network/Queue/OutputQueue.ned
