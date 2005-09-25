@@ -1,7 +1,7 @@
 #ifndef __LINKSTATEACKNOWLEDGEMENTHANDLER_HPP__
 #define __LINKSTATEACKNOWLEDGEMENTHANDLER_HPP__
 
-#include "IMessageHandler.hpp"
+#include "IMessageHandler.h"
 
 namespace OSPF {
 

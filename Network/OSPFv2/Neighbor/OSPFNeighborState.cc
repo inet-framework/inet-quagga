@@ -1,7 +1,7 @@
-#include "OSPFNeighborState.hpp"
-#include "OSPFInterface.hpp"
-#include "OSPFArea.hpp"
-#include "OSPFRouter.hpp"
+#include "OSPFNeighborState.h"
+#include "OSPFInterface.h"
+#include "OSPFArea.h"
+#include "OSPFRouter.h"
 
 void OSPF::NeighborState::ChangeState (OSPF::Neighbor* neighbor, OSPF::NeighborState* newState, OSPF::NeighborState* currentState)
 {

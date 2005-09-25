@@ -3,8 +3,8 @@
 
 #include "OSPFPacket_m.h"
 #include "OSPFTimer_m.h"
-#include "OSPFcommon.hpp"
-#include "LSA.hpp"
+#include "OSPFcommon.h"
+#include "LSA.h"
 #include <list>
 
 namespace OSPF {

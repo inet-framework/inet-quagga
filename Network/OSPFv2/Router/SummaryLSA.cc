@@ -1,4 +1,4 @@
-#include "LSA.hpp"
+#include "LSA.h"
 
 bool OSPF::SummaryLSA::Update (const OSPFSummaryLSA* lsa)
 {

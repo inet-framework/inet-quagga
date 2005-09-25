@@ -1,7 +1,7 @@
 #ifndef __OSPFINTERFACESTATEBACKUP_HPP__
 #define __OSPFINTERFACESTATEBACKUP_HPP__
 
-#include "OSPFInterfaceState.hpp"
+#include "OSPFInterfaceState.h"
 
 namespace OSPF {
 

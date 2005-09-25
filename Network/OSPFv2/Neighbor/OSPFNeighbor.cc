@@ -1,9 +1,9 @@
-#include "OSPFNeighbor.hpp"
-#include "OSPFNeighborState.hpp"
-#include "OSPFNeighborStateDown.hpp"
-#include "MessageHandler.hpp"
-#include "OSPFArea.hpp"
-#include "OSPFRouter.hpp"
+#include "OSPFNeighbor.h"
+#include "OSPFNeighborState.h"
+#include "OSPFNeighborStateDown.h"
+#include "MessageHandler.h"
+#include "OSPFArea.h"
+#include "OSPFRouter.h"
 #include <memory.h>
 
 // FIXME!!! Should come from a global unique number generator module.

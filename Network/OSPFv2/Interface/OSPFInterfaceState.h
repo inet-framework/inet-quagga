@@ -1,7 +1,7 @@
 #ifndef __OSPFINTERFACESTATE_HPP__
 #define __OSPFINTERFACESTATE_HPP__
 
-#include "OSPFInterface.hpp"
+#include "OSPFInterface.h"
 
 namespace OSPF {
 

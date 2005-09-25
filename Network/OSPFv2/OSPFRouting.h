@@ -21,7 +21,7 @@
 #include "RoutingTable.h"
 #include "RoutingTableAccess.h"
 #include "OSPFPacket_m.h"
-#include "OSPFRouter.hpp"
+#include "OSPFRouter.h"
 
 /**
  * OMNeT++ module class acting as a facade for the OSPF datastructure.

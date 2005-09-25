@@ -1,5 +1,5 @@
-#include "MessageHandler.hpp"
-#include "OSPFRouter.hpp"
+#include "MessageHandler.h"
+#include "OSPFRouter.h"
 
 OSPF::MessageHandler::MessageHandler (OSPF::Router* containingRouter, cSimpleModule* containingModule) :
     OSPF::IMessageHandler (containingRouter),

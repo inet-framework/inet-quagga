@@ -1,4 +1,4 @@
-#include "LSA.hpp"
+#include "LSA.h"
 
 bool OSPF::ASExternalLSA::Update (const OSPFASExternalLSA* lsa)
 {

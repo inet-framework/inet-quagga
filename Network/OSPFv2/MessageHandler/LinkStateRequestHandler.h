@@ -1,7 +1,7 @@
 #ifndef __LINKSTATEREQUESTHANDLER_HPP__
 #define __LINKSTATEREQUESTHANDLER_HPP__
 
-#include "IMessageHandler.hpp"
+#include "IMessageHandler.h"
 
 namespace OSPF {
 

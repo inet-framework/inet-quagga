@@ -1,7 +1,7 @@
 #ifndef __OSPFINTERFACESTATEWAITING_HPP__
 #define __OSPFINTERFACESTATEWAITING_HPP__
 
-#include "OSPFInterfaceState.hpp"
+#include "OSPFInterfaceState.h"
 
 namespace OSPF {
 

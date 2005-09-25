@@ -3,10 +3,10 @@
 
 #include <vector>
 #include <map>
-#include "OSPFcommon.hpp"
-#include "OSPFInterface.hpp"
-#include "LSA.hpp"
-#include "OSPFRoutingTableEntry.hpp"
+#include "OSPFcommon.h"
+#include "OSPFInterface.h"
+#include "LSA.h"
+#include "OSPFRoutingTableEntry.h"
 
 namespace OSPF {
 

@@ -1,8 +1,8 @@
-#include "DatabaseDescriptionHandler.hpp"
-#include "OSPFNeighbor.hpp"
-#include "OSPFInterface.hpp"
-#include "OSPFRouter.hpp"
-#include "OSPFArea.hpp"
+#include "DatabaseDescriptionHandler.h"
+#include "OSPFNeighbor.h"
+#include "OSPFInterface.h"
+#include "OSPFRouter.h"
+#include "OSPFArea.h"
 
 OSPF::DatabaseDescriptionHandler::DatabaseDescriptionHandler (OSPF::Router* containingRouter) :
     OSPF::IMessageHandler (containingRouter)

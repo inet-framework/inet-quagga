@@ -1,12 +1,12 @@
-#include "OSPFNeighborStateFull.hpp"
-#include "OSPFNeighborStateDown.hpp"
-#include "OSPFNeighborStateInit.hpp"
-#include "OSPFNeighborStateTwoWay.hpp"
-#include "OSPFNeighborStateExchangeStart.hpp"
-#include "MessageHandler.hpp"
-#include "OSPFInterface.hpp"
-#include "OSPFArea.hpp"
-#include "OSPFRouter.hpp"
+#include "OSPFNeighborStateFull.h"
+#include "OSPFNeighborStateDown.h"
+#include "OSPFNeighborStateInit.h"
+#include "OSPFNeighborStateTwoWay.h"
+#include "OSPFNeighborStateExchangeStart.h"
+#include "MessageHandler.h"
+#include "OSPFInterface.h"
+#include "OSPFArea.h"
+#include "OSPFRouter.h"
 
 void OSPF::NeighborStateFull::ProcessEvent (OSPF::Neighbor* neighbor, OSPF::Neighbor::NeighborEventType event)
 {

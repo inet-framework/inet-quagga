@@ -1,8 +1,8 @@
-#include "LinkStateUpdateHandler.hpp"
-#include "OSPFcommon.hpp"
-#include "OSPFRouter.hpp"
-#include "OSPFArea.hpp"
-#include "OSPFNeighbor.hpp"
+#include "LinkStateUpdateHandler.h"
+#include "OSPFcommon.h"
+#include "OSPFRouter.h"
+#include "OSPFArea.h"
+#include "OSPFNeighbor.h"
 
 class LSAProcessingMarker
 {

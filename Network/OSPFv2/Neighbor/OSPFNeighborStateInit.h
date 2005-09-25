@@ -1,7 +1,7 @@
 #ifndef __OSPFNEIGHBORSTATEINIT_HPP__
 #define __OSPFNEIGHBORSTATEINIT_HPP__
 
-#include "OSPFNeighborState.hpp"
+#include "OSPFNeighborState.h"
 
 namespace OSPF {
 

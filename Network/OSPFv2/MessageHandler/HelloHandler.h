@@ -1,7 +1,7 @@
 #ifndef __HELLOHANDLER_HPP__
 #define __HELLOHANDLER_HPP__
 
-#include "IMessageHandler.hpp"
+#include "IMessageHandler.h"
 
 namespace OSPF {
 

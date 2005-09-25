@@ -1,7 +1,7 @@
 #ifndef __OSPFINTERFACESTATENOTDESIGNATEDROUTER_HPP__
 #define __OSPFINTERFACESTATENOTDESIGNATEDROUTER_HPP__
 
-#include "OSPFInterfaceState.hpp"
+#include "OSPFInterfaceState.h"
 
 namespace OSPF {
 

@@ -3,7 +3,7 @@
 
 #include "RoutingTable.h"
 #include "RoutingTableAccess.h"
-#include "OSPFcommon.hpp"
+#include "OSPFcommon.h"
 #include <memory.h>
 
 namespace OSPF {
@@ -103,7 +103,6 @@ inline OSPF::RoutingTableEntry::RoutingTableEntry (const RoutingTableEntry& entr
     type          = entry.type;
     source        = entry.source;
     metric        = entry.metric;
-    age           = entry.age;
 }
 
 inline void OSPF::RoutingTableEntry::SetPathType (RoutingPathType type)

@@ -1,8 +1,8 @@
 #ifndef __LINKSTATEUPDATEHANDLER_HPP__
 #define __LINKSTATEUPDATEHANDLER_HPP__
 
-#include "IMessageHandler.hpp"
-#include "OSPFcommon.hpp"
+#include "IMessageHandler.h"
+#include "OSPFcommon.h"
 
 namespace OSPF {
 

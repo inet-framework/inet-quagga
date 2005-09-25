@@ -1,9 +1,9 @@
-#include "HelloHandler.hpp"
+#include "HelloHandler.h"
 #include "IPControlInfo_m.h"
-#include "OSPFRouter.hpp"
-#include "OSPFArea.hpp"
-#include "OSPFInterface.hpp"
-#include "OSPFNeighbor.hpp"
+#include "OSPFRouter.h"
+#include "OSPFArea.h"
+#include "OSPFInterface.h"
+#include "OSPFNeighbor.h"
 
 OSPF::HelloHandler::HelloHandler (OSPF::Router* containingRouter) :
     OSPF::IMessageHandler (containingRouter)

@@ -1,12 +1,12 @@
 #ifndef __OSPFROUTER_HPP__
 #define __OSPFROUTER_HPP__
 
-#include "OSPFcommon.hpp"
-#include "OSPFArea.hpp"
-#include "MessageHandler.hpp"
-#include "OSPFInterface.hpp"
-#include "LSA.hpp"
-#include "OSPFRoutingTableEntry.hpp"
+#include "OSPFcommon.h"
+#include "OSPFArea.h"
+#include "MessageHandler.h"
+#include "OSPFInterface.h"
+#include "LSA.h"
+#include "OSPFRoutingTableEntry.h"
 #include "stlwatch.h"
 #include <map>
 

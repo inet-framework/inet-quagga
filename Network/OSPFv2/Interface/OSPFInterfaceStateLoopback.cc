@@ -1,5 +1,5 @@
-#include "OSPFInterfaceStateLoopback.hpp"
-#include "OSPFInterfaceStateDown.hpp"
+#include "OSPFInterfaceStateLoopback.h"
+#include "OSPFInterfaceStateDown.h"
 
 void OSPF::InterfaceStateLoopback::ProcessEvent (OSPF::Interface* intf, OSPF::Interface::InterfaceEventType event)
 {

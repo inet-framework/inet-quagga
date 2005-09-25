@@ -1,11 +1,11 @@
-#include "OSPFInterfaceStateDown.hpp"
-#include "MessageHandler.hpp"
-#include "OSPFArea.hpp"
-#include "OSPFRouter.hpp"
-#include "OSPFInterfaceStatePointToPoint.hpp"
-#include "OSPFInterfaceStateNotDesignatedRouter.hpp"
-#include "OSPFInterfaceStateWaiting.hpp"
-#include "OSPFInterfaceStateLoopback.hpp"
+#include "OSPFInterfaceStateDown.h"
+#include "MessageHandler.h"
+#include "OSPFArea.h"
+#include "OSPFRouter.h"
+#include "OSPFInterfaceStatePointToPoint.h"
+#include "OSPFInterfaceStateNotDesignatedRouter.h"
+#include "OSPFInterfaceStateWaiting.h"
+#include "OSPFInterfaceStateLoopback.h"
 
 void OSPF::InterfaceStateDown::ProcessEvent (OSPF::Interface* intf, OSPF::Interface::InterfaceEventType event)
 {

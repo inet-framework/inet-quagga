@@ -1,10 +1,10 @@
-#include "OSPFInterfaceState.hpp"
-#include "OSPFInterface.hpp"
-#include "OSPFArea.hpp"
-#include "OSPFRouter.hpp"
-#include "OSPFInterfaceStateDesignatedRouter.hpp"
-#include "OSPFInterfaceStateNotDesignatedRouter.hpp"
-#include "OSPFInterfaceStateBackup.hpp"
+#include "OSPFInterfaceState.h"
+#include "OSPFInterface.h"
+#include "OSPFArea.h"
+#include "OSPFRouter.h"
+#include "OSPFInterfaceStateDesignatedRouter.h"
+#include "OSPFInterfaceStateNotDesignatedRouter.h"
+#include "OSPFInterfaceStateBackup.h"
 #include <map>
 
 void OSPF::InterfaceState::ChangeState (OSPF::Interface* intf, OSPF::InterfaceState* newState, OSPF::InterfaceState* currentState)

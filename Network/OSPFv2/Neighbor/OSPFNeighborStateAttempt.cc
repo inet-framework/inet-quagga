@@ -1,10 +1,10 @@
-#include "OSPFNeighborStateAttempt.hpp"
-#include "OSPFNeighborStateDown.hpp"
-#include "OSPFNeighborStateInit.hpp"
-#include "MessageHandler.hpp"
-#include "OSPFInterface.hpp"
-#include "OSPFArea.hpp"
-#include "OSPFRouter.hpp"
+#include "OSPFNeighborStateAttempt.h"
+#include "OSPFNeighborStateDown.h"
+#include "OSPFNeighborStateInit.h"
+#include "MessageHandler.h"
+#include "OSPFInterface.h"
+#include "OSPFArea.h"
+#include "OSPFRouter.h"
 
 void OSPF::NeighborStateAttempt::ProcessEvent (OSPF::Neighbor* neighbor, OSPF::Neighbor::NeighborEventType event)
 {

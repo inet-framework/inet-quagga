@@ -1,9 +1,9 @@
-#include "OSPFInterface.hpp"
-#include "OSPFInterfaceStateDown.hpp"
+#include "OSPFInterface.h"
+#include "OSPFInterfaceStateDown.h"
 #include "RoutingTableAccess.h"
-#include "MessageHandler.hpp"
-#include "OSPFArea.hpp"
-#include "OSPFRouter.hpp"
+#include "MessageHandler.h"
+#include "OSPFArea.h"
+#include "OSPFRouter.h"
 #include <vector>
 #include <memory.h>
 

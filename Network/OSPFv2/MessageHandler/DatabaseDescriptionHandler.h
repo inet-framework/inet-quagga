@@ -1,7 +1,7 @@
 #ifndef __DATABASEDESCRIPTIONHANDLER_HPP__
 #define __DATABASEDESCRIPTIONHANDLER_HPP__
 
-#include "IMessageHandler.hpp"
+#include "IMessageHandler.h"
 
 namespace OSPF {
 

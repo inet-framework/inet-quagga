@@ -20,10 +20,10 @@
 #include "IPAddress.h"
 #include "IPAddressResolver.h"
 #include "IPControlInfo_m.h"
-#include "OSPFcommon.hpp"
-#include "OSPFArea.hpp"
-#include "OSPFInterface.hpp"
-#include "MessageHandler.hpp"
+#include "OSPFcommon.h"
+#include "OSPFArea.h"
+#include "OSPFInterface.h"
+#include "MessageHandler.h"
 #include <string>
 #include <map>
 #include <stdlib.h>

@@ -1,9 +1,9 @@
-#include "OSPFInterfaceStatePointToPoint.hpp"
-#include "OSPFInterfaceStateDown.hpp"
-#include "OSPFInterfaceStateLoopback.hpp"
-#include "OSPFArea.hpp"
-#include "OSPFRouter.hpp"
-#include "MessageHandler.hpp"
+#include "OSPFInterfaceStatePointToPoint.h"
+#include "OSPFInterfaceStateDown.h"
+#include "OSPFInterfaceStateLoopback.h"
+#include "OSPFArea.h"
+#include "OSPFRouter.h"
+#include "MessageHandler.h"
 
 void OSPF::InterfaceStatePointToPoint::ProcessEvent (OSPF::Interface* intf, OSPF::Interface::InterfaceEventType event)
 {

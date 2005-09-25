@@ -1,6 +1,6 @@
-#include "LinkStateRequestHandler.hpp"
-#include "OSPFNeighbor.hpp"
-#include "OSPFRouter.hpp"
+#include "LinkStateRequestHandler.h"
+#include "OSPFNeighbor.h"
+#include "OSPFRouter.h"
 #include <vector>
 
 OSPF::LinkStateRequestHandler::LinkStateRequestHandler (OSPF::Router* containingRouter) :

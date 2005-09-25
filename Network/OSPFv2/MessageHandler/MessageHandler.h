@@ -1,16 +1,16 @@
 #ifndef __MESSAGEHANDLER_HPP__
 #define __MESSAGEHANDLER_HPP__
 
-#include "IMessageHandler.hpp"
-#include "HelloHandler.hpp"
-#include "DatabaseDescriptionHandler.hpp"
-#include "LinkStateRequestHandler.hpp"
-#include "LinkStateUpdateHandler.hpp"
-#include "LinkStateAcknowledgementHandler.hpp"
+#include "IMessageHandler.h"
+#include "HelloHandler.h"
+#include "DatabaseDescriptionHandler.h"
+#include "LinkStateRequestHandler.h"
+#include "LinkStateUpdateHandler.h"
+#include "LinkStateAcknowledgementHandler.h"
 #include "OSPFTimer_m.h"
 #include "IPControlInfo_m.h"
-#include "OSPFInterface.hpp"
-//#include "OSPFNeighbor.hpp"
+#include "OSPFInterface.h"
+//#include "OSPFNeighbor.h"
 
 namespace OSPF {
 

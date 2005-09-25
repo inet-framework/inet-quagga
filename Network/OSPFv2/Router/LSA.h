@@ -2,7 +2,7 @@
 #define __LSA_HPP__
 
 #include "OSPFPacket_m.h"
-#include "OSPFcommon.hpp"
+#include "OSPFcommon.h"
 #include <vector>
 #include <math.h>
 

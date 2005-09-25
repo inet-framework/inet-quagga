@@ -1,7 +1,7 @@
 #ifndef __OSPFINTERFACESTATEPOINTTOPOINT_HPP__
 #define __OSPFINTERFACESTATEPOINTTOPOINT_HPP__
 
-#include "OSPFInterfaceState.hpp"
+#include "OSPFInterfaceState.h"
 
 namespace OSPF {
 

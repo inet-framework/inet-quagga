@@ -1,5 +1,5 @@
-#include "LinkStateAcknowledgementHandler.hpp"
-#include "OSPFRouter.hpp"
+#include "LinkStateAcknowledgementHandler.h"
+#include "OSPFRouter.h"
 
 OSPF::LinkStateAcknowledgementHandler::LinkStateAcknowledgementHandler (OSPF::Router* containingRouter) :
     OSPF::IMessageHandler (containingRouter)

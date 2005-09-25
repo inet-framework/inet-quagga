@@ -1,7 +1,7 @@
 #ifndef __OSPFINTERFACESTATELOOPBACK_HPP__
 #define __OSPFINTERFACESTATELOOPBACK_HPP__
 
-#include "OSPFInterfaceState.hpp"
+#include "OSPFInterfaceState.h"
 
 namespace OSPF {
 

@@ -1,9 +1,9 @@
 #ifndef __OSPFINTERFACE_HPP__
 #define __OSPFINTERFACE_HPP__
 
-#include "OSPFcommon.hpp"
+#include "OSPFcommon.h"
 #include "OSPFTimer_m.h"
-#include "OSPFNeighbor.hpp"
+#include "OSPFNeighbor.h"
 #include <map>
 #include <vector>
 #include <list>
