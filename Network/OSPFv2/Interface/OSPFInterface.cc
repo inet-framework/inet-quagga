@@ -1,6 +1,7 @@
 #include "OSPFInterface.h"
 #include "OSPFInterfaceStateDown.h"
-#include "RoutingTableAccess.h"
+#include "InterfaceTableAccess.h"
+#include "IPv4InterfaceData.h"
 #include "MessageHandler.h"
 #include "OSPFArea.h"
 #include "OSPFRouter.h"
@@ -66,11 +67,10 @@ void OSPF::Interface::SetIfIndex (unsigned char index)
 {
     ifIndex = index;
     if (interfaceType == OSPF::Interface::UnknownType) {
-        RoutingTableAccess routingTableAccess;
-        InterfaceEntry* routingInterface = routingTableAccess.get ()->interfaceById (ifIndex);
-        interfaceAddressRange.address = IPv4AddressFromAddressString (routingInterface->inetAddr.str ().c_str ());
-        interfaceAddressRange.mask = IPv4AddressFromAddressString (routingInterface->mask.str ().c_str ());
-        mtu = routingInterface->mtu;
+        InterfaceEntry* routingInterface = InterfaceTableAccess().get ()->interfaceAt (ifIndex);
+        interfaceAddressRange.address = IPv4AddressFromAddressString (routingInterface->ipv4()->inetAddress ().str ().c_str ());
+        interfaceAddressRange.mask = IPv4AddressFromAddressString (routingInterface->ipv4()->netmask ().str ().c_str ());
+        mtu = routingInterface->mtu ();
     }
 }
 

@@ -2,7 +2,7 @@
 #define __OSPFROUTINGTABLEENTRY_HPP__
 
 #include "RoutingTable.h"
-#include "RoutingTableAccess.h"
+#include "InterfaceTableAccess.h"
 #include "OSPFcommon.h"
 #include <memory.h>
 
@@ -141,11 +141,10 @@ inline void OSPF::RoutingTableEntry::SetType2Cost (Metric pathCost)
 inline void OSPF::RoutingTableEntry::AddNextHop (OSPF::NextHop hop)
 {
     if (nextHops.size () == 0) {
-        RoutingTableAccess routingTableAccess;
-        InterfaceEntry*    routingInterface = routingTableAccess.get ()->interfaceById (hop.ifIndex);
+        InterfaceEntry*    routingInterface = InterfaceTableAccess().get ()->interfaceAt (hop.ifIndex);
 
         interfacePtr = routingInterface;
-        interfaceName = routingInterface->name.c_str ();
+        interfaceName = routingInterface->name();
         gateway = ULongFromIPv4Address (hop.hopAddress);
     }
     nextHops.push_back (hop);

@@ -902,10 +902,10 @@ OSPF::RoutingTableEntry* OSPF::Router::GetPreferredEntry (const OSPFLSA& lsa, bo
     }
 
     if (!HasRouteToASBoundaryRouter (*fromRoutingTable, originatingRouter)) { // (3)
-		return NULL;
+        return NULL;
     }
 
-    if (forwardingAddress.isNull ()) {   // (3)
+    if (forwardingAddress.isUnspecified()) {   // (3)
         std::vector<OSPF::RoutingTableEntry*> asbrEntries = GetRoutesToASBoundaryRouter (*fromRoutingTable, originatingRouter);
         if (!rfc1583Compatibility) {
             PruneASBoundaryRouterEntries (asbrEntries);
