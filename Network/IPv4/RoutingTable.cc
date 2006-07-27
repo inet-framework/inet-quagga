@@ -61,6 +61,7 @@ std::string RoutingEntry::info() const
         case OSPF:         out << " OSPF"; break;
         case BGP:          out << " BGP"; break;
         case ZEBRA:        out << " ZEBRA"; break;
+	case MANET:        out << " MANET"; break;
         default:           out << " ???"; break;
     }
     return out.str();
@@ -82,7 +83,7 @@ std::ostream& operator<<(std::ostream& os, const RoutingEntry& e)
 {
     os << e.info();
     return os;
-};
+}
 
 RoutingTable::RoutingTable()
 {
@@ -313,6 +314,26 @@ RoutingEntry *RoutingTable::findBestMatchingRoute(const IPAddress& dest)
             longestNetmask = e->netmask.getInt();
         }
     }
+
+//BC aodv
+    //FIXME FIXME FIXME this is an almost exact copy of the above block --
+    //      find out why it is needed, and how to write it cleanly!!!!!
+    if (bestRoute && bestRoute->source==RoutingEntry::MANET)
+    {
+        // in this case we must find the mask must be 255.255.255.255 route
+        bestRoute = NULL;
+        for (RouteVector::iterator i=routes.begin(); i!=routes.end(); ++i)
+        {
+            RoutingEntry *e = *i;
+            if (IPAddress::maskedAddrAreEqual(dest, e->host, IPAddress::ALLONES_ADDRESS) &&  // match
+                (!bestRoute || e->netmask.getInt()>longestNetmask))  // longest so far
+            {
+                bestRoute = e;
+                longestNetmask = e->netmask.getInt();
+            }
+        }
+    }
+//EC aodv
     return bestRoute;
 }
 
