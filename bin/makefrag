@@ -2,8 +2,9 @@
 #USERIF_LIBS=$(CMDENV_LIBS) $(TKENV_LIBS)
 
 QUAGGA=../Network/Quagga/quaggasrc/quagga
+AODVUU_LIB=../Network/ManetRouting/Aodv/aodv-uu/libaodv-uu.a
 
-LIBS += $(QUAGGA)/ospfd/ospfd.a $(QUAGGA)/ripd/ripd.a $(QUAGGA)/zebra/zebra.a $(QUAGGA)/lib/libzebra.a $(QUAGGA)/globalvars.o
+LIBS += $(QUAGGA)/ospfd/ospfd.a $(QUAGGA)/ripd/ripd.a $(QUAGGA)/zebra/zebra.a $(QUAGGA)/lib/libzebra.a $(QUAGGA)/globalvars.o $(AODVUU_LIB)
 
 #
 #The following conflicts with Windows (in makemakefiles' contents):
