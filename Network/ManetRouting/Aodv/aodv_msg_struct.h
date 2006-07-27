@@ -4,10 +4,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <sys/types.h>
+//AV #include <unistd.h>
+//AV #include <sys/time.h>
+//AV #include <sys/types.h>
 #include <omnetpp.h>
+#include "IntDefs.h" // from Util/
 
 // this structures are a redifinition of def.h struct for omnet
 

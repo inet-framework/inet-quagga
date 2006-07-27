@@ -133,9 +133,9 @@ RERR::~RERR ()
 	clearUdest();
 }
 
-void RERR::addUdest(u_int32_t s_addr,u_int32_t udest_seqno)
+void RERR::addUdest(u_int32_t dest_addr, u_int32_t udest_seqno)
 {
-	
+
 	RERR_udest *temp_udest;
 	temp_udest = new RERR_udest [dest_count+1];
 	for (int i=0; i < dest_count; i++)
@@ -144,7 +144,7 @@ void RERR::addUdest(u_int32_t s_addr,u_int32_t udest_seqno)
 		 temp_udest[i].dest_seqno= _udest[i].dest_seqno;
 	}
 	delete []  _udest;
-	temp_udest[dest_count].dest_addr = s_addr;
+	temp_udest[dest_count].dest_addr = dest_addr;
 	temp_udest[dest_count].dest_seqno= udest_seqno;
 	_udest= temp_udest;
 	dest_count++;

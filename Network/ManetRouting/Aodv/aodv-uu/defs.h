@@ -24,9 +24,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <sys/types.h>
+//AV #include <unistd.h>
+//AV #include <sys/time.h>
+//AV #include <sys/types.h>
 
 #ifndef NS_PORT
 #include <sys/signal.h>
@@ -37,7 +37,7 @@
 #endif
 
 
-#include <syslog.h>
+//AV #include <syslog.h>
 #include <errno.h>
 #include <string.h>
 #include <fcntl.h>

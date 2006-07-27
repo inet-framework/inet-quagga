@@ -24,7 +24,7 @@
 
 
 /**
- * FIXME FIXME FIXME docu!!!!!!!!!!!!!!!!
+ * FIXME FIXME FIXME docu!  Do we need this module?
  */
 class INET_API ManetManager : public cSimpleModule
 {

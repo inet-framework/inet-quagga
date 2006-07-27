@@ -23,7 +23,7 @@
 #define _TIMER_QUEUE_H
 
 #ifndef NS_NO_GLOBALS
-#include <sys/time.h>
+//AV #include <sys/time.h>
 
 #include "defs.h"
 #include "list.h"

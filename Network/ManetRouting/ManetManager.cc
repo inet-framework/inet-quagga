@@ -30,71 +30,66 @@ Define_Module(ManetManager);
 
 void ManetManager::initialize(int stage)
 {
-   bool manetPurgeRoutingTables=false;	
-   if (stage==4)
-   {
-	manetActive = (bool) par("manetActive");
-	routingProtocol = par("routingProtocol").stringValue ();
+    bool manetPurgeRoutingTables=false;
+    if (stage==4)
+    {
+        manetActive = (bool) par("manetActive");
+        routingProtocol = par("routingProtocol").stringValue ();
 
-	if (manetActive)
-	{
-		manetPurgeRoutingTables = (bool) par("manetPurgeRoutingTables");
-		if (manetPurgeRoutingTables)
-		{
-			RoutingTable *rt = RoutingTableAccess ().get ();
-			RoutingEntry *entry;
-// clean the route table wlan interface entry
-	                for (int i=rt->numRoutingEntries()-1;i>=0;i--)
-			{
-                	        entry= rt->routingEntry(i);
-	
-				if (strstr (entry->interfacePtr->name(),"wlan")!=NULL)
-				{
-					rt->deleteRoutingEntry(entry);
-				}
-
-
-			}
-		}
+        if (manetActive)
+        {
+            manetPurgeRoutingTables = (bool) par("manetPurgeRoutingTables");
+            if (manetPurgeRoutingTables)
+            {
+                RoutingTable *rt = RoutingTableAccess ().get ();
+                RoutingEntry *entry;
+                // clean the route table wlan interface entry
+                for (int i=rt->numRoutingEntries()-1;i>=0;i--)
+                {
+                    entry= rt->routingEntry(i);
+                    if (strstr (entry->interfacePtr->name(),"wlan")!=NULL)
+                    {
+                            rt->deleteRoutingEntry(entry);
+                    }
+                }
+            }
 /* for use dinamic modules in the future */
 /*
-		if (strcmp("AODV", routingProtocol)==0)
-		{
-			cModuleType *moduleType = findModuleType("AODVUU");
-			routingModule = moduleType->create("ManetRoutingProtocol", this);
+            if (strcmp("AODV", routingProtocol)==0)
+            {
+                cModuleType *moduleType = findModuleType("AODVUU");
+                routingModule = moduleType->create("ManetRoutingProtocol", this);
 // set up parameters and gate sizes before we set up its submodules
-			routingModule->par("unidir_hack") = par("unidir_hack");
-			routingModule->par("rreq_gratuitous") = par("rreq_gratuitous");
-			routingModule->par("expanding_ring_search") = par("expanding_ring_search");
-			routingModule->par("local_repair")= par("local_repair");
-			routingModule->par("receive_n_hellos") = par("receive_n_hellos");
-			routingModule->par("hello_jittering") = par("hello_jittering");
-			routingModule->par ("wait_on_reboot") =par ("wait_on_reboot");
-			routingModule->par("debug")=par("debug");
-			routingModule->par("rt_log_interval")=par("rt_log_interval");	// Note: in milliseconds!
-			routingModule->par("log_to_file")=par("log_to_file");
-			routingModule->par("optimized_hellos")=par("optimized_hellos");
-			routingModule->par("ratelimit")=par("ratelimit");
-			routingModule->par("llfeedback")=par("llfeedback");
-			routingModule->par("internet_gw_mode")=par("internet_gw_mode");
-                        routingModule->par("internet_gw_address")=par("internet_gw_address");
+                routingModule->par("unidir_hack") = par("unidir_hack");
+                routingModule->par("rreq_gratuitous") = par("rreq_gratuitous");
+                routingModule->par("expanding_ring_search") = par("expanding_ring_search");
+                routingModule->par("local_repair")= par("local_repair");
+                routingModule->par("receive_n_hellos") = par("receive_n_hellos");
+                routingModule->par("hello_jittering") = par("hello_jittering");
+                routingModule->par ("wait_on_reboot") =par ("wait_on_reboot");
+                routingModule->par("debug")=par("debug");
+                routingModule->par("rt_log_interval")=par("rt_log_interval");   // Note: in milliseconds!
+                routingModule->par("log_to_file")=par("log_to_file");
+                routingModule->par("optimized_hellos")=par("optimized_hellos");
+                routingModule->par("ratelimit")=par("ratelimit");
+                routingModule->par("llfeedback")=par("llfeedback");
+                routingModule->par("internet_gw_mode")=par("internet_gw_mode");
+                routingModule->par("internet_gw_address")=par("internet_gw_address");
 // Connet to ip
-			routingModule->gate("to_ip")->connectTo(gate("to_ip"));
+                routingModule->gate("to_ip")->connectTo(gate("to_ip"));
 // create internals, and schedule it
-                        routingModule->buildInside();
-                        routingModule->scheduleStart(simTime());
-		}
-		else if (strcmp("DSR",routingProtocol)==0)
-		{
-		}
+                routingModule->buildInside();
+                routingModule->scheduleStart(simTime());
+            }
+            else if (strcmp("DSR",routingProtocol)==0)
+            {
+            }
 */
-	}
-	if (strcmp("AODV", routingProtocol)==0)
-		routing_protocol = AODV;
+        }
+        if (strcmp("AODV", routingProtocol)==0)
+            routing_protocol = AODV;
         else
-		manetActive=false;
-
-
+            manetActive = false;
     }
 }
 
@@ -105,18 +100,15 @@ void ManetManager::handleMessage(cMessage *msg)
 {
 /* for use dinamic modules in the future */
 /*
-
-	sendDirect(msg,0, routingModule, "from_ip");
+        sendDirect(msg,0, routingModule, "from_ip");
 */
     if (manetActive)
-	switch (routing_protocol)
+    {
+        switch (routing_protocol)
         {
-        case AODV:
-         send( msg, "to_aodv");
-        break;
-        case DSR:
-         send( msg, "to_dsr");
-        break;
+          case AODV: send( msg, "to_aodv"); break;
+          case DSR:  send( msg, "to_dsr"); break;
         }
+    }
 }
 

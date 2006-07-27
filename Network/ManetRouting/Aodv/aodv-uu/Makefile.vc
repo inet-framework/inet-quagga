@@ -1,0 +1,26 @@
+# Makefile
+
+include ../../../../inetconfig.vc
+
+SOURCES = debug.c list.c timer_queue.c aodv_socket.c aodv_hello.c \
+            aodv_neighbor.c aodv_timeout.c routing_table.c seek_list.c \
+            aodv_rreq.c aodv_rrep.c aodv_rerr.c locality.c
+
+OBJECTS = $(SOURCES:%.c=%.obj)
+
+INCLUDE_PATH= -I. -I../../../../Transport/Contract -I../../../Contract -I../../../../NetworkInterfaces/Contract -I../../../../Base -I../../../../Util -I../../../IPv4 -I../../../Contract -I../../../AutoRouting -I../../../Queue  -I../../../../Transport/UDP -I../../../../NetworkInterfaces -I../../../../Nodes/INET -I../Aodv -I$(OMNETPP_INCL_DIR)
+
+CFLAGS = /nologo $(INCLUDES) $(CFLAGS) -DOMNETPP -DNS_PORT
+
+AODV_LIB=aodv-uu.lib
+
+$(AODV_LIB): $(OBJECTS)
+	link.exe /lib $(LDFLAGS_DEBUG) $(OBJECTS) /OUT:$(AODV_LIB)
+
+clean:
+	-del *.obj .tstamp *.idb *.pdb *.ilk *.exp $(TARGET) 2>NUL
+
+generateheaders: # target invoked by OMNeT++-generated uplevel Makefile.vc; does nothing for now
+
+depend:	# target invoked by OMNeT++-generated uplevel Makefile.vc; does nothing for now
+

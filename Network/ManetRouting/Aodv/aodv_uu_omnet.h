@@ -40,8 +40,8 @@
 #define OMNETPP
 #endif
 
-#include <netinet/in.h>
-#include <arpa/inet.h>
+//AV #include <netinet/in.h>
+//AV #include <arpa/inet.h>
 
 /* This is a C++ port of AODV-UU for ns-2 */
 #ifndef NS_PORT

@@ -35,7 +35,7 @@
 #include "ProtocolMap.h"
 #include "IPAddress.h"
 #include "IPvXAddress.h"
-#include "ControlManetRouting.h"
+#include "ControlManetRouting_m.h"
 
 
 const int UDP_HEADER_BYTES = 8;

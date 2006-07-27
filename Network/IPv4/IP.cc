@@ -27,7 +27,6 @@
 #include "ICMPMessage_m.h"
 #include "IPv4InterfaceData.h"
 #include "ARPPacket_m.h"
-#include "ControlManetRouting.h"
 
 Define_Module(IP);
 

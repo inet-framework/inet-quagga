@@ -55,6 +55,7 @@ Network/IPv6/IPv6.ned
 Network/IPv6/IPv6ErrorHandling.ned
 Network/IPv6/RoutingTable6.ned
 Network/LDP/LDP.ned
+Network/ManetRouting/ManetRouting.ned
 Network/MPLS/LIBTable.ned
 Network/MPLS/MPLS.ned
 Network/OSPFv2/OSPFRouting.ned

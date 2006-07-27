@@ -28,7 +28,7 @@
 #include "IPDatagram.h"
 #include "IPFragBuf.h"
 #include "ProtocolMap.h"
-#include "ControlManetRouting.h"
+#include "ControlManetRouting_m.h"
 
 
 class ARPPacket;
