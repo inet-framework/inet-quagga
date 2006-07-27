@@ -28,6 +28,7 @@
 #include "IPDatagram.h"
 #include "IPFragBuf.h"
 #include "ProtocolMap.h"
+#include "ControlManetRouting.h"
 
 
 class ARPPacket;
@@ -46,6 +47,7 @@ class INET_API IP : public QueueBase
     RoutingTable *rt;
     InterfaceTable *ift;
     ICMPAccess icmpAccess;
+    bool manetRouting;  //FIXME explain what it does
 
     // config
     int defaultTimeToLive;
@@ -133,6 +135,8 @@ class INET_API IP : public QueueBase
      * Last TTL check, then send datagram on the given interface.
      */
     virtual void sendDatagramToOutput(IPDatagram *datagram, InterfaceEntry *ie, IPAddress nextHopAddr);
+
+    void controlMessageToManetRouting(int,IPDatagram *datagram);
 
   public:
     IP() {}

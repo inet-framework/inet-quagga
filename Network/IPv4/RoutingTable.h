@@ -65,6 +65,7 @@ class INET_API RoutingEntry : public cPolymorphic
         OSPF,         ///< managed by the given routing protocol
         BGP,          ///< managed by the given routing protocol
         ZEBRA,        ///< managed by the Quagga/Zebra based model
+        MANET,        ///< managed by manet
     };
 
     /// Destination

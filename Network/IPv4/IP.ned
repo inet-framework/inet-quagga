@@ -45,8 +45,10 @@
 // - \ICMP (1) : 2
 // - \IGMP (2) : 3
 // - \RSVP (46) : 4
+// - \OSPF (89) : 5
+// - \MANET routing protocols (254) (AODV,DSR) : 6
 //
-// That is, <tt>protocolMapping="6:0,17:1,1:2,2:3,46:4"</tt>
+// That is, <tt>protocolMapping="6:0,17:1,1:2,2:3,46:4,89:5,254:6";
 //
 // <b>Routing and interfacing with lower layers</b>
 //

@@ -27,6 +27,7 @@
 #include "ICMPMessage_m.h"
 #include "IPv4InterfaceData.h"
 #include "ARPPacket_m.h"
+#include "ControlManetRouting.h"
 
 Define_Module(IP);
 
@@ -54,6 +55,19 @@ void IP::initialize()
     WATCH(numDropped);
     WATCH(numUnroutable);
     WATCH(numForwarded);
+
+//BC manet
+    // FIXME wtf is this? really needed?
+    manetRouting=false;
+    int gateindex = mapping.outputGateForProtocol(IP_PROT_MANET);
+    cGate *manetgate = gate("transportOut", gateindex)->destinationGate();
+    cModule *destmod = manetgate->ownerModule();
+    if (strstr(destmod->name(),"manetmanager")!=NULL)  //ugghh!!!
+    {
+        if ((bool)destmod->par("manetActive"))
+            manetRouting = true;
+    }
+//EC manet
 }
 
 void IP::updateDisplayString()
@@ -178,6 +192,19 @@ void IP::handleMessageFromHL(cMessage *msg)
         delete msg;
         return;
     }
+//BC manet
+    // FIXME wtf is this? really needed?
+    // if HL send a Ipdatagram routing the packet
+    if (dynamic_cast<IPDatagram *>(msg))
+    {
+        IPDatagram *datagram = check_and_cast<IPDatagram *>(msg);
+        if (!datagram->destAddress().isMulticast())
+            routePacket(datagram, NULL, true);
+        else
+            routeMulticastPacket(datagram, NULL, NULL);
+        return;
+    }
+//EC manet
 
     // encapsulate and send
     InterfaceEntry *destIE; // will be filled in by encapsulate()
@@ -198,6 +225,11 @@ void IP::routePacket(IPDatagram *datagram, InterfaceEntry *destIE, bool fromHL)
 
     EV << "Routing datagram `" << datagram->name() << "' with dest=" << destAddr << ": ";
 
+//BC manet
+    // FIXME wtf is this? really needed?
+    controlMessageToManetRouting(MANET_ROUTE_UPDATE,datagram);
+//EC manet
+
     // check for local delivery
     if (rt->localDeliver(destAddr))
     {
@@ -208,6 +240,35 @@ void IP::routePacket(IPDatagram *datagram, InterfaceEntry *destIE, bool fromHL)
         localDeliver(datagram);
         return;
     }
+
+//BC manet
+    // FIXME wtf is this? really needed?
+    // broadcast limited address 255.255.255.255
+    if (destAddr == IPAddress::ALLONES_ADDRESS)
+    {
+        // check if local
+        if (!fromHL)
+        {
+            EV << "limited broadcast recived \n";
+            if (datagram->srcAddress().isUnspecified())
+                datagram->setSrcAddress(destAddr); // allows two apps on the same host to communicate
+            numLocalDeliver++;
+            localDeliver(datagram);
+       }
+       else
+       {
+            // send limited broadcast packet
+            if (destIE!=NULL)
+               fragmentAndSend(datagram, destIE, IPAddress::ALLONES_ADDRESS);
+            else
+            {
+               numDropped++;
+               delete datagram;
+            }
+        }
+        return;
+    }
+//EC manet
 
     // if datagram arrived from input gate and IP_FORWARD is off, delete datagram
     if (!fromHL && !rt->ipForward())
@@ -231,14 +292,34 @@ void IP::routePacket(IPDatagram *datagram, InterfaceEntry *destIE, bool fromHL)
         // use IP routing (lookup in routing table)
         RoutingEntry *re = rt->findBestMatchingRoute(destAddr);
 
+//BC manet
+    // FIXME wtf is this? really needed?
+        if (re!=NULL && re->source==RoutingEntry::MANET)
+        {
+// special case the address must agree
+            if (re->host!=destAddr)
+                re = NULL;
+        }
+//EC manet
+
         // error handling: destination address does not exist in routing table:
         // notify ICMP, throw packet away and continue
         if (re==NULL)
         {
-            EV << "unroutable, sending ICMP_DESTINATION_UNREACHABLE\n";
-            numUnroutable++;
-            icmpAccess.get()->sendErrorMessage(datagram, ICMP_DESTINATION_UNREACHABLE, 0);
-            return;
+//BC manet
+            if (manetRouting==false)
+            {
+                EV << "unroutable, sending ICMP_DESTINATION_UNREACHABLE\n";
+                numUnroutable++;
+                icmpAccess.get()->sendErrorMessage(datagram, ICMP_DESTINATION_UNREACHABLE, 0);
+                return;
+            }
+            else
+            {
+                controlMessageToManetRouting(MANET_ROUTE_NOROUTE,datagram);
+                return;
+            }
+//EC manet
         }
 
         // extract interface and next-hop address from routing table entry
@@ -418,6 +499,7 @@ cMessage *IP::decapsulateIP(IPDatagram *datagram)
     controlInfo->setDestAddr(datagram->destAddress());
     controlInfo->setDiffServCodePoint(datagram->diffServCodePoint());
     controlInfo->setInterfaceId(fromIE ? fromIE->interfaceId() : -1);
+    controlInfo->setTimeToLive(datagram->timeToLive());
 
     // original IP datagram might be needed in upper layers to send back ICMP error message
     controlInfo->setOrigDatagram(datagram);
@@ -562,3 +644,33 @@ void IP::sendDatagramToOutput(IPDatagram *datagram, InterfaceEntry *ie, IPAddres
 }
 
 
+//BC manet
+//FIXME this stuff should probably go via the NotificationBoard, not by messages
+void IP::controlMessageToManetRouting(int code,IPDatagram *datagram)
+{
+     ControlManetRouting *control;
+     if (!manetRouting)
+         return;
+
+     control = new ControlManetRouting();
+     control->setOptionCode(code);
+
+     switch (code)
+     {
+        case MANET_ROUTE_UPDATE:
+           control->setSrcAddress(datagram->srcAddress());
+           control->setDestAddress(datagram->destAddress());
+        break;
+        case MANET_ROUTE_NOROUTE:
+           control->setSrcAddress(datagram->srcAddress());
+           control->setDestAddress(datagram->destAddress());
+           control->encapsulate(datagram);
+        break;
+        default:
+           delete control;
+           return;
+      }
+      int gateindex = mapping.outputGateForProtocol(IP_PROT_MANET);
+      send(control, "transportOut", gateindex);
+}
+//EC manet
