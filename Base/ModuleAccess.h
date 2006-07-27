@@ -73,6 +73,27 @@ class INET_API ModuleAccess
         }
         return p;
     }
+
+    T *get(cModule *contexmodule) // FIXME for AODV -- really needed??
+    {
+        if (!p)
+        {
+            cModule *m = findModuleSomewhereUp(name, contexmodule);
+            if (!m) opp_error("Module (%s)%s not found",opp_typename(typeid(T)),name);
+            p = check_and_cast<T*>(m);
+        }
+        return p;
+    }
+
+    T *getIfExists(cModule *contexmodule) //FIXME for AODV -- really needed??
+    {
+        if (!p)
+        {
+            cModule *m = findModuleSomewhereUp(name, contexmodule);
+            p = dynamic_cast<T*>(m);
+        }
+        return p;
+    }
 };
 
 #endif
