@@ -40,12 +40,14 @@ module NetworkLayer
         in: RSVPIn;
         in: OSPFIn;
         in: pingIn;
+        in: MANETIn;
         out: ifOut[];
         out: TCPOut;
         out: UDPOut;
         out: RSVPOut;
         out: OSPFOut;
         out: pingOut;
+        out: MANETOut;
 
     submodules:
         ip: IP;
@@ -53,10 +55,10 @@ module NetworkLayer
                 timeToLive = 32,
                 multicastTimeToLive = 32,
                 fragmentTimeout = 60,
-                protocolMapping = "6:0,17:1,1:2,2:3,46:4,89:5";
+                protocolMapping = "6:0,17:1,1:2,2:3,46:4,89:5,254:6";
             gatesizes:
-                transportIn[6],
-                transportOut[6],
+                transportIn[7],
+                transportOut[7],
                 queueIn[sizeof(ifIn)];
             display: "p=85,95;i=block/routing;q=queue";
         arp: ARP;
@@ -90,6 +92,9 @@ module NetworkLayer
 
         ip.transportOut[5] --> OSPFOut;
         ip.transportIn[5] <-- OSPFIn;
+
+        ip.transportOut[6] --> MANETOut;
+        ip.transportIn[6] <-- MANETIn;
 
         icmp.pingOut --> pingOut;
         icmp.pingIn <-- pingIn;
