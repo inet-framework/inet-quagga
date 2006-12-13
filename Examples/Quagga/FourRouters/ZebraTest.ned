@@ -43,7 +43,7 @@ channel ethernetline extends cBasicChannel
 network ZebraTest
 {
     parameters:
-        double n;
+        int n;
     submodules:
         scenarioManager: ScenarioManager {
             parameters:

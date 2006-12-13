@@ -32,33 +32,22 @@ channel fiberline extends cBasicChannel
 network NClientsPPP
 {
     parameters:
-        double n;
+        int n;
     submodules:
         configurator: FlatNetworkConfigurator6 {
             parameters:
                 moduleTypes = "Router6 StandardHost6";
                 nonIPModuleTypes = "";
-                @display("");
         };
         r1: Router6 {
-            parameters:
-                @display("");
         };
         r2: Router6 {
-            parameters:
-                @display("");
         };
         r3: Router6 {
-            parameters:
-                @display("");
         };
         cli[n]: StandardHost6 {
-            parameters:
-                @display("");
         };
         srv: StandardHost6 {
-            parameters:
-                @display("");
         };
     connections allowunconnected:
         for i=0..n-1 {
@@ -74,6 +63,5 @@ network NClientsPPP
 
         r3.out++ --> fiberline --> srv.in++;
         r3.in++ <-- fiberline <-- srv.out++;
-
 }
 

@@ -28,7 +28,7 @@ simple ANSimMobility
     parameters:
         bool debug = default(false); // debug switch
         xml ansimTrace; // the ANSim trace file in XML
-        double nodeId; // <position_change> elements to match; 
+        int nodeId; // <position_change> elements to match;
                                // -1 gets substituted to parent module's index
         double updateInterval = default(0.1) @unit("s"); // time interval to update the hosts position
 }

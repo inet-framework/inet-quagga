@@ -46,14 +46,8 @@ network NClients2
             parameters:
                 moduleTypes = "Router StandardHost";
                 nonIPModuleTypes = "";
-                networkAddress = "145.236.0.0";
-                netmask = "255.255.0.0";
-                @display("");
-
         };
         r[numrouters]: Router {
-            parameters:
-                @display("");
         };
         cli[numrouters*hostsperrouter]: StandardHost {
             parameters:

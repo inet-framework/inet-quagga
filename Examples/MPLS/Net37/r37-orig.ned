@@ -23,7 +23,6 @@ network R37orig
         configurator: NetworkConfigurator {
             parameters:
                 moduleTypes = "RSVP_LSR";
-                @display("");
         };
         LSR0: RSVP_LSR {
             parameters:

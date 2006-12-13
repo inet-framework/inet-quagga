@@ -30,33 +30,22 @@ channel ethernetline extends cBasicChannel
 network DemoNetworkEth
 {
     parameters:
-        double n;
+        int n;
     submodules:
         configurator: FlatNetworkConfigurator6 {
             parameters:
                 moduleTypes = "Router6 StandardHost6 TCPDump";
                 nonIPModuleTypes = "EtherHub TCPDump";
-                @display("");
         };
         r1: Router6 {
-            parameters:
-                @display("");
         };
         r2: Router6 {
-            parameters:
-                @display("");
         };
         cli[n]: StandardHost6 {
-            parameters:
-                @display("");
         };
         srv[n]: StandardHost6 {
-            parameters:
-                @display("");
         };
         linemonitor[n]: TCPDump {
-            parameters:
-                @display("");
         };
     connections allowunconnected:
         for i=0..n-1 {

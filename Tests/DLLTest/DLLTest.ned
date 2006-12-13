@@ -39,7 +39,7 @@ channel ethernetline extends cBasicChannel
 network DLLTest
 {
     parameters:
-        double n;
+        int n;
     submodules:
         configurator: FlatNetworkConfigurator {
             parameters:
@@ -47,19 +47,12 @@ network DLLTest
                 nonIPModuleTypes = "";
                 networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
-                @display("");
         };
         r1: Router {
-            parameters:
-                @display("");
         };
         r2: Router {
-            parameters:
-                @display("");
         };
         r3: Router {
-            parameters:
-                @display("");
         };
         cli[n]: StandardHost {
             parameters:

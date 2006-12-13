@@ -28,7 +28,7 @@ import "ChannelInstaller";
 network RouterPerfNetwork
 {
     parameters:
-        double nodeNo;
+        int nodeNo;
     submodules:
         channelInstaller: ChannelInstaller {
             parameters:

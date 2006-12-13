@@ -41,7 +41,7 @@ channel ethernetline extends cBasicChannel
 network NClients
 {
     parameters:
-        double n;
+        int n;
     submodules:
         channelInstaller: ChannelInstaller {
             parameters:

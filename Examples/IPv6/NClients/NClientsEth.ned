@@ -39,37 +39,24 @@ channel ethernetline extends cBasicChannel
 network NClientsEth
 {
     parameters:
-        double n;
+        int n;
     submodules:
         configurator: FlatNetworkConfigurator6 {
             parameters:
                 moduleTypes = "Router6 StandardHost6 EtherHub";
                 nonIPModuleTypes = "EtherHub";
-                @display("");
         };
         r1: Router6 {
-            parameters:
-                @display("");
         };
         r2: Router6 {
-            parameters:
-                @display("");
         };
         r3: Router6 {
-            parameters:
-                @display("");
         };
         cli[n]: StandardHost6 {
-            parameters:
-                @display("");
         };
         srv: StandardHost6 {
-            parameters:
-                @display("");
         };
         hub: EtherHub {
-            parameters:
-                @display("");
         };
     connections allowunconnected:
         for i=0..n-1 {

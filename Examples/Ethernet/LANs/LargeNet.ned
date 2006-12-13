@@ -42,12 +42,8 @@ module SmallLAN
         output out;
     submodules:
         hub: EtherHub {
-            parameters:
-                @display("");
         };
         host[h]: EtherHost {
-            parameters:
-                @display("");
         };
     connections:
         for i=0..h-1 {
@@ -73,20 +69,12 @@ module MediumLAN
         output out;
     submodules:
         switch: EtherSwitch {
-            parameters:
-                @display("");
         };
         host[n]: EtherHost {
-            parameters:
-                @display("");
         };
         hub: EtherHub {
-            parameters:
-                @display("");
         };
         hhost[h]: EtherHost {
-            parameters:
-                @display("");
         };
     connections:
         for i=0..n-1 {
@@ -124,20 +112,12 @@ module LargeLAN
         output out;
     submodules:
         switch: EtherSwitch {
-            parameters:
-                @display("");
         };
         host[n]: EtherHost {
-            parameters:
-                @display("");
         };
         hub: EtherHub {
-            parameters:
-                @display("");
         };
         hhost[h]: EtherHost {
-            parameters:
-                @display("");
         };
         bus: EtherBus {
             parameters:
@@ -148,7 +128,6 @@ module LargeLAN
         bhost[b]: EtherHost {
             parameters:
                 @display("p=,,r");
-
         };
     connections:
         for i=0..n-1 {
@@ -202,105 +181,52 @@ network LargeNet
         int dl;  // number of large LANs on switch D
     submodules:
         switchBB[n]: EtherSwitch {
-            parameters:
-                @display("");
         };
         slanBB[n*bbs]: SmallLAN {
-            parameters:
-                @display("");
         };
         mlanBB[n*bbm]: MediumLAN {
-            parameters:
-                @display("");
         };
         llanBB[n*bbl]: LargeLAN {
-            parameters:
-                @display("");
-
         };
         switchA: EtherSwitch {
-            parameters:
-                @display("");
         };
         serverA: EtherHost {
-            parameters:
-                @display("");
         };
         slanA[as]: SmallLAN {
-            parameters:
-                @display("");
         };
         mlanA[am]: MediumLAN {
-            parameters:
-                @display("");
         };
         llanA[al]: LargeLAN {
-            parameters:
-                @display("");
-
         };
         switchB: EtherSwitch {
-            parameters:
-                @display("");
         };
         serverB: EtherHost {
-            parameters:
-                @display("");
         };
         slanB[bs]: SmallLAN {
-            parameters:
-                @display("");
         };
         mlanB[bm]: MediumLAN {
-            parameters:
-                @display("");
         };
         llanB[bl]: LargeLAN {
-            parameters:
-                @display("");
-
         };
         switchC: EtherSwitch {
-            parameters:
-                @display("");
         };
         serverC: EtherHost {
-            parameters:
-                @display("");
         };
         slanC[cs]: SmallLAN {
-            parameters:
-                @display("");
         };
         mlanC[cm]: MediumLAN {
-            parameters:
-                @display("");
         };
         llanC[cl]: LargeLAN {
-            parameters:
-                @display("");
-
         };
         switchD: EtherSwitch {
-            parameters:
-                @display("");
         };
         serverD: EtherHost {
-            parameters:
-                @display("");
         };
         slanD[ds]: SmallLAN {
-            parameters:
-                @display("");
         };
         mlanD[dm]: MediumLAN {
-            parameters:
-                @display("");
         };
         llanD[dl]: LargeLAN {
-            parameters:
-                @display("");
-
         };
     connections allowunconnected:
         // "backbone" switches

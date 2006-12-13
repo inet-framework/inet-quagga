@@ -146,7 +146,7 @@ channel connectSwitchStation extends cBasicChannel
 network TCPTester
 {
     parameters:
-        double num_client;
+        int num_client;
     submodules:
         client[num_client]: Client {
             parameters:
@@ -189,7 +189,7 @@ network TCPTester
 network TCPTesterB
 {
     parameters:
-        double num_client;
+        int num_client;
     submodules:
         client[num_client]: Client {
             parameters:

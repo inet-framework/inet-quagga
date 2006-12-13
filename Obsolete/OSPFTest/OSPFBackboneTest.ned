@@ -11,7 +11,6 @@ network Backbone
             parameters:
                 channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=#N";
-                @display("");
         };
         R1: OSPFRouter {
             parameters:
