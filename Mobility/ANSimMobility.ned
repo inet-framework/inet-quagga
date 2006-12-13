@@ -31,6 +31,7 @@ simple ANSimMobility
         int nodeId; // <position_change> elements to match;
                                // -1 gets substituted to parent module's index
         double updateInterval = default(0.1) @unit("s"); // time interval to update the hosts position
+        @display("i=block/cogwheel_s");
 }
 
 

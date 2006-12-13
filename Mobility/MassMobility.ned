@@ -58,5 +58,6 @@ simple MassMobility
         volatile double changeAngleBy @unit("s"); // change angle by this much (can be random) [deg]
         volatile double speed = default(2) @unit("mps"); // speed (can be random, updated every changeInterval) [m/s]
         double updateInterval = default(0.1) @unit("s"); // time interval to update the hosts position
+        @display("i=block/cogwheel_s");
 }
 

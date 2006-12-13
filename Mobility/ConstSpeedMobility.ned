@@ -44,4 +44,5 @@ simple ConstSpeedMobility
         double updateInterval = default(0.1) @unit("s"); // time interval to update the hosts position
         double x = default(-1); // start x coordinate (-1 = display string position, or random if it's missing)
         double y = default(-1); // start y coordinate (-1 = display string position, or random if it's missing)
+        @display("i=block/cogwheel_s");
 }

@@ -1,6 +1,7 @@
 CONVERSION TO OMNET++40:
 - "like" --> interface, "extends"
 - configurator: moduleTypes, nonIPModuleTypes: use marker properties (@device(true)?) instead
+- move "q=queue" too into the default display string
 - trim ini files 
 - channels: make them inner types
 - add gate @labels

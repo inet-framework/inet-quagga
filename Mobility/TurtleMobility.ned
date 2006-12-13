@@ -114,6 +114,7 @@ simple TurtleMobility
         bool debug = default(false); // debug switch
         xml turtleScript; // describes the movement
         double updateInterval = default(0.1) @unit("s"); // time interval to update the hosts position
+        @display("i=block/cogwheel_s");
 }
 
 

@@ -45,4 +45,5 @@ simple RandomWPMobility
         double updateInterval = default(0.1) @unit("s");
         volatile double speed = default(2) @unit("mps"); // use uniform(minSpeed, maxSpeed) or another distribution
         volatile double waitTime @unit("s"); // wait time between reaching a target and choosing a new one
+        @display("i=block/cogwheel_s");
 }

@@ -35,5 +35,6 @@ simple LinearMobility
         double angle = default(0); // angle of linear motion (degreees)
         double acceleration = default(0); // acceleration of linear motion (m/s2)
         double updateInterval = default(0.1) @unit("s"); // time interval to update the hosts position
+        @display("i=block/cogwheel_s");
 }
 
