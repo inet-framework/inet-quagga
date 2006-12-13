@@ -27,7 +27,7 @@ simple ErrAndCollDecider
 {
     parameters:
         bool debug = default(false); // debug switch
-        volatile double snrThresholdLevel;
+        double snrThresholdLevel;
     gates:
         output uppergateOut;
         input lowergateIn;

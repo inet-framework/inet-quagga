@@ -80,7 +80,7 @@ module ThroughputServer
 network Throughput
 {
     parameters:
-        double numCli;
+        int numCli;
         double playgroundSizeX;
         double playgroundSizeY;
         @display("b=297,203");

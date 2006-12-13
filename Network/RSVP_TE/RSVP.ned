@@ -99,8 +99,8 @@ simple RSVP
     parameters:
         xml traffic; // specifies paths to set up
         string peers; // names of the interfaces towards RSVP peers
-        volatile double helloInterval;
-        volatile double helloTimeout;
+        double helloInterval;
+        double helloTimeout;
         @display("i=block/control");
     gates:
         input from_ip;

@@ -39,12 +39,12 @@ import "EthernetInterface";
 module StandardHost
 {
     parameters:
-        double numTcpApps;
-        double numUdpApps;
+        int numTcpApps;
+        int numUdpApps;
         string tcpAppType;
         string udpAppType;
         bool IPForward;
-        double namid;
+        int namid;
         string routingFile;
         @display("i=device/pc2");
     gates:

@@ -62,7 +62,7 @@ simple TCPRandomTester
         double pdelete; // probability of deleting a packet
         double pdelay;  // probability of delaying a packet
         double pcopy;   // probability of creating several copies of the packet
-        volatile double numCopies;     // related to pcopy: number of copies
+        volatile int numCopies;     // related to pcopy: number of copies
         volatile double delayValue;    // related to pdelay and pcopy: delay introduced
         @display("i=device/router");
     gates:

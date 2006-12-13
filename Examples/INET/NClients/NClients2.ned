@@ -39,7 +39,7 @@ channel gigabitline2 extends cBasicChannel
 network NClients2
 {
     parameters:
-        double numrouters;
+        int numrouters;
         double hostsperrouter;
     submodules:
         configurator: FlatNetworkConfigurator {

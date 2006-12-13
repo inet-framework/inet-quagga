@@ -45,7 +45,7 @@
 simple PPP
 {
     parameters:
-        volatile int txQueueLimit = default(1000);  // only used if queueModule==""; zero means infinite
+        int txQueueLimit = default(1000);  // only used if queueModule==""; zero means infinite
         string queueModule = default("");    // name of external (QoS,RED,etc) queue module
         @display("i=block/rxtx");
     gates:

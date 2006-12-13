@@ -27,7 +27,7 @@ simple SnrDecider
 {
     parameters:
         bool debug = default(false); // debug switch
-        volatile double snrThresholdLevel;
+        double snrThresholdLevel;
         @display("i=box2_s");
     gates:
         output uppergateOut;

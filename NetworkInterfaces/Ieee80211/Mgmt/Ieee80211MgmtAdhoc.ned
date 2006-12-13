@@ -33,7 +33,7 @@
 simple Ieee80211MgmtAdhoc
 {
     parameters:
-        volatile int frameCapacity = default(100);
+        int frameCapacity = default(100);
         @display("i=block/cogwheel");
     gates:
         input uppergateIn;

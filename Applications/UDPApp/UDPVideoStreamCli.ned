@@ -25,10 +25,10 @@
 simple UDPVideoStreamCli
 {
     parameters:
-        volatile int localPort;
+        int localPort;
         string serverAddress;
-        volatile int serverPort;
-        volatile double startTime = default(1) @unit("s");
+        int serverPort;
+        double startTime = default(1) @unit("s");
     gates:
         input from_udp;
         output to_udp;

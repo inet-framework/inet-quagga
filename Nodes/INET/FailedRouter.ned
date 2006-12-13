@@ -26,7 +26,7 @@ import "Dummy";
 module FailedRouter
 {
     parameters:
-        volatile int namid;
+        int namid;
         string routingFile = default("");
     gates:
         input in[];

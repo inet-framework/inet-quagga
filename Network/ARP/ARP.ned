@@ -17,7 +17,7 @@
 //
 
 //
-// Implements the Address Resolution Protocol for IPv4 and IEEE 802 6-byte 
+// Implements the Address Resolution Protocol for IPv4 and IEEE 802 6-byte
 // MAC addresses.
 //
 // Expects IPRoutingDecision control info objects to be attached to packets
@@ -26,8 +26,8 @@
 // on gate ipIn.
 //
 // \ARP resolution is used over <i>broadcast</i> interfaces only,
-// that is, over interfaces that have the <tt>isBroadcast()</tt> flag set in 
-// <tt>InterfaceEntry</tt> (see InterfaceTable). Since routing files 
+// that is, over interfaces that have the <tt>isBroadcast()</tt> flag set in
+// <tt>InterfaceEntry</tt> (see InterfaceTable). Since routing files
 // (<tt>.irt</tt> or <tt>.mrt</tt> files, given as parameter to RoutingTable)
 // may modify the default interface configuration, you must take care that
 // these files don't contain the word <tt>BROADCAST</tt> e.g. for PPP
@@ -36,9 +36,9 @@
 simple ARP
 {
     parameters:
-        volatile double retryTimeout = default(1) @unit("s"); // number seconds ARP waits between retries to resolve an \IP address
-        volatile int retryCount = default(3);   // number of times ARP will attempt to resolve an \IP address
-        volatile double cacheTimeout = default(120) @unit("s"); // number seconds unused entries in the cache will time out
+        double retryTimeout = default(1) @unit("s"); // number seconds ARP waits between retries to resolve an \IP address
+        int retryCount = default(3);   // number of times ARP will attempt to resolve an \IP address
+        double cacheTimeout = default(120) @unit("s"); // number seconds unused entries in the cache will time out
         bool proxyARP = default(true);        // sets proxy \ARP mode (replying to \ARP requests for the addresses for which a routing table entry exists)
         @display("i=block/layer");
     gates:

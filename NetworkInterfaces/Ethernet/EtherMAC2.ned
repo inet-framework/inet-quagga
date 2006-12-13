@@ -147,7 +147,7 @@ simple EtherMAC2
         string address = default("auto");       // MAC address as hex string (12 hex digits), or
                                 // "auto". "auto" values will be replaced by
                                 // a generated MAC address in init stage 0.
-        volatile int txQueueLimit = default(1000); // maximum number of frames queued up for transmission;
+        int txQueueLimit = default(1000); // maximum number of frames queued up for transmission;
                                 // additional frames are dropped. Only used if queueModule==""
         string queueModule = default("");    // name of optional external queue module
         bool writeScalars = default(true);     // enable/disable recording statistics in omnetpp.sca

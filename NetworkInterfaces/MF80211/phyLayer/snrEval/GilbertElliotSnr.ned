@@ -27,15 +27,15 @@ simple GilbertElliotSnr
 {
     parameters:
         bool debug = default(false); // debug switch
-        volatile double transmitterPower;
-        volatile double bitrate;
+        double transmitterPower;
+        double bitrate;
         int headerLength;
-        volatile double carrierFrequency;
-        volatile double thermalNoise;
-        volatile double pathLossAlpha;
-        volatile double sensitivity;
-        volatile double meanGood;
-        volatile double meanBad;
+        double carrierFrequency;
+        double thermalNoise;
+        double pathLossAlpha;
+        double sensitivity;
+        double meanGood;
+        double meanBad;
     gates:
         input uppergateIn;
         output uppergateOut;

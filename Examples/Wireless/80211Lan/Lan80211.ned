@@ -25,7 +25,7 @@ import "WirelessAP2";
 network Lan80211
 {
     parameters:
-        double numHosts;
+        int numHosts;
         double playgroundSizeX;
         double playgroundSizeY;
     submodules:

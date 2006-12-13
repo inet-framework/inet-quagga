@@ -33,7 +33,7 @@ import "Zebra";
 module QuaggaRouter
 {
     parameters:
-        volatile int namid;
+        int namid;
         string routingFile = default("");
         string routingDaemon; // "Ripd", "Ospfd", etc.
         @display("i=srouter");

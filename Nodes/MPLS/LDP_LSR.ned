@@ -34,11 +34,9 @@ import "NAMTraceWriter";
 module LDP_LSR
 {
     parameters:
-        volatile double holdTime = default(15) @unit("s");
-        volatile double helloInterval = default(5) @unit("s");
-
-        volatile int namid;
-
+        double holdTime = default(15) @unit("s");
+        double helloInterval = default(5) @unit("s");
+        int namid;
         string peers;
         string routerId = default("auto");
         string routingFile = default("");
@@ -46,7 +44,6 @@ module LDP_LSR
     gates:
         input in[];
         output out[];
-
     submodules:
         notificationBoard: NotificationBoard {
             parameters:

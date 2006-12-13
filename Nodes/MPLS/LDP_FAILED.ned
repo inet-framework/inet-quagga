@@ -22,18 +22,15 @@ import "Dummy";
 module LDP_FAILED
 {
     parameters:
-        volatile double holdTime = default(15) @unit("s");
-        volatile double helloInterval = default(5) @unit("s");
-
-        volatile int namid;
-
+        double holdTime = default(15) @unit("s");
+        double helloInterval = default(5) @unit("s");
+        int namid;
         string peers;
         string routerId = default("auto");
         string routingFile = default("");
     gates:
         input in[];
         output out[];
-
     submodules:
         dummy: Dummy {
             gates:

@@ -33,9 +33,7 @@ import "NAMTraceWriter";
 module RSVP_LSR
 {
     parameters:
-
-        volatile int namid;
-
+        int namid;
         string peers;
         string routerId = default("auto");
         string routingFile = default("");

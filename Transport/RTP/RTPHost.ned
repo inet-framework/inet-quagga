@@ -15,12 +15,12 @@ module RTPHost
         bool debug = default(false);
         string profileName;
         string destinationAddress = default("");
-        volatile int portNumber = default(554);
-        volatile double bandwidth @unit("bps");
+        int portNumber = default(554);
+        double bandwidth @unit("bps");
         string fileName = default("");
-        volatile int payloadType = default(0);
+        int payloadType = default(0);
         // network information
-        volatile int numOfProcessors = default(1);
+        int numOfProcessors = default(1);
         string routingFile = default("");
         @display("i=device/pc2");
     gates:

@@ -34,7 +34,7 @@ simple Ieee80211MgmtSTASimplified
 {
     parameters:
         string accessPointAddress; // MAC address of associate AP
-        volatile int frameCapacity = default(100);
+        int frameCapacity = default(100);
         @display("i=block/cogwheel");
     gates:
         input uppergateIn;

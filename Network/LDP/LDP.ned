@@ -35,8 +35,8 @@
 simple LDP
 {
     parameters:
-        volatile double holdTime = default(15) @unit("s");
-        volatile double helloInterval = default(5) @unit("s");
+        double holdTime = default(15) @unit("s");
+        double helloInterval = default(5) @unit("s");
         @display("i=block/control");
     gates:
         input tcpIn;

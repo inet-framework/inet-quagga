@@ -36,17 +36,17 @@ simple MACRelayUnitNP
 {
     parameters:
         string addressTableFile = default("");  // see MACRelayUnit
-        volatile int addressTableSize = default(100); // see MACRelayUnit
-        volatile double agingTime = default(120) @unit("s");        // see MACRelayUnit
-        volatile int numCPUs = default(1);           // number of CPUs
-        volatile double processingTime = default(0) @unit("s");   // processing time of one frame
-        volatile int bufferSize = default(1MB) @unit("B");       // memory (bytes)
-        volatile int highWatermark = default(512kB) @unit("B");    // buffer usage threshold to send PAUSE frame (bytes)
-        volatile int pauseUnits = default(300);       // time to put in PAUSE frames (in units of 512 bit times)
+        int addressTableSize = default(100); // see MACRelayUnit
+        double agingTime = default(120) @unit("s");        // see MACRelayUnit
+        int numCPUs = default(1);           // number of CPUs
+        double processingTime = default(0) @unit("s");   // processing time of one frame
+        int bufferSize = default(1MB) @unit("B");       // memory (bytes)
+        int highWatermark = default(512kB) @unit("B");    // buffer usage threshold to send PAUSE frame (bytes)
+        int pauseUnits = default(300);       // time to put in PAUSE frames (in units of 512 bit times)
         bool writeScalars = default(true);         // enable/disable recording statistics in omnetpp.sca
 
     gates:
-        input lowerLayerIn[];       // see MACRelayUnit
-        output lowerLayerOut[];      // see MACRelayUnit
+        input lowerLayerIn[];    // see MACRelayUnit
+        output lowerLayerOut[];  // see MACRelayUnit
 }
 

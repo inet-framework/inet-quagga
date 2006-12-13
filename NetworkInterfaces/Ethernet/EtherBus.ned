@@ -35,10 +35,10 @@ simple EtherBus
 {
     parameters:
         string positions;  // positions of taps on the cable in meters, as a sequence
-                             // of numbers separated by spaces. If there are too
-                             // few values, the distance between the last two positions
-                             // is repeated, or 5 meters is used.
-        volatile double propagationSpeed @unit("mps");
+                           // of numbers separated by spaces. If there are too
+                           // few values, the distance between the last two positions
+                           // is repeated, or 5 meters is used.
+        double propagationSpeed @unit("mps");
                              // signal propagation speed on the bus, in m/s
                              // (typically 200,000 m/s)
         bool writeScalars = default(true);  // enable/disable recording statistics in omnetpp.sca

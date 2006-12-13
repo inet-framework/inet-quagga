@@ -24,9 +24,9 @@
 simple SomeUDPApp
 {
     parameters:
-        double local_port; // if -1, app doesn't bind in UDP
-        double dest_port;
-        double message_length; // (bits)
+        int local_port; // if -1, app doesn't bind in UDP
+        int dest_port;
+        int message_length; // (bits)
         volatile double message_freq; // should usually be a random value, e.g. exponential(1)
         string dest_addresses; // list of \IP addresses, separated by spaces
     gates:

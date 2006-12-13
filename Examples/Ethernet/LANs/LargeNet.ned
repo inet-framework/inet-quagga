@@ -35,7 +35,7 @@ channel cable extends cBasicChannel
 module SmallLAN
 {
     parameters:
-        double h; // number of hosts on the hub
+        int h; // number of hosts on the hub
         @display("i=cloud_s");
     gates:
         input in;
@@ -65,8 +65,8 @@ module SmallLAN
 module MediumLAN
 {
     parameters:
-        double n; // number of hosts on the switch
-        double h; // number of hosts on the hub
+        int n; // number of hosts on the switch
+        int h; // number of hosts on the hub
         @display("i=cloud_s");
     gates:
         input in;
@@ -115,9 +115,9 @@ module MediumLAN
 module LargeLAN
 {
     parameters:
-        double n; // number of hosts on the switch
-        double h; // number of hosts on the hub
-        double b; // number of hosts on the bus
+        int n; // number of hosts on the switch
+        int h; // number of hosts on the hub
+        int b; // number of hosts on the bus
         @display("i=cloud");
     gates:
         input in;
@@ -184,22 +184,22 @@ module LargeLAN
 network LargeNet
 {
     parameters:
-        double n;          // length of the "backbone" (n>5!)
-        volatile double bbs;
-        volatile double bbm;
-        double bbl; // number of small/medium/large LANs on "backbone" switches
-        volatile double as;
-        volatile double am;
-        double al; // number of small/medium/large LANs on switch A
-        volatile double bs;
-        volatile double bm;
-        double bl; // number of small/medium/large LANs on switch B
-        volatile double cs;
-        volatile double cm;
-        double cl; // number of small/medium/large LANs on switch C
-        volatile double ds;
-        volatile double dm;
-        double dl; // number of small/medium/large LANs on switch D
+        int n;   // length of the "backbone" (n>5!)
+        int bbs; // number of small LANs on "backbone" switches
+        int bbm; // number of medium LANs on "backbone" switches
+        int bbl; // number of large LANs on "backbone" switches
+        int as;  // number of small LANs on switch A
+        int am;  // number of medium LANs on switch A
+        int al;  // number of large LANs on switch A
+        int bs;  // number of small LANs on switch B
+        int bm;  // number of medium LANs on switch B
+        int bl;  // number of large LANs on switch B
+        int cs;  // number of small LANs on switch C
+        int cm;  // number of medium LANs on switch C
+        int cl;  // number of large LANs on switch C
+        int ds;  // number of small LANs on switch D
+        int dm;  // number of medium LANs on switch D
+        int dl;  // number of large LANs on switch D
     submodules:
         switchBB[n]: EtherSwitch {
             parameters:

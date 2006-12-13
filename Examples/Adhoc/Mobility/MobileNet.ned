@@ -24,7 +24,7 @@ import "ChannelControl";
 network MobileNet
 {
     parameters:
-        double numHosts;
+        int numHosts;
         double playgroundSizeX;
         double playgroundSizeY;
     submodules:

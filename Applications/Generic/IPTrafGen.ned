@@ -38,7 +38,7 @@ simple IPTrafSink
 // If the destAddresses parameter contains more than one address, one
 // of them is randomly for each packet. An address may be given in the
 // dotted decimal notation (or, for IPv6, in the usual notation with colons),
-// or with the module name. (The IPAddressResolver class is used to resolve 
+// or with the module name. (The IPAddressResolver class is used to resolve
 // the address.) To disable the model, set destAddresses to "".
 //
 // The peer can be IPTrafSink or another IPTrafGen (it handles received packets
@@ -47,7 +47,7 @@ simple IPTrafSink
 simple IPTrafGen
 {
     parameters:
-        volatile double startTime = default(1) @unit("s"); // the time application generates first packet
+        double startTime = default(1) @unit("s"); // the time application generates first packet
         volatile double packetInterval = default(10ms) @unit("s"); // may be a random value, e.g. exponential(1)
         int numPackets = default(0); // max number of packets to generate
         int protocol; // value for IPDatagram protocol field

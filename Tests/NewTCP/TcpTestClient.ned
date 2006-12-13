@@ -24,13 +24,13 @@ simple TcpTestClient
 {
     parameters:
         string address;
-        double port;
+        int port;
         bool active;
         string connectAddress;
-        double connectPort;
+        int connectPort;
         double tOpen;
         double tSend;
-        double sendBytes;
+        int sendBytes;
         string sendScript;
         double tClose;
         @display("i=block/app");

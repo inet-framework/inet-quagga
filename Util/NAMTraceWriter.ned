@@ -19,8 +19,8 @@
 
 
 //
-// When placed inside a host or router, it writes a NAM trace, based on 
-// notifications it receives via the NotificationBoard. Expects to find 
+// When placed inside a host or router, it writes a NAM trace, based on
+// notifications it receives via the NotificationBoard. Expects to find
 // a NAMTrace module named "nam" at network level.
 //
 // This module has no gates and does not process messages.
@@ -30,7 +30,7 @@
 simple NAMTraceWriter
 {
     parameters:
-        volatile int namid;
+        int namid;
         @display("i=block/sink");
 }
 

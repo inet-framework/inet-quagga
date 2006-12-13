@@ -129,19 +129,19 @@
 simple EtherMAC
 {
     parameters:
-        bool promiscuous = default(false);     // if true, all packets are received, otherwise only the
+        bool promiscuous = default(false); // if true, all packets are received, otherwise only the
                                 // ones with matching destination MAC address
-        string address = default("auto");       // MAC address as hex string (12 hex digits), or
+        string address = default("auto");  // MAC address as hex string (12 hex digits), or
                                 // "auto". "auto" values will be replaced by
                                 // a generated MAC address in init stage 0.
-        volatile double txrate = default(100Mbps) @unit("bps");       // maximum data rate supported by this station (bit/s);
+        double txrate = default(100Mbps) @unit("bps"); // maximum data rate supported by this station (bit/s);
                                 // actually chosen speed may be lower due to auto-
                                 // configuration. 0 means fully auto-configured.
         bool duplexEnabled = default(true);   // whether duplex mode can be enabled or not; whether
                                 // MAC will actually use duplex mode depends on the result
                                 // of the auto-configuration process (duplex is only
                                 // possible with DTE-to-DTE connection).
-        volatile int txQueueLimit = default(1000); // maximum number of frames queued up for transmission;
+        int txQueueLimit = default(1000); // maximum number of frames queued up for transmission;
                                 // additional frames are dropped. Only used if queueModule==""
         string queueModule = default("");    // name of optional external queue module
         bool writeScalars = default(true);     // enable/disable recording statistics in omnetpp.sca

@@ -21,7 +21,7 @@ import "Dummy";
 module RSVP_FAILED
 {
     parameters:
-        volatile int namid;
+        int namid;
 
         string peers;
         string routerId = default("auto");

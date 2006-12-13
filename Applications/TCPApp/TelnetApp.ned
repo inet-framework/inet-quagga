@@ -35,7 +35,7 @@ simple TelnetApp
         int port; // port number to listen on
         string connectAddress;  // server address (may be symbolic)
         int connectPort; // port number to connect to
-        volatile double startTime = default(1) @unit("s"); // time first session begins
+        double startTime = default(1) @unit("s"); // time first session begins
         volatile int numCommands = default(exponential(10)); // user types this many commands in a session
         volatile int commandLength = default(10) @unit("B"); // commands are this many characters (plus Enter)
         volatile double keyPressDelay = default(exponential(0.1)) @unit("s"); // delay between keypresses

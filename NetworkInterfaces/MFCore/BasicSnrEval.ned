@@ -45,8 +45,8 @@ simple BasicSnrEval
 {
     parameters:
         bool coreDebug = default(false); // debug switch for the core framework
-        volatile double transmitterPower @unit("mW"); // power used for transmission of messages (in mW)
-        volatile double bitrate @unit("bps"); // bitrate (in bits/sec)
+        double transmitterPower @unit("mW"); // power used for transmission of messages (in mW)
+        double bitrate @unit("bps"); // bitrate (in bits/sec)
         int headerLength; // header length of the AirFrame (in bits)
     gates:
         input uppergateIn; // from the MAC layer
