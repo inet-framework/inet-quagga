@@ -314,8 +314,7 @@ bool Daemon::receiveAndHandleMessage(double timeout, const char *cmd)
 	{
 		EV << "consuming queued message on syscall=" << cmd << endl;
 		
-		msg = (cMessage*)eventQueue.head();
-		eventQueue.remove(msg);
+		msg = (cMessage*)eventQueue.pop();
 	}
     
     if(msg)
@@ -502,7 +501,7 @@ cMessage* Daemon::getSocketMessage(int socket, bool remove)
     if(fd[socket].queue.empty())
         return NULL;
 
-    cMessage *msg = (cMessage*)fd[socket].queue.tail();
+    cMessage *msg = (cMessage*)fd[socket].queue.front();
 
     if(remove)
         fd[socket].queue.remove(msg);

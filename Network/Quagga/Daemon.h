@@ -148,7 +148,7 @@ class Daemon : public cSimpleModule, public TCPSocket::CallbackInterface, public
 
 extern Daemon *current_module;
 
-#define DAEMON          (check_and_cast<Daemon*>(simulation.runningModule()))
+#define DAEMON          (check_and_cast<Daemon*>(simulation.activityModule()))
 
 #ifdef __cplusplus
 extern "C" {
