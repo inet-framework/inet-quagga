@@ -1,3 +1,14 @@
+CONVERSION TO OMNET++40:
+- "like" --> interface, "extends"
+- configurator: moduleTypes, nonIPModuleTypes: use marker properties (@device(true)?) instead
+- trim ini files 
+- channels: make them inner types
+- add gate @labels
+- introduce duplex gates
+- gross renaming of gates and parameters, to make them more consistent
+
+
+--------
 - add IdealRadio, DistanceBasedRadio, GilbertElliotRadio.
    in DistanceBasedRadio: decouple transmission range from interference range 
    (ie use 2 different module parameters)
