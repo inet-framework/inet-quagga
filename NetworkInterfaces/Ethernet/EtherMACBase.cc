@@ -322,7 +322,7 @@ void EtherMACBase::processFrameFromUpperLayer(EtherFrame *frame)
 
         // PAUSE frames enjoy priority -- they're transmitted before all other frames queued up
         if (!txQueue.empty())
-            txQueue.insertBefore(txQueue.tail(), frame);  // tail() frame is probably being transmitted
+            txQueue.insertBefore(txQueue.front(), frame);  // front() frame is probably being transmitted
         else
             txQueue.insert(frame);
     }
@@ -431,7 +431,7 @@ void EtherMACBase::handleEndIFGPeriod()
         error("End of IFG and no frame to transmit");
 
     // End of IFG period, okay to transmit, if Rx idle OR duplexMode
-    cMessage *frame = (cMessage *)txQueue.tail();
+    cMessage *frame = (cMessage *)txQueue.front();
     EV << "IFG elapsed, now begin transmission of frame " << frame << endl;
 
     // Perform carrier extension if in Gigabit Ethernet

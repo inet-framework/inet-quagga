@@ -86,8 +86,8 @@ void PPP::initialize(int stage)
         while (gateToWatch)
         {
             // does this gate have data rate?
-            cSimpleChannel *chan = dynamic_cast<cSimpleChannel*>(gateToWatch->channel());
-            if (chan && (datarate=chan->datarate())>0)
+            cBasicChannel *chan = dynamic_cast<cBasicChannel*>(gateToWatch->channel());
+            if (chan && (datarate=chan->par("datarate").doubleValue())>0)
                 break;
             // otherwise just check next connection in path
             gateToWatch = gateToWatch->toGate();
@@ -200,7 +200,7 @@ void PPP::handleMessage(cMessage *msg)
 
         if (!txQueue.empty())
         {
-            msg = (cMessage *) txQueue.getTail();
+            msg = (cMessage *) txQueue.pop();
             startTransmitting(msg);
             numSent++;
         }

@@ -64,7 +64,7 @@ Socket::Filedesc SocketLayer::_newSocket(Socket::Domain dom, Socket::Type type,
   Socket::Filedesc desc;
   cArray*          container    = new cArray("Socket/Gate-Container");
   Socket*          socket       = new Socket(dom, type, proto);
-  cPar*            from_appl_id = new cPar("from_appl_gate_id");
+  cPar*            from_appl_id = new cMsgPar("from_appl_gate_id");
   char             buf[1024];
 
   *from_appl_id = from_appl_gate;

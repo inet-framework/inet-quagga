@@ -65,8 +65,8 @@ void EtherMAC::initialize()
     cGate *g = gate("physOut");
     while (g)
     {
-        cSimpleChannel *chan = dynamic_cast<cSimpleChannel*>(g->channel());
-        if (chan && chan->datarate()>0)
+        cBasicChannel *chan = dynamic_cast<cBasicChannel*>(g->channel());
+        if (chan && chan->par("datarate").doubleValue()>0)
             error("connection on gate %s has data rate set: using data rate with EtherMAC "
                   "is forbidden, module's txrate parameter must be used instead",
                   g->fullPath().c_str());
@@ -402,7 +402,7 @@ void EtherMAC::handleEndIFGPeriod()
     EtherMACBase::handleEndIFGPeriod();
 
     // End of IFG period, okay to transmit, if Rx idle OR duplexMode
-    cMessage *frame = (cMessage *)txQueue.tail();
+    cMessage *frame = (cMessage *)txQueue.front();
 
     // Perform carrier extension if in Gigabit Ethernet
     if (carrierExtension && frame->byteLength() < GIGABIT_MIN_FRAME_WITH_EXT)
@@ -417,7 +417,7 @@ void EtherMAC::handleEndIFGPeriod()
 
 void EtherMAC::startFrameTransmission()
 {
-    cMessage *origFrame = (cMessage *)txQueue.tail();
+    cMessage *origFrame = (cMessage *)txQueue.front();
     EV << "Transmitting a copy of frame " << origFrame << endl;
     cMessage *frame = (cMessage *) origFrame->dup();
 

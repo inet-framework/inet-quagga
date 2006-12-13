@@ -54,8 +54,8 @@ void EtherMAC2::initializeTxrate()
         while (g)
         {
             // does this gate have data rate?
-            cSimpleChannel *chan = dynamic_cast<cSimpleChannel*>(g->channel());
-            if (chan && (txrate=chan->datarate())>0)
+            cBasicChannel *chan = dynamic_cast<cBasicChannel*>(g->channel());
+            if (chan && (txrate=chan->par("datarate").doubleValue())>0)
                 break;
             // otherwise just check next connection in path
             g = g->toGate();
@@ -100,7 +100,7 @@ void EtherMAC2::handleMessage(cMessage *msg)
 
 void EtherMAC2::startFrameTransmission()
 {
-    EtherFrame *origFrame = (EtherFrame *)txQueue.tail();
+    EtherFrame *origFrame = (EtherFrame *)txQueue.front();
     EV << "Transmitting a copy of frame " << origFrame << endl;
 
     EtherFrame *frame = (EtherFrame *) origFrame->dup();
@@ -153,7 +153,7 @@ void EtherMAC2::handleEndIFGPeriod()
 
 void EtherMAC2::handleEndTxPeriod()
 {
-    fireChangeNotification(NF_PP_TX_END, (cMessage *)txQueue.tail());
+    fireChangeNotification(NF_PP_TX_END, (cMessage *)txQueue.front());
 
     if (checkAndScheduleEndPausePeriod())
         return;

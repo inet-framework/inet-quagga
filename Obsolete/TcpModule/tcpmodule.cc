@@ -1973,7 +1973,7 @@ void TcpModule::applCommandSend(cMessage* msg, TcpTcb* tcb_block)
 
   msg->setTimestamp();
 
-  //put msg copy at tail of tcp_send_queue (msg will be deleted later)
+  //put msg copy at front of tcp_send_queue (msg will be deleted later)
   insertAtQueueTail(tcp_send_queue, (cMessage*) msg->dup(), 0);
 
   //urgent pointer processing (according to RFC-1122)
@@ -3627,7 +3627,7 @@ void TcpModule::insertListElement(cLinkedList & ilist, SegRecord* ielement, unsi
   else if (position > ilist_len) // FIXME: MBI should never be true
     {
       if (debug) ev << "Specified position is greater than the length of the list."
-        "Inserting element at the tail of the list.\n";
+        "Inserting element at the front of the list.\n";
       pos_element = (SegRecord*) ilist.peekTail();
       ilist.insertAfter(pos_element, ielement);  //insertAfter() !!
     }
@@ -3683,7 +3683,7 @@ void TcpModule::removeListElement(cLinkedList & list_to_inspect, unsigned long p
   else if (position == (unsigned long) list_to_inspect.length()) // FIXME: MBI should be (list_to_inspect.length() - 1)
     {
 
-      list_element = (SegRecord*)  list_to_inspect.getTail();
+      list_element = (SegRecord*)  list_to_inspect.pop();
       delete list_element;
     }
   else

@@ -31,9 +31,9 @@ class INET_API RSVPPacket: public RSVPPacket_Base
     RSVPPacket(const RSVPPacket& other) : RSVPPacket_Base(other.name()) {operator=(other);}
     RSVPPacket& operator=(const RSVPPacket& other) {RSVPPacket_Base::operator=(other); return *this;}
 #if OMNETPP_VERSION<0x0302
-    virtual cObject *dup() const {return new RSVPPacket(*this);}
+    virtual RSVPPacket *dup() {return new RSVPPacket(*this);}
 #else
-    virtual cPolymorphic *dup() const {return new RSVPPacket(*this);}
+    virtual RSVPPacket *dup() {return new RSVPPacket(*this);}
 #endif
     inline IPADDR getDestAddress() {return getSession().DestAddress;}
     inline int getProtId()      {return getSession().Protocol_Id;}

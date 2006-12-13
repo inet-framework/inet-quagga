@@ -1,3 +1,6 @@
+//FIXME upgrade and put back!!
+#if 0
+
 //
 // Copyright (C) 2005 Andras Varga
 //
@@ -98,7 +101,7 @@ class SIM_API ThruputMeteringChannel : public cBasicChannel
      * Creates and returns an exact copy of this object.
      * See cObject for more details.
      */
-    virtual cPolymorphic *dup() const  {return new ThruputMeteringChannel(*this);}
+    virtual ThruputMeteringChannel *dup() {return new ThruputMeteringChannel(*this);}
 
     /**
      * Redefined to add an extra attribute
@@ -118,4 +121,6 @@ class SIM_API ThruputMeteringChannel : public cBasicChannel
 
 #endif
 
+
+#endif
 

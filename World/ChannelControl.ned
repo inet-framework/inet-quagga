@@ -38,7 +38,7 @@
 //
 simple ChannelControl
     parameters:
-        coreDebug: numeric const, // debug switch for core framework
+        coreDebug: bool, // debug switch for core framework
         playgroundSizeX: numeric const, // x size of the playground (in meters)
         playgroundSizeY: numeric const, // y size of the playground (in meters)
         pMax: numeric const, // maximum sending power used for this network (in mW)

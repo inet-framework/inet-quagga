@@ -56,8 +56,8 @@ void NewRouteTester::activity()
            "and telling LSR1 to recalculate the route");
 
     modifiedGate->setDisplayString("o=yellow");
-    cPar* par1 = new cPar();
-    cPar* par2 = new cPar();
+    cPar* par1 = new cMsgPar();
+    cPar* par2 = new cMsgPar();
     par1->setDoubleValue(6000);
     par2->setDoubleValue(1);
 

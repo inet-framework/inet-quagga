@@ -161,7 +161,7 @@ void ScenarioManager::processSetParamCommand(cXMLElement *node)
 
     // set the parameter to the given value
     cPar& param = mod->par(parAttr);
-    param.setFromText(valueAttr, '?');
+    param.parse(valueAttr);
 }
 
 void ScenarioManager::processSetChannelAttrCommand(cXMLElement *node)
@@ -186,9 +186,9 @@ void ScenarioManager::processSetChannelAttrCommand(cXMLElement *node)
 
     // set the parameter to the given value
     if (!chan->hasPar(attrAttr))
-        chan->addPar(attrAttr);
+        ; //FIXME remove this "if"
     cPar& param = chan->par(attrAttr);
-    param.setFromText(valueAttr, '?');
+    param.parse(valueAttr);
 }
 
 /* FIXME finish and test them

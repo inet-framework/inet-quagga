@@ -1,3 +1,6 @@
+//FIXME to be updated and enabled again
+#if 0
+
 //
 // Copyright (C) 2005 Andras Varga
 //
@@ -176,3 +179,4 @@ void ThruputMeteringChannel::updateDisplay()
     fromGate()->displayString().setTagArg("t", 0, buf);
 }
 
+#endif

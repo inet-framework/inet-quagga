@@ -243,9 +243,9 @@ double TurtleMobility::getValue(const char *s)
         s = str.c_str();
     }
 
-    // then use cPar to evaluate the string
-    cPar tmp;
-    if (!tmp.setFromText(s,'?'))
+    // then use cMsgPar to evaluate the string
+    cMsgPar tmp;
+    if (!tmp.parse(s))
         error("wrong value '%s' around %s", s, nextStatement->getSourceLocation());
     return tmp.doubleValue();
 }

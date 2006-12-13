@@ -43,7 +43,7 @@ void CSMAMacLayer::initialize(int stage)
 
     if (stage == 0)
     {
-        queueLength = hasPar("queueLength") ? par("queueLength") : 0;
+        queueLength = hasPar("queueLength") ? (int)par("queueLength") : 0;
         EV << "queueLength = " << queueLength << endl;
 
         //subscribe for the information of the carrier sense

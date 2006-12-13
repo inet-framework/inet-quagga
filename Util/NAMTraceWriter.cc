@@ -87,7 +87,7 @@ void NAMTraceWriter::initialize(int stage)
 
             // find delay
             double delay = 0;
-            cSimpleChannel *chan = dynamic_cast<cSimpleChannel*>(outgate->channel());
+            cBasicChannel *chan = dynamic_cast<cBasicChannel*>(outgate->channel());
             if (chan) delay = chan->delay();
 
             // write link entry into trace

@@ -85,11 +85,11 @@ void ChannelControl::initialize()
  */
 void ChannelControl::updateDisplayString(cModule *playgroundMod)
 {
-    cDisplayString& d = playgroundMod->backgroundDisplayString();
-    d.setTagArg("p", 0, 0L);
-    d.setTagArg("p", 1, 0L);
-    d.setTagArg("b", 0, (long) playgroundSize.x);
-    d.setTagArg("b", 1, (long) playgroundSize.y);
+    cDisplayString& d = playgroundMod->displayString();
+    d.setTagArg("bgp", 0, 0L);
+    d.setTagArg("bgp", 1, 0L);
+    d.setTagArg("bgb", 0, (long) playgroundSize.x);
+    d.setTagArg("bgb", 1, (long) playgroundSize.y);
 }
 
 /**
