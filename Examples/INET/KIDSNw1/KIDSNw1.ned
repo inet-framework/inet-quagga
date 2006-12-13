@@ -39,12 +39,9 @@ module KIDSNw1
         host: StandardHost[3];
             parameters:
                 IPForward = false;
-            parameters if index==0:
-                routingFile = "host1.irt";
-            parameters if index==1:
-                routingFile = "host2.irt";
-            parameters if index==2:
-                routingFile = "host3.irt";
+                routingFile = index==0 ? "host1.irt" :
+			      index==1 ? "host2.irt" :
+			      index==2 ? "host3.irt" : "PROBLEM";
             gatesizes:
                 in[1],
                 out[1];
@@ -52,16 +49,12 @@ module KIDSNw1
 
         // First Hop Router
         fhrouter: Router[2];
-            parameters if index==0:
-                routingFile = "fhrouter1.irt";
-            parameters if index==1:
-                routingFile = "fhrouter5.irt";
+            parameters:
+                routingFile = index==0 ? "fhrouter1.irt" :
+			      index==1 ? "fhrouter5.irt" : "PROBLEM";
             gatesizes:
-                in[2],
-                out[2];
-            gatesizes if index==0:
-                in[3],
-                out[3];
+                in[index==0 ? 3 : 2],
+                out[index==0 ? 3 : 2];
             display: "p=119,222,row,130;i=device/router";
 
         // InteriorRouter
@@ -75,10 +68,9 @@ module KIDSNw1
         // Border Gatgeway Router
         bgrouter: Router[2];
             parameters:
-            parameters if index==0:
-                routingFile = "bgrouter3.irt";
-            parameters if index==1:
-                routingFile = "bgrouter4.irt";
+
+                routingFile = index==0 ? "bgrouter3.irt" :
+			      index==1 ? "bgrouter4.irt" : "PROBLEM";
             gatesizes:
                 in[2],
                 out[2];

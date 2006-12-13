@@ -1,7 +1,7 @@
 import
     "TestRouter";
 
-channel ethernetline
+channel ethernetlineX
     delay 10ms;
     datarate 100000;
 endchannel
@@ -45,26 +45,26 @@ module Test
 			display: "p=100,150";				
         
     connections nocheck:
-        r1.out[0] --> ethernetline --> r2.in[0];
-        r1.in[0] <-- ethernetline <-- r2.out[0];
+        r1.out[0] --> ethernetlineX --> r2.in[0];
+        r1.in[0] <-- ethernetlineX <-- r2.out[0];
 
-        r1.out[1] --> ethernetline --> r3.in[0];
-        r1.in[1] <-- ethernetline <-- r3.out[0];
+        r1.out[1] --> ethernetlineX --> r3.in[0];
+        r1.in[1] <-- ethernetlineX <-- r3.out[0];
 
-        r2.out[1] --> ethernetline --> r3.in[1];
-        r2.in[1] <-- ethernetline <-- r3.out[1];
+        r2.out[1] --> ethernetlineX --> r3.in[1];
+        r2.in[1] <-- ethernetlineX <-- r3.out[1];
 
-        r2.out[2] --> ethernetline --> r4.in[0];
-        r2.in[2] <-- ethernetline <-- r4.out[0];
+        r2.out[2] --> ethernetlineX --> r4.in[0];
+        r2.in[2] <-- ethernetlineX <-- r4.out[0];
 
-        r2.out[3] --> ethernetline --> r5.in[0];
-        r2.in[3] <-- ethernetline <-- r5.out[0];
+        r2.out[3] --> ethernetlineX --> r5.in[0];
+        r2.in[3] <-- ethernetlineX <-- r5.out[0];
         
-        r3.out[2] --> ethernetline --> r5.in[1];
-        r3.in[2] <-- ethernetline <-- r5.out[1];
+        r3.out[2] --> ethernetlineX --> r5.in[1];
+        r3.in[2] <-- ethernetlineX <-- r5.out[1];
         
-        r4.out[1] --> ethernetline --> r5.in[2];
-        r4.in[1] <-- ethernetline <-- r5.out[2];
+        r4.out[1] --> ethernetlineX --> r5.in[2];
+        r4.in[1] <-- ethernetlineX <-- r5.out[2];
 endmodule
 
 network testNetwork : Test

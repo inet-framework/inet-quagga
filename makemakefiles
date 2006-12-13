@@ -40,7 +40,7 @@ inetbase:
 	: # $(QUAGGA_INCLUDES)
 
 	cd Applications && $(MAKEMAKE) $(OPTS) -n -r
-	cd Network && $(MAKEMAKE) $(OPTS) -n -r
+	cd Network && $(MAKEMAKE) $(OPTS) -n -r -X Quagga
 	cd NetworkInterfaces && $(MAKEMAKE) $(OPTS) -n -r
 	cd Nodes && $(MAKEMAKE) $(OPTS) -n -r
 	cd Transport && $(MAKEMAKE) $(OPTS) -n -r -X RTP
