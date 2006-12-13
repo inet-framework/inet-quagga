@@ -34,13 +34,14 @@
 // @see UDPVideoStreamCli
 //
 simple UDPVideoStreamSvr
+{
     parameters:
-        serverPort: numeric const, // port to listen on
-        waitInterval: numeric,     // interval between sending viedo stream packets
-        packetLen: numeric,        // bytes; can be random
-        videoSize: numeric;        // bytes; can be random
+        int serverPort; // port to listen on
+        volatile double waitInterval @unit("s");     // interval between sending viedo stream packets
+        volatile int packetLen @unit("B");        // bytes; can be random
+        volatile int videoSize @unit("B");        // bytes; can be random
     gates:
-        in: from_udp;
-        out: to_udp;
-endsimple
+        input from_udp;
+        output to_udp;
+}
 

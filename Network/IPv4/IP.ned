@@ -81,16 +81,18 @@
 // @author Andras Varga
 //
 simple IP
+{
     parameters:
-        procDelay : numeric const,
-        timeToLive : numeric const,
-        multicastTimeToLive : numeric const,
-        protocolMapping : string,
-        fragmentTimeout : numeric const;
+        double procDelay = default(0) @unit("s");
+        int timeToLive = default(32);
+        int multicastTimeToLive;
+        string protocolMapping;
+        double fragmentTimeout = default(60) @unit("s");
+        @display("i=block/routing");
     gates:
-        in: transportIn[];
-        out: transportOut[];
-        in: queueIn[];
-        out: queueOut;
-endsimple
+        input transportIn[];
+        output transportOut[];
+        input queueIn[];
+        output queueOut;
+}
 

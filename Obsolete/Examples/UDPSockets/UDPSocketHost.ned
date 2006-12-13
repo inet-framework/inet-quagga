@@ -16,40 +16,50 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-import
-    "NetworkLayer",
-    "UDPProcessing",
-    "SocketApp",
-    "socketlayer";
+import "NetworkLayer";
+import "UDPProcessing";
+import "SocketApp";
+import "socketlayer";
 
 
 // FIXME socketLayer should get a local_port parameter, UDPProcessing needs that (?!?!)
 module UDPSocketHost
+{
     parameters:
-        client_name : string,
-        routingFile : string;
+        string client_name;
+        string routingFile;
+        @display("i=device/pc3");
     gates:
-        in: in[];
-        out: out[];
+        input in[];
+        output out[];
 
     submodules:
-        applClient: client_name like SocketApp;
-            display: "p=80,40;i=proc1";
-        socketLayer: SocketLayer;
-            display: "p=80,100;i=block/wheelbarrow";
-        udp: UDPProcessing;
-            display: "p=80,160;i=block/transport";
-        networkLayer: NetworkLayer;
+        applClient: <client_name> like SocketApp {
             parameters:
-                IPForward = false,
+                @display("p=80,40");
+        };
+        socketLayer: SocketLayer {
+            parameters:
+                @display("p=80,100");
+        };
+        udp: UDPProcessing {
+            parameters:
+                @display("p=80,160");
+        };
+        networkLayer: NetworkLayer {
+            parameters:
+                IPForward = false;
                 routingFile = routingFile;
-            gatesizes:
-                physIn[sizeof(out)],
+                @display("p=80,220");
+            gates:
+                physIn[sizeof(out)];
                 physOut[sizeof(out)];
-            display: "p=80,220;i=block/fork";
-        ppp : PPPInterface[sizeof(out)];
-            display: "p=80,280,row;q=queue;i=block/ifcard";
-    connections nocheck:
+        };
+        ppp[sizeof(out)]: PPPInterface {
+            parameters:
+                @display("p=80,280,row;q=queue");
+        };
+    connections allowunconnected:
         // transport connections
         applClient.out --> socketLayer.from_appl[0];
         applClient.in <-- socketLayer.to_appl[0];
@@ -59,11 +69,11 @@ module UDPSocketHost
         networkLayer.UDPIn <-- udp.to_ip;
 
         // connections to network outside
-        for i=0..sizeof(out)-1 do
+        for i=0..sizeof(out)-1 {
             in[i] --> ppp[i].physIn;
             out[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.physIn[i];
             ppp[i].netwIn <-- networkLayer.physOut[i];
-        endfor;
-endmodule
+        };
+}
 

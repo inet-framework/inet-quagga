@@ -25,15 +25,17 @@
 // @author Andras Varga
 //
 simple Ieee80211AgentSTA
+{
     parameters:
-        activeScan: bool,  // selects between active and passive scanning
-        channelsToScan: string,  // list of channel numbers to scan (space delimited); empty means all channels
-        probeDelay: numeric const, // delay before sending a probe request during active scanning
-        minChannelTime: numeric const, // min interval to spend on a channel during active scanning
-        maxChannelTime: numeric const, // channel time for passive scanning, and max channel time for active scanning
-        authenticationTimeout: numeric const, // timeout for the authentication procedure
-        associationTimeout: numeric const; // timeout for the association procedure
+        bool activeScan = default(true);  // selects between active and passive scanning
+        string channelsToScan;  // list of channel numbers to scan (space delimited); empty means all channels
+        double probeDelay @unit("s"); // delay before sending a probe request during active scanning
+        double minChannelTime @unit("s"); // min interval to spend on a channel during active scanning
+        double maxChannelTime @unit("s"); // channel time for passive scanning, and max channel time for active scanning
+        double authenticationTimeout = default(5) @unit("s"); // timeout for the authentication procedure
+        double associationTimeout = default(5) @unit("s"); // timeout for the association procedure
+        @display("i=block/control");
     gates:
-        in: mgmtIn;
-        out: mgmtOut;
-endsimple
+        input mgmtIn;
+        output mgmtOut;
+}

@@ -50,13 +50,15 @@
 //   EtherFrameWithSNAP) will cause a runtime error.
 //
 simple EtherLLC
+{
     parameters:
-        writeScalars: bool;   // enable/disable recording statistics in omnetpp.sca
+        bool writeScalars = default(true);   // enable/disable recording statistics in omnetpp.sca
 
+        @display("i=block/fork");
     gates:
-        in: upperLayerIn[];   // higher layer protocols or applications
-        out: upperLayerOut[]; // higher layer protocols or applications
-        in: lowerLayerIn;     // to Ethernet MAC
-        out: lowerLayerOut;   // to Ethernet MAC
-endsimple
+        input upperLayerIn[];   // higher layer protocols or applications
+        output upperLayerOut[]; // higher layer protocols or applications
+        input lowerLayerIn;     // to Ethernet MAC
+        output lowerLayerOut;   // to Ethernet MAC
+}
 

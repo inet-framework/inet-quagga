@@ -28,7 +28,7 @@
 //
 // This is the basic decider module which does not really decide
 // anything. It only provides the basic functionality which all
-// decider modules should have, namely message de- & encapsulation
+// decider modules should have, namely message de- &encapsulation
 // (For further information about the functionality of the physical
 // layer modules and the formats used for communication in between
 // them have a look at the manual
@@ -42,12 +42,14 @@
 //
 // This component has been taken over from Mobility Framework 1.0a5.
 //
-// @author Marc Löbbers, Daniel Willkomm
+// @author Marc LÃ¶bbers, Daniel Willkomm
 //
 simple BasicDecider
+{
     parameters:
-        coreDebug : numeric const; // debug switch for the core framework
+        bool coreDebug = default(false); // debug switch for the core framework
+        @display("i=block/process_s");
     gates:
-        out: uppergateOut; // to MAC layer
-        in: lowergateIn; // from snrEval sub-module
-endsimple
+        output uppergateOut; // to MAC layer
+        input lowergateIn; // from snrEval sub-module
+}

@@ -95,15 +95,17 @@
 // TED, MPLS, and may receive commands from ScenarioManager.
 //
 simple RSVP
+{
     parameters:
-        traffic : xml, // specifies paths to set up
-        peers : string, // names of the interfaces towards RSVP peers
-        helloInterval : numeric,
-        helloTimeout : numeric;
+        xml traffic; // specifies paths to set up
+        string peers; // names of the interfaces towards RSVP peers
+        volatile double helloInterval;
+        volatile double helloTimeout;
+        @display("i=block/control");
     gates:
-        in: from_ip;
-        out: to_ip;
-        in: from_mpls_switch;
-        in: from_app;
-endsimple
+        input from_ip;
+        output to_ip;
+        input from_mpls_switch;
+        input from_app;
+}
 

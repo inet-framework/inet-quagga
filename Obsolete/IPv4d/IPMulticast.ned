@@ -33,8 +33,13 @@
 // @date: 2.5.00, 9.5.00, 20.5.00, 9.6.00
 //
 simple IPMulticast
+{
+    parameters:
+        @display("i=block/broadcast_s");
     gates:
-        in: routingIn;
-        out: localOut, fragmentationOut, tunnelOut;
-endsimple
+        input routingIn;
+        output localOut;
+        output fragmentationOut;
+        output tunnelOut;
+}
 

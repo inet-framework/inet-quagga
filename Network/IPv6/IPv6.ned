@@ -74,18 +74,20 @@
 // @author Andras Varga
 //
 simple IPv6
+{
     parameters:
-        procDelay : numeric const,
-        protocolMapping : string;
+        double procDelay = default(0) @unit("s");
+        string protocolMapping;
+        @display("i=block/network2");
     gates:
-        in: transportIn[];
-        out: transportOut[];
-        in: queueIn[];
-        out: queueOut[];
-        in: icmpIn;
-        out: icmpOut;
-        in: ndIn;
-        out: ndOut;
-endsimple
+        input transportIn[];
+        output transportOut[];
+        input queueIn[];
+        output queueOut[];
+        input icmpIn;
+        output icmpOut;
+        input ndIn;
+        output ndOut;
+}
 
 

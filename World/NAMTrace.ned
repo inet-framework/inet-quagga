@@ -25,9 +25,11 @@
 // @see NAMTraceWriter
 //
 simple NAMTrace
+{
     parameters:
-        logfile : string,
-        prolog : string;
-endsimple
+        string logfile = default("out.nam");
+        string prolog = default("");
+        @display("i=old/floppy1");
+}
 
 

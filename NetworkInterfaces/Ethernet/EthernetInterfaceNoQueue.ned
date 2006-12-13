@@ -17,9 +17,8 @@
 //
 
 
-import
-    "EtherMAC",
-    "EtherEncap";
+import "EtherMAC";
+import "EtherEncap";
 
 //
 // Ethernet network interface. Assumes inifinite queue.
@@ -27,17 +26,23 @@ import
 // @see EthernetInterface
 //
 module EthernetInterfaceNoQueue
+{
     gates:
-        in: physIn, netwIn;
-        out: physOut, netwOut;
+        input physIn;
+        input netwIn;
+        output physOut;
+        output netwOut;
     submodules:
-        mac: EtherMAC;
-            parameters: 
-                queueModule = "",
+        mac: EtherMAC {
+            parameters:
+                queueModule = "";
                 txQueueLimit = 100000; // prevents overflow in bogus simulations
-            display: "i=block/rxtx;p=100,160;q=txQueue";
-        encap: EtherEncap;
-            display: "i=block/square;p=100,80";
+                @display("p=100,160;q=txQueue");
+        };
+        encap: EtherEncap {
+            parameters:
+                @display("p=100,80");
+        };
     connections:
         netwIn --> encap.upperLayerIn;
         netwOut <-- encap.upperLayerOut;
@@ -45,5 +50,5 @@ module EthernetInterfaceNoQueue
         encap.lowerLayerIn <-- mac.upperLayerOut;
         mac.physIn <-- physIn;
         mac.physOut --> physOut;
-endmodule
+}
 

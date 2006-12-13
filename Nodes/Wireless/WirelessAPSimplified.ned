@@ -17,10 +17,9 @@
 //
 
 
-import
-    "NotificationBoard",
-    "EthernetInterface",
-    "Ieee80211NicAPSimplified";
+import "NotificationBoard";
+import "EthernetInterface";
+import "Ieee80211NicAPSimplified";
 
 
 //
@@ -33,16 +32,25 @@ import
 // @see MobileHost, MFMobileHost
 //
 module WirelessAPSimplified
+{
+    parameters:
+        @display("i=device/accesspoint");
     gates:
-        in: radioIn;
+        input radioIn;
     submodules:
-        notificationBoard: NotificationBoard;
-            display: "p=79,74;i=block/control";
-        wlan: Ieee80211NicAPSimplified;
-            display: "p=110,179;q=queue;i=block/ifcard";
-        mobility: NullMobility;
-            display: "p=144,70;i=block/cogwheel_s";
-    connections nocheck:
-        radioIn --> wlan.radioIn display "m=s";
-endmodule
+        notificationBoard: NotificationBoard {
+            parameters:
+                @display("p=79,74");
+        };
+        wlan: Ieee80211NicAPSimplified {
+            parameters:
+                @display("p=110,179;q=queue");
+        };
+        mobility: NullMobility {
+            parameters:
+                @display("p=144,70");
+        };
+    connections allowunconnected:
+        radioIn --> { @display("m=s"); } --> wlan.radioIn;
+}
 

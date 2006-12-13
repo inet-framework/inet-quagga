@@ -16,39 +16,43 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-// FIXME same as TCPUpperLayers, remove!!!!
-import
-    "TcpIpInterface.ned",
-    "MyTCPApp",
-    "tcpmodule";
+import "TcpIpInterface.ned";
+import "MyTCPApp";
+import "tcpmodule";
 
 module MyTCPUpperLayers
+{
     parameters:
-        mytcpApplType : string,
-        local_addr : string,
-        start_time : numeric,
-        server_addr : string;
+        string mytcpApplType;
+        string local_addr;
+        volatile double start_time;
+        string server_addr;
+        @display("p=10,10;b=150,236,rect");
     gates:
-        in: in;
-        out: out;
+        input in;
+        output out;
     submodules:
-        application: mytcpApplType like MyTCPApp;
+        application: <mytcpApplType> like MyTCPApp {
             parameters:
-                local_addr = local_addr,
-                server_addr = server_addr,
-                timeout = 30000s,
-                data_interarrival_time = 10s,
+                local_addr = local_addr;
+                server_addr = server_addr;
+                timeout = 30000s;
+                data_interarrival_time = 10s;
                 start_time = start_time;
-            display: "p=76,52;b=40,24,rect";
-        tcp: TcpModule;
+                @display("p=76,52;b=40,24,rect");
+        };
+        tcp: TcpModule {
             parameters:
-                TCPDelayedAck = true,
-                TCPFastRetrans = false,
-                TCPFastRecovery = false,
+                TCPDelayedAck = true;
+                TCPFastRetrans = false;
+                TCPFastRecovery = false;
                 TCPNewReno = false;
-            display: "p=79,120;i=block/wheelbarrow";
-        tcpipinterface: TcpIpInterface;
-            display: "p=81,202;i=prot3";
+                @display("p=79,120");
+        };
+        tcpipinterface: TcpIpInterface {
+            parameters:
+                @display("p=81,202");
+        };
     connections:
         application.out --> tcp.from_appl;
         application.in <-- tcp.to_appl;
@@ -56,6 +60,5 @@ module MyTCPUpperLayers
         tcp.from_ip <-- tcpipinterface.to_tcp;
         tcpipinterface.to_ip --> out;
         tcpipinterface.from_ip <-- in;
-    display: "p=10,10;b=150,236,rect";
-endmodule
+}
 

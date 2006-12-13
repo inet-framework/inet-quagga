@@ -26,7 +26,10 @@
 // @see IPv6, RoutingTable6, ICMPv6
 //
 simple IPv6NeighbourDiscovery
+{
+    parameters:
+        @display("i=block/network");
     gates:
-        in: fromIPv6;
-        out: toIPv6;
-endsimple
+        input fromIPv6;
+        output toIPv6;
+}

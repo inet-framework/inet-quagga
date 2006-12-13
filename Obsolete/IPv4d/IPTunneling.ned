@@ -27,8 +27,11 @@
 // author: Jochen Reber
 //
 simple IPTunneling
+{
+    parameters:
+        @display("i=block/tunnel_s");
     gates:
-        in: multicastIn;
-        out: sendOut;
-endsimple
+        input multicastIn;
+        output sendOut;
+}
 

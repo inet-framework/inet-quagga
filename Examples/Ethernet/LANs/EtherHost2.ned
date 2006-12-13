@@ -16,11 +16,10 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-import
-    "EtherAppCli",
-    "EtherAppSrv",
-    "EtherMAC2",
-    "EtherLLC";
+import "EtherAppCli";
+import "EtherAppSrv";
+import "EtherMAC2";
+import "EtherLLC";
 
 
 //
@@ -28,29 +27,37 @@ import
 // to create traffic in the test network.
 //
 module EtherHost2
+{
+    parameters:
+        @display("b=271,262i=device/pc2");
     gates:
-        in: in;
-        out: out;
+        input in;
+        output out;
 
     submodules:
-        cli: EtherAppCli;
+        cli: EtherAppCli {
             parameters:
                 registerSAP = true;
-            display: "p=60,60,col";
-        srv: EtherAppSrv;
+                @display("p=60,60,col");
+        };
+        srv: EtherAppSrv {
             parameters:
                 registerSAP = true;
-            display: "p=250,60,col";
-        llc: EtherLLC;
-            gatesizes:
-                upperLayerIn[2],
+                @display("p=250,60,col");
+        };
+        llc: EtherLLC {
+            parameters:
+                @display("p=155,120");
+            gates:
+                upperLayerIn[2];
                 upperLayerOut[2];
-            display: "p=155,120;i=block/fork";
-        mac: EtherMAC2;
+        };
+        mac: EtherMAC2 {
             parameters:
-                txQueueLimit = 1000, // increase if needed
+                txQueueLimit = 1000; // increase if needed
                 queueModule = "";
-            display: "p=155,200;i=block/queue;q=queue";
+                @display("p=155,200;q=queue");
+        };
     connections:
         llc.lowerLayerIn <-- mac.upperLayerOut;
         llc.lowerLayerOut --> mac.upperLayerIn;
@@ -63,6 +70,5 @@ module EtherHost2
 
         srv.out --> llc.upperLayerIn[1];
         srv.in <-- llc.upperLayerOut[1];
-    display: "b=271,262";
-endmodule
+}
 

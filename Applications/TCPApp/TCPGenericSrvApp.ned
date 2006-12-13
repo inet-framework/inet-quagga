@@ -37,12 +37,13 @@
 // @see GenericAppMsg, TCPBasicClientApp, TelnetApp
 //
 simple TCPGenericSrvApp
+{
     parameters:
-        address: string, // local address; may be left empty ("")
-        port: numeric const, // port number to listen on
-        replyDelay: numeric const;
+        string address = default(""); // local address; may be left empty ("")
+        int port; // port number to listen on
+        double replyDelay = default(0) @unit("s");
     gates:
-        in: tcpIn;
-        out: tcpOut;
-endsimple
+        input tcpIn;
+        output tcpOut;
+}
 

@@ -17,57 +17,75 @@
 //
 
 
-import
-    "Router",
-    "StandardHost",
-    "FlatNetworkConfigurator",
-    "NAMTrace",
-    "ChannelInstaller";
+import "Router";
+import "StandardHost";
+import "FlatNetworkConfigurator";
+import "NAMTrace";
+import "ChannelInstaller";
 
 
-channel fiberline
-    delay 1us;
-    datarate 512*1000000;
-endchannel
-
-channel ethernetline
-    delay 0.1us;
-    datarate 10*1000000;
-endchannel
-
-module NClients
+channel fiberline extends cBasicChannel
+{
     parameters:
-        n: numeric const;
+        delay = 1us;
+        datarate = 512*1000000;
+}
+
+channel ethernetline extends cBasicChannel
+{
+    parameters:
+        delay = 0.1us;
+        datarate = 10*1000000;
+}
+
+network NClients
+{
+    parameters:
+        double n;
     submodules:
-        channelInstaller: ChannelInstaller;
+        channelInstaller: ChannelInstaller {
             parameters:
-                channelClass = "ThruputMeteringChannel",
+                channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=u";
-            display: "p=98,50;i=block/cogwheel_s";
-        configurator: FlatNetworkConfigurator;
+                @display("p=98,50");
+        };
+        configurator: FlatNetworkConfigurator {
             parameters:
-                moduleTypes = "Router StandardHost",
-                nonIPModuleTypes = "",
-                networkAddress = "145.236.0.0",
+                moduleTypes = "Router StandardHost";
+                nonIPModuleTypes = "";
+                networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
-            display: "p=185,50;i=block/cogwheel_s";
-        nam: NAMTrace;
-            display: "p=260,50;i=block/cogwheel_s";
-        r1: Router;
-            display: "p=186,250;i=abstract/router";
-        r2: Router;
-            display: "p=304,220;i=abstract/router";
-        r3: Router;
-            display: "p=433,250;i=abstract/router";
-        cli: StandardHost[n];
-            display: "i=device/laptop";
-        srv: StandardHost;
-            display: "p=544,194;i=device/server_l";
-    connections nocheck:
-        for i=0..n-1 do
+                @display("p=185,50");
+        };
+        nam: NAMTrace {
+            parameters:
+                @display("p=260,50");
+        };
+        r1: Router {
+            parameters:
+                @display("p=186,250");
+        };
+        r2: Router {
+            parameters:
+                @display("p=304,220");
+        };
+        r3: Router {
+            parameters:
+                @display("p=433,250");
+        };
+        cli[n]: StandardHost {
+            parameters:
+                @display("i=device/laptop");
+        };
+        srv: StandardHost {
+            parameters:
+                @display("p=544,194;i=device/server_l");
+        };
+    connections allowunconnected:
+        for i=0..n-1 {
             cli[i].out++ --> ethernetline --> r1.in++;
             cli[i].in++ <-- ethernetline <-- r1.out++;
-        endfor;
+        };
 
         r1.out++ --> ethernetline --> r2.in++;
         r1.in++ <-- ethernetline <-- r2.out++;
@@ -78,8 +96,5 @@ module NClients
         r3.out++ --> ethernetline --> srv.in++;
         r3.in++ <-- ethernetline <-- srv.out++;
 
-endmodule
-
-network nClients : NClients
-endnetwork
+}
 

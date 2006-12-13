@@ -1,6 +1,7 @@
 simple MyTCPServerProc
-       gates:
-            in: in;
-            out: out;
+{
+    gates:
+        input in;
+        output out;
 
-endsimple
+}

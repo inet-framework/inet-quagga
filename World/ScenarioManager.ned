@@ -56,8 +56,10 @@
 //    - <set-channel-attr>: src-module, src-gate, attr, value.
 //
 simple ScenarioManager
+{
     parameters:
-        script: xml;
-endsimple
+        xml script;
+        @display("i=block/control_s");
+}
 
 

@@ -47,8 +47,10 @@
 // in stage 1, routing files are read.)
 //
 simple NetworkConfigurator
+{
     parameters:
-        moduleTypes: string; // space-separated list of module types to be
+        string moduleTypes; // space-separated list of module types to be
                              // considered part of the topology
-endsimple
+        @display("i=block/cogwheel_s");
+}
 

@@ -15,9 +15,11 @@
 // Implements \OSPFRouting.
 //
 simple OSPFRouting
+{
     parameters:
-        ospfConfigFile: string; // xml file containing the full OSPF AS configuration
+        string ospfConfigFile; // xml file containing the full OSPF AS configuration
+        @display("i=block/network2");
     gates:
-        in: from_ip;
-        out: to_ip;
-endsimple
+        input from_ip;
+        output to_ip;
+}

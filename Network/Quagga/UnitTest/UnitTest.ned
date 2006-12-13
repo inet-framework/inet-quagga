@@ -11,15 +11,16 @@
 //
 
 simple UnitTest
+{
     parameters:
-        fsroot : string,
-        config : xml,
-        output : xml;
+        string fsroot;
+        xml config;
+        xml output1;
     gates:
-        in: tcpIn;
-        out: tcpOut;
-        in: udpIn;
-        out: udpOut;
-        in: ipIn;
-        out: ipOut;
-endsimple
+        input tcpIn;
+        output tcpOut;
+        input udpIn;
+        output udpOut;
+        input ipIn;
+        output ipOut;
+}

@@ -40,12 +40,13 @@
 // Compatible with both IPv4 and IPv6.
 //
 simple TCPSrvHostApp
+{
     parameters:
-        address: string, // may be left empty ("")
-        port: numeric const, // port number to listen on
-        serverThreadClass : string; // class name of "thread" objects to launch on incoming connections
+        string address = default(""); // may be left empty ("")
+        int port; // port number to listen on
+        string serverThreadClass; // class name of "thread" objects to launch on incoming connections
     gates:
-        in: tcpIn;
-        out: tcpOut;
-endsimple
+        input tcpIn;
+        output tcpOut;
+}
 

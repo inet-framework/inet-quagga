@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2006 Andras Varga and Levente MÈsz·ros
+// Copyright (C) 2006 Andras Varga and Levente M√©sz√°ros
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -23,9 +23,10 @@
 // module should have in order to be usable within Ieee80211Nic.
 //
 simple Ieee80211Mgmt
+{
     gates:
-        in: uppergateIn;
-        out: uppergateOut;
-        in: macIn;
-        out: macOut;
-endsimple
+        input uppergateIn;
+        output uppergateOut;
+        input macIn;
+        output macOut;
+}

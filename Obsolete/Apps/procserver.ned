@@ -21,8 +21,9 @@
 // Procserver (application layer)
 //
 simple ProcServer
+{
     //parameters:
     gates:
-      in: in;
-      out: out;
-endsimple
+        input in;
+        output out;
+}

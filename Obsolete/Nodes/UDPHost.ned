@@ -17,10 +17,9 @@
 //
 
 
-import
-    "Blackboard",
-    "NetworkLayer",
-    "UDPUpperLayers";
+import "Blackboard";
+import "NetworkLayer";
+import "UDPUpperLayers";
 
 
 
@@ -28,43 +27,50 @@ import
 // Definition of an IPNode with transport layers.
 //
 module UDPHost
+{
     parameters:
         // Network information
-        IPForward : bool,
-        routingFile : string;
+        bool IPForward;
+        string routingFile;
     gates:
-        in: in[];
-        out: out[];
+        input in[];
+        output out[];
     submodules:
-        blackboard: Blackboard;
-            display: "i=block/blackboard;p=60,60";
-        udpApp: UDPUpperLayers;
+        blackboard: Blackboard {
             parameters:
-                udpClient1Name = "UDPClientApp",
+                @display("p=60,60");
+        };
+        udpApp: UDPUpperLayers {
+            parameters:
+                udpClient1Name = "UDPClientApp";
                 udpServer1Name = "UDPServerApp";
-            display: "p=89,68;b=40,24,rect";
-        networkLayer: NetworkLayer;
+                @display("p=89,68;b=40,24,rect");
+        };
+        networkLayer: NetworkLayer {
             parameters:
                 // other Network parameters
-                IPForward = IPForward,
+                IPForward = IPForward;
                 routingFile = routingFile;
-            gatesizes:
-                physIn[sizeof(out)],
+                @display("p=87,155");
+            gates:
+                physIn[sizeof(out)];
                 physOut[sizeof(out)];
-            display: "p=87,155;i=block/fork";
-        ppp : PPPInterface[sizeof(out)];
-            display: "p=80,220,row;q=queue;i=block/ifcard";
-    connections nocheck:
+        };
+        ppp[sizeof(out)]: PPPInterface {
+            parameters:
+                @display("p=80,220,row;q=queue");
+        };
+    connections allowunconnected:
         // transport connections
         networkLayer.UDPOut --> udpApp.from_ip;
         networkLayer.UDPIn <-- udpApp.to_ip;
 
         // connections to network outside
-        for i=0..sizeof(out)-1 do
+        for i=0..sizeof(out)-1 {
             in[i] --> ppp[i].physIn;
             out[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.physIn[i];
             ppp[i].netwIn <-- networkLayer.physOut[i];
-        endfor;
-endmodule
+        };
+}
 

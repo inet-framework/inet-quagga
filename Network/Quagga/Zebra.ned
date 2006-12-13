@@ -11,13 +11,15 @@
 //
 
 simple Zebra
+{
     parameters:
-        fsroot : string;
+        string fsroot;
+        @display("i=block/cogwheel");
     gates:
-        in: tcpIn;
-        out: tcpOut;
-        in: udpIn;
-        out: udpOut;
-        in: ipIn;
-        out: ipOut;
-endsimple
+        input tcpIn;
+        output tcpOut;
+        input udpIn;
+        output udpOut;
+        input ipIn;
+        output ipOut;
+}

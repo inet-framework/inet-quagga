@@ -35,16 +35,17 @@
 //#FIXME change message length to BYTES
 //
 simple UDPBasicApp
+{
     parameters:
-        local_port : numeric const, // if -1, app doesn't bind in UDP
-        dest_port : numeric const,
-        message_length : numeric const, // (bits)
-        message_freq : numeric, // should usually be a random value, e.g. exponential(1)
-        dest_addresses: string; // list of \IP addresses, separated by spaces
+        int local_port; // if -1, app doesn't bind in UDP
+        int dest_port;
+        int message_length @unit("b"); // (bits)
+        volatile double message_freq @unit("s"); // should usually be a random value, e.g. exponential(1)
+        string dest_addresses = default(""); // list of \IP addresses, separated by spaces
     gates:
-        in: from_udp;
-        out: to_udp;
-endsimple
+        input from_udp;
+        output to_udp;
+}
 
 
 

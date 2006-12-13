@@ -23,7 +23,8 @@
 // @author Andras Varga
 //
 module BasicMobility
-endmodule
+{
+}
 
 
 

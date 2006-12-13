@@ -17,72 +17,91 @@
 //
 
 
-import
-    "NotificationBoard",
-    "InterfaceTable",
-    "RoutingTable",
-    "PPPInterface",
-    "EthernetInterface",
-    "NetworkLayer",
-    "UDP",
-    "Zebra";
+import "NotificationBoard";
+import "InterfaceTable";
+import "RoutingTable";
+import "PPPInterface";
+import "EthernetInterface";
+import "NetworkLayer";
+import "UDP";
+import "Zebra";
 
 
 //
 // Quagga-based \IP router.
 //
 module QuaggaRouter
+{
     parameters:
-        namid: numeric,
-        routingFile: string,
-        routingDaemon: string; // "Ripd", "Ospfd", etc.
+        volatile int namid;
+        string routingFile = default("");
+        string routingDaemon; // "Ripd", "Ospfd", etc.
+        @display("i=srouter");
     gates:
-        in: in[];
-        out: out[];
-        in: ethIn[];
-        out: ethOut[];
+        input in[];
+        output out[];
+        input ethIn[];
+        output ethOut[];
     submodules:
-        namTrace: NAMTraceWriter;
+        namTrace: NAMTraceWriter {
             parameters:
                 namid = namid;
-            display: "p=330,60;i=block/sink";
-        notificationBoard: NotificationBoard;
-            display: "p=60,60;i=block/control";
-        interfaceTable: InterfaceTable;
-            display: "p=150,60;i=block/table";
-        routingTable: RoutingTable;
+                @display("p=330,60");
+        };
+        notificationBoard: NotificationBoard {
             parameters:
-                IPForward = true,
-                routerId = "auto",
+                @display("p=60,60");
+        };
+        interfaceTable: InterfaceTable {
+            parameters:
+                @display("p=150,60");
+        };
+        routingTable: RoutingTable {
+            parameters:
+                IPForward = true;
+                routerId = "auto";
                 routingFile = routingFile;
-            display: "p=240,60;i=block/table";
-        networkLayer: NetworkLayer;
-            gatesizes:
-                ifIn[sizeof(out)+sizeof(ethOut)],
+                @display("p=240,60");
+        };
+        networkLayer: NetworkLayer {
+            parameters:
+                @display("p=200,341;q=queue");
+            gates:
+                ifIn[sizeof(out)+sizeof(ethOut)];
                 ifOut[sizeof(out)+sizeof(ethOut)];
-            display: "p=200,341;i=block/fork;q=queue";
-        ppp: PPPInterface[sizeof(out)];
-            display: "p=90,457,row,110;q=l2queue;i=block/ifcard";
-        eth: EthernetInterface[sizeof(ethOut)];
-            display: "p=145,457,row,110;q=l2queue;i=block/ifcard";
-        tcp: TCP;
-            display: "p=200,250;i=block/wheelbarrow";
-        udp: UDP;
-            display: "p=300,250;i=block/wheelbarrow";
-        zebra: Zebra;
+        };
+        ppp[sizeof(out)]: PPPInterface {
             parameters:
-            display: "p=150, 150;i=block/cogwheel";
-        router: routingDaemon like Zebra;
+                @display("p=90,457,row,110;q=l2queue");
+        };
+        eth[sizeof(ethOut)]: EthernetInterface {
             parameters:
-            display: "p=250, 150;i=block/cogwheel";
-    connections nocheck:
+                @display("p=145,457,row,110;q=l2queue");
+        };
+        tcp: TCP {
+            parameters:
+                @display("p=200,250");
+        };
+        udp: UDP {
+            parameters:
+                @display("p=300,250");
+        };
+        zebra: Zebra {
+            parameters:
+                @display("p=150, 150");
+        };
+        router: <routingDaemon> like Zebra {
+            parameters:
+                @display("p=250, 150");
+        };
+    connections allowunconnected:
         // connections to network outside
-        for i=0..sizeof(out)-1 do
+        for i=0..sizeof(out)-1 {
             in[i] --> ppp[i].physIn;
             out[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
-        endfor;
+        };
 
         tcp.to_ip --> networkLayer.TCPIn;
         tcp.from_ip <-- networkLayer.TCPOut;
@@ -102,11 +121,11 @@ module QuaggaRouter
         router.ipOut --> networkLayer.OSPFIn;
         router.ipIn <-- networkLayer.OSPFOut;
 
-        for i=0..sizeof(ethOut)-1 do
+        for i=0..sizeof(ethOut)-1 {
             ethIn[i] --> eth[i].physIn;
             ethOut[i] <-- eth[i].physOut;
             eth[i].netwOut --> networkLayer.ifIn[sizeof(out)+i];
             eth[i].netwIn <-- networkLayer.ifOut[sizeof(out)+i];
-        endfor;
-endmodule
+        };
+}
 

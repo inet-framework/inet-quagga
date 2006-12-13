@@ -57,11 +57,13 @@
 // in stage 1, routing files are read.)
 //
 simple FlatNetworkConfigurator
+{
     parameters:
-        moduleTypes: string, // all module types to be considered part of the topology
-        nonIPModuleTypes: string, // module types which don't need \IP configuration
+        string moduleTypes; // all module types to be considered part of the topology
+        string nonIPModuleTypes; // module types which don't need \IP configuration
                                   // (e.g. Ethernet hub, switch or bus)
-        networkAddress: string, // network part of the address (see netmask parameter)
-        netmask: string; // host part of addresses are autoconfigured
-endsimple
+        string networkAddress = default("192.168.0.0"); // network part of the address (see netmask parameter)
+        string netmask = default("255.255.0.0"); // host part of addresses are autoconfigured
+        @display("i=block/cogwheel_s");
+}
 

@@ -24,8 +24,11 @@
 // @see IPTrafGen, IPTrafSink
 //
 simple IPTrafficGenerator
+{
     gates:
-        in: from_ip, from_ipv6;
-        out: to_ip, to_ipv6;
-endsimple
+        input from_ip;
+        input from_ipv6;
+        output to_ip;
+        output to_ipv6;
+}
 

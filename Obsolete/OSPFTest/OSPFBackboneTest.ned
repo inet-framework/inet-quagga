@@ -1,90 +1,123 @@
-import
-    "EtherHub",
-    "OSPFRouter",
-    "StandardHost";
+import "EtherHub";
+import "OSPFRouter";
+import "StandardHost";
 
-module Backbone
+network Backbone
+{
+    parameters:
+        @display("p=10,10;b=736,568");
     submodules:
-        channelInstaller : ChannelInstaller;
+        channelInstaller: ChannelInstaller {
             parameters:
-                channelClass = "ThruputMeteringChannel",
+                channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=#N";
-            display: "i=block/cogwheel";
-        R1: OSPFRouter;
-            gatesizes:
-                ethIn[3],
+                @display("");
+        };
+        R1: OSPFRouter {
+            parameters:
+                @display("p=372,340");
+            gates:
+                ethIn[3];
                 ethOut[3];
-            display: "p=372,340;i=srouter";
-        N1: EtherHub;
-            gatesizes:
-                in[2],
+        };
+        N1: EtherHub {
+            parameters:
+                @display("p=368,268");
+            gates:
+                in[2];
                 out[2];
-            display: "p=368,268;i=switch2";
-        N2: EtherHub;
-            gatesizes:
-                in[3],
+        };
+        N2: EtherHub {
+            parameters:
+                @display("p=452,384");
+            gates:
+                in[3];
                 out[3];
-            display: "p=452,384;i=switch2";
-        R2: OSPFRouter;
-            gatesizes:
-                ethIn[2],
+        };
+        R2: OSPFRouter {
+            parameters:
+                @display("p=368,188");
+            gates:
+                ethIn[2];
                 ethOut[2];
-            display: "p=368,188;i=srouter";
-        R4: OSPFRouter;
-            gatesizes:
-                ethIn[2],
+        };
+        R4: OSPFRouter {
+            parameters:
+                @display("p=216,432");
+            gates:
+                ethIn[2];
                 ethOut[2];
-            display: "p=216,432;i=srouter";
-        R3: OSPFRouter;
-            gatesizes:
-                ethIn[2],
+        };
+        R3: OSPFRouter {
+            parameters:
+                @display("p=532,428");
+            gates:
+                ethIn[2];
                 ethOut[2];
-            display: "p=532,428;i=srouter";
-        N4: EtherHub;
-            gatesizes:
-                in[4],
+        };
+        N4: EtherHub {
+            parameters:
+                @display("p=368,100");
+            gates:
+                in[4];
                 out[4];
-            display: "p=368,100;i=switch2";
-        N5: EtherHub;
-            gatesizes:
-                in[3],
+        };
+        N5: EtherHub {
+            parameters:
+                @display("p=612,476");
+            gates:
+                in[3];
                 out[3];
-            display: "p=612,476;i=switch2";
-        R5: OSPFRouter;
-            gatesizes:
-                ethIn[2],
+        };
+        R5: OSPFRouter {
+            parameters:
+                @display("p=488,284");
+            gates:
+                ethIn[2];
                 ethOut[2];
-            display: "p=488,284;i=srouter";
-        R7: OSPFRouter;
-            gatesizes:
-                ethIn[2],
+        };
+        R7: OSPFRouter {
+            parameters:
+                @display("p=256,284");
+            gates:
+                ethIn[2];
                 ethOut[2];
-            display: "p=256,284;i=srouter";
-        R6: OSPFRouter;
-            gatesizes:
-                ethIn[2],
+        };
+        R6: OSPFRouter {
+            parameters:
+                @display("p=372,476");
+            gates:
+                ethIn[2];
                 ethOut[2];
-            display: "p=372,476;i=srouter";
-        N6: EtherHub;
-            gatesizes:
-                in[3],
+        };
+        N6: EtherHub {
+            parameters:
+                @display("p=136,476");
+            gates:
+                in[3];
                 out[3];
-            display: "p=136,476;i=switch2";
-        N3: EtherHub;
-            gatesizes:
-                in[2],
+        };
+        N3: EtherHub {
+            parameters:
+                @display("p=292,384");
+            gates:
+                in[2];
                 out[2];
-            display: "p=292,384;i=switch2";
-        H1: StandardHost;
-            gatesizes:
-                ethIn[1],
+        };
+        H1: StandardHost {
+            parameters:
+                @display("p=372,420;i=laptop3");
+            gates:
+                ethIn[1];
                 ethOut[1];
-            display: "p=372,420;i=laptop3";
-        H2: StandardHost;
-            gatesizes:
-                ethIn[1],
+        };
+        H2: StandardHost {
+            parameters:
+                @display("p=368,40;i=laptop3");
+            gates:
+                ethIn[1];
                 ethOut[1];
-            display: "p=368,40;i=laptop3";
+        };
     connections:
         R1.ethOut[0] --> N1.in[1];
         N1.out[1] --> R1.ethIn[0];
@@ -120,9 +153,5 @@ module Backbone
         H2.ethOut[0] --> N4.in[0];
         N2.out[1] --> H1.ethIn[0];
         H1.ethOut[0] --> N2.in[1];
-    display: "p=10,10;b=736,568";
-endmodule
-
-network OSPFBackboneTest : Backbone
-endnetwork
+}
 

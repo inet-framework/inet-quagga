@@ -19,10 +19,9 @@
 //*
 //***************************************************************************
 
-import
-    "CSMAMacLayer",
-    "SnrDecider",
-    "SnrEval";
+import "CSMAMacLayer";
+import "SnrDecider";
+import "SnrEval";
 
 
 // This is the easiest nic to implement "real" network behaviour. It uses
@@ -43,24 +42,32 @@ import
 //
 // @author Daniel Willkomm
 module SnrNic
+{
+    parameters:
+        @display("p=10,10;b=101,180,rect;o=white");
     gates:
-        in: uppergateIn; // to upper layers
-        out: uppergateOut; // from upper layers
+        input uppergateIn; // to upper layers
+        output uppergateOut; // from upper layers
     submodules:
-        mac: CSMAMacLayer;
-            display: "p=60,50;b=32,30;i=prot2";
-        decider: SnrDecider;
-            display: "p=68,100;b=16,16;i=box2_s;o=white";
-        snrEval: SnrEval;
-            display: "p=60,150;b=32,30;i=prot3";
+        mac: CSMAMacLayer {
+            parameters:
+                @display("p=60,50;b=32,30");
+        };
+        decider: SnrDecider {
+            parameters:
+                @display("p=68,100;b=16,16;o=white");
+        };
+        snrEval: SnrEval {
+            parameters:
+                @display("p=60,150;b=32,30");
+        };
     connections:
-        decider.uppergateOut --> mac.lowergateIn display "m=m,50,50,75,0";
-        snrEval.uppergateIn <-- mac.lowergateOut display "m=m,25,0,25,0";
-        snrEval.uppergateOut --> decider.lowergateIn display "m=m,73,0,50,50";
+        decider.uppergateOut --> { @display("m=m,50,50,75,0"); } --> mac.lowergateIn;
+        snrEval.uppergateIn <-- { @display("m=m,25,0,25,0"); } <-- mac.lowergateOut;
+        snrEval.uppergateOut --> { @display("m=m,73,0,50,50"); } --> decider.lowergateIn;
 
         mac.uppergateOut --> uppergateOut;
         mac.uppergateIn <-- uppergateIn;
 
-    display: "p=10,10;b=101,180,rect;o=white";
-endmodule
+}
 

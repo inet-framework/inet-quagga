@@ -21,9 +21,12 @@
 // Simple communication network layer
 //
 simple DummyPPP
-       parameters:
-         nw_length;
-       gates:
-         in: from_ip, from_compound;
-         out: to_ip, to_compound;
-endsimple
+{
+    parameters:
+        volatile double nw_length;
+    gates:
+        input from_ip;
+        input from_compound;
+        output to_ip;
+        output to_compound;
+}

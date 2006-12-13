@@ -33,19 +33,20 @@
 // values to disable the PAUSE feature.
 //
 simple MACRelayUnitNP
+{
     parameters:
-        addressTableFile : string,  // see MACRelayUnit
-        addressTableSize : numeric, // see MACRelayUnit
-        agingTime : numeric,        // see MACRelayUnit
-        numCPUs: numeric,           // number of CPUs
-        processingTime : numeric,   // processing time of one frame
-        bufferSize : numeric,       // memory (bytes)
-        highWatermark : numeric,    // buffer usage threshold to send PAUSE frame (bytes)
-        pauseUnits : numeric,       // time to put in PAUSE frames (in units of 512 bit times)
-        writeScalars: bool;         // enable/disable recording statistics in omnetpp.sca
+        string addressTableFile = default("");  // see MACRelayUnit
+        volatile int addressTableSize = default(100); // see MACRelayUnit
+        volatile double agingTime = default(120) @unit("s");        // see MACRelayUnit
+        volatile int numCPUs = default(1);           // number of CPUs
+        volatile double processingTime = default(0) @unit("s");   // processing time of one frame
+        volatile int bufferSize = default(1MB) @unit("B");       // memory (bytes)
+        volatile int highWatermark = default(512kB) @unit("B");    // buffer usage threshold to send PAUSE frame (bytes)
+        volatile int pauseUnits = default(300);       // time to put in PAUSE frames (in units of 512 bit times)
+        bool writeScalars = default(true);         // enable/disable recording statistics in omnetpp.sca
 
     gates:
-        in:  lowerLayerIn[];       // see MACRelayUnit
-        out: lowerLayerOut[];      // see MACRelayUnit
-endsimple
+        input lowerLayerIn[];       // see MACRelayUnit
+        output lowerLayerOut[];      // see MACRelayUnit
+}
 

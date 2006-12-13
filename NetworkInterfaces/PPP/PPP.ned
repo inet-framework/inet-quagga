@@ -43,14 +43,16 @@
 // @see PPPInterface, OutputQueue, PPPFrame
 //
 simple PPP
+{
     parameters:
-        txQueueLimit: numeric,  // only used if queueModule==""; zero means infinite
-        queueModule: string;    // name of external (QoS,RED,etc) queue module
+        volatile int txQueueLimit = default(1000);  // only used if queueModule==""; zero means infinite
+        string queueModule = default("");    // name of external (QoS,RED,etc) queue module
+        @display("i=block/rxtx");
     gates:
-        in: physIn;
-        out: physOut;
-        in: netwIn;
-        out: netwOut;
-endsimple
+        input physIn;
+        output physOut;
+        input netwIn;
+        output netwOut;
+}
 
 

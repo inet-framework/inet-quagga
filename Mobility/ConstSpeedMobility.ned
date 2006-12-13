@@ -37,10 +37,11 @@
 // @author Steffen Sroka, Marc Loebbers, Daniel Willkomm
 //
 simple ConstSpeedMobility
+{
     parameters:
-    debug : bool, // debug switch
-        vHost : numeric const, // speed of the host (in m/s)
-        updateInterval : numeric const, // time interval to update the hosts position
-        x: numeric const, // start x coordinate (-1 = display string position, or random if it's missing)
-        y: numeric const; // start y coordinate (-1 = display string position, or random if it's missing)
-endsimple
+        bool debug = default(false); // debug switch
+        double vHost = default(2) @unit("mps"); // speed of the host (in m/s)
+        double updateInterval = default(0.1) @unit("s"); // time interval to update the hosts position
+        double x = default(-1); // start x coordinate (-1 = display string position, or random if it's missing)
+        double y = default(-1); // start y coordinate (-1 = display string position, or random if it's missing)
+}

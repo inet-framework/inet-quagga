@@ -172,15 +172,21 @@
 // directory in the source distribution.
 //
 simple TCP
+{
     parameters:
-      mss: numeric const, // maximum segment size
-      advertisedWindow: numeric const, // in bytes (Note: normally, NIC queues should be at least this size)
-      tcpAlgorithmClass: string, // TCPTahoe/TCPReno/TCPNoCongestionControl/DumbTCP
-      sendQueueClass: string,    // TCPVirtualDataSendQueue/TCPMsgBasedSendQueue
-      receiveQueueClass: string, // TCPVirtualDataRcvQueue/TCPMsgBasedRcvQueue
-      recordStats: bool; // recording seqNum etc. into output vectors on/off
+        int mss = default(1024); // maximum segment size
+        int advertisedWindow = default(14*this.mss); // in bytes (Note: normally, NIC queues should be at least this size)
+        string tcpAlgorithmClass = default("TCPReno"); // TCPTahoe/TCPReno/TCPNoCongestionControl/DumbTCP
+        string sendQueueClass = default("TCPMsgBasedSendQueue");    // TCPVirtualDataSendQueue/TCPMsgBasedSendQueue
+        string receiveQueueClass = default("TCPMsgBasedRcvQueue"); // TCPVirtualDataRcvQueue/TCPMsgBasedRcvQueue
+        bool recordStats = default(true); // recording seqNum etc. into output vectors on/off
+        @display("i=block/wheelbarrow");
     gates:
-      in: from_appl[], from_ip, from_ipv6;
-      out: to_appl[], to_ip, to_ipv6;
-endsimple
+        input from_appl[];
+        input from_ip;
+        input from_ipv6;
+        output to_appl[];
+        output to_ip;
+        output to_ipv6;
+}
 

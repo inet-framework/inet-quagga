@@ -40,12 +40,16 @@
 //      (<tt>copy 0.5</tt> is the same as <tt>delay 0.5</tt>)
 //
 simple TCPScriptableTester
+{
     parameters:
-      script: string;
+        string script;
+        @display("i=device/router");
     gates:
-      in: in1, in2;
-      out: out1, out2;
-endsimple
+        input in1;
+        input in2;
+        output out1;
+        output out2;
+}
 
 
 //
@@ -53,15 +57,19 @@ endsimple
 // executes a "random script".
 //
 simple TCPRandomTester
+{
     parameters:
-      pdelete: numeric const, // probability of deleting a packet
-      pdelay: numeric const,  // probability of delaying a packet
-      pcopy: numeric const,   // probability of creating several copies of the packet
-      numCopies: numeric,     // related to pcopy: number of copies
-      delayValue: numeric;    // related to pdelay and pcopy: delay introduced
+        double pdelete; // probability of deleting a packet
+        double pdelay;  // probability of delaying a packet
+        double pcopy;   // probability of creating several copies of the packet
+        volatile double numCopies;     // related to pcopy: number of copies
+        volatile double delayValue;    // related to pdelay and pcopy: delay introduced
+        @display("i=device/router");
     gates:
-      in: in1, in2;
-      out: out1, out2;
-endsimple
+        input in1;
+        input in2;
+        output out1;
+        output out2;
+}
 
 

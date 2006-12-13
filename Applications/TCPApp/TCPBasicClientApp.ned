@@ -61,20 +61,21 @@
 // @see TCPGenericSrvApp, GenericAppMsg, TelnetApp
 //
 simple TCPBasicClientApp
+{
     parameters:
-        address: string, // may be left empty ("")
-        port: numeric const, // port number to listen on
-        connectAddress: string,  // server address (may be symbolic)
-        connectPort: numeric const, // port number to connect to
-        startTime: numeric, // time first session begins
-        numRequestsPerSession: numeric,  // number of requests sent per session
-        requestLength: numeric, // length of a request (bytes)
-        replyLength: numeric, // length of a reply (bytes)
-        thinkTime: numeric, // time gap between requests
-        idleInterval: numeric, // time gap between sessions
-        reconnectInterval: numeric;  // if connection breaks, waits this much before trying to reconnect
+        string address = default(""); // may be left empty ("")
+        int port = default(1000); // port number to listen on
+        string connectAddress = default("");  // server address (may be symbolic)
+        int connectPort = default(1000); // port number to connect to
+        volatile double startTime = default(1) @unit("s"); // time first session begins
+        volatile int numRequestsPerSession = default(1);  // number of requests sent per session
+        volatile int requestLength = default(200); // length of a request (bytes)
+        volatile int replyLength = default(1MB) @unit("B"); // length of a reply (bytes)
+        volatile double thinkTime @unit("s"); // time gap between requests
+        volatile double idleInterval; // time gap between sessions
+        volatile double reconnectInterval = default(30) @unit("s");  // if connection breaks, waits this much before trying to reconnect
     gates:
-        in: tcpIn;
-        out: tcpOut;
-endsimple
+        input tcpIn;
+        output tcpOut;
+}
 

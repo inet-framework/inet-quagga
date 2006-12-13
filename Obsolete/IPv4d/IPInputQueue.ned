@@ -24,11 +24,13 @@
 // author: Jochen Reber
 //
 simple IPInputQueue
+{
     parameters:
-        procDelay: numeric const;
+        double procDelay;
+        @display("i=block/queue");
     gates:
-        in: fromNW[];
-        out: toIP;
-        out: arpOut;
-endsimple
+        input fromNW[];
+        output toIP;
+        output arpOut;
+}
 

@@ -38,19 +38,21 @@
 // @see PingPayload, ICMP, ICMPv6Core
 //
 simple PingApp
+{
     parameters:
-        destAddr: string, // destination IP or IPv6 address
-        srcAddr: string, // source IP or IPv6 address (useful with multi-homing)
-        packetSize: numeric const, // of ping payload, in bytes
-        interval: numeric, // time to wait between pings (can be random)
-        hopLimit: numeric const, // TTL or hopLimit for IP packets
-        count: numeric const, // stop after count ping requests, 0 means continuously
-        startTime: numeric const, // send first ping at startTime
-        stopTime: numeric const, // send no pings after stopTime, 0 means forever 
-        printPing: bool; // dump on stdout
+        string destAddr = default(""); // destination IP or IPv6 address
+        string srcAddr = default(""); // source IP or IPv6 address (useful with multi-homing)
+        double packetSize = default(56) @unit("B"); // of ping payload, in bytes
+        volatile double interval = default(1) @unit("s"); // time to wait between pings (can be random)
+        double hopLimit = default(32); // TTL or hopLimit for IP packets
+        double count = default(0); // stop after count ping requests, 0 means continuously
+        double startTime = default(1) @unit("s"); // send first ping at startTime
+        double stopTime = default(0) @unit("s"); // send no pings after stopTime, 0 means forever 
+        bool printPing = default(true); // dump on stdout
+        @display("i=block/app");
     gates:
-        in: pingIn;
-        out: pingOut;
-        in: pingv6In;
-        out: pingv6Out;
-endsimple
+        input pingIn;
+        output pingOut;
+        input pingv6In;
+        output pingv6Out;
+}

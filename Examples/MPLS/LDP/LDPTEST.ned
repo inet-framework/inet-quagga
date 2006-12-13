@@ -11,108 +11,123 @@
 //
 
 
-import
-    "StandardHost",
-    "LDP_LSR",
-    "FailureManager",
-    "ScenarioManager",
-    "NAMTrace";
+import "StandardHost";
+import "LDP_LSR";
+import "FailureManager";
+import "ScenarioManager";
+import "NAMTrace";
 
-module LDPTEST
+network LDPTEST
+{
     submodules:
-        nam: NAMTrace;
-            display: "p=152,280;i=old/floppy1";
-
-        LSR1: LDP_LSR;
+        nam: NAMTrace {
             parameters:
-		peers = "ppp0 ppp1 ppp2";
-            gatesizes:
-                in[4],
-                out[4];
-            display: "p=150,200;i=abstract/router";
-        LSR2: LDP_LSR;
+                @display("p=152,280");
+
+        };
+        LSR1: LDP_LSR {
             parameters:
-		peers = "ppp0 ppp1 ppp2 ppp3";
-            gatesizes:
-                in[4],
+                peers = "ppp0 ppp1 ppp2";
+                @display("p=150,200");
+            gates:
+                in[4];
                 out[4];
-            display: "p=250,200;i=abstract/router";
-        LSR3: LDP_LSR;
+        };
+        LSR2: LDP_LSR {
             parameters:
-		peers = "ppp0 ppp1 ppp2";
-            gatesizes:
-                in[4],
+                peers = "ppp0 ppp1 ppp2 ppp3";
+                @display("p=250,200");
+            gates:
+                in[4];
                 out[4];
-            display: "p=350,200;i=abstract/router";
-        LSR4: LDP_LSR;
+        };
+        LSR3: LDP_LSR {
             parameters:
-		peers = "ppp0 ppp1 ppp2";
-            gatesizes:
-                in[4],
+                peers = "ppp0 ppp1 ppp2";
+                @display("p=350,200");
+            gates:
+                in[4];
                 out[4];
-            display: "p=250,100;i=abstract/router";
-        LSR5: LDP_LSR;
+        };
+        LSR4: LDP_LSR {
             parameters:
-		peers = "ppp0 ppp1 ppp2";
-            gatesizes:
-                in[4],
+                peers = "ppp0 ppp1 ppp2";
+                @display("p=250,100");
+            gates:
+                in[4];
                 out[4];
-            display: "p=250,300;i=abstract/router";
+        };
+        LSR5: LDP_LSR {
+            parameters:
+                peers = "ppp0 ppp1 ppp2";
+                @display("p=250,300");
 
-        host1: StandardHost; // client
-            display: "p=40,200;i=device/pc2";
-        host2: StandardHost; // client
-            display: "p=440,200;i=device/pc2";
-        host3: StandardHost; // client
-            display: "p=250,10;i=device/pc2";
-        host4: StandardHost; // client
-            display: "p=250,390;i=device/pc2";
+            gates:
+                in[4];
+                out[4];
+        };
+        host1: StandardHost { // client
+            parameters:
+                @display("p=40,200;i=device/pc2");
+        };
+        host2: StandardHost { // client
+            parameters:
+                @display("p=440,200;i=device/pc2");
+        };
+        host3: StandardHost { // client
+            parameters:
+                @display("p=250,10;i=device/pc2");
+        };
+        host4: StandardHost { // client
+            parameters:
+                @display("p=250,390;i=device/pc2");
 
-	scenarioManager: ScenarioManager;
-	    display: "p=150,50;i=block/control_s";
+        };
+        scenarioManager: ScenarioManager {
+            parameters:
+                @display("p=150,50");
 
-	failureManager: FailureManager;
-	    display: "p=350,50;i=block/control_s";
+        };
+        failureManager: FailureManager {
+            parameters:
+                @display("p=350,50");
 
-    connections nocheck:
-        LSR1.out[0] --> delay 15ms datarate 600000 --> LSR2.in[0];
-        LSR1.in[0] <-- delay 15ms datarate 600000 <-- LSR2.out[0];
+        };
+    connections allowunconnected:
+        LSR1.out[0] --> {  delay = 15ms; datarate = 600000; } --> LSR2.in[0];
+        LSR1.in[0] <-- {  delay = 15ms; datarate = 600000; } <-- LSR2.out[0];
 
-        LSR1.out[1] --> delay 5ms datarate 600000 --> LSR4.in[0];
-        LSR1.in[1] <-- delay 5ms datarate 600000 <-- LSR4.out[0];
+        LSR1.out[1] --> {  delay = 5ms; datarate = 600000; } --> LSR4.in[0];
+        LSR1.in[1] <-- {  delay = 5ms; datarate = 600000; } <-- LSR4.out[0];
 
-        LSR1.out[2] --> delay 5ms datarate 600000 --> LSR5.in[0];
-        LSR1.in[2] <-- delay 5ms datarate 600000 <-- LSR5.out[0];
+        LSR1.out[2] --> {  delay = 5ms; datarate = 600000; } --> LSR5.in[0];
+        LSR1.in[2] <-- {  delay = 5ms; datarate = 600000; } <-- LSR5.out[0];
 
-        LSR2.out[1] --> delay 5ms datarate 600000 --> LSR3.in[0];
-        LSR2.in[1] <-- delay 5ms datarate 600000 <-- LSR3.out[0];
+        LSR2.out[1] --> {  delay = 5ms; datarate = 600000; } --> LSR3.in[0];
+        LSR2.in[1] <-- {  delay = 5ms; datarate = 600000; } <-- LSR3.out[0];
 
-        LSR2.out[2] --> delay 5ms datarate 600000 --> LSR4.in[1];
-        LSR2.in[2] <-- delay 5ms datarate 600000 <-- LSR4.out[1];
+        LSR2.out[2] --> {  delay = 5ms; datarate = 600000; } --> LSR4.in[1];
+        LSR2.in[2] <-- {  delay = 5ms; datarate = 600000; } <-- LSR4.out[1];
 
-        LSR2.out[3] --> delay 5ms datarate 600000 --> LSR5.in[1];
-        LSR2.in[3] <-- delay 5ms datarate 600000 <-- LSR5.out[1];
+        LSR2.out[3] --> {  delay = 5ms; datarate = 600000; } --> LSR5.in[1];
+        LSR2.in[3] <-- {  delay = 5ms; datarate = 600000; } <-- LSR5.out[1];
 
-        LSR3.out[1] --> delay 10ms datarate 600000 --> LSR4.in[2];
-        LSR3.in[1] <-- delay 10ms datarate 600000 <-- LSR4.out[2];
+        LSR3.out[1] --> {  delay = 10ms; datarate = 600000; } --> LSR4.in[2];
+        LSR3.in[1] <-- {  delay = 10ms; datarate = 600000; } <-- LSR4.out[2];
 
-        LSR3.out[2] --> delay 10ms datarate 600000 --> LSR5.in[2];
-        LSR3.in[2] <-- delay 10ms datarate 600000 <-- LSR5.out[2];
+        LSR3.out[2] --> {  delay = 10ms; datarate = 600000; } --> LSR5.in[2];
+        LSR3.in[2] <-- {  delay = 10ms; datarate = 600000; } <-- LSR5.out[2];
 
-        host1.in++ <-- delay 10ms datarate 600000 <-- LSR1.out[3];
-        host1.out++ --> delay 10ms datarate 600000 --> LSR1.in[3];
+        host1.in++ <-- {  delay = 10ms; datarate = 600000; } <-- LSR1.out[3];
+        host1.out++ --> {  delay = 10ms; datarate = 600000; } --> LSR1.in[3];
 
-        host2.in++ <-- delay 10ms datarate 600000 <-- LSR3.out[3];
-        host2.out++ --> delay 10ms datarate 600000 --> LSR3.in[3];
+        host2.in++ <-- {  delay = 10ms; datarate = 600000; } <-- LSR3.out[3];
+        host2.out++ --> {  delay = 10ms; datarate = 600000; } --> LSR3.in[3];
 
-        host3.in++ <-- delay 10ms datarate 600000 <-- LSR4.out[3];
-        host3.out++ --> delay 10ms datarate 600000 --> LSR4.in[3];
+        host3.in++ <-- {  delay = 10ms; datarate = 600000; } <-- LSR4.out[3];
+        host3.out++ --> {  delay = 10ms; datarate = 600000; } --> LSR4.in[3];
 
-        host4.in++ <-- delay 10ms datarate 600000 <-- LSR5.out[3];
-        host4.out++ --> delay 10ms datarate 600000 --> LSR5.in[3];
-endmodule
-
-network LDPTest : LDPTEST
-endnetwork
-
+        host4.in++ <-- {  delay = 10ms; datarate = 600000; } <-- LSR5.out[3];
+        host4.out++ --> {  delay = 10ms; datarate = 600000; } --> LSR5.in[3];
+}
 

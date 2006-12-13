@@ -26,13 +26,14 @@
 // @author Emin Ilker Cetinbas
 //
 simple LinearMobility
+{
     parameters:
-        debug : bool, // debug switch
-        x: numeric const, // start x coordinate (-1 = display string position, or random if it's missing)
-        y: numeric const, // start y coordinate (-1 = display string position, or random if it's missing)
-        speed: numeric const, // speed of the host (in m/s)
-        angle: numeric const, // angle of linear motion (degreees)
-        acceleration: numeric const, // acceleration of linear motion (m/s2)
-        updateInterval : numeric const; // time interval to update the hosts position
-endsimple
+        bool debug = default(false); // debug switch
+        double x = default(-1); // start x coordinate (-1 = display string position, or random if it's missing)
+        double y = default(-1); // start y coordinate (-1 = display string position, or random if it's missing)
+        double speed = default(2) @unit("mps"); // speed of the host (in m/s)
+        double angle = default(0); // angle of linear motion (degreees)
+        double acceleration = default(0); // acceleration of linear motion (m/s2)
+        double updateInterval = default(0.1) @unit("s"); // time interval to update the hosts position
+}
 

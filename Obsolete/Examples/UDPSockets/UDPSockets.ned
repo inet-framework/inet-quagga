@@ -17,36 +17,35 @@
 //
 
 
-import
-    "Router",
-    "UDPSocketHost";
+import "Router";
+import "UDPSocketHost";
 
 
-module UDPSockets
+network UDPSockets
+{
     submodules:
         // server
-        server1: UDPSocketHost;
+        server1: UDPSocketHost {
             parameters:
-                client_name = "UDPSocketTestServer",
+                client_name = "UDPSocketTestServer";
                 routingFile = "server1.irt";
-            gatesizes:
-                in[1],
+                @display("p=40,83");
+            gates:
+                in[1];
                 out[1];
-            display: "p=40,83;i=device/pc3";
+        };
         // clients
-        client2: UDPSocketHost;
+        client2: UDPSocketHost {
             parameters:
-                client_name = "UDPSocketTestClient",
+                client_name = "UDPSocketTestClient";
                 routingFile = "client2.irt";
-            gatesizes:
-                in[1],
+                @display("p=200,83");
+            gates:
+                in[1];
                 out[1];
-            display: "p=200,83;i=device/pc3";
+        };
     connections:
-        server1.out[0] --> datarate 1000000 --> client2.in[0];
-        client2.out[0] --> datarate 1000000 --> server1.in[0];
-endmodule
-
-network udpsockets : UDPSockets
-endnetwork
+        server1.out[0] --> {  datarate = 1000000; } --> client2.in[0];
+        client2.out[0] --> {  datarate = 1000000; } --> server1.in[0];
+}
 

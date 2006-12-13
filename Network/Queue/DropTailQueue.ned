@@ -22,12 +22,13 @@
 // Conforms to the OutputQueue interface.
 //
 simple DropTailQueue
+{
     parameters:
-        frameCapacity: numeric const;
+        int frameCapacity = default(100);
     gates:
-        in: in;
-        out: out;
-endsimple
+        input in;
+        output out;
+}
 
 
 

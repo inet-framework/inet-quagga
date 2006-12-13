@@ -25,16 +25,18 @@
 // Compatible with both IPv4 and IPv6.
 //
 simple TCPSpoof
+{
     parameters:
-        srcAddress: string,  // local address; may be left empty ("")
-        destAddress: string, // destination address
-        srcPort: numeric const, // local port number
-        destPort: numeric const, // destination port number
-        seqNo: numeric const, // sequence number (-1 for TCP ISS)
-        isSYN: bool, // whether to set SYN bit on packet
-        t: numeric const; // simulation time to send at
+        string srcAddress = default("");  // local address; may be left empty ("")
+        string destAddress = default(""); // destination address
+        int srcPort; // local port number
+        int destPort; // destination port number
+        int seqNo; // sequence number (-1 for TCP ISS)
+        bool isSYN = default(true); // whether to set SYN bit on packet
+        double t @unit("s"); // simulation time to send at
+        @display("i=block/square");
     gates:
-        out: ipv4Out;
-        out: ipv6Out;
-endsimple
+        output ipv4Out;
+        output ipv6Out;
+}
 

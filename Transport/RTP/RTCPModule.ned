@@ -1,7 +1,10 @@
 simple RTCPModule
 
-	gates:
-		in: fromRTP, fromSocketLayer;
-		out: toRTP, toSocketLayer;
+{
+    gates:
+        input fromRTP;
+        input fromSocketLayer;
+        output toRTP;
+        output toSocketLayer;
 
-endsimple
+}

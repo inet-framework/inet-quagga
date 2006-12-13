@@ -17,6 +17,8 @@
 // TODO documentation
 //
 simple SimpleClassifier
+{
     parameters:
-        conf: xml;
-endsimple
+        xml conf;
+        @display("i=block/classifier");
+}

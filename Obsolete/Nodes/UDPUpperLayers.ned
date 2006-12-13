@@ -21,23 +21,31 @@ import "UDPApp";
 
 
 module UDPUpperLayers
+{
     parameters:
-        udpClient1Name : string,
-        udpServer1Name : string;
+        string udpClient1Name;
+        string udpServer1Name;
+        @display("p=10,10;b=157,140,rect");
     gates:
-        in: from_ip;
-        out: to_ip;
+        input from_ip;
+        output to_ip;
     submodules:
-        udpProcessing: UDPProcessing;
-            gatesizes:
-                from_application[2],
+        udpProcessing: UDPProcessing {
+            parameters:
+                @display("p=94,105");
+            gates:
+                from_application[2];
                 to_application[2];
-            display: "p=94,105;i=block/fork";
-        udpClient1: udpClient1Name like UDPApp;
-            display: "p=134,43;b=48,32,rect";
-        udpServer1: udpServer1Name like UDPApp;
-            display: "p=51,42;b=40,24,rect";
-    connections nocheck:
+        };
+        udpClient1: <udpClient1Name> like UDPApp {
+            parameters:
+                @display("p=134,43;b=48,32,rect");
+        };
+        udpServer1: <udpServer1Name> like UDPApp {
+            parameters:
+                @display("p=51,42;b=40,24,rect");
+        };
+    connections allowunconnected:
         from_ip --> udpProcessing.from_ip;
         to_ip <-- udpProcessing.to_ip;
 
@@ -46,6 +54,5 @@ module UDPUpperLayers
 
         udpProcessing.to_application[1] --> udpServer1.from_udp;
         udpProcessing.from_application[1] <-- udpServer1.to_udp;
-    display: "p=10,10;b=157,140,rect";
-endmodule
+}
 

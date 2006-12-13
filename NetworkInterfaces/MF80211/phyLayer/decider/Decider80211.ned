@@ -24,11 +24,13 @@
 // This component has been taken over from Mobility Framework 1.0a5.
 //
 simple Decider80211
+{
     parameters:
-        debug : bool, // debug switch
-        snirThreshold: numeric const,
-        bitrate: numeric const;
+        bool debug = default(false); // debug switch
+        double snirThreshold = default(4) @unit("dB");
+        double bitrate @unit("bps");
+        @display("i=block/process_s");
     gates:
-        out: uppergateOut;
-        in: lowergateIn;
-endsimple
+        output uppergateOut;
+        input lowergateIn;
+}

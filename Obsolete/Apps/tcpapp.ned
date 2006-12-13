@@ -25,17 +25,18 @@
 // author J.Reber, Sept. 2000
 //
 simple TCPApp
+{
     parameters:
-    debug       : bool,
-        local_addr  : numeric,
-        server_addr : numeric,
-        processing_time : numeric,
-        timeout     : numeric,
-        appl_timeout    : numeric,
-        conn_ia_time    : numeric,
-        msg_ia_time : numeric,
-        message_length  : numeric;
+        bool debug;
+        volatile double local_addr;
+        volatile double server_addr;
+        volatile double processing_time;
+        volatile double timeout;
+        volatile double appl_timeout;
+        volatile double conn_ia_time;
+        volatile double msg_ia_time;
+        volatile double message_length;
     gates:
-        in: in;
-        out: out;
-endsimple
+        input in;
+        output out;
+}

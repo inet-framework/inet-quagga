@@ -17,12 +17,11 @@
 //
 
 
-import
-    "MACRelayUnit",
-    "EtherMAC",
-    "NotificationBoard",
-    "EthernetInterface",
-    "Ieee80211NicAPSimplified";
+import "MACRelayUnit";
+import "EtherMAC";
+import "NotificationBoard";
+import "EthernetInterface";
+import "Ieee80211NicAPSimplified";
 
 
 //
@@ -35,39 +34,49 @@ import
 // @see MobileHost, MFMobileHost
 //
 module WirelessAPWithEthSimplified
+{
     parameters:
-        relayUnitType: string; // type of the MACRelayUnit (MACRelayUnitNP, MACRelayUnitPP, etc)
+        string relayUnitType = default("MACRelayUnitNP"); // type of the MACRelayUnit (MACRelayUnitNP, MACRelayUnitPP, etc)
     gates:
-        in: radioIn;
-        in: ethIn[];
-        out: ethOut[];
+        input radioIn;
+        input ethIn[];
+        output ethOut[];
     submodules:
-        relayUnit: relayUnitType like MACRelayUnit;
-            gatesizes:
-                lowerLayerIn[sizeof(ethIn)+1],
-                lowerLayerOut[sizeof(ethIn)+1];
-            display: "i=greenbox;p=169,124";
-        wlan: Ieee80211NicAPSimplified;
-            display: "p=89,225;q=queue;i=block/ifcard,#ff8000";
-        eth: EtherMAC[sizeof(ethIn)];
+        relayUnit: <relayUnitType> like MACRelayUnit {
             parameters:
-                promiscuous = true,
-                txQueueLimit = 1000, // increase if needed
+                @display("p=169,124");
+            gates:
+                lowerLayerIn[sizeof(ethIn)+1];
+                lowerLayerOut[sizeof(ethIn)+1];
+        };
+        wlan: Ieee80211NicAPSimplified {
+            parameters:
+                @display("p=89,225;q=queue;,#ff8000");
+        };
+        eth[sizeof(ethIn)]: EtherMAC {
+            parameters:
+                promiscuous = true;
+                txQueueLimit = 1000; // increase if needed
                 queueModule = "";
-            display: "i=block/ifcard;p=174,225,row;q=queue";
-        notificationBoard: NotificationBoard;
-            display: "p=78,60;i=block/control";
-        mobility: NullMobility;
-            display: "p=71,121;i=block/cogwheel_s";
-    connections nocheck:
-        radioIn --> wlan.radioIn display "m=s";
+                @display("p=174,225,row;q=queue");
+        };
+        notificationBoard: NotificationBoard {
+            parameters:
+                @display("p=78,60");
+        };
+        mobility: NullMobility {
+            parameters:
+                @display("p=71,121");
+        };
+    connections allowunconnected:
+        radioIn --> { @display("m=s"); } --> wlan.radioIn;
         wlan.uppergateIn <-- relayUnit.lowerLayerOut[0];
         wlan.uppergateOut --> relayUnit.lowerLayerIn[0];
-        for i=0..sizeof(ethIn)-1 do
+        for i=0..sizeof(ethIn)-1 {
             eth[i].upperLayerIn <-- relayUnit.lowerLayerOut[i+1];
             eth[i].upperLayerOut --> relayUnit.lowerLayerIn[i+1];
             eth[i].physIn <-- ethIn[i];
             eth[i].physOut --> ethOut[i];
-        endfor;
-endmodule
+        };
+}
 

@@ -22,9 +22,11 @@
 // The link state database is kept in the TED module.
 //
 simple LinkStateRouting
+{
     parameters:
-        peers : string;
+        string peers;
+        @display("i=block/network2");
     gates:
-        in: from_ip;
-        out: to_ip;
-endsimple
+        input from_ip;
+        output to_ip;
+}

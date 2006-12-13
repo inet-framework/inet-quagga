@@ -19,63 +19,71 @@
 
 
 
-import
-    "Router",
-    "StandardHost";
+import "Router";
+import "StandardHost";
 
 
-channel ethernet
-    delay normal(0.00015,0.00005);
-    datarate 10*1000000;
-endchannel
+channel ethernet extends cBasicChannel
+{
+    parameters:
+        delay = normal(0.00015,0.00005);
+        datarate = 10*1000000;
+}
 
-channel fiberrouterline
-    delay normal(0.000001,0.0000001);
-    datarate 512*1000000;
-endchannel
+channel fiberrouterline extends cBasicChannel
+{
+    parameters:
+        delay = normal(0.000001,0.0000001);
+        datarate = 512*1000000;
+}
 
-module KIDSNw1
+network KIDSNw1
+{
     submodules:
-        host: StandardHost[3];
+        host[3]: StandardHost {
             parameters:
-                IPForward = false,
+                IPForward = false;
                 routingFile = index==0 ? "host1.irt" :
 			      index==1 ? "host2.irt" :
 			      index==2 ? "host3.irt" : "PROBLEM";
-            gatesizes:
-                in[1],
-                out[1];
-            display: "p=101,307,row;i=device/pc2";
+                @display("p=101,307,row;i=device/pc2");
 
+            gates:
+                in[1];
+                out[1];
+        };
         // First Hop Router
-        fhrouter: Router[2];
+        fhrouter[2]: Router {
             parameters:
                 routingFile = index==0 ? "fhrouter1.irt" :
 			      index==1 ? "fhrouter5.irt" : "PROBLEM";
-            gatesizes:
-                in[index==0 ? 3 : 2],
-                out[index==0 ? 3 : 2];
-            display: "p=119,222,row,130;i=device/router";
+                @display("p=119,222,row,130");
 
+            gates:
+                in[index==0 ? 3 : 2];
+                out[index==0 ? 3 : 2];
+        };
         // InteriorRouter
-        irouter: Router;
+        irouter: Router {
             parameters:
                 routingFile = "irouter2.irt";
-            gatesizes:
-                in[2],
+                @display("p=115,144");
+            gates:
+                in[2];
                 out[2];
-            display: "p=115,144;i=device/router";
+        };
         // Border Gatgeway Router
-        bgrouter: Router[2];
+        bgrouter[2]: Router {
             parameters:
 
                 routingFile = index==0 ? "bgrouter3.irt" :
 			      index==1 ? "bgrouter4.irt" : "PROBLEM";
-            gatesizes:
-                in[2],
+                @display("p=135,64,row");
+            gates:
+                in[2];
                 out[2];
-            display: "p=135,64,row;i=abstract/router";
-    connections nocheck:
+        };
+    connections allowunconnected:
         // * host connections *
         host[0].out[0] --> ethernet --> fhrouter[0].in[0];
         host[0].in[0] <-- ethernet <-- fhrouter[0].out[0];
@@ -97,8 +105,5 @@ module KIDSNw1
         bgrouter[1].out[0] --> fiberrouterline --> fhrouter[1].in[1];
         bgrouter[1].in[0] <-- fiberrouterline <-- fhrouter[1].out[1];
 
-endmodule
-
-network kidsnw1 : KIDSNw1
-endnetwork
+}
 

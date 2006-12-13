@@ -24,20 +24,21 @@
 // This component has been taken over from Mobility Framework 1.0a5.
 //
 simple GilbertElliotSnr
+{
     parameters:
-    debug : bool, // debug switch
-        transmitterPower : numeric,
-        bitrate: numeric,
-        headerLength: numeric const,
-        carrierFrequency: numeric,
-        thermalNoise: numeric,
-        pathLossAlpha: numeric,
-        sensitivity: numeric,
-        meanGood: numeric,
-        meanBad: numeric;
+        bool debug = default(false); // debug switch
+        volatile double transmitterPower;
+        volatile double bitrate;
+        int headerLength;
+        volatile double carrierFrequency;
+        volatile double thermalNoise;
+        volatile double pathLossAlpha;
+        volatile double sensitivity;
+        volatile double meanGood;
+        volatile double meanBad;
     gates:
-        in: uppergateIn;
-        out: uppergateOut;
-        in: radioIn; // to receive AirFrames
-endsimple
+        input uppergateIn;
+        output uppergateOut;
+        input radioIn; // to receive AirFrames
+}
 

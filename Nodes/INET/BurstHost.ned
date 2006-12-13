@@ -17,13 +17,12 @@
 //
 
 
-import
-    "NotificationBoard",
-    "InterfaceTable",
-    "RoutingTable",
-    "NetworkLayer",
-    "IPTrafficGenerator",
-    "PPPInterface";
+import "NotificationBoard";
+import "InterfaceTable";
+import "RoutingTable";
+import "NetworkLayer";
+import "IPTrafficGenerator";
+import "PPPInterface";
 
 
 
@@ -32,45 +31,58 @@ import
 // to IP directly, without TCP or UDP.
 //
 module BurstHost
+{
     parameters:
-        trafGenType : string,
-        IPForward : bool,
-        routingFile : string;
+        string trafGenType;
+        bool IPForward = default(false);
+        string routingFile = default("");
+        @display("i=device/pc3");
     gates:
-        in: in[];
-        out: out[];
+        input in[];
+        output out[];
     submodules:
-        notificationBoard: NotificationBoard;
-            display: "p=83,66;i=block/control";
-        interfaceTable: InterfaceTable;
-            display: "p=83,136;i=block/table";
-        routingTable: RoutingTable;
+        notificationBoard: NotificationBoard {
             parameters:
-                IPForward = IPForward,
-                routerId = "",
+                @display("p=83,66");
+        };
+        interfaceTable: InterfaceTable {
+            parameters:
+                @display("p=83,136");
+        };
+        routingTable: RoutingTable {
+            parameters:
+                IPForward = IPForward;
+                routerId = "";
                 routingFile = routingFile;
-            display: "p=83,206;i=block/table";
-        trafGen: trafGenType like IPTrafficGenerator;
-            display: "i=block/app;p=198,86";
-        networkLayer: NetworkLayer;
-            gatesizes:
-                ifIn[1],
+                @display("p=83,206");
+        };
+        trafGen: <trafGenType> like IPTrafficGenerator {
+            parameters:
+                @display("p=198,86");
+        };
+        networkLayer: NetworkLayer {
+            parameters:
+                @display("p=198,173;q=queue");
+            gates:
+                ifIn[1];
                 ifOut[1];
-            display: "p=198,173;i=block/fork;q=queue";
-        ppp: PPPInterface[1];
-            display: "p=198,262,row,90;q=txQueue;i=block/ifcard";
-    connections nocheck:
+        };
+        ppp[1]: PPPInterface {
+            parameters:
+                @display("p=198,262,row,90;q=txQueue");
+        };
+    connections allowunconnected:
         // transport connections
         networkLayer.UDPOut --> trafGen.from_ip;
         networkLayer.UDPIn <-- trafGen.to_ip;
 
         // connections to network outside
-        for i=0..0 do
+        for i=0..0 {
             in[i] --> ppp[i].physIn;
             out[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
-        endfor;
+        };
 
-endmodule
+}
 

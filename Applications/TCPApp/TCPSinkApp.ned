@@ -23,11 +23,12 @@
 // Compatible with both IPv4 and IPv6.
 //
 simple TCPSinkApp
+{
     parameters:
-        address: string, // may be left empty ("")
-        port: numeric const; // port number to listen on
+        string address = default(""); // may be left empty ("")
+        int port; // port number to listen on
     gates:
-        in: tcpIn;
-        out: tcpOut;
-endsimple
+        input tcpIn;
+        output tcpOut;
+}
 

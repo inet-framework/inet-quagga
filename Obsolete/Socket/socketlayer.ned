@@ -22,18 +22,18 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 simple SocketLayer
-       parameters:
-     debug      : bool;
-       gates:
-         in:
-         from_ip,
-         from_tcp,
-         from_udp,
-         from_appl[];
+{
+    parameters:
+        bool debug;
+        @display("i=block/wheelbarrow");
+    gates:
+        input from_ip;
+        input from_tcp;
+        input from_udp;
+        input from_appl[];
 
-     out:
-         to_ip,
-         to_tcp,
-         to_udp,
-         to_appl[];
-endsimple
+        output to_ip;
+        output to_tcp;
+        output to_udp;
+        output to_appl[];
+}

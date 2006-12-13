@@ -21,7 +21,7 @@
 
 //
 // This is a random mobility model for a mobile host with a mass. It is the
-// one used in "Optimized Smooth Handoffs in Mobile IP" by Perkins & Wang.
+// one used in "Optimized Smooth Handoffs in Mobile IP" by Perkins &Wang.
 //
 // "An MH moves within the room according to the following pattern. It moves
 // along a straight line for a certain period of time before it makes a turn.
@@ -49,13 +49,14 @@
 // @author Emin Ilker Cetinbas, Andras Varga
 //
 simple MassMobility
+{
     parameters:
-        debug : bool, // debug switch
-        x: numeric const, // start x coordinate (-1 = display string position, or random if it's missing)
-        y: numeric const, // start y coordinate (-1 = display string position, or random if it's missing)
-        changeInterval: numeric, // frequency of changing speed and angle (can be random) [s]
-        changeAngleBy: numeric, // change angle by this much (can be random) [deg]
-        speed: numeric, // speed (can be random, updated every changeInterval) [m/s]
-        updateInterval : numeric const; // time interval to update the hosts position
-endsimple
+        bool debug = default(false); // debug switch
+        double x = default(-1); // start x coordinate (-1 = display string position, or random if it's missing)
+        double y = default(-1); // start y coordinate (-1 = display string position, or random if it's missing)
+        volatile double changeInterval @unit("s"); // frequency of changing speed and angle (can be random) [s]
+        volatile double changeAngleBy @unit("s"); // change angle by this much (can be random) [deg]
+        volatile double speed = default(2) @unit("mps"); // speed (can be random, updated every changeInterval) [m/s]
+        double updateInterval = default(0.1) @unit("s"); // time interval to update the hosts position
+}
 

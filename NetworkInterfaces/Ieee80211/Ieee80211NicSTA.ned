@@ -16,32 +16,41 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-import
-    "Ieee80211MgmtAgentSTA",
-    "Ieee80211MgmtSTA",
-    "Ieee80211Mac",
-    "Ieee80211Radio";
+import "Ieee80211MgmtAgentSTA";
+import "Ieee80211MgmtSTA";
+import "Ieee80211Mac";
+import "Ieee80211Radio";
 
 //
 // This NIC implements an 802.11 network interface card,
 // in a STA, using infrastructure mode.
 //
 module Ieee80211NicSTA
+{
+    parameters:
+        @display("i=block/ifcard");
     gates:
-        in: uppergateIn; // to upper layers
-        out: uppergateOut; // from upper layers
-        in: radioIn; // to receive AirFrames
+        input uppergateIn; // to upper layers
+        output uppergateOut; // from upper layers
+        input radioIn; // to receive AirFrames
     submodules:
-        agent: Ieee80211AgentSTA;
-            display: "p=202,69;i=block/control";
-        mgmt: Ieee80211MgmtSTA;
-            display: "p=96,69;i=block/cogwheel;q=wlanDataQueue";
-        mac: Ieee80211Mac;
+        agent: Ieee80211AgentSTA {
+            parameters:
+                @display("p=202,69");
+        };
+        mgmt: Ieee80211MgmtSTA {
+            parameters:
+                @display("p=96,69;q=wlanDataQueue");
+        };
+        mac: Ieee80211Mac {
             parameters:
                 queueModule = "mgmt";
-            display: "p=96,155;i=block/layer";
-        radio: Ieee80211Radio;
-            display: "p=96,240;i=block/wrxtx";
+                @display("p=96,155");
+        };
+        radio: Ieee80211Radio {
+            parameters:
+                @display("p=96,240");
+        };
     connections:
         radioIn --> radio.radioIn;
         radio.uppergateIn <-- mac.lowergateOut;
@@ -56,5 +65,5 @@ module Ieee80211NicSTA
         mgmt.agentOut --> agent.mgmtIn;
         mgmt.agentIn <-- agent.mgmtOut;
 
-endmodule
+}
 

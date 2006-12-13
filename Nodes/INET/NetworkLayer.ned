@@ -18,12 +18,11 @@
 //
 
 
-import
-    "IP",
-    "ARP",
-    "ICMP",
-    "IGMP",
-    "ErrorHandling";
+import "IP";
+import "ARP";
+import "ICMP";
+import "IGMP";
+import "ErrorHandling";
 
 //
 // Network layer of an \IP node.
@@ -31,47 +30,57 @@ import
 // Interfaces to transport layer: TCP, UDP, echo/ping, RSVP
 //
 module NetworkLayer
+{
     parameters:
-        proxyARP: bool;
+        bool proxyARP;
+        @display("i=block/fork");
     gates:
-        in: ifIn[];
-        in: TCPIn;
-        in: UDPIn;
-        in: RSVPIn;
-        in: OSPFIn;
-        in: pingIn;
-        out: ifOut[];
-        out: TCPOut;
-        out: UDPOut;
-        out: RSVPOut;
-        out: OSPFOut;
-        out: pingOut;
+        input ifIn[];
+        input TCPIn;
+        input UDPIn;
+        input RSVPIn;
+        input OSPFIn;
+        input pingIn;
+        output ifOut[];
+        output TCPOut;
+        output UDPOut;
+        output RSVPOut;
+        output OSPFOut;
+        output pingOut;
 
     submodules:
-        ip: IP;
+        ip: IP {
             parameters:
-                timeToLive = 32,
-                multicastTimeToLive = 32,
-                fragmentTimeout = 60,
+                timeToLive = 32;
+                multicastTimeToLive = 32;
+                fragmentTimeout = 60;
                 protocolMapping = "6:0,17:1,1:2,2:3,46:4,89:5";
-            gatesizes:
-                transportIn[6],
-                transportOut[6],
+                @display("p=85,95;q=queue");
+            gates:
+                transportIn[6];
+                transportOut[6];
                 queueIn[sizeof(ifIn)];
-            display: "p=85,95;i=block/routing;q=queue";
-        arp: ARP;
+        };
+        arp: ARP {
             parameters:
                 proxyARP = proxyARP;
-            gatesizes:
+                @display("p=163,206;q=pendingQueue");
+            gates:
                 nicOut[sizeof(ifOut)];
-            display: "p=163,206;i=block/layer;q=pendingQueue";
-        icmp: ICMP;
-            display: "p=160,63;i=block/control_s";
-        igmp: IGMP;
-            display: "p=160,122;i=block/cogwheel_s";
-        errorHandling: ErrorHandling;
-            display: "p=239,63;i=block/process_s";
-    connections nocheck:
+        };
+        icmp: ICMP {
+            parameters:
+                @display("p=160,63");
+        };
+        igmp: IGMP {
+            parameters:
+                @display("p=160,122");
+        };
+        errorHandling: ErrorHandling {
+            parameters:
+                @display("p=239,63");
+        };
+    connections allowunconnected:
         // transport Layer
         ip.transportOut[0] --> TCPOut;
         ip.transportIn[0] <-- TCPIn;
@@ -99,9 +108,9 @@ module NetworkLayer
         ip.queueOut --> arp.ipIn;
 
         // L2 interfaces to IP and from ARP
-        for i=0..sizeof(ifOut)-1 do
-            ifIn[i] --> ip.queueIn[i] display "m=s";
-            ifOut[i] <-- arp.nicOut[i] display "m=s";
-        endfor;
-endmodule
+        for i=0..sizeof(ifOut)-1 {
+            ifIn[i] --> { @display("m=s"); } --> ip.queueIn[i];
+            ifOut[i] <-- { @display("m=s"); } <-- arp.nicOut[i];
+        };
+}
 

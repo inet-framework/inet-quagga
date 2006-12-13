@@ -31,12 +31,14 @@
 // @author Andras Varga
 //
 simple Ieee80211MgmtSTASimplified
+{
     parameters:
-        accessPointAddress: string, // MAC address of associate AP
-        frameCapacity: numeric;
+        string accessPointAddress; // MAC address of associate AP
+        volatile int frameCapacity = default(100);
+        @display("i=block/cogwheel");
     gates:
-        in: uppergateIn;
-        out: uppergateOut;
-        in: macIn;
-        out: macOut;
-endsimple
+        input uppergateIn;
+        output uppergateOut;
+        input macIn;
+        output macOut;
+}

@@ -17,38 +17,41 @@
 //
 
 
-import
-    "WirelessHost",
-    "WirelessAP",
-    "WirelessAP2";
+import "WirelessHost";
+import "WirelessAP";
+import "WirelessAP2";
 
 
-module Lan80211
+network Lan80211
+{
     parameters:
-        numHosts: numeric const,
-        playgroundSizeX: numeric const,
-        playgroundSizeY: numeric const;
+        double numHosts;
+        double playgroundSizeX;
+        double playgroundSizeY;
     submodules:
-        host: WirelessHostSimplified[numHosts];
-            display: "i=device/wifilaptop;r=,,#707070";
-        ap: WirelessAPSimplified;
-            display: "p=213,174;i=device/accesspoint;r=,,#707070";
-        channelcontrol: ChannelControl;
+        host[numHosts]: WirelessHostSimplified {
             parameters:
-                playgroundSizeX = playgroundSizeX,
-                playgroundSizeY = playgroundSizeY,
+                @display("r=,,#707070");
+        };
+        ap: WirelessAPSimplified {
+            parameters:
+                @display("p=213,174;r=,,#707070");
+        };
+        channelcontrol: ChannelControl {
+            parameters:
+                playgroundSizeX = playgroundSizeX;
+                playgroundSizeY = playgroundSizeY;
                 numChannels = 2;
-            display: "p=61,46;i=misc/sun";
-        configurator: FlatNetworkConfigurator;
+                @display("p=61,46");
+        };
+        configurator: FlatNetworkConfigurator {
             parameters:
-                moduleTypes = "WirelessHost WirelessHostSimplified",
-                nonIPModuleTypes = "WirelessAP WirelessAPSimplified",
-                networkAddress = "145.236.0.0",
+                moduleTypes = "WirelessHost WirelessHostSimplified";
+                nonIPModuleTypes = "WirelessAP WirelessAPSimplified";
+                networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
-            display: "p=140,50;i=block/cogwheel_s";
-    connections nocheck:
-endmodule
-
-network lan80211 : Lan80211
-endnetwork
+                @display("p=140,50");
+        };
+    connections allowunconnected:
+}
 

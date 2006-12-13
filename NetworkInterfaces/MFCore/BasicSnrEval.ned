@@ -42,14 +42,15 @@
 // @author Marc Loebbers
 //
 simple BasicSnrEval
+{
     parameters:
-        coreDebug: numeric const, // debug switch for the core framework
-        transmitterPower: numeric, // power used for transmission of messages (in mW)
-        bitrate: numeric, // bitrate (in bits/sec)
-        headerLength: numeric const; // header length of the AirFrame (in bits)
+        bool coreDebug = default(false); // debug switch for the core framework
+        volatile double transmitterPower @unit("mW"); // power used for transmission of messages (in mW)
+        volatile double bitrate @unit("bps"); // bitrate (in bits/sec)
+        int headerLength; // header length of the AirFrame (in bits)
     gates:
-        in: uppergateIn; // from the MAC layer
-        out: uppergateOut; // to the decider sub-module
-        in: radioIn; // to receive AirFrames
-endsimple
+        input uppergateIn; // from the MAC layer
+        output uppergateOut; // to the decider sub-module
+        input radioIn; // to receive AirFrames
+}
 

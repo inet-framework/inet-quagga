@@ -1,71 +1,78 @@
-import
-    "RTPHost",
-    "Router";
+import "RTPHost";
+import "Router";
 
 
 
 
-channel ethernet
-    delay normal(0.00015,0.00005);
-    datarate 10*10^6;
-endchannel
-
-
-module RTPMulticast1
-
+channel ethernet extends cBasicChannel
+{
     parameters:
-        debug : bool;
+        delay = normal(0.00015,0.00005);
+        datarate = 10*10^6;
+}
+
+
+network RTPMulticast1
+
+{
+    parameters:
+        bool debug;
 
     submodules:
-        host1: RTPHost;
+        host1: RTPHost {
             parameters:
-                debug = debug,
-                profileName = "RTPAVProfile",
-                destinationAddress = "225.0.0.1",
-                portNumber = 5004,
-                bandwidth = 8000,
-                numOfProcessors = 1,
-                routingFile = "host1.mrt";
-            display: "p=150,50;i=device/pc2";
-        host2: RTPHost;
-            parameters:
-                debug = debug,
-                profileName = "RTPAVProfile",
-                destinationAddress = "225.0.0.1",
-                portNumber = 5004,
-                bandwidth = 8000,
-                numOfProcessors = 1,
-                routingFile = "host2.mrt";
-            display: "p=250,150;i=device/pc2";
-        host3: RTPHost;
-            parameters:
-                debug = debug,
-                profileName = "RTPAVProfile",
-                destinationAddress = "225.0.0.1",
-                portNumber = 5004,
-                bandwidth = 8000,
-                numOfProcessors = 1,
-                routingFile = "host3.mrt";
-            display: "p=150,250;i=device/pc2";
-        host4: RTPHost;
-            parameters:
-                debug = debug,
-                profileName = "RTPAVProfile",
-                destinationAddress = "225.0.0.1",
-                portNumber = 5004,
-                bandwidth = 8000,
-                numOfProcessors = 1,
-                routingFile = "host4.mrt";
-            display: "p=50,150;i=device/pc2";
-        router1: Router;
-            parameters:
-                routingFile = "router1.mrt",
+                debug = debug;
+                profileName = "RTPAVProfile";
+                destinationAddress = "225.0.0.1";
+                portNumber = 5004;
+                bandwidth = 8000;
                 numOfProcessors = 1;
-            gatesizes:
-                in[4],
+                routingFile = "host1.mrt";
+                @display("p=150,50");
+        };
+        host2: RTPHost {
+            parameters:
+                debug = debug;
+                profileName = "RTPAVProfile";
+                destinationAddress = "225.0.0.1";
+                portNumber = 5004;
+                bandwidth = 8000;
+                numOfProcessors = 1;
+                routingFile = "host2.mrt";
+                @display("p=250,150");
+        };
+        host3: RTPHost {
+            parameters:
+                debug = debug;
+                profileName = "RTPAVProfile";
+                destinationAddress = "225.0.0.1";
+                portNumber = 5004;
+                bandwidth = 8000;
+                numOfProcessors = 1;
+                routingFile = "host3.mrt";
+                @display("p=150,250");
+        };
+        host4: RTPHost {
+            parameters:
+                debug = debug;
+                profileName = "RTPAVProfile";
+                destinationAddress = "225.0.0.1";
+                portNumber = 5004;
+                bandwidth = 8000;
+                numOfProcessors = 1;
+                routingFile = "host4.mrt";
+                @display("p=50,150");
+        };
+        router1: Router {
+            parameters:
+                routingFile = "router1.mrt";
+                numOfProcessors = 1;
+                @display("p=150,150");
+            gates:
+                in[4];
                 out[4];
 
-            display: "p=150,150;i=abstract/router";
+        };
     connections:
         host1.out[0] --> ethernet --> router1.in[0];
         host1.in[0] <-- ethernet <-- router1.out[0];
@@ -76,10 +83,5 @@ module RTPMulticast1
         host4.out[0] --> ethernet --> router1.in[3];
         host4.in[0] <-- ethernet <-- router1.out[3];
 
-endmodule
-
-network rtpNetwork : RTPMulticast1
-    parameters:
-        debug = true;
-endnetwork
+}
 

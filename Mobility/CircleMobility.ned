@@ -23,13 +23,15 @@
 // @author Andras Varga
 //
 simple CircleMobility
+{
     parameters:
-        debug : bool, // debug switch
-        cx: numeric const, // x coord of the center of the circle
-        cy: numeric const, // y coord of the center of the circle
-        r: numeric const, // radius of the circle
-        speed: numeric const, // speed of the host (in m/s)
-        startAngle: numeric const, // starting angle (degreees)
-        updateInterval : numeric const; // time interval to update the hosts position
-endsimple
+        bool debug = default(false); // debug switch
+        double cx = default(100); // x coord of the center of the circle
+        double cy = default(100); // y coord of the center of the circle
+        double r = default(100); // radius of the circle
+        double speed = default(2) @unit("mps"); // speed of the host (in m/s)
+        double startAngle = default(0); // starting angle (degreees)
+        double updateInterval = default(0.1) @unit("s"); // time interval to update the hosts position
+        @display("i=block/cogwheel_s");
+}
 

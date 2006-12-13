@@ -16,51 +16,62 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-import
-	"Router6",
-	"StandardHost6",
-	"FlatNetworkConfigurator6",
-	"TCPDump";
+import "Router6";
+import "StandardHost6";
+import "FlatNetworkConfigurator6";
+import "TCPDump";
 
-channel ethernetline
-	delay 0.1us;
-endchannel
+channel ethernetline extends cBasicChannel
+{
+    parameters:
+        delay = 0.1us;
+}
 
-module DemoNetworkEth
-	parameters:
-		n: numeric const;
-	submodules:
-		configurator: FlatNetworkConfigurator6;
-			parameters:
-				moduleTypes = "Router6 StandardHost6 TCPDump",
-				nonIPModuleTypes = "EtherHub TCPDump";
-			display: "i=block/cogwheel";
-        r1: Router6;
-            display: "i=abstract/router";
-        r2: Router6;
-            display: "i=abstract/router";
-        cli: StandardHost6[n];
-        	display: "i=device/laptop";
-        srv: StandardHost6[n];
-        	display: "i=device/server_l";
-        linemonitor: TCPDump[n];
-        	display: "i=device/clock";
-	connections nocheck:
-		for i=0..n-1 do
-			cli[i].ethOut++ --> ethernetline --> linemonitor[i].in1;
-			linemonitor[i].out2 --> ethernetline --> r1.ethIn++;
-			linemonitor[i].in2 <-- ethernetline <-- r1.ethOut++;
-			cli[i].ethIn++ <-- ethernetline <-- linemonitor[i].out1;			
-			//cli[i].ethOut++ --> ethernetline --> r1.ethIn++;
-			//cli[i].ethIn++ <-- ethernetline <-- r1.ethOut++;
-			srv[i].ethOut++ --> ethernetline --> r2.ethIn++;
-			srv[i].ethIn++ <-- ethernetline <-- r2.ethOut++;
-		endfor
-		
-		r1.ethOut++ --> ethernetline --> r2.ethIn++;
-		r1.ethIn++ <-- ethernetline <-- r2.ethOut++;
-		
-endmodule
+network DemoNetworkEth
+{
+    parameters:
+        double n;
+    submodules:
+        configurator: FlatNetworkConfigurator6 {
+            parameters:
+                moduleTypes = "Router6 StandardHost6 TCPDump";
+                nonIPModuleTypes = "EtherHub TCPDump";
+                @display("");
+        };
+        r1: Router6 {
+            parameters:
+                @display("");
+        };
+        r2: Router6 {
+            parameters:
+                @display("");
+        };
+        cli[n]: StandardHost6 {
+            parameters:
+                @display("");
+        };
+        srv[n]: StandardHost6 {
+            parameters:
+                @display("");
+        };
+        linemonitor[n]: TCPDump {
+            parameters:
+                @display("");
+        };
+    connections allowunconnected:
+        for i=0..n-1 {
+            cli[i].ethOut++ --> ethernetline --> linemonitor[i].in1;
+            linemonitor[i].out2 --> ethernetline --> r1.ethIn++;
+            linemonitor[i].in2 <-- ethernetline <-- r1.ethOut++;
+            cli[i].ethIn++ <-- ethernetline <-- linemonitor[i].out1;
+            //cli[i].ethOut++ --> ethernetline --> r1.ethIn++;
+            //cli[i].ethIn++ <-- ethernetline <-- r1.ethOut++;
+            srv[i].ethOut++ --> ethernetline --> r2.ethIn++;
+            srv[i].ethIn++ <-- ethernetline <-- r2.ethOut++;
+        };
 
-network demoNetworkEth : DemoNetworkEth
-endnetwork
+        r1.ethOut++ --> ethernetline --> r2.ethIn++;
+        r1.ethIn++ <-- ethernetline <-- r2.ethOut++;
+
+}
+

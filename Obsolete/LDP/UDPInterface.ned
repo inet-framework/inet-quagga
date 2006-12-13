@@ -11,8 +11,7 @@
 //
 
 
-import
-    "UDPProcessing";
+import "UDPProcessing";
 
 
 //
@@ -24,12 +23,12 @@ import
 // The module, after finishing the initialization, starts sending Hello
 // messages to all routers in the subnet. The multicast address for these
 // destinations is 224.0.0.0. Consequently, the module will receive messages
-// from peers’ UDPAppInterface modules. These messages will then be forwarded
+// from peersÂ’ UDPAppInterface modules. These messages will then be forwarded
 // to the LDPInterface module.
 //
 // Collaborations
 //
-// The module’s collaborators are LDPInterface module and Network layer
+// The moduleÂ’s collaborators are LDPInterface module and Network layer
 // module. The collaborations are similar to that in any UDP applications
 // generally.
 //
@@ -39,15 +38,16 @@ import
 // the module to operate correctly.
 //
 simple UDPAppInterface
+{
     parameters:
-        local_port : numeric,
-        local_addr : string;
+        volatile double local_port;
+        string local_addr;
     gates:
-        in: from_udp_processing;
-        in: fromAppl;
-        out: to_udp_processing;
-        out: toAppl;
-endsimple
+        input from_udp_processing;
+        input fromAppl;
+        output to_udp_processing;
+        output toAppl;
+}
 
 
 
@@ -55,26 +55,29 @@ endsimple
 // FIXME: add documentation here
 //
 module UDPInterface
+{
     parameters:
-        local_addr : string;
+        string local_addr;
     gates:
-        in: from_ip;
-        in: from_appl;
-        out: to_ip;
-        out: to_appl;
+        input from_ip;
+        input from_appl;
+        output to_ip;
+        output to_appl;
     submodules:
-        udpAppInterface: UDPAppInterface;
+        udpAppInterface: UDPAppInterface {
             parameters:
                 local_addr = local_addr;
-            parameters:
                 local_port = 100;
-            display: "p=91,50;b=40,24,rect";
-        udpProcessing: UDPProcessing;
-            gatesizes:
-                from_application[1],
+                @display("p=91,50;b=40,24,rect");
+        };
+        udpProcessing: UDPProcessing {
+            parameters:
+                @display("p=94,105");
+            gates:
+                from_application[1];
                 to_application[1];
-            display: "p=94,105;i=block/fork";
-    connections nocheck:
+        };
+    connections allowunconnected:
         from_ip --> udpProcessing.from_ip;
         to_ip <-- udpProcessing.to_ip;
         udpAppInterface.fromAppl <-- from_appl;
@@ -82,4 +85,4 @@ module UDPInterface
 
         udpProcessing.to_application[0] --> udpAppInterface.from_udp_processing;
         udpProcessing.from_application[0] <-- udpAppInterface.to_udp_processing;
-endmodule
+}

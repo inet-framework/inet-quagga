@@ -17,28 +17,30 @@
 //
 
 
-import
-    "PlainMobilityHost",
-    "ChannelControl";
+import "PlainMobilityHost";
+import "ChannelControl";
 
 
-module MobileNet
+network MobileNet
+{
     parameters:
-        numHosts: numeric const,
-        playgroundSizeX: numeric const,
-        playgroundSizeY: numeric const;
+        double numHosts;
+        double playgroundSizeX;
+        double playgroundSizeY;
     submodules:
-        host: PlainMobilityHost[numHosts];
-            display: "i=device/pocketpc_s;r=,,#707070";
-        channelcontrol: ChannelControl;
+        host[numHosts]: PlainMobilityHost {
             parameters:
-                playgroundSizeX = playgroundSizeX,
+                @display("r=,,#707070");
+        };
+        channelcontrol: ChannelControl {
+            parameters:
+                playgroundSizeX = playgroundSizeX;
                 playgroundSizeY = playgroundSizeY;
-            display: "p=60,50;i=misc/sun";
-        scenarioManager: ScenarioManager;
-            display: "p=150,50;i=block/control_s";
-endmodule
-
-network mobileNet : MobileNet
-endnetwork
+                @display("p=60,50");
+        };
+        scenarioManager: ScenarioManager {
+            parameters:
+                @display("p=150,50");
+        };
+}
 

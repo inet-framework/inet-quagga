@@ -24,10 +24,11 @@
 // needs, to be able to be used in StandardHost etc.
 //
 simple UDPApp
+{
     gates:
-        in: from_udp;
-        out: to_udp;
-endsimple
+        input from_udp;
+        output to_udp;
+}
 
 
 

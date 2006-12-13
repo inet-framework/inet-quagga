@@ -140,20 +140,22 @@
 // @see EtherFrame, EthernetIIFrame, EtherFrameWithLLC, Ieee802Ctrl
 //
 simple EtherMAC2
+{
     parameters:
-        promiscuous : bool,     // if true, all packets are received, otherwise only the
+        bool promiscuous = default(false);     // if true, all packets are received, otherwise only the
                                 // ones with matching destination MAC address
-        address : string,       // MAC address as hex string (12 hex digits), or
+        string address = default("auto");       // MAC address as hex string (12 hex digits), or
                                 // "auto". "auto" values will be replaced by
                                 // a generated MAC address in init stage 0.
-        txQueueLimit : numeric, // maximum number of frames queued up for transmission;
+        volatile int txQueueLimit = default(1000); // maximum number of frames queued up for transmission;
                                 // additional frames are dropped. Only used if queueModule==""
-        queueModule: string,    // name of optional external queue module
-        writeScalars: bool;     // enable/disable recording statistics in omnetpp.sca
+        string queueModule = default("");    // name of optional external queue module
+        bool writeScalars = default(true);     // enable/disable recording statistics in omnetpp.sca
+        @display("i=block/queue");
     gates:
-        in: physIn;      // to physical layer or the network
-        out: physOut;    // to physical layer or the network
-        in: upperLayerIn;    // to EtherLLC or MACRelayUnitPP
-        out: upperLayerOut;  // to EtherLLC or MACRelayUnitPP
-endsimple
+        input physIn;      // to physical layer or the network
+        output physOut;    // to physical layer or the network
+        input upperLayerIn;    // to EtherLLC or MACRelayUnitPP
+        output upperLayerOut;  // to EtherLLC or MACRelayUnitPP
+}
 

@@ -1,54 +1,68 @@
-import
-    "NotificationBoard",
-    "InterfaceTable",
-    "RoutingTable",
-    "PPPInterface",
-    "NetworkLayer",
-    "TCP",
-    "UDP",
-    "TestNop";
+import "NotificationBoard";
+import "InterfaceTable";
+import "RoutingTable";
+import "PPPInterface";
+import "NetworkLayer";
+import "TCP";
+import "UDP";
+import "TestNop";
 
 module TestRouter
+{
     parameters:
-        routingFile: string,
-        routerId: string,
-        testUnit: string;
+        string routingFile;
+        string routerId;
+        string testUnit;
     gates:
-        in: in[];
-        out: out[];
+        input in[];
+        output out[];
     submodules:
-        notificationBoard: NotificationBoard;
-            display: "p=60,60;i=block/control";
-        interfaceTable: InterfaceTable;
-            display: "p=150,60;i=block/table";
-        routingTable: RoutingTable;
+        notificationBoard: NotificationBoard {
             parameters:
-                IPForward = true,
-                routerId = routerId,
+                @display("p=60,60");
+        };
+        interfaceTable: InterfaceTable {
+            parameters:
+                @display("p=150,60");
+        };
+        routingTable: RoutingTable {
+            parameters:
+                IPForward = true;
+                routerId = routerId;
                 routingFile = routingFile;
-            display: "p=240,60;i=block/table";
-        networkLayer: NetworkLayer;
-            gatesizes:
-                ifIn[sizeof(out)],
-                ifOut[sizeof(out)];
-            display: "p=200,341;i=block/fork;q=queue";
-        ppp: PPPInterface[sizeof(out)];
-            display: "p=90,457,row,110;q=l2queue;i=block/ifcard";
-        tcp: TCP;
-            display: "p=200,250;i=block/wheelbarrow";
-        udp: UDP;
-            display: "p=300,250;i=block/wheelbarrow";
-        unit: testUnit like TestNop;
+                @display("p=240,60");
+        };
+        networkLayer: NetworkLayer {
             parameters:
-            display: "p=250, 150;i=block/cogwheel";
-    connections nocheck:
+                @display("p=200,341;q=queue");
+            gates:
+                ifIn[sizeof(out)];
+                ifOut[sizeof(out)];
+        };
+        ppp[sizeof(out)]: PPPInterface {
+            parameters:
+                @display("p=90,457,row,110;q=l2queue");
+        };
+        tcp: TCP {
+            parameters:
+                @display("p=200,250");
+        };
+        udp: UDP {
+            parameters:
+                @display("p=300,250");
+        };
+        unit: <testUnit> like TestNop {
+            parameters:
+                @display("p=250, 150");
+        };
+    connections allowunconnected:
         // connections to network outside
-        for i=0..sizeof(out)-1 do
+        for i=0..sizeof(out)-1 {
             in[i] --> ppp[i].physIn;
             out[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
-        endfor;
+        };
 
         tcp.to_ip --> networkLayer.TCPIn;
         tcp.from_ip <-- networkLayer.TCPOut;
@@ -64,5 +78,5 @@ module TestRouter
 
         unit.ipOut --> networkLayer.OSPFIn;
         unit.ipIn <-- networkLayer.OSPFOut;
-endmodule
+}
 

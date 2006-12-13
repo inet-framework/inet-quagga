@@ -51,14 +51,14 @@
 //
 // Collaborations
 //
-// LDPInterface module’s collaborators are LDP module and TCP module. As
+// LDPInterface moduleÂ’s collaborators are LDP module and TCP module. As
 // mentioned above, LDPInterface plays the role of a passive server at the
 // beginning but then delegates all responsibilities to LDPproc modules. In
 // later phase, it dispatches all incoming messages from the lower TCP module
 // to appropriate LDPproc modules. In order to differentiate these LDPproc
 // modules, the LDPInterface keeps a "hash table" of peer \IP address and the
 // id of each LDPproc module. By this method, it knows which LDPproc to
-// forward a message to, based on message’s sender \IP address.
+// forward a message to, based on messageÂ’s sender \IP address.
 //
 // Usages
 //
@@ -68,15 +68,16 @@
 //
 simple LDPInterface
 
+{
     parameters:
-        local_addr : string,
-        timeout : numeric,
-        keepAliveTime : numeric;
+        string local_addr;
+        volatile double timeout;
+        volatile double keepAliveTime;
 
     gates:
-        in: from_tcp;
-        in: from_ldp;
-        out: to_tcp;
-        out: to_ldp;
+        input from_tcp;
+        input from_ldp;
+        output to_tcp;
+        output to_ldp;
 
-endsimple
+}

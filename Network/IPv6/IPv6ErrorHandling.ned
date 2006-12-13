@@ -28,6 +28,9 @@
 // TODO: This is just a quick fix. We should have only ONE error handling
 // module for both versions of IP.-WEI
 simple IPv6ErrorHandling
+{
+    parameters:
+        @display("i=block/process_s");
     gates:
-        in: in;
-endsimple
+        input in;
+}

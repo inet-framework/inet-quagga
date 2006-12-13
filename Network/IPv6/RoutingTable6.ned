@@ -23,7 +23,9 @@
 // @see IPv6, IPv6NeighbourDiscovery, ICMPv6
 //
 simple RoutingTable6
+{
     parameters:
-        routingTableFile: xml,
-        isRouter: bool;
-endsimple
+        xml routingTableFile;
+        bool isRouter;
+        @display("i=block/table");
+}

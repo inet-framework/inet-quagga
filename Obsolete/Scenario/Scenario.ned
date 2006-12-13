@@ -16,6 +16,7 @@
 // NewBWRequestTester
 //
 simple Scenario
+{
     parameters:
-        startTime : numeric;
-endsimple
+        volatile double startTime;
+}

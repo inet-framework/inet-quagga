@@ -17,48 +17,65 @@
 //
 
 
-import
-    "Router6",
-    "StandardHost6",
-    "EtherHub",
-    "FlatNetworkConfigurator6";
+import "Router6";
+import "StandardHost6";
+import "EtherHub";
+import "FlatNetworkConfigurator6";
 
 
-channel fiberline
-    delay 1us;
-    datarate 512*1000000;
-endchannel
-
-channel ethernetline
-    delay 0.1us;
-endchannel
-
-module NClientsEth
+channel fiberline extends cBasicChannel
+{
     parameters:
-        n: numeric const;
+        delay = 1us;
+        datarate = 512*1000000;
+}
+
+channel ethernetline extends cBasicChannel
+{
+    parameters:
+        delay = 0.1us;
+}
+
+network NClientsEth
+{
+    parameters:
+        double n;
     submodules:
-        configurator: FlatNetworkConfigurator6;
+        configurator: FlatNetworkConfigurator6 {
             parameters:
-                moduleTypes = "Router6 StandardHost6 EtherHub",
+                moduleTypes = "Router6 StandardHost6 EtherHub";
                 nonIPModuleTypes = "EtherHub";
-            display: "i=block/cogwheel";
-        r1: Router6;
-            display: "i=abstract/router";
-        r2: Router6;
-            display: "i=abstract/router";
-        r3: Router6;
-            display: "i=abstract/router";
-        cli: StandardHost6[n];
-            display: "i=device/laptop";
-        srv: StandardHost6;
-            display: "i=device/server_l";
-        hub: EtherHub;
-            display: "i=device/hub_s";
-    connections nocheck:
-        for i=0..n-1 do
+                @display("");
+        };
+        r1: Router6 {
+            parameters:
+                @display("");
+        };
+        r2: Router6 {
+            parameters:
+                @display("");
+        };
+        r3: Router6 {
+            parameters:
+                @display("");
+        };
+        cli[n]: StandardHost6 {
+            parameters:
+                @display("");
+        };
+        srv: StandardHost6 {
+            parameters:
+                @display("");
+        };
+        hub: EtherHub {
+            parameters:
+                @display("");
+        };
+    connections allowunconnected:
+        for i=0..n-1 {
             cli[i].ethOut++ --> ethernetline --> hub.in++;
             cli[i].ethIn++ <-- ethernetline <-- hub.out++;
-        endfor
+        };
 
         hub.out++ --> ethernetline --> r1.ethIn++;
         hub.in++ <-- ethernetline <-- r1.ethOut++;
@@ -84,8 +101,5 @@ module NClientsEth
         // r3.out++ --> fiberline --> srv.in++;
         // r3.in++ <-- fiberline <-- srv.out++;
 
-endmodule
-
-network nClientsEth : NClientsEth
-endnetwork
+}
 

@@ -1,6 +1,7 @@
 simple RTPPayloadSender
 
-	gates:
-		in: fromProfile;
-		out: toProfile;
-endsimple
+{
+    gates:
+        input fromProfile;
+        output toProfile;
+}

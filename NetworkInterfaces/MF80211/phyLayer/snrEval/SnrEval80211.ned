@@ -22,18 +22,20 @@
 // This component has been taken over from Mobility Framework 1.0a5.
 //
 simple SnrEval80211
+{
     parameters:
-        channelNumber: numeric const, // channel identifier
-        debug: bool, // debug switch
-        transmitterPower : numeric const,
-        bitrate: numeric const,
-        headerLength: numeric const,
-        carrierFrequency: numeric const,
-        thermalNoise: numeric const,
-        pathLossAlpha: numeric const,
-        sensitivity: numeric const;
+        int channelNumber; // channel identifier
+        bool debug = default(false); // debug switch
+        double transmitterPower;
+        double bitrate;
+        int headerLength;
+        double carrierFrequency;
+        double thermalNoise;
+        double pathLossAlpha;
+        double sensitivity;
+        @display("i=block/wrxtx");
     gates:
-        in: uppergateIn;
-        out: uppergateOut;
-        in: radioIn; // to receive AirFrames
-endsimple
+        input uppergateIn;
+        output uppergateOut;
+        input radioIn; // to receive AirFrames
+}

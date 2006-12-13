@@ -19,68 +19,85 @@
 //
 
 
-import
-    "Router",
-    "QuaggaRouter",
-    "StandardHost",
-    "FailureManager",
-    "ScenarioManager";
+import "Router";
+import "QuaggaRouter";
+import "StandardHost";
+import "FailureManager";
+import "ScenarioManager";
 
 
-channel fiberline
-    delay 1ms;
-    datarate 1000000;
-endchannel
-
-channel ethernetline
-    delay 10ms;
-    datarate 100000;
-endchannel
-
-module ZebraTest
+channel fiberline extends cBasicChannel
+{
     parameters:
-        n: numeric const;
+        delay = 1ms;
+        datarate = 1000000;
+}
+
+channel ethernetline extends cBasicChannel
+{
+    parameters:
+        delay = 10ms;
+        datarate = 100000;
+}
+
+network ZebraTest
+{
+    parameters:
+        double n;
     submodules:
-        scenarioManager: ScenarioManager;
-            display: "p=68,50;i=block/control_s";
-        failureManager: FailureManager;
-            display: "p=152,50;i=block/control_s";
-        nam: NAMTrace;
-            display: "p=219,50;i=block/cogwheel_s";
-        channelInstaller: ChannelInstaller;
+        scenarioManager: ScenarioManager {
             parameters:
-                channelClass = "ThruputMeteringChannel",
+                @display("p=68,50");
+        };
+        failureManager: FailureManager {
+            parameters:
+                @display("p=152,50");
+        };
+        nam: NAMTrace {
+            parameters:
+                @display("p=219,50");
+        };
+        channelInstaller: ChannelInstaller {
+            parameters:
+                channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=u #N";
-            display: "p=284,50;i=block/cogwheel_s";
-        cli: StandardHost[n];
+                @display("p=284,50");
+        };
+        cli[n]: StandardHost {
             parameters:
                 namid = index;
-            display: "p=62,146,c;i=device/laptop";
-        srv: StandardHost;
+                @display("p=62,146,c;i=device/laptop");
+        };
+        srv: StandardHost {
             parameters:
                 namid = n;
-            display: "p=512,242;i=device/server_l";
-        r1: QuaggaRouter;
+                @display("p=512,242;i=device/server_l");
+        };
+        r1: QuaggaRouter {
             parameters:
                 namid = n + 1;
-            display: "p=173,250;i=abstract/router";
-        r2: QuaggaRouter;
+                @display("p=173,250");
+        };
+        r2: QuaggaRouter {
             parameters:
                 namid = n + 2;
-            display: "p=284,130;i=abstract/router";
-        r3: QuaggaRouter;
+                @display("p=284,130");
+        };
+        r3: QuaggaRouter {
             parameters:
                 namid = n + 3;
-            display: "p=405,242;i=abstract/router";
-        r4: QuaggaRouter;
+                @display("p=405,242");
+        };
+        r4: QuaggaRouter {
             parameters:
                 namid = n + 4;
-            display: "p=294,370;i=abstract/router";
-    connections nocheck:
-        for i=0..n-1 do
+                @display("p=294,370");
+        };
+    connections allowunconnected:
+        for i=0..n-1 {
             cli[i].out++ --> ethernetline --> r1.in++;
             cli[i].in++ <-- ethernetline <-- r1.out++;
-        endfor;
+        };
 
         r1.out++ --> ethernetline --> r2.in++;
         r1.in++ <-- ethernetline <-- r2.out++;
@@ -96,8 +113,5 @@ module ZebraTest
 
         r3.out++ --> ethernetline --> r4.in++;
         r3.in++ <-- ethernetline <-- r4.out++;
-endmodule
-
-network zebraTest : ZebraTest
-endnetwork
+}
 

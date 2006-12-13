@@ -45,11 +45,13 @@
 // @author: Jochen Reber, Andras Varga
 //
 simple RoutingTable
+{
     parameters:
-        routerId: string, // for routers, the router id using IP address dotted
+        string routerId = default("auto"); // for routers, the router id using IP address dotted
                           // notation; specify "auto" to select the highest
                           // interface address; should be left empty ("") for hosts
-        IPForward: bool,  // turns IP forwarding on/off
-        routingFile: string;  // routing table file name
-endsimple
+        bool IPForward = default(true);  // turns IP forwarding on/off
+        string routingFile = default("");  // routing table file name
+        @display("i=block/table");
+}
 

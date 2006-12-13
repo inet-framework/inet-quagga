@@ -17,11 +17,10 @@
 // * part of:     framework implementation developed by tkn
 // **************************************************************************/
 
-import
-    "Mac80211",
-    "Mac80211v2",
-    "Decider80211",
-    "SnrEval80211";
+import "Mac80211";
+import "Mac80211v2";
+import "Decider80211";
+import "SnrEval80211";
 
 //
 // This NIC implements an 802.11 network interface card.
@@ -32,24 +31,33 @@ import
 // @author Marc Loebbers
 //
 module Nic80211
+{
+    parameters:
+        @display("i=block/ifcard");
     gates:
-        in: uppergateIn; // to upper layers
-        out: uppergateOut; // from upper layers
-        in: radioIn; // to receive AirFrames
+        input uppergateIn; // to upper layers
+        output uppergateOut; // from upper layers
+        input radioIn; // to receive AirFrames
     submodules:
-        mac: Mac80211;
-            display: "p=96,87;i=block/layer";
-        decider: Decider80211;
-            display: "p=106,157;i=block/process_s";
-        snrEval: SnrEval80211;
-            display: "p=96,236;i=block/wrxtx";
+        mac: Mac80211 {
+            parameters:
+                @display("p=96,87");
+        };
+        decider: Decider80211 {
+            parameters:
+                @display("p=106,157");
+        };
+        snrEval: SnrEval80211 {
+            parameters:
+                @display("p=96,236");
+        };
     connections:
         radioIn --> snrEval.radioIn;
-        decider.uppergateOut --> mac.lowergateIn display "m=m,50,50,75,0";
-        snrEval.uppergateIn <-- mac.lowergateOut display "m=m,25,0,25,0";
-        snrEval.uppergateOut --> decider.lowergateIn display "m=m,73,0,50,50";
+        decider.uppergateOut --> { @display("m=m,50,50,75,0"); } --> mac.lowergateIn;
+        snrEval.uppergateIn <-- { @display("m=m,25,0,25,0"); } <-- mac.lowergateOut;
+        snrEval.uppergateOut --> { @display("m=m,73,0,50,50"); } --> decider.lowergateIn;
 
         mac.uppergateOut --> uppergateOut;
         mac.uppergateIn <-- uppergateIn;
-endmodule
+}
 

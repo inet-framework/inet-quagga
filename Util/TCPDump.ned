@@ -21,7 +21,12 @@
 // Provides tcpdump-like functionality
 //
 simple TCPDump
+{
+    parameters:
+        @display("i=device/clock");
     gates:
-      in: in1, in2;
-      out: out1, out2;
-endsimple
+        input in1;
+        input in2;
+        output out1;
+        output out2;
+}

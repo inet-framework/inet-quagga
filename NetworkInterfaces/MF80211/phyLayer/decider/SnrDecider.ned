@@ -24,10 +24,12 @@
 // This component has been taken over from Mobility Framework 1.0a5.
 //
 simple SnrDecider
+{
     parameters:
-       debug : bool, // debug switch
-       snrThresholdLevel: numeric;
+        bool debug = default(false); // debug switch
+        volatile double snrThresholdLevel;
+        @display("i=box2_s");
     gates:
-        out: uppergateOut;
-        in: lowergateIn;
-endsimple
+        output uppergateOut;
+        input lowergateIn;
+}

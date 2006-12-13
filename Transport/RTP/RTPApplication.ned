@@ -1,22 +1,23 @@
 simple RTPApplication
 
-	parameters:
+{
+    parameters:
 
-		commonName: string,
-		profileName: string,
-		bandwidth,
-		destinationAddress: string,
-		portNumber,
-		fileName: string,
-		payloadType,
-		sessionEnterDelay,
-		transmissionStartDelay,
-		transmissionStopDelay,
-		sessionLeaveDelay;
+        string commonName;
+        string profileName;
+        volatile double bandwidth @unit("bps");
+        string destinationAddress = default("");
+        volatile int portNumber;
+        string fileName;
+        volatile int payloadType;
+        volatile double sessionEnterDelay @unit("s");
+        volatile double transmissionStartDelay @unit("s");
+        volatile double transmissionStopDelay @unit("s");
+        volatile double sessionLeaveDelay @unit("s");
 
-	gates:
-		out: toRTP;
-		in: fromRTP;
+    gates:
+        output toRTP;
+        input fromRTP;
 
 
-endsimple
+}

@@ -1,31 +1,33 @@
-import
-    "OSPFAreaTest_Area1",
-    "OSPFAreaTest_Area2",
-    "ChannelInstaller";
+import "OSPFAreaTest_Area1";
+import "OSPFAreaTest_Area2";
+import "ChannelInstaller";
 
 
-module OSPF_AreaTest
+network OSPF_AreaTest
+{
     submodules:
-        channelInstaller: ChannelInstaller;
+        channelInstaller: ChannelInstaller {
             parameters:
-                channelClass = "ThruputMeteringChannel",
+                channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=#N";
-            display: "p=456,36;i=block/cogwheel_s";
-        Area1: TwoNetsArea;
-            gatesizes:
-                in[1],
+                @display("p=456,36");
+        };
+        Area1: TwoNetsArea {
+            parameters:
+                @display("p=108,112;b=136,128");
+            gates:
+                in[1];
                 out[1];
-            display: "p=108,112;b=136,128";
-        Area2: OneNetArea;
-            gatesizes:
-                in[1],
+        };
+        Area2: OneNetArea {
+            parameters:
+                @display("p=324,112;b=136,128");
+            gates:
+                in[1];
                 out[1];
-            display: "p=324,112;b=136,128";
+        };
     connections:
-        Area1.out[0] --> delay 0.1us --> Area2.in[0];
-        Area2.out[0] --> delay 0.1us --> Area1.in[0];
-endmodule
-
-network OSPFAreaTest : OSPF_AreaTest
-endnetwork
+        Area1.out[0] --> {  delay = 0.1us; } --> Area2.in[0];
+        Area2.out[0] --> {  delay = 0.1us; } --> Area1.in[0];
+}
 

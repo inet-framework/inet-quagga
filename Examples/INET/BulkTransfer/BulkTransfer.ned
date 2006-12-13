@@ -17,48 +17,56 @@
 //
 
 
-import
-    "Router",
-    "StandardHost",
-    "FlatNetworkConfigurator";
+import "Router";
+import "StandardHost";
+import "FlatNetworkConfigurator";
 
 
-module BulkTransfer
+network BulkTransfer
+{
     submodules:
-        client1: StandardHost;
-            display: "p=131,67;i=device/pc3";
-        client2: StandardHost;
-            display: "p=337,67;i=device/pc3";
-        client3: StandardHost;
-            display: "p=337,247;i=device/pc3";
-        server: StandardHost;
-            display: "p=131,247;i=device/pc2";
-        router: Router;
-            display: "p=239,156;i=device/router";
-        configurator: FlatNetworkConfigurator;
+        client1: StandardHost {
             parameters:
-                moduleTypes = "Router StandardHost",
-                nonIPModuleTypes = "",
-                networkAddress = "145.236.0.0",
+                @display("p=131,67;i=device/pc3");
+        };
+        client2: StandardHost {
+            parameters:
+                @display("p=337,67;i=device/pc3");
+        };
+        client3: StandardHost {
+            parameters:
+                @display("p=337,247;i=device/pc3");
+        };
+        server: StandardHost {
+            parameters:
+                @display("p=131,247;i=device/pc2");
+        };
+        router: Router {
+            parameters:
+                @display("p=239,156");
+        };
+        configurator: FlatNetworkConfigurator {
+            parameters:
+                moduleTypes = "Router StandardHost";
+                nonIPModuleTypes = "";
+                networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
-            display: "p=62,119;i=block/cogwheel";
+                @display("p=62,119");
+        };
     connections:
-        client1.out++ --> datarate 1000000 --> router.in++;
-        client1.in++ <-- datarate 1000000 <-- router.out++;
+        client1.out++ --> {  datarate = 1000000; } --> router.in++;
+        client1.in++ <-- {  datarate = 1000000; } <-- router.out++;
 
-        client2.out++ --> datarate 1000000 --> router.in++;
-        client2.in++ <-- datarate 1000000 <-- router.out++;
+        client2.out++ --> {  datarate = 1000000; } --> router.in++;
+        client2.in++ <-- {  datarate = 1000000; } <-- router.out++;
 
-        client3.out++ --> datarate 1000000 --> router.in++;
-        client3.in++ <-- datarate 1000000 <-- router.out++;
+        client3.out++ --> {  datarate = 1000000; } --> router.in++;
+        client3.in++ <-- {  datarate = 1000000; } <-- router.out++;
 
-        server.out++ --> datarate 1000000 --> router.in++;
-        server.in++ <-- datarate 1000000 <-- router.out++;
+        server.out++ --> {  datarate = 1000000; } --> router.in++;
+        server.in++ <-- {  datarate = 1000000; } <-- router.out++;
 
-        client1.out++ --> datarate 1000000 --> server.in++;
-        client1.in++ <-- datarate 1000000 <-- server.out++;
-endmodule
-
-network bulkTransfer : BulkTransfer
-endnetwork
+        client1.out++ --> {  datarate = 1000000; } --> server.in++;
+        client1.in++ <-- {  datarate = 1000000; } <-- server.out++;
+}
 

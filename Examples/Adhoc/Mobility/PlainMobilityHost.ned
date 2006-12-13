@@ -17,9 +17,8 @@
 //
 
 
-import
-    "NotificationBoard",
-    "BasicMobility";
+import "NotificationBoard";
+import "BasicMobility";
 
 
 //
@@ -27,13 +26,19 @@ import
 // no protocol layers at all.
 //
 module PlainMobilityHost
+{
     parameters:
-        mobilityType: string;
+        string mobilityType;
+        @display("i=device/pocketpc_s");
     submodules:
-        notificationBoard: NotificationBoard;
-            display: "p=70,67;i=block/control";
-        mobility: mobilityType like BasicMobility;
-            display: "p=132,141;i=block/cogwheel";
-    connections nocheck:
-endmodule
+        notificationBoard: NotificationBoard {
+            parameters:
+                @display("p=70,67");
+        };
+        mobility: <mobilityType> like BasicMobility {
+            parameters:
+                @display("p=132,141");
+        };
+    connections allowunconnected:
+}
 

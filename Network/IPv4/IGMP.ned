@@ -24,9 +24,12 @@
 // author: Andras Varga
 //
 module IGMP
+{
+    parameters:
+        @display("i=block/cogwheel_s");
     gates:
-        in: localIn;  // delivered IGMP packets
-        out: sendOut; // to IP
-    connections nocheck:
-endmodule
+        input localIn;  // delivered IGMP packets
+        output sendOut; // to IP
+    connections allowunconnected:
+}
 

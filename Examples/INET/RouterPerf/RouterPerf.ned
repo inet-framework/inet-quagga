@@ -19,46 +19,51 @@
 
 
 
-import
-    "Router",
-    "BurstHost",
-    "FlatNetworkConfigurator",
-    "ChannelInstaller";
+import "Router";
+import "BurstHost";
+import "FlatNetworkConfigurator";
+import "ChannelInstaller";
 
 
-module RouterPerfNetwork
+network RouterPerfNetwork
+{
     parameters:
-        nodeNo: numeric const;
+        double nodeNo;
     submodules:
-        channelInstaller: ChannelInstaller;
+        channelInstaller: ChannelInstaller {
             parameters:
-                channelClass = "ThruputMeteringChannel",
+                channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=u";
-            display: "p=59,211;i=block/cogwheel_s";
-        configurator: FlatNetworkConfigurator;
+                @display("p=59,211");
+        };
+        configurator: FlatNetworkConfigurator {
             parameters:
-                moduleTypes = "Router BurstHost",
-                nonIPModuleTypes = "",
-                networkAddress = "145.236.0.0",
+                moduleTypes = "Router BurstHost";
+                nonIPModuleTypes = "";
+                networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
-            display: "p=61,163;i=block/cogwheel_s";
-        sender: BurstHost[nodeNo];
-            display: "p=100,300,row,100;i=device/pc3,yellow,10";
-        recip: BurstHost[nodeNo];
-            display: "p=100,80,row,100;i=device/pc3";
-        router: Router;
-            display: "p=210,190;i=abstract/router";
-    connections nocheck:
-        for i=0..nodeNo-1 do
-            sender[i].out++ --> datarate 1000000 --> router.in++;
-            sender[i].in++ <-- datarate 1000000 <-- router.out++;
+                @display("p=61,163");
+        };
+        sender[nodeNo]: BurstHost {
+            parameters:
+                @display("p=100,300,row,100;,yellow,10");
+        };
+        recip[nodeNo]: BurstHost {
+            parameters:
+                @display("p=100,80,row,100");
+        };
+        router: Router {
+            parameters:
+                @display("p=210,190");
+        };
+    connections allowunconnected:
+        for i=0..nodeNo-1 {
+            sender[i].out++ --> {  datarate = 1000000; } --> router.in++;
+            sender[i].in++ <-- {  datarate = 1000000; } <-- router.out++;
 
-            recip[i].out++ --> datarate 1000000 --> router.in++;
-            recip[i].in++ <-- datarate 1000000 <-- router.out++;
-        endfor;
+            recip[i].out++ --> {  datarate = 1000000; } --> router.in++;
+            recip[i].in++ <-- {  datarate = 1000000; } <-- router.out++;
+        };
 
-endmodule
-
-network routerPerfNetwork : RouterPerfNetwork
-endnetwork
+}
 

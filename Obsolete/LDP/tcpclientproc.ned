@@ -22,9 +22,10 @@
 // FIXME really needs a rewrite.
 // 
 simple TCPClientProc
+{
     gates:
-        in: from_ldp;        
-        in: from_tcp;
-        out: to_ldp;        
-        out: to_tcp;
-endsimple
+        input from_ldp;
+        input from_tcp;
+        output to_ldp;
+        output to_tcp;
+}

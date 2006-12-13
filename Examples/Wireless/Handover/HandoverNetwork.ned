@@ -17,38 +17,43 @@
 //
 
 
-import
-    "WirelessHost",
-    "WirelessAP",
-    "WirelessAP2";
+import "WirelessHost";
+import "WirelessAP";
+import "WirelessAP2";
 
 
-module HandoverNetwork
+network HandoverNetwork
+{
     parameters:
-        playgroundSizeX: numeric const,
-        playgroundSizeY: numeric const;
+        double playgroundSizeX;
+        double playgroundSizeY;
     submodules:
-        host: WirelessHost;
-            display: "p=50,130;i=device/wifilaptop;r=,,#707070";
-        ap1: WirelessAP;
-            display: "p=100,200;i=device/accesspoint;r=,,#707070";
-        ap2: WirelessAP;
-            display: "p=500,200;i=device/accesspoint;r=,,#707070";
-        channelcontrol: ChannelControl;
+        host: WirelessHost {
             parameters:
-                playgroundSizeX = playgroundSizeX,
+                @display("p=50,130;r=,,#707070");
+        };
+        ap1: WirelessAP {
+            parameters:
+                @display("p=100,200;r=,,#707070");
+        };
+        ap2: WirelessAP {
+            parameters:
+                @display("p=500,200;r=,,#707070");
+        };
+        channelcontrol: ChannelControl {
+            parameters:
+                playgroundSizeX = playgroundSizeX;
                 playgroundSizeY = playgroundSizeY;
-            display: "p=60,50;i=misc/sun";
-        configurator: FlatNetworkConfigurator;
+                @display("p=60,50");
+        };
+        configurator: FlatNetworkConfigurator {
             parameters:
-                moduleTypes = "WirelessHost WirelessHostSimplified",
-                nonIPModuleTypes = "WirelessAP WirelessAPSimplified",
-                networkAddress = "145.236.0.0",
+                moduleTypes = "WirelessHost WirelessHostSimplified";
+                nonIPModuleTypes = "WirelessAP WirelessAPSimplified";
+                networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
-            display: "p=140,50;i=block/cogwheel_s";
-    connections nocheck:
-endmodule
-
-network handoverNetwork : HandoverNetwork
-endnetwork
+                @display("p=140,50");
+        };
+    connections allowunconnected:
+}
 

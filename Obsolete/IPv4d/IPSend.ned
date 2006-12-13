@@ -38,12 +38,14 @@
 // Redesign: Andras Varga, 02.2004
 //
 simple IPSend
+{
     parameters:
-        timeToLive: numeric,
-        multicastTimeToLive: numeric;
+        volatile double timeToLive;
+        volatile double multicastTimeToLive;
+        @display("i=block/join");
     gates:
-        in: in[];
-        out: routingOut;
-endsimple
+        input in[];
+        output routingOut;
+}
 
 

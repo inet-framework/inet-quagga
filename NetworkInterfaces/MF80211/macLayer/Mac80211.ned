@@ -1,7 +1,7 @@
 //***************************************************************************
 //* file:        Mac80211.ned
 //*
-//* author:      Marc Löbbers
+//* author:      Marc LÃ¶bbers
 //*
 //* copyright:   (C) 2004 Telecommunication Networks Group (TKN) at
 //*              Technische Universitaet Berlin, Germany.
@@ -31,17 +31,19 @@
 // This component has been taken over from Mobility Framework 1.0a5.
 //
 simple Mac80211
+{
     parameters:
-        address : string,       // MAC address as hex string (12 hex digits), or
+        string address = default("auto");       // MAC address as hex string (12 hex digits), or
                                 // "auto". "auto" values will be replaced by
                                 // a generated MAC address in init stage 0.
-        maxQueueSize: numeric const,
-        rtsCts: bool,
-        bitrate: numeric const,
-        broadcastBackoff : numeric const;
+        int maxQueueSize;
+        bool rtsCts = default(false);
+        double bitrate @unit("bps");
+        int broadcastBackoff;
+        @display("i=block/layer");
     gates:
-        in: uppergateIn;
-        out: uppergateOut;
-        in: lowergateIn;
-        out: lowergateOut;
-endsimple
+        input uppergateIn;
+        output uppergateOut;
+        input lowergateIn;
+        output lowergateOut;
+}

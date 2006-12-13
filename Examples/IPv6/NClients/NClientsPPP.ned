@@ -17,41 +17,54 @@
 //
 
 
-import
-    "Router6",
-    "StandardHost6",
-    "FlatNetworkConfigurator6";
+import "Router6";
+import "StandardHost6";
+import "FlatNetworkConfigurator6";
 
 
-channel fiberline
-    delay 1us;
-    datarate 512*1000000;
-endchannel
-
-module NClientsPPP
+channel fiberline extends cBasicChannel
+{
     parameters:
-        n: numeric const;
+        delay = 1us;
+        datarate = 512*1000000;
+}
+
+network NClientsPPP
+{
+    parameters:
+        double n;
     submodules:
-        configurator: FlatNetworkConfigurator6;
+        configurator: FlatNetworkConfigurator6 {
             parameters:
-                moduleTypes = "Router6 StandardHost6",
+                moduleTypes = "Router6 StandardHost6";
                 nonIPModuleTypes = "";
-            display: "i=block/cogwheel";
-        r1: Router6;
-            display: "i=abstract/router";
-        r2: Router6;
-            display: "i=abstract/router";
-        r3: Router6;
-            display: "i=abstract/router";
-        cli: StandardHost6[n];
-            display: "i=device/laptop";
-        srv: StandardHost6;
-            display: "i=device/server_l";
-    connections nocheck:
-        for i=0..n-1 do
+                @display("");
+        };
+        r1: Router6 {
+            parameters:
+                @display("");
+        };
+        r2: Router6 {
+            parameters:
+                @display("");
+        };
+        r3: Router6 {
+            parameters:
+                @display("");
+        };
+        cli[n]: StandardHost6 {
+            parameters:
+                @display("");
+        };
+        srv: StandardHost6 {
+            parameters:
+                @display("");
+        };
+    connections allowunconnected:
+        for i=0..n-1 {
             cli[i].out++ --> fiberline --> r1.in++;
             cli[i].in++ <-- fiberline <-- r1.out++;
-        endfor
+        };
 
         r1.out++ --> fiberline --> r2.in++;
         r1.in++ <-- fiberline <-- r2.out++;
@@ -62,8 +75,5 @@ module NClientsPPP
         r3.out++ --> fiberline --> srv.in++;
         r3.in++ <-- fiberline <-- srv.out++;
 
-endmodule
-
-network nClientsPPP : NClientsPPP
-endnetwork
+}
 

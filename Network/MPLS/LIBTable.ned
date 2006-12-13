@@ -19,6 +19,8 @@
 // associated control protocols (RSVP, LDP) via direct C++ method calls.
 //
 simple LIBTable
+{
     parameters:
-        conf: xml; // table contents to be loaded on startup
-endsimple
+        xml conf; // table contents to be loaded on startup
+        @display("i=block/table2");
+}

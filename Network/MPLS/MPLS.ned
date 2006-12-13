@@ -48,11 +48,13 @@
 // assumes no information of QoS from the link layer.
 //
 simple MPLS
+{
     parameters:
-        classifier : string; // a module which implements the IClassifier C++ interface
+        string classifier; // a module which implements the IClassifier C++ interface
+        @display("i=block/switch");
     gates:
-        in: netwIn[];
-        out: netwOut[];
-        in: ifIn[];
-        out: ifOut[];
-endsimple
+        input netwIn[];
+        output netwOut[];
+        input ifIn[];
+        output ifOut[];
+}

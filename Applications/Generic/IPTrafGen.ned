@@ -23,10 +23,13 @@
 // Compatible with both IPv4 and IPv6.
 //
 simple IPTrafSink
+{
     gates:
-        in: from_ip, from_ipv6;
-        out: to_ip, to_ipv6;
-endsimple
+        input from_ip;
+        input from_ipv6;
+        output to_ip;
+        output to_ipv6;
+}
 
 
 //
@@ -42,17 +45,20 @@ endsimple
 // exactly like IPTrafSink).
 //
 simple IPTrafGen
+{
     parameters:
-        startTime: numeric, // the time application generates first packet
-        packetInterval : numeric, // may be a random value, e.g. exponential(1)
-        numPackets: numeric const, // max number of packets to generate
-        protocol: numeric const, // value for IPDatagram protocol field
-        packetLength : numeric, // in bytes (changed 2005-11-04)
-        destAddresses: string; // list of \IP addresses, separated by spaces
+        volatile double startTime = default(1) @unit("s"); // the time application generates first packet
+        volatile double packetInterval = default(10ms) @unit("s"); // may be a random value, e.g. exponential(1)
+        int numPackets = default(0); // max number of packets to generate
+        int protocol; // value for IPDatagram protocol field
+        volatile int packetLength @unit("B"); // in bytes (changed 2005-11-04)
+        string destAddresses = default(""); // list of \IP addresses, separated by spaces
     gates:
-        in: from_ip, from_ipv6;
-        out: to_ip, to_ipv6;
-endsimple
+        input from_ip;
+        input from_ipv6;
+        output to_ip;
+        output to_ipv6;
+}
 
 
 

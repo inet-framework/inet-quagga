@@ -18,16 +18,15 @@
 //
 
 
-import
-    "IPPreRouting",
-    "IPRouting",
-    "IPLocalDeliver",
-    "IPMulticast",
-    "IPSend",
-    "IPFragmentation",
-    "IPTunneling",
-    "IPOutput",
-    "IPInputQueue";
+import "IPPreRouting";
+import "IPRouting";
+import "IPLocalDeliver";
+import "IPMulticast";
+import "IPSend";
+import "IPFragmentation";
+import "IPTunneling";
+import "IPOutput";
+import "IPInputQueue";
 
 
 
@@ -40,59 +39,76 @@ import
 // modifications Andras Varga
 //
 module IPProcessing
+{
     parameters:
-        timeToLive: numeric,
-        multicastTimeToLive: numeric,
-        IPForward: bool,
-        fragmentTimeout: numeric const,
-        protocolMapping: string;
+        volatile double timeToLive;
+        volatile double multicastTimeToLive;
+        bool IPForward;
+        double fragmentTimeout;
+        string protocolMapping;
     gates:
-        in: transportIn[];
-        out: transportOut[];
-        in: queueIn[];
-        out: queueOut;
+        input transportIn[];
+        output transportOut[];
+        input queueIn[];
+        output queueOut;
     submodules:
-        preRouting: IPPreRouting;
-            gatesizes:
-                in[2];
-            display: "p=95,177;i=block/routing_s";
-        routing: IPRouting;
-            gatesizes:
-                in[2];
-            display: "p=179,177;i=block/routing";
-        localDeliver: IPLocalDeliver;
+        preRouting: IPPreRouting {
             parameters:
-                fragmentTimeout = fragmentTimeout,
+                @display("p=95,177");
+            gates:
+                in[2];
+        };
+        routing: IPRouting {
+            parameters:
+                @display("p=179,177");
+            gates:
+                in[2];
+        };
+        localDeliver: IPLocalDeliver {
+            parameters:
+                fragmentTimeout = fragmentTimeout;
                 protocolMapping = protocolMapping;
-            gatesizes:
-                in[2],
+                @display("p=95,78");
+            gates:
+                in[2];
                 transportOut[sizeof(transportOut)];
-            display: "p=95,78;i=block/fork";
-        multicast: IPMulticast;
-            display: "p=305,175;i=block/broadcast_s";
-        send: IPSend;
+        };
+        multicast: IPMulticast {
             parameters:
-                timeToLive = timeToLive,
+                @display("p=305,175");
+        };
+        send: IPSend {
+            parameters:
+                timeToLive = timeToLive;
                 multicastTimeToLive = multicastTimeToLive;
-            gatesizes:
+                @display("p=250,78");
+            gates:
                 in[sizeof(transportIn)+2];
-            display: "p=250,78;i=block/join";
-        fragmentation: IPFragmentation;
-            display: "p=231,249;i=block/segm";
-        tunneling: IPTunneling;
-            display: "p=370,152;i=block/tunnel_s";
-        output: IPOutput;
-            display: "p=333,322;i=block/queue";
-        inputQueue: IPInputQueue;
-            gatesizes:
+        };
+        fragmentation: IPFragmentation {
+            parameters:
+                @display("p=231,249");
+        };
+        tunneling: IPTunneling {
+            parameters:
+                @display("p=370,152");
+        };
+        output: IPOutput {
+            parameters:
+                @display("p=333,322");
+        };
+        inputQueue: IPInputQueue {
+            parameters:
+                @display("p=98,322");
+            gates:
                 fromNW[sizeof(queueIn)];
-            display: "p=98,322;i=block/queue";
-    connections nocheck:
+        };
+    connections allowunconnected:
 
         // L2 input to IPInputQueue
-        for i=0..sizeof(queueIn)-1 do
+        for i=0..sizeof(queueIn)-1 {
             queueIn[i] --> inputQueue.fromNW[i];
-        endfor;
+        };
 
         // IPPreRouting Input
         inputQueue.toIP --> preRouting.in[0];
@@ -107,9 +123,9 @@ module IPProcessing
 
         // IPLocalDeliver output
         localDeliver.preRoutingOut --> preRouting.in[1];
-        for i=0..sizeof(transportOut)-1 do
+        for i=0..sizeof(transportOut)-1 {
             localDeliver.transportOut[i] --> transportOut[i];
-        endfor;
+        };
 
         // Multicast output
         multicast.localOut --> localDeliver.in[1];
@@ -118,9 +134,9 @@ module IPProcessing
 
         // IP send output, input
         send.routingOut --> routing.in[1];
-        for i=0..sizeof(transportIn)-1 do
+        for i=0..sizeof(transportIn)-1 {
             transportIn[i] --> send.in[i+2];
-        endfor;
+        };
 
         // IP Tunnel output
         tunneling.sendOut --> send.in[1];
@@ -131,5 +147,5 @@ module IPProcessing
 
         // shortcut to send incoming \ARP packets towards ARP
         inputQueue.arpOut --> output.arpIn;
-endmodule
+}
 

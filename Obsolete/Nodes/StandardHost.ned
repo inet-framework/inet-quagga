@@ -17,12 +17,11 @@
 //
 
 
-import
-    "Blackboard",
-    "NetworkLayer",
-    "UDPUpperLayers",
-    "TCPUpperLayers",
-    "PingApp";
+import "Blackboard";
+import "NetworkLayer";
+import "UDPUpperLayers";
+import "TCPUpperLayers";
+import "PingApp";
 
 
 
@@ -30,45 +29,56 @@ import
 // Definition of an IPNode with transport layers.
 //
 module StandardHost
+{
     parameters:
         // TCP information
-        tcpApplType : string,
-        local_addr : numeric,
-        server_addr : numeric,
+        string tcpApplType;
+        volatile double local_addr;
+        volatile double server_addr;
 
         // Network information
-        routingFile : string;
+        string routingFile = default("");
+        @display("i=device/pc2");
     gates:
-        in: in[];
-        out: out[];
+        input in[];
+        output out[];
     submodules:
-        blackboard: Blackboard;
-            display: "i=block/blackboard;p=60,60";
+        blackboard: Blackboard {
+            parameters:
+                @display("p=60,60");
+        };
         // transport and application layers
-        tcpApp: TCPUpperLayers;
+        tcpApp: TCPUpperLayers {
             parameters:
-                tcpApplType = tcpApplType,
-                local_addr = local_addr,
+                tcpApplType = tcpApplType;
+                local_addr = local_addr;
                 server_addr = server_addr;
-            display: "p=60,50;b=40,24,rect";
-        udpApp: UDPUpperLayers;
+                @display("p=60,50;b=40,24,rect");
+        };
+        udpApp: UDPUpperLayers {
             parameters:
-                udpClient1Name = "UDPClientApp",
+                udpClient1Name = "UDPClientApp";
                 udpServer1Name = "UDPServerApp";
-            display: "p=120,50;b=40,24,rect";
-        pingApp: PingApp;
-            display: "p=180,50;b=40,24,rect";
-        networkLayer: NetworkLayer;
+                @display("p=120,50;b=40,24,rect");
+        };
+        pingApp: PingApp {
             parameters:
-                IPForward = false,
+                @display("p=180,50;b=40,24,rect");
+        };
+        networkLayer: NetworkLayer {
+            parameters:
+                IPForward = false;
                 routingFile = routingFile;
-            gatesizes:
-                physIn[sizeof(out)],
+                @display("p=120,110");
+            gates:
+                physIn[sizeof(out)];
                 physOut[sizeof(out)];
-            display: "p=120,110;i=block/fork";
-        ppp: PPPInterface[sizeof(out)];
-            display: "p=60,180,row;i=block/ifcard";
-    connections nocheck:
+        };
+        ppp[sizeof(out)]: PPPInterface {
+            parameters:
+                @display("p=60,180,row");
+        };
+    connections allowunconnected:
         // transport connections
         networkLayer.TCPOut --> tcpApp.in;
         networkLayer.TCPIn <-- tcpApp.out;
@@ -80,11 +90,11 @@ module StandardHost
         networkLayer.pingIn <-- pingApp.out;
 
         // connections to network outside
-        for i=0..sizeof(out)-1 do
+        for i=0..sizeof(out)-1 {
             in[i] --> ppp[i].physIn;
             out[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.physIn[i];
             ppp[i].netwIn <-- networkLayer.physOut[i];
-        endfor;
-endmodule
+        };
+}
 

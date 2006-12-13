@@ -17,69 +17,86 @@
 //
 
 
-import
-    "Router",
-    "StandardHost",
-    "ThruputMeter",
-    "TCPDump",
-    "FlatNetworkConfigurator",
-    "ScenarioManager",
-    "ChannelInstaller";
+import "Router";
+import "StandardHost";
+import "ThruputMeter";
+import "TCPDump";
+import "FlatNetworkConfigurator";
+import "ScenarioManager";
+import "ChannelInstaller";
 
-module REDTestDebug
+network REDTestDebug
+{
     submodules:
-        channelInstaller: ChannelInstaller;
+        channelInstaller: ChannelInstaller {
             parameters:
-                channelClass = "ThruputMeteringChannel",
+                channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=b (u)";
-            display: "p=305,40;i=block/cogwheel_s";
-        configurator: FlatNetworkConfigurator;
+                @display("p=305,40");
+        };
+        configurator: FlatNetworkConfigurator {
             parameters:
-                moduleTypes = "Router StandardHost ThruputMeter TCPDump",
-                nonIPModuleTypes = "ThruputMeter TCPDump",
-                networkAddress = "145.236.0.0",
+                moduleTypes = "Router StandardHost ThruputMeter TCPDump";
+                nonIPModuleTypes = "ThruputMeter TCPDump";
+                networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
-            display: "p=147,40;i=block/cogwheel_s";
-        scenarioManager: ScenarioManager;
-            display: "p=222,40;i=block/control_s";
-        r1: Router;
-            display: "p=147,143;i=abstract/router";
-        r2: Router;
-            display: "p=345,142;i=abstract/router";
-        s1: StandardHost;
-            display: "p=68,64;i=device/laptop";
-        s2: StandardHost;
-            display: "p=65,193;i=device/laptop";
-        s3: StandardHost;
-            display: "p=421,83;i=device/laptop";
-        s4: StandardHost;
-            display: "p=420,195;i=device/laptop";
-        dump: TCPDump;
-            display: "p=286,143;i=block/control_vs";
-        th: ThruputMeter;
-            display: "p=248,135;i=block/timer_vs";
-    connections nocheck:
-        r1.out++ --> datarate 1.5e6 delay 20e-3 --> th.in;
+                @display("p=147,40");
+        };
+        scenarioManager: ScenarioManager {
+            parameters:
+                @display("p=222,40");
+        };
+        r1: Router {
+            parameters:
+                @display("p=147,143");
+        };
+        r2: Router {
+            parameters:
+                @display("p=345,142");
+        };
+        s1: StandardHost {
+            parameters:
+                @display("p=68,64;i=device/laptop");
+        };
+        s2: StandardHost {
+            parameters:
+                @display("p=65,193;i=device/laptop");
+        };
+        s3: StandardHost {
+            parameters:
+                @display("p=421,83;i=device/laptop");
+        };
+        s4: StandardHost {
+            parameters:
+                @display("p=420,195;i=device/laptop");
+        };
+        dump: TCPDump {
+            parameters:
+                @display("p=286,143");
+        };
+        th: ThruputMeter {
+            parameters:
+                @display("p=248,135");
+        };
+    connections allowunconnected:
+        r1.out++ --> {  datarate = 1.5e6; delay = 20e-3; } --> th.in;
         th.out --> dump.in1;
         dump.out2 --> r2.in++;
 
-        r1.in++ <-- datarate 1.5e6 delay 20e-3 <-- dump.out1;
-        dump.in2 <-- datarate 1.5e6 delay 20e-3 <-- r2.out++;
+        r1.in++ <-- {  datarate = 1.5e6; delay = 20e-3; } <-- dump.out1;
+        dump.in2 <-- {  datarate = 1.5e6; delay = 20e-3; } <-- r2.out++;
 
-        s1.out++ --> datarate 10e6 delay 2e-3 --> r1.in++;
-        s1.in++ <-- datarate 10e6 delay 2e-3 <-- r1.out++;
+        s1.out++ --> {  datarate = 10e6; delay = 2e-3; } --> r1.in++;
+        s1.in++ <-- {  datarate = 10e6; delay = 2e-3; } <-- r1.out++;
 
-        s2.out++ --> datarate 10e6 delay 3e-3 --> r1.in++;
-        s2.in++ <-- datarate 10e6 delay 3e-3 <-- r1.out++;
+        s2.out++ --> {  datarate = 10e6; delay = 3e-3; } --> r1.in++;
+        s2.in++ <-- {  datarate = 10e6; delay = 3e-3; } <-- r1.out++;
 
-        s3.out++ --> datarate 10e6 delay 4e-3 --> r2.in++;
-        s3.in++ <-- datarate 10e6 delay 4e-3 <-- r2.out++;
+        s3.out++ --> {  datarate = 10e6; delay = 4e-3; } --> r2.in++;
+        s3.in++ <-- {  datarate = 10e6; delay = 4e-3; } <-- r2.out++;
 
-        s4.out++ --> datarate 10e6 delay 5e-3 --> r2.in++;
-        s4.in++ <-- datarate 10e6 delay 5e-3 <-- r2.out++;
+        s4.out++ --> {  datarate = 10e6; delay = 5e-3; } --> r2.in++;
+        s4.in++ <-- {  datarate = 10e6; delay = 5e-3; } <-- r2.out++;
 
-endmodule
-
-network redTestDebug : REDTestDebug
-endnetwork
+}
 

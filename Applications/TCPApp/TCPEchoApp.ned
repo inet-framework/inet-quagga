@@ -36,13 +36,14 @@
 // Compatible with both IPv4 and IPv6.
 //
 simple TCPEchoApp
+{
     parameters:
-        address: string, // local address; may be left empty ("")
-        port: numeric const, // port number to listen on
-        echoFactor: numeric const,
-        echoDelay: numeric const;
+        string address = default(""); // local address; may be left empty ("")
+        int port; // port number to listen on
+        double echoFactor = default(1);
+        double echoDelay = default(0) @unit("s");
     gates:
-        in: tcpIn;
-        out: tcpOut;
-endsimple
+        input tcpIn;
+        output tcpOut;
+}
 

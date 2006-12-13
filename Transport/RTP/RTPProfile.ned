@@ -1,10 +1,15 @@
 simple RTPProfile
 
-	parameters:
-		autoOutputFileNames: string;
+{
+    parameters:
+        string autoOutputFileNames;
 
-	gates:
-		in: fromRTP, fromPayloadSender, fromPayloadReceiver[];
-		out: toRTP, toPayloadSender, toPayloadReceiver[];
+    gates:
+        input fromRTP;
+        input fromPayloadSender;
+        input fromPayloadReceiver[];
+        output toRTP;
+        output toPayloadSender;
+        output toPayloadReceiver[];
 
-endsimple
+}

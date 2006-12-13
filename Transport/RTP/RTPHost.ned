@@ -1,69 +1,77 @@
 // the original file was included in the UDP sockets example
 
-import
-    "NetworkLayer",
-    "UDP",
-    "UDPModule",
-    "socketlayer",
-    "RTPLayer",
-    "RTPApplication";
+import "NetworkLayer";
+import "UDP";
+import "UDPModule";
+import "socketlayer";
+import "RTPLayer";
+import "RTPApplication";
 
 
 module RTPHost
 
+{
     parameters:
-        debug: bool,
-        profileName : string,
-        destinationAddress : string,
-        portNumber : numeric,
-        bandwidth : numeric,
-        fileName : string,
-        payloadType : numeric,
+        bool debug = default(false);
+        string profileName;
+        string destinationAddress = default("");
+        volatile int portNumber = default(554);
+        volatile double bandwidth @unit("bps");
+        string fileName = default("");
+        volatile int payloadType = default(0);
         // network information
-        numOfProcessors : numeric,
-        routingFile : string;
+        volatile int numOfProcessors = default(1);
+        string routingFile = default("");
+        @display("i=device/pc2");
     gates:
-        in: in[];
-        out: out[];
+        input in[];
+        output out[];
 
     submodules:
-        application: RTPApplication;
+        application: RTPApplication {
             parameters:
                 //#commonName = nodename,
-                profileName = profileName,
-                destinationAddress = destinationAddress,
-                portNumber = portNumber,
-                bandwidth = bandwidth,
-                fileName = fileName,
+                profileName = profileName;
+                destinationAddress = destinationAddress;
+                portNumber = portNumber;
+                bandwidth = bandwidth;
+                fileName = fileName;
                 payloadType = payloadType;
-            display: "p=77,52;b=40,24";
-        rtpLayer: RTPLayer;
+                @display("p=77,52;b=40,24");
+        };
+        rtpLayer: RTPLayer {
             parameters:
-                rtpModuleType = "RTPEndsystemModule",
+                rtpModuleType = "RTPEndsystemModule";
                 rtcpModuleType = "RTCPEndsystemModule";
-            display: "p=178,54;b=40,24";
-        socketLayer: SocketLayer;
+                @display("p=178,54;b=40,24");
+        };
+        socketLayer: SocketLayer {
             parameters:
                 debug = false;
-            gatesizes:
-                from_appl[2],
+                @display("p=180,164;b=40,24");
+            gates:
+                from_appl[2];
                 to_appl[2];
-            display: "p=180,164;b=40,24";
-        udpModule: UDPModule;
+        };
+        udpModule: UDPModule {
             parameters:
                 debug = false;
-            display: "p=87,166;i=block/transport";
-        networkLayer: NetworkLayer;
+                @display("p=87,166");
+        };
+        networkLayer: NetworkLayer {
             parameters:
-                IPForward = false,
+                IPForward = false;
                 routingFile = routingFile;
-            gatesizes:
-                ifIn[sizeof(out)],
+                @display("p=87,242");
+            gates:
+                ifIn[sizeof(out)];
                 ifOut[sizeof(out)];
-            display: "p=87,242;i=block/fork";
-        ppp : PPPInterface[sizeof(out)];
-            display: "p=80,300,row;q=queue;i=block/ifcard";
-    connections nocheck:
+        };
+        ppp[sizeof(out)]: PPPInterface {
+            parameters:
+                @display("p=80,300,row;q=queue");
+        };
+    connections allowunconnected:
         // transport connections
         application.toRTP --> rtpLayer.fromApp;
         application.fromRTP <-- rtpLayer.toApp;
@@ -77,11 +85,11 @@ module RTPHost
         networkLayer.UDPIn <-- udpModule.to_ip;
 
         // connections to network outside
-        for i=0..sizeof(out)-1 do
+        for i=0..sizeof(out)-1 {
             in[i] --> ppp[i].physIn;
             out[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
-        endfor;
-endmodule
+        };
+}
 

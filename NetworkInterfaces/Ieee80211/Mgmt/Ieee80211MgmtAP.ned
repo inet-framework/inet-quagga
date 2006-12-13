@@ -33,16 +33,18 @@
 // @author Andras Varga
 //
 simple Ieee80211MgmtAP
+{
     parameters:
-        ssid: string,
-        beaconInterval: numeric const,
-        frameCapacity: numeric const, // maximum queue length
-        numAuthSteps: numeric const; // use 2 for Open System auth, 4 for WEP
+        string ssid = default("SSID");
+        double beaconInterval = default(100ms) @unit("s");
+        int frameCapacity = default(100); // maximum queue length
+        int numAuthSteps = default(4); // use 2 for Open System auth, 4 for WEP
         //dataRate: numeric; XXX TBD
+        @display("i=block/cogwheel");
     gates:
-        in: uppergateIn; // from MACRelayUnit; can be left unconnected
-        out: uppergateOut; // to MACRelayUnit; can be left unconnected
-        in: macIn; // from Ieee80211Mac
-        out: macOut; // to Ieee80211Mac
-endsimple
+        input uppergateIn; // from MACRelayUnit; can be left unconnected
+        output uppergateOut; // to MACRelayUnit; can be left unconnected
+        input macIn; // from Ieee80211Mac
+        output macOut; // to Ieee80211Mac
+}
 

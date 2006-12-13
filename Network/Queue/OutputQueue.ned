@@ -29,8 +29,9 @@
 // @see DropTailQueue, DropTailQoSQueue, REDQueue
 //
 simple OutputQueue
+{
     gates:
-        in: in;
-        out: out;
-endsimple
+        input in;
+        output out;
+}
 

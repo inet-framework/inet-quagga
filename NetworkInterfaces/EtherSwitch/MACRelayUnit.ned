@@ -44,14 +44,15 @@
 // Known implementations are MACRelayUnitNP and MACRelayUnitPP.
 //
 simple MACRelayUnit
+{
     parameters:
-        addressTableFile : string,  // set to empty string if not used
-        addressTableSize : numeric, // max size of address table
-        agingTime : numeric;        // max idle time for address table entries
+        string addressTableFile = default("");  // set to empty string if not used
+        volatile int addressTableSize = default(100); // max size of address table
+        volatile double agingTime = default(120) @unit("s");        // max idle time for address table entries
                                     // (if expires, entry is removed from the table)
 
     gates:
-        in:  lowerLayerIn[];
-        out: lowerLayerOut[];
-endsimple
+        input lowerLayerIn[];
+        output lowerLayerOut[];
+}
 

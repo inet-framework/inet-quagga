@@ -81,16 +81,17 @@
 // maxp = 1/50 = 0.02 and pkrate = 12000 (~1K packets on 100Mbps link).
 //
 simple REDQueue
+{
     parameters:
-        wq: numeric const,    // queue weight
-        minth: numeric const, // minimum threshold for avg queue length
-        maxth: numeric const, // maximum threshold for avg queue length (=buffer capacity)
-        maxp: numeric const,  // maximum value for pb
-        pkrate: numeric const;  // arrivals per sec (see comment above)
+        double wq = default(0.002);    // queue weight
+        double minth = default(5); // minimum threshold for avg queue length
+        double maxth = default(50); // maximum threshold for avg queue length (=buffer capacity)
+        double maxp = default(0.02);  // maximum value for pb
+        double pkrate = default(150);  // arrivals per sec (see comment above)
     gates:
-        in: in;
-        out: out;
-endsimple
+        input in;
+        output out;
+}
 
 
 

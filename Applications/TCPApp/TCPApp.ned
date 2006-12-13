@@ -24,8 +24,9 @@
 // needs, to be able to be used in StandardHost etc.
 //
 simple TCPApp
+{
     gates:
-        in: tcpIn;
-        out: tcpOut;
-endsimple
+        input tcpIn;
+        output tcpOut;
+}
 

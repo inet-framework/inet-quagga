@@ -11,10 +11,9 @@
 //
 
 
-import
-    "StandardHost",
-    "RSVP_LSR",
-    "TED";
+import "StandardHost";
+import "RSVP_LSR";
+import "TED";
 
 
 //
@@ -24,95 +23,102 @@ import
 //
 // See the README file in the model directory for scenario description.
 //
-module RSVPNet
+network RSVPNet
+{
     submodules:
-        LSR1: RSVP_LSR;
+        LSR1: RSVP_LSR {
             parameters:
-                isIR = true,
+                isIR = true;
                 isER = false;
-            gatesizes:
-                in[4],
+                @display("p=165,68");
+            gates:
+                in[4];
                 out[4];
-            display: "p=165,68;i=abstract/router";
-        LSR2: RSVP_LSR;
+        };
+        LSR2: RSVP_LSR {
             parameters:
-                isIR = false,
+                isIR = false;
                 isER = false;
-            gatesizes:
-                in[3],
+                @display("p=203,244");
+            gates:
+                in[3];
                 out[3];
-            display: "p=203,244;i=abstract/router";
-        LSR3: RSVP_LSR;
+        };
+        LSR3: RSVP_LSR {
             parameters:
-                isIR = false,
+                isIR = false;
                 isER = false;
-            gatesizes:
-                in[4],
+                @display("p=344,68");
+            gates:
+                in[4];
                 out[4];
-            display: "p=344,68;i=abstract/router";
-        LSR4: RSVP_LSR;
+        };
+        LSR4: RSVP_LSR {
             parameters:
-                isIR = false,
+                isIR = false;
                 isER = false;
-            gatesizes:
-                in[3],
+                @display("p=483,244");
+            gates:
+                in[3];
                 out[3];
-            display: "p=483,244;i=abstract/router";
-        LSR5: RSVP_LSR;
+        };
+        LSR5: RSVP_LSR {
             parameters:
-                isIR = false,
+                isIR = false;
                 isER = true;
-            gatesizes:
-                in[4],
+                @display("p=561,68");
+            gates:
+                in[4];
                 out[4];
-            display: "p=561,68;i=abstract/router";
-        host2: StandardHost; // client
-            gatesizes:
-                in[1],
+        };
+        host2: StandardHost { // client
+            parameters:
+                @display("p=65,159;i=device/pc2");
+            gates:
+                in[1];
                 out[1];
-            display: "p=65,159;i=device/pc2";
-        host4: StandardHost; // server
-            gatesizes:
-                in[1],
+        };
+        host4: StandardHost { // server
+            parameters:
+                @display("p=643,155;i=device/server");
+            gates:
+                in[1];
                 out[1];
-            display: "p=643,155;i=device/server";
-        ted: TED;
+        };
+        ted: TED {
             parameters:
                 moduleTypes = "StandardHost RSVP_LSR";
-            display: "p=97,262;i=block/table";
-    connections nocheck:
+                @display("p=97,262");
+        };
+    connections allowunconnected:
 
-        host2.in[0] <-- delay 0ms datarate 9000 <-- LSR1.out[1];
-        host2.out[0] --> delay 0ms datarate 9000 --> LSR1.in[1];
+        host2.in[0] <-- {  delay = 0ms; datarate = 9000; } <-- LSR1.out[1];
+        host2.out[0] --> {  delay = 0ms; datarate = 9000; } --> LSR1.in[1];
 
-        LSR1.out[2] --> delay 1ms datarate 2000 --> LSR2.in[0];
-        LSR1.in[2] <-- delay 1ms datarate 1000 <-- LSR2.out[0];
+        LSR1.out[2] --> {  delay = 1ms; datarate = 2000; } --> LSR2.in[0];
+        LSR1.in[2] <-- {  delay = 1ms; datarate = 1000; } <-- LSR2.out[0];
 
-        LSR1.out[3] --> delay 5ms datarate 1000 --> LSR3.in[0];
-        LSR1.in[3] <-- delay 5ms datarate 1000 <-- LSR3.out[0];
+        LSR1.out[3] --> {  delay = 5ms; datarate = 1000; } --> LSR3.in[0];
+        LSR1.in[3] <-- {  delay = 5ms; datarate = 1000; } <-- LSR3.out[0];
 
-        LSR2.out[1] --> delay 5ms datarate 1000 --> LSR3.in[1];
-        LSR2.in[1] <-- delay 5ms datarate 2000 <-- LSR3.out[1];
+        LSR2.out[1] --> {  delay = 5ms; datarate = 1000; } --> LSR3.in[1];
+        LSR2.in[1] <-- {  delay = 5ms; datarate = 2000; } <-- LSR3.out[1];
 
-        LSR2.out[2] --> delay 15ms datarate 4000 --> LSR4.in[0];
-        LSR2.in[2] <-- delay 15ms datarate 1000 <-- LSR4.out[0];
+        LSR2.out[2] --> {  delay = 15ms; datarate = 4000; } --> LSR4.in[0];
+        LSR2.in[2] <-- {  delay = 15ms; datarate = 1000; } <-- LSR4.out[0];
 
-        LSR3.out[2] --> delay 15ms datarate 2000 --> LSR4.in[1];
-        LSR3.in[2] <-- delay 15ms datarate 1000 <-- LSR4.out[1];
+        LSR3.out[2] --> {  delay = 15ms; datarate = 2000; } --> LSR4.in[1];
+        LSR3.in[2] <-- {  delay = 15ms; datarate = 1000; } <-- LSR4.out[1];
 
-        LSR3.out[3] --> delay 5ms datarate 2000 --> LSR5.in[0];
-        LSR3.in[3] <-- delay 5ms datarate 2000 <-- LSR5.out[0];
+        LSR3.out[3] --> {  delay = 5ms; datarate = 2000; } --> LSR5.in[0];
+        LSR3.in[3] <-- {  delay = 5ms; datarate = 2000; } <-- LSR5.out[0];
 
-        LSR4.out[2] --> delay 2ms datarate 1000 --> LSR5.in[1];
-        LSR4.in[2] <-- delay 2ms datarate 2000 <-- LSR5.out[1];
+        LSR4.out[2] --> {  delay = 2ms; datarate = 1000; } --> LSR5.in[1];
+        LSR4.in[2] <-- {  delay = 2ms; datarate = 2000; } <-- LSR5.out[1];
 
 
-        LSR5.out[3] --> delay 0ms datarate 9000 --> host4.in[0];
-        LSR5.in[3] <-- delay 10ms datarate 9000 <-- host4.out[0];
+        LSR5.out[3] --> {  delay = 0ms; datarate = 9000; } --> host4.in[0];
+        LSR5.in[3] <-- {  delay = 10ms; datarate = 9000; } <-- host4.out[0];
 
-endmodule
-
-network RSVPTest : RSVPNet
-endnetwork
-
+}
 

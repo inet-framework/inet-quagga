@@ -22,13 +22,15 @@
 // Thruput measurement utility module.
 //
 simple ThruputMeter
+{
     parameters:
-        startTime: numeric const,
-        batchSize: numeric const,
-        maxInterval: numeric const;
+        double startTime = default(0) @unit("s");
+        int batchSize = default(50);
+        double maxInterval = default(1) @unit("s");
+        @display("i=block/timer_vs");
     gates:
-        in: in;
-        out: out;
-endsimple
+        input in;
+        output out;
+}
 
 

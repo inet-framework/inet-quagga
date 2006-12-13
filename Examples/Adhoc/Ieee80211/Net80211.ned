@@ -17,34 +17,35 @@
 //
 
 
-import
-    "MobileHost",
-    "ChannelControl";
+import "MobileHost";
+import "ChannelControl";
 
 
-module Net80211
+network Net80211
+{
     parameters:
-        numHosts: numeric const,
-        playgroundSizeX: numeric const,
-        playgroundSizeY: numeric const;
+        double numHosts;
+        double playgroundSizeX;
+        double playgroundSizeY;
     submodules:
-        host: MobileHost[numHosts];
-            display: "i=device/pocketpc_s;r=,,#707070";
-        channelcontrol: ChannelControl;
+        host[numHosts]: MobileHost {
             parameters:
-                playgroundSizeX = playgroundSizeX,
+                @display("r=,,#707070");
+        };
+        channelcontrol: ChannelControl {
+            parameters:
+                playgroundSizeX = playgroundSizeX;
                 playgroundSizeY = playgroundSizeY;
-            display: "p=60,50;i=misc/sun";
-        configurator: FlatNetworkConfigurator;
+                @display("p=60,50");
+        };
+        configurator: FlatNetworkConfigurator {
             parameters:
-                moduleTypes = "MobileHost",
-                nonIPModuleTypes = "",
-                networkAddress = "145.236.0.0",
+                moduleTypes = "MobileHost";
+                nonIPModuleTypes = "";
+                networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
-            display: "p=140,50;i=block/cogwheel_s";
-    connections nocheck:
-endmodule
-
-network net80211 : Net80211
-endnetwork
+                @display("p=140,50");
+        };
+    connections allowunconnected:
+}
 

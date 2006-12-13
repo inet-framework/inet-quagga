@@ -29,21 +29,22 @@
 // write your model accordingly.
 //
 simple TelnetApp
+{
     parameters:
-        address: string, // may be left empty ("")
-        port: numeric const, // port number to listen on
-        connectAddress: string,  // server address (may be symbolic)
-        connectPort: numeric const, // port number to connect to
-        startTime: numeric, // time first session begins
-        numCommands: numeric, // user types this many commands in a session
-        commandLength: numeric, // commands are this many characters (plus Enter)
-        keyPressDelay: numeric, // delay between keypresses
-        commandOutputLength: numeric, // commands produce this much output (bytes)
-        thinkTime: numeric, // user waits this much before starting to type new command
-        idleInterval: numeric, // time gap between sessions
-        reconnectInterval;  // if connection breaks, user waits this much before trying to reconnect
+        string address = default(""); // may be left empty ("")
+        int port; // port number to listen on
+        string connectAddress;  // server address (may be symbolic)
+        int connectPort; // port number to connect to
+        volatile double startTime = default(1) @unit("s"); // time first session begins
+        volatile int numCommands = default(exponential(10)); // user types this many commands in a session
+        volatile int commandLength = default(10) @unit("B"); // commands are this many characters (plus Enter)
+        volatile double keyPressDelay = default(exponential(0.1)) @unit("s"); // delay between keypresses
+        volatile int commandOutputLength = default(exponential(1000)) @unit("B"); // commands produce this much output (bytes)
+        volatile double thinkTime = default(exponential(10)) @unit("s"); // user waits this much before starting to type new command
+        volatile double idleInterval = default(exponential(300)) @unit("s"); // time gap between sessions
+        volatile double reconnectInterval = default(30) @unit("s");  // if connection breaks, user waits this much before trying to reconnect
     gates:
-        in: tcpIn;
-        out: tcpOut;
-endsimple
+        input tcpIn;
+        output tcpOut;
+}
 

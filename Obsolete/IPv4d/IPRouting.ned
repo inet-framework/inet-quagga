@@ -42,14 +42,16 @@
 // Redesign: Andras Varga, 02.2004
 //
 simple IPRouting
+{
     parameters:
-        procDelay : numeric const,
-        qosBehaviorClass: string;
+        double procDelay;
+        string qosBehaviorClass;
+        @display("i=block/routing");
     gates:
-        in: in[];
-        out: localOut;
-        out: fragmentationOut;
-        out: multicastOut;
-endsimple
+        input in[];
+        output localOut;
+        output fragmentationOut;
+        output multicastOut;
+}
 
 

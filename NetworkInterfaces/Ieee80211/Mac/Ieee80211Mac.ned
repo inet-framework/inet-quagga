@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2006 Andras Varga and Levente MÈsz·ros
+// Copyright (C) 2006 Andras Varga and Levente M√©sz√°ros
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -51,20 +51,22 @@
 // which is related to PCF and other non-modelled features).
 //
 simple Ieee80211Mac
+{
     parameters:
-        address : string,       // MAC address as hex string (12 hex digits), or
+        string address;       // MAC address as hex string (12 hex digits), or
                                 // "auto". "auto" values will be replaced by
                                 // a generated MAC address in init stage 0.
-        queueModule: string,    // name of optional external queue module
-        maxQueueSize: numeric const, // max queue length in frames; only used if queueModule==""
-        bitrate: numeric const,
-        rtsThresholdBytes: numeric const, // longer messages will be sent using RTS/CTS; use 2346 for default
-        retryLimit: numeric const, // maximum number of retries per message, -1 means default
-        cwMinData: numeric const, // contention window for normal data frames, -1 means default
-        cwMinBroadcast: numeric const; // contention window for broadcast messages, -1 means default
+        string queueModule = default("");    // name of optional external queue module
+        int maxQueueSize; // max queue length in frames; only used if queueModule==""
+        double bitrate @unit("bps");
+        int rtsThresholdBytes @unit("B"); // longer messages will be sent using RTS/CTS; use 2346 for default
+        int retryLimit; // maximum number of retries per message, -1 means default
+        int cwMinData; // contention window for normal data frames, -1 means default
+        int cwMinBroadcast; // contention window for broadcast messages, -1 means default
+        @display("i=block/layer");
     gates:
-        in: uppergateIn;
-        out: uppergateOut;
-        in: lowergateIn;
-        out: lowergateOut;
-endsimple
+        input uppergateIn;
+        output uppergateOut;
+        input lowergateIn;
+        output lowergateOut;
+}

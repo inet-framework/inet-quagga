@@ -23,13 +23,14 @@
 // Conforms to the OutputQueue interface.
 //
 simple DropTailQoSQueue
+{
     parameters:
-        frameCapacity: numeric const,  // per-subqueue capacity
-        classifierClass: string;  // class that inherits from IQoSClassifier
+        int frameCapacity = default(100);  // per-subqueue capacity
+        string classifierClass;  // class that inherits from IQoSClassifier
     gates:
-        in: in;
-        out: out;
-endsimple
+        input in;
+        output out;
+}
 
 
 

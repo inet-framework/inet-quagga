@@ -78,9 +78,10 @@
 // to do that, attach a PhyControlInfo with bitrate filled in to the frame.
 //
 simple Radio
+{
     gates:
-        in: uppergateIn;   // from higher layer protocol (MAC)
-        out: uppergateOut; // to higher layer protocol (MAC)
-        in: radioIn; // to receive frames (AirFrame) on the radio channel
-endsimple
+        input uppergateIn;   // from higher layer protocol (MAC)
+        output uppergateOut; // to higher layer protocol (MAC)
+        input radioIn; // to receive frames (AirFrame) on the radio channel
+}
 

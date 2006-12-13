@@ -33,12 +33,14 @@
 // @author Andras Varga, Vojta Janota
 //
 simple LDP
+{
     parameters:
-        holdTime : numeric,
-        helloInterval : numeric;
+        volatile double holdTime = default(15) @unit("s");
+        volatile double helloInterval = default(5) @unit("s");
+        @display("i=block/control");
     gates:
-        in: tcpIn;
-        in: udpIn;
-        out: tcpOut;
-        out: udpOut;
-endsimple
+        input tcpIn;
+        input udpIn;
+        output tcpOut;
+        output udpOut;
+}

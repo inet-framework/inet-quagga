@@ -37,5 +37,8 @@
 // it will disseminate this information to all interested modules.
 //
 simple NotificationBoard
-endsimple
+{
+    parameters:
+        @display("i=block/control");
+}
 

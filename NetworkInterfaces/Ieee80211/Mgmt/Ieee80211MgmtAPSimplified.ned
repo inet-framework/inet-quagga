@@ -39,11 +39,13 @@
 // @author Andras Varga
 //
 simple Ieee80211MgmtAPSimplified
+{
     parameters:
-        frameCapacity: numeric;
+        volatile int frameCapacity = default(100);
+        @display("i=block/cogwheel");
     gates:
-        in: uppergateIn; // from MACRelayUnit; can be left unconnected
-        out: uppergateOut; // to MACRelayUnit; can be left unconnected
-        in: macIn; // from Ieee80211Mac
-        out: macOut; // to Ieee80211Mac
-endsimple
+        input uppergateIn; // from MACRelayUnit; can be left unconnected
+        output uppergateOut; // to MACRelayUnit; can be left unconnected
+        input macIn; // from Ieee80211Mac
+        output macOut; // to Ieee80211Mac
+}

@@ -21,10 +21,11 @@
 // incoming messages. 
 //
 simple Dummy
+{
     gates:
-        in: in[];
-        out: out[];
-        in: ethIn[];
-        out: ethOut[];
-endsimple
+        input in[];
+        output out[];
+        input ethIn[];
+        output ethOut[];
+}
 

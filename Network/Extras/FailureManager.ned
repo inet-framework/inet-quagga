@@ -50,6 +50,9 @@
 // versions.
 //
 simple FailureManager
-endsimple
+{
+    parameters:
+        @display("i=block/control_s");
+}
 
 

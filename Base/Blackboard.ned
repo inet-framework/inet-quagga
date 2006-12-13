@@ -23,5 +23,8 @@
 // Accessed via direct method calls.
 //
 simple Blackboard
-endsimple
+{
+    parameters:
+        @display("i=block/blackboard");
+}
 

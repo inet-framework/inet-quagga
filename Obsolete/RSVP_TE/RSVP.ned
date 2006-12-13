@@ -28,13 +28,15 @@
 // RSVPAppl, TED, OspfTe, and MPLSModule.
 //
 simple RSVP
+{
     parameters:
-        isIR : bool,
-        isER : bool;
+        bool isIR;
+        bool isER;
+        @display("i=block/control");
     gates:
-        in: from_ip;
-        in: from_rsvp_app;
-        out: to_ip;
-        out: to_rsvp_app;
+        input from_ip;
+        input from_rsvp_app;
+        output to_ip;
+        output to_rsvp_app;
 
-endsimple
+}

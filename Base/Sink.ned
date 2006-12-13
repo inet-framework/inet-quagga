@@ -22,7 +22,10 @@
 // Silently discards all input messages.
 //
 simple Sink
+{
+    parameters:
+        @display("i=block/sink");
     gates:
-        in: in[];
-endsimple
+        input in[];
+}
 

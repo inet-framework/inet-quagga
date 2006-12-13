@@ -127,27 +127,29 @@
 // @see EtherFrame, EthernetIIFrame, EtherFrameWithLLC, Ieee802Ctrl
 //
 simple EtherMAC
+{
     parameters:
-        promiscuous : bool,     // if true, all packets are received, otherwise only the
+        bool promiscuous = default(false);     // if true, all packets are received, otherwise only the
                                 // ones with matching destination MAC address
-        address : string,       // MAC address as hex string (12 hex digits), or
+        string address = default("auto");       // MAC address as hex string (12 hex digits), or
                                 // "auto". "auto" values will be replaced by
                                 // a generated MAC address in init stage 0.
-        txrate : numeric,       // maximum data rate supported by this station (bit/s);
+        volatile double txrate = default(100Mbps) @unit("bps");       // maximum data rate supported by this station (bit/s);
                                 // actually chosen speed may be lower due to auto-
                                 // configuration. 0 means fully auto-configured.
-        duplexEnabled : bool,   // whether duplex mode can be enabled or not; whether
+        bool duplexEnabled = default(true);   // whether duplex mode can be enabled or not; whether
                                 // MAC will actually use duplex mode depends on the result
                                 // of the auto-configuration process (duplex is only
                                 // possible with DTE-to-DTE connection).
-        txQueueLimit : numeric, // maximum number of frames queued up for transmission;
+        volatile int txQueueLimit = default(1000); // maximum number of frames queued up for transmission;
                                 // additional frames are dropped. Only used if queueModule==""
-        queueModule: string,    // name of optional external queue module
-        writeScalars: bool;     // enable/disable recording statistics in omnetpp.sca
+        string queueModule = default("");    // name of optional external queue module
+        bool writeScalars = default(true);     // enable/disable recording statistics in omnetpp.sca
+        @display("i=block/rxtx");
     gates:
-        in: physIn;      // to physical layer or the network
-        out: physOut;    // to physical layer or the network
-        in: upperLayerIn;    // to EtherLLC or MACRelayUnitPP
-        out: upperLayerOut;  // to EtherLLC or MACRelayUnitPP
-endsimple
+        input physIn;      // to physical layer or the network
+        output physOut;    // to physical layer or the network
+        input upperLayerIn;    // to EtherLLC or MACRelayUnitPP
+        output upperLayerOut;  // to EtherLLC or MACRelayUnitPP
+}
 

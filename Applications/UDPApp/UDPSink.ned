@@ -22,10 +22,11 @@
 // Consumes and prints packets received from the UDP module.
 //
 simple UDPSink
+{
     parameters:
-        local_port : numeric const; // if -1, app doesn't bind in UDP
+        int local_port; // if -1, app doesn't bind in UDP
     gates:
-        in: from_udp;
-        out: to_udp;
-endsimple
+        input from_udp;
+        output to_udp;
+}
 

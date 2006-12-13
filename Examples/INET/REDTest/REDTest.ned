@@ -17,59 +17,72 @@
 //
 
 
-import
-    "Router",
-    "StandardHost",
-    "FlatNetworkConfigurator",
-    "ScenarioManager",
-    "ChannelInstaller";
+import "Router";
+import "StandardHost";
+import "FlatNetworkConfigurator";
+import "ScenarioManager";
+import "ChannelInstaller";
 
-module REDTest
+network REDTest
+{
     submodules:
-        channelInstaller: ChannelInstaller;
+        channelInstaller: ChannelInstaller {
             parameters:
-                channelClass = "ThruputMeteringChannel",
+                channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=b (u) #N";
-            display: "p=359,40;i=block/cogwheel_s";
-        configurator: FlatNetworkConfigurator;
+                @display("p=359,40");
+        };
+        configurator: FlatNetworkConfigurator {
             parameters:
-                moduleTypes = "Router StandardHost",
-                nonIPModuleTypes = "",
-                networkAddress = "145.236.0.0",
+                moduleTypes = "Router StandardHost";
+                nonIPModuleTypes = "";
+                networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
-            display: "p=179,40;i=block/cogwheel_s";
-        scenarioManager: ScenarioManager;
-            display: "p=262,40;i=block/control_s";
-        r1: Router;
-            display: "p=147,143;i=abstract/router";
-        r2: Router;
-            display: "p=317,143;i=abstract/router";
-        s1: StandardHost;
-            display: "p=68,64;i=device/laptop";
-        s2: StandardHost;
-            display: "p=65,193;i=device/laptop";
-        s3: StandardHost;
-            display: "p=421,83;i=device/laptop";
-        s4: StandardHost;
-            display: "p=420,195;i=device/laptop";
-    connections nocheck:
-        r1.out++ --> datarate 1.5e6 delay 20e-3 --> r2.in++;
-        r1.in++ <-- datarate 1.5e6 delay 20e-3 <-- r2.out++;
+                @display("p=179,40");
+        };
+        scenarioManager: ScenarioManager {
+            parameters:
+                @display("p=262,40");
+        };
+        r1: Router {
+            parameters:
+                @display("p=147,143");
+        };
+        r2: Router {
+            parameters:
+                @display("p=317,143");
+        };
+        s1: StandardHost {
+            parameters:
+                @display("p=68,64;i=device/laptop");
+        };
+        s2: StandardHost {
+            parameters:
+                @display("p=65,193;i=device/laptop");
+        };
+        s3: StandardHost {
+            parameters:
+                @display("p=421,83;i=device/laptop");
+        };
+        s4: StandardHost {
+            parameters:
+                @display("p=420,195;i=device/laptop");
+        };
+    connections allowunconnected:
+        r1.out++ --> {  datarate = 1.5e6; delay = 20e-3; } --> r2.in++;
+        r1.in++ <-- {  datarate = 1.5e6; delay = 20e-3; } <-- r2.out++;
 
-        s1.out++ --> datarate 10e6 delay 2e-3 --> r1.in++;
-        s1.in++ <-- datarate 10e6 delay 2e-3 <-- r1.out++;
+        s1.out++ --> {  datarate = 10e6; delay = 2e-3; } --> r1.in++;
+        s1.in++ <-- {  datarate = 10e6; delay = 2e-3; } <-- r1.out++;
 
-        s2.out++ --> datarate 10e6 delay 3e-3 --> r1.in++;
-        s2.in++ <-- datarate 10e6 delay 3e-3 <-- r1.out++;
+        s2.out++ --> {  datarate = 10e6; delay = 3e-3; } --> r1.in++;
+        s2.in++ <-- {  datarate = 10e6; delay = 3e-3; } <-- r1.out++;
 
-        s3.out++ --> datarate 10e6 delay 4e-3 --> r2.in++;
-        s3.in++ <-- datarate 10e6 delay 4e-3 <-- r2.out++;
+        s3.out++ --> {  datarate = 10e6; delay = 4e-3; } --> r2.in++;
+        s3.in++ <-- {  datarate = 10e6; delay = 4e-3; } <-- r2.out++;
 
-        s4.out++ --> datarate 10e6 delay 5e-3 --> r2.in++;
-        s4.in++ <-- datarate 10e6 delay 5e-3 <-- r2.out++;
+        s4.out++ --> {  datarate = 10e6; delay = 5e-3; } --> r2.in++;
+        s4.in++ <-- {  datarate = 10e6; delay = 5e-3; } <-- r2.out++;
 
-endmodule
-
-network redTest : REDTest
-endnetwork
+}
 

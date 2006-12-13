@@ -1,29 +1,34 @@
-import "RTPModule", "RTCPModule";
+import "RTPModule";
+import "RTCPModule";
 
 module RTPLayer
 
-	parameters:
-		rtpModuleType: string,
-		rtcpModuleType: string;
+{
+    parameters:
+        string rtpModuleType;
+        string rtcpModuleType;
 
-	gates:
-		in: fromApp, fromSocketLayerRTP, fromSocketLayerRTCP;
-		out: toApp, toSocketLayerRTP, toSocketLayerRTCP;
+    gates:
+        input fromApp;
+        input fromSocketLayerRTP;
+        input fromSocketLayerRTCP;
+        output toApp;
+        output toSocketLayerRTP;
+        output toSocketLayerRTCP;
 
-	submodules:
-		rtpModule: rtpModuleType like RTPModule;
-		rtcpModule: rtcpModuleType like RTCPModule;
+    submodules:
+        rtpModule: <rtpModuleType> like RTPModule {};
+        rtcpModule: <rtcpModuleType> like RTCPModule {};
+    connections allowunconnected:
+        fromApp --> rtpModule.fromApp;
+        toApp <-- rtpModule.toApp;
+        rtpModule.toRTCP --> rtcpModule.fromRTP;
+        rtpModule.fromRTCP <-- rtcpModule.toRTP;
+        rtpModule.toSocketLayer --> toSocketLayerRTP;
+        rtpModule.fromSocketLayer <-- fromSocketLayerRTP;
+        rtcpModule.toSocketLayer --> toSocketLayerRTCP;
+        rtcpModule.fromSocketLayer <-- fromSocketLayerRTCP;
 
-	connections nocheck:
-		fromApp --> rtpModule.fromApp;
-		toApp <-- rtpModule.toApp;
-		rtpModule.toRTCP --> rtcpModule.fromRTP;
-		rtpModule.fromRTCP <-- rtcpModule.toRTP;
-		rtpModule.toSocketLayer --> toSocketLayerRTP;
-		rtpModule.fromSocketLayer <-- fromSocketLayerRTP;
-		rtcpModule.toSocketLayer --> toSocketLayerRTCP;
-		rtcpModule.fromSocketLayer <-- fromSocketLayerRTCP;
-
-endmodule
+}
 
 

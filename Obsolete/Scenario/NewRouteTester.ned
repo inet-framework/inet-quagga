@@ -15,6 +15,8 @@
 // An RSVP-TE scenario
 //
 simple NewRouteTester
+{
     parameters:
-        startTime : numeric;
-endsimple
+        volatile double startTime;
+        @display("i=block/cogwheel");
+}

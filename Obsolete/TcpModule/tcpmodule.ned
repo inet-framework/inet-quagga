@@ -64,19 +64,23 @@
 // that handles the connection.
 //
 simple TcpModule
+{
     parameters:
-      //# the following parameters are not used so far.
-      //# TCPSlowStart   : bool,
-      TCPDelayedAck  : bool,
-      TCPFastRetrans : bool,
-      TCPFastRecovery: bool,
-      TCPNewReno     : bool,
-      mss: numeric; // maximum segment size
+        //# the following parameters are not used so far.
+        //# TCPSlowStart   : bool,
+        bool TCPDelayedAck;
+        bool TCPFastRetrans;
+        bool TCPFastRecovery;
+        bool TCPNewReno;
+        volatile double mss; // maximum segment size
       //#debug: bool;
+        @display("i=block/wheelbarrow");
     gates:
-      in: from_appl, from_ip;
-      out: to_appl, to_ip;
-endsimple
+        input from_appl;
+        input from_ip;
+        output to_appl;
+        output to_ip;
+}
 
 
 

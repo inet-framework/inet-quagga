@@ -24,4 +24,7 @@
 // meeting the chosen bandwidth criteria.
 //
 simple TED
-endsimple
+{
+    parameters:
+        @display("i=block/table");
+}

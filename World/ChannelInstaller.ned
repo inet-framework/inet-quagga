@@ -24,9 +24,11 @@
 // gets extended to accomodate channel classes.
 //
 simple ChannelInstaller
+{
     parameters:
-        channelClass: string, // e.g. "ThruputMeteringChannel"
-        channelAttrs: string; // params for the channel class, e.g. "format=N (U)"
-endsimple
+        string channelClass; // e.g. "ThruputMeteringChannel"
+        string channelAttrs; // params for the channel class, e.g. "format=N (U)"
+        @display("i=block/cogwheel_s");
+}
 
 

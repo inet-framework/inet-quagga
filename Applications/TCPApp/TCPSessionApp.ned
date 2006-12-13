@@ -55,19 +55,20 @@
 // CLOSE will be issued.
 //
 simple TCPSessionApp
+{
     parameters:
-        address: string,
-        port: numeric const,
-        active: bool,
-        connectAddress: string,
-        connectPort: numeric const,
-        tOpen: numeric const,
-        tSend: numeric const,
-        sendBytes: numeric const,
-        sendScript: string,
-        tClose: numeric const;
+        string address = default("");
+        int port;
+        bool active = default(true);
+        string connectAddress;
+        int connectPort;
+        double tOpen = default(1) @unit("s");
+        double tSend = default(1) @unit("s");
+        int sendBytes = default(1MB) @unit("B");
+        string sendScript = default("");
+        double tClose = default(2) @unit("s");
     gates:
-        in: tcpIn;
-        out: tcpOut;
-endsimple
+        input tcpIn;
+        output tcpOut;
+}
 

@@ -16,79 +16,96 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-import
-    "EtherBus",
-    "EtherHub",
-    "EtherHost",
-    "EtherSwitch",
-    "ChannelInstaller";
+import "EtherBus";
+import "EtherHub";
+import "EtherHost";
+import "EtherSwitch";
+import "ChannelInstaller";
 
-channel cable
-    delay 0.1us
-endchannel
+channel cable extends cBasicChannel
+{
+    parameters:
+        delay = 0.1us;
+}
 
 
 //
 // Several hosts on an Ethernet hub
 //
 module SmallLAN
+{
     parameters:
-        h: numeric const; // number of hosts on the hub
+        double h; // number of hosts on the hub
+        @display("i=cloud_s");
     gates:
-        in: in;
-        out: out;
+        input in;
+        output out;
     submodules:
-        hub: EtherHub;
-            display: "i=device/switch";
-        host: EtherHost[h];
-            display: "i=device/pc2_s";
+        hub: EtherHub {
+            parameters:
+                @display("");
+        };
+        host[h]: EtherHost {
+            parameters:
+                @display("");
+        };
     connections:
-        for i=0..h-1 do
+        for i=0..h-1 {
             hub.out++ --> cable --> host[i].in;
             hub.in++ <-- cable <-- host[i].out;
-        endfor
+        };
         hub.out++ --> out;
         hub.in++ <-- in;
-endmodule
+}
 
 
 //
 // Several hosts and an Ethernet hub on a switch
 //
 module MediumLAN
+{
     parameters:
-        n: numeric const, // number of hosts on the switch
-        h: numeric const; // number of hosts on the hub
+        double n; // number of hosts on the switch
+        double h; // number of hosts on the hub
+        @display("i=cloud_s");
     gates:
-        in: in;
-        out: out;
+        input in;
+        output out;
     submodules:
-        switch: EtherSwitch;
-            display: "i=switch2";
-        host: EtherHost[n];
-            display: "i=device/pc2_s";
-        hub: EtherHub;
-            display: "i=device/switch";
-        hhost: EtherHost[h];
-            display: "i=device/pc2_s";
+        switch: EtherSwitch {
+            parameters:
+                @display("");
+        };
+        host[n]: EtherHost {
+            parameters:
+                @display("");
+        };
+        hub: EtherHub {
+            parameters:
+                @display("");
+        };
+        hhost[h]: EtherHost {
+            parameters:
+                @display("");
+        };
     connections:
-        for i=0..n-1 do
+        for i=0..n-1 {
             switch.out++ --> cable --> host[i].in;
             switch.in++ <-- cable <-- host[i].out;
-        endfor
+        };
 
         switch.out++ --> out;
         switch.in++ <-- in;
 
-        for i=0..h-1 do
+        for i=0..h-1 {
             hub.out++ --> cable --> hhost[i].in;
             hub.in++ <-- cable <-- hhost[i].out;
-        endfor
+        };
 
         switch.out++ --> cable --> hub.in++;
         switch.in++ <-- cable <-- hub.out++;
 
-endmodule
+}
 
 
 //
@@ -96,203 +113,275 @@ endmodule
 // connect to a 10Base2 segment.
 //
 module LargeLAN
+{
     parameters:
-        n: numeric const, // number of hosts on the switch
-        h: numeric const, // number of hosts on the hub
-        b: numeric const; // number of hosts on the bus
+        double n; // number of hosts on the switch
+        double h; // number of hosts on the hub
+        double b; // number of hosts on the bus
+        @display("i=cloud");
     gates:
-        in: in;
-        out: out;
+        input in;
+        output out;
     submodules:
-        switch: EtherSwitch;
-            display: "i=switch2";
-        host: EtherHost[n];
-            display: "i=device/pc2_s";
-        hub: EtherHub;
-            display: "i=device/switch";
-        hhost: EtherHost[h];
-            display: "i=device/pc2_s";
-        bus: EtherBus;
+        switch: EtherSwitch {
             parameters:
-                positions = "5 10 15", // every 5 meters
+                @display("");
+        };
+        host[n]: EtherHost {
+            parameters:
+                @display("");
+        };
+        hub: EtherHub {
+            parameters:
+                @display("");
+        };
+        hhost[h]: EtherHost {
+            parameters:
+                @display("");
+        };
+        bus: EtherBus {
+            parameters:
+                positions = "5 10 15"; // every 5 meters
                 propagationSpeed = 200000000;  // 1us = 200m
-            display: "b=424,6;o=#408060";
-        bhost: EtherHost[b];
-            display: "p=,,r;i=device/pc2_s";
+                @display("b=424,6;o=#408060");
+        };
+        bhost[b]: EtherHost {
+            parameters:
+                @display("p=,,r");
 
+        };
     connections:
-        for i=0..n-1 do
+        for i=0..n-1 {
             switch.out++ --> cable --> host[i].in;
             switch.in++ <-- cable <-- host[i].out;
-        endfor
+        };
 
         switch.out++ --> out;
         switch.in++ <-- in;
 
-        for i=0..h-1 do
+        for i=0..h-1 {
             hub.out++ --> cable --> hhost[i].in;
             hub.in++ <-- cable <-- hhost[i].out;
-        endfor
+        };
 
         switch.out++ --> cable --> hub.in++;
         switch.in++ <-- cable <-- hub.out++;
 
-        for i=0..b-1 do
+        for i=0..b-1 {
             bus.out++ --> bhost[i].in;
             bus.in++ <-- bhost[i].out;
-        endfor
+        };
 
         bus.out++ --> hub.in++;
         bus.in++ <-- hub.out++;
 
-endmodule
+}
 
 //
 // A large Ethernet LAN -- see model description
 // <a href="largenet.html">here</a>.
 //
-module LargeNet
+network LargeNet
+{
     parameters:
-        n: numeric const,          // length of the "backbone" (n>5!)
-        bbs, bbm, bbl: numeric const, // number of small/medium/large LANs on "backbone" switches
-        as, am, al: numeric const, // number of small/medium/large LANs on switch A
-        bs, bm, bl: numeric const, // number of small/medium/large LANs on switch B
-        cs, cm, cl: numeric const, // number of small/medium/large LANs on switch C
-        ds, dm, dl: numeric const; // number of small/medium/large LANs on switch D
+        double n;          // length of the "backbone" (n>5!)
+        volatile double bbs;
+        volatile double bbm;
+        double bbl; // number of small/medium/large LANs on "backbone" switches
+        volatile double as;
+        volatile double am;
+        double al; // number of small/medium/large LANs on switch A
+        volatile double bs;
+        volatile double bm;
+        double bl; // number of small/medium/large LANs on switch B
+        volatile double cs;
+        volatile double cm;
+        double cl; // number of small/medium/large LANs on switch C
+        volatile double ds;
+        volatile double dm;
+        double dl; // number of small/medium/large LANs on switch D
     submodules:
-        switchBB: EtherSwitch[n];
-            display: "i=ball2_s";
-        slanBB: SmallLAN[n*bbs];
-            display: "i=cloud_s";
-        mlanBB: MediumLAN[n*bbm];
-            display: "i=cloud_s";
-        llanBB: LargeLAN[n*bbl];
-            display: "i=cloud";
+        switchBB[n]: EtherSwitch {
+            parameters:
+                @display("");
+        };
+        slanBB[n*bbs]: SmallLAN {
+            parameters:
+                @display("");
+        };
+        mlanBB[n*bbm]: MediumLAN {
+            parameters:
+                @display("");
+        };
+        llanBB[n*bbl]: LargeLAN {
+            parameters:
+                @display("");
 
-        switchA: EtherSwitch;
-            display: "i=ball2_s";
-        serverA: EtherHost;
-            display: "i=device/pc2_s";
-        slanA: SmallLAN[as];
-            display: "i=cloud_s";
-        mlanA: MediumLAN[am];
-            display: "i=cloud_s";
-        llanA: LargeLAN[al];
-            display: "i=cloud";
+        };
+        switchA: EtherSwitch {
+            parameters:
+                @display("");
+        };
+        serverA: EtherHost {
+            parameters:
+                @display("");
+        };
+        slanA[as]: SmallLAN {
+            parameters:
+                @display("");
+        };
+        mlanA[am]: MediumLAN {
+            parameters:
+                @display("");
+        };
+        llanA[al]: LargeLAN {
+            parameters:
+                @display("");
 
-        switchB: EtherSwitch;
-            display: "i=ball2_s";
-        serverB: EtherHost;
-            display: "i=device/pc2_s";
-        slanB: SmallLAN[bs];
-            display: "i=cloud_s";
-        mlanB: MediumLAN[bm];
-            display: "i=cloud_s";
-        llanB: LargeLAN[bl];
-            display: "i=cloud";
+        };
+        switchB: EtherSwitch {
+            parameters:
+                @display("");
+        };
+        serverB: EtherHost {
+            parameters:
+                @display("");
+        };
+        slanB[bs]: SmallLAN {
+            parameters:
+                @display("");
+        };
+        mlanB[bm]: MediumLAN {
+            parameters:
+                @display("");
+        };
+        llanB[bl]: LargeLAN {
+            parameters:
+                @display("");
 
-        switchC: EtherSwitch;
-            display: "i=ball2_s";
-        serverC: EtherHost;
-            display: "i=device/pc2_s";
-        slanC: SmallLAN[cs];
-            display: "i=cloud_s";
-        mlanC: MediumLAN[cm];
-            display: "i=cloud_s";
-        llanC: LargeLAN[cl];
-            display: "i=cloud";
+        };
+        switchC: EtherSwitch {
+            parameters:
+                @display("");
+        };
+        serverC: EtherHost {
+            parameters:
+                @display("");
+        };
+        slanC[cs]: SmallLAN {
+            parameters:
+                @display("");
+        };
+        mlanC[cm]: MediumLAN {
+            parameters:
+                @display("");
+        };
+        llanC[cl]: LargeLAN {
+            parameters:
+                @display("");
 
-        switchD: EtherSwitch;
-            display: "i=ball2_s";
-        serverD: EtherHost;
-            display: "i=device/pc2_s";
-        slanD: SmallLAN[ds];
-            display: "i=cloud_s";
-        mlanD: MediumLAN[dm];
-            display: "i=cloud_s";
-        llanD: LargeLAN[dl];
-            display: "i=cloud";
+        };
+        switchD: EtherSwitch {
+            parameters:
+                @display("");
+        };
+        serverD: EtherHost {
+            parameters:
+                @display("");
+        };
+        slanD[ds]: SmallLAN {
+            parameters:
+                @display("");
+        };
+        mlanD[dm]: MediumLAN {
+            parameters:
+                @display("");
+        };
+        llanD[dl]: LargeLAN {
+            parameters:
+                @display("");
 
-    connections nocheck:
+        };
+    connections allowunconnected:
         // "backbone" switches
-        for k=0..n-1, i=0..bbs-1 do
+        for k=0..n-1, for i=0..bbs-1 {
             switchBB[k].out++ --> cable --> slanBB[k*bbs+i].in;
             switchBB[k].in++ <-- cable <-- slanBB[k*bbs+i].out;
-        endfor
-        for k=0..n-1, i=0..bbm-1 do
+        };
+        for k=0..n-1, for i=0..bbm-1 {
             switchBB[k].out++ --> cable --> mlanBB[k*bbm+i].in;
             switchBB[k].in++ <-- cable <-- mlanBB[k*bbm+i].out;
-        endfor
-        for k=0..n-1, i=0..bbl-1 do
+        };
+        for k=0..n-1, for i=0..bbl-1 {
             switchBB[k].out++ --> cable --> llanBB[k*bbl+i].in;
             switchBB[k].in++ <-- cable <-- llanBB[k*bbl+i].out;
-        endfor
-        for k=0..n-2 do
+        };
+        for k=0..n-2 {
             switchBB[k].out++ --> cable --> switchBB[k+1].in++;
             switchBB[k].in++ <-- cable <-- switchBB[k+1].out++;
-        endfor
+        };
 
         // switch A
-        for i=0..as-1 do
+        for i=0..as-1 {
             switchA.out++ --> cable --> slanA[i].in;
             switchA.in++ <-- cable <-- slanA[i].out;
-        endfor
-        for i=0..am-1 do
+        };
+        for i=0..am-1 {
             switchA.out++ --> cable --> mlanA[i].in;
             switchA.in++ <-- cable <-- mlanA[i].out;
-        endfor
-        for i=0..al-1 do
+        };
+        for i=0..al-1 {
             switchA.out++ --> cable --> llanA[i].in;
             switchA.in++ <-- cable <-- llanA[i].out;
-        endfor
+        };
         switchA.out++ --> cable --> serverA.in;
         switchA.in++ <-- cable <-- serverA.out;
 
         // switch B
-        for i=0..bs-1 do
+        for i=0..bs-1 {
             switchB.out++ --> cable --> slanB[i].in;
             switchB.in++ <-- cable <-- slanB[i].out;
-        endfor
-        for i=0..bm-1 do
+        };
+        for i=0..bm-1 {
             switchB.out++ --> cable --> mlanB[i].in;
             switchB.in++ <-- cable <-- mlanB[i].out;
-        endfor
-        for i=0..bl-1 do
+        };
+        for i=0..bl-1 {
             switchB.out++ --> cable --> llanB[i].in;
             switchB.in++ <-- cable <-- llanB[i].out;
-        endfor
+        };
         switchB.out++ --> cable --> serverB.in;
         switchB.in++ <-- cable <-- serverB.out;
 
         // switch C
-        for i=0..cs-1 do
+        for i=0..cs-1 {
             switchC.out++ --> cable --> slanC[i].in;
             switchC.in++ <-- cable <-- slanC[i].out;
-        endfor
-        for i=0..cm-1 do
+        };
+        for i=0..cm-1 {
             switchC.out++ --> cable --> mlanC[i].in;
             switchC.in++ <-- cable <-- mlanC[i].out;
-        endfor
-        for i=0..cl-1 do
+        };
+        for i=0..cl-1 {
             switchC.out++ --> cable --> llanC[i].in;
             switchC.in++ <-- cable <-- llanC[i].out;
-        endfor
+        };
         switchC.out++ --> cable --> serverC.in;
         switchC.in++ <-- cable <-- serverC.out;
 
         // switch D
-        for i=0..ds-1 do
+        for i=0..ds-1 {
             switchD.out++ --> cable --> slanD[i].in;
             switchD.in++ <-- cable <-- slanD[i].out;
-        endfor
-        for i=0..dm-1 do
+        };
+        for i=0..dm-1 {
             switchD.out++ --> cable --> mlanD[i].in;
             switchD.in++ <-- cable <-- mlanD[i].out;
-        endfor
-        for i=0..dl-1 do
+        };
+        for i=0..dl-1 {
             switchD.out++ --> cable --> llanD[i].in;
             switchD.in++ <-- cable <-- llanD[i].out;
-        endfor
+        };
         switchD.out++ --> cable --> serverD.in;
         switchD.in++ <-- cable <-- serverD.out;
 
@@ -309,8 +398,6 @@ module LargeNet
         switchB.out++ --> cable --> switchBB[4].in++;
         switchB.in++ <-- cable <-- switchBB[4].out++;
 
-endmodule
+}
 
 
-network largeNet : LargeNet
-endnetwork

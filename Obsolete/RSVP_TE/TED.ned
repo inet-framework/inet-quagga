@@ -45,8 +45,10 @@
 // moduleTypes parameter; it should be set to e.g. "RSVP_LSR StandardHost".
 //
 simple TED
-   parameters:
-       moduleTypes: string;
-endsimple
+{
+    parameters:
+        string moduleTypes;
+        @display("i=block/table");
+}
 
 

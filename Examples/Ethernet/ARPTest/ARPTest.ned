@@ -11,41 +11,58 @@
 // See the GNU Lesser General Public License for more details.
 //
 
-import
-    "Router",
-    "StandardHost",
-    "EtherSwitch",
-    "FlatNetworkConfigurator";
+import "Router";
+import "StandardHost";
+import "EtherSwitch";
+import "FlatNetworkConfigurator";
 
-channel fiberline
-    delay 1us;
-    datarate 512*1000000;
-endchannel
+channel fiberline extends cBasicChannel
+{
+    parameters:
+        delay = 1us;
+        datarate = 512*1000000;
+}
 
 
-module ARPTest
+network ARPTest
+{
     submodules:
-        client: StandardHost;
-            display: "p=71,64;i=device/laptop_l";
-        host1: StandardHost;
-            display: "p=65,131;i=device/pc";
-        host2: StandardHost;
-            display: "p=60,191;i=device/pc";
-        switch: EtherSwitch;
-            display: "p=202,156;i=device/switch";
-        net: Router;
-            display: "p=394,166;i=misc/cloud_l";
-        router: Router;
-            display: "p=311,74;i=abstract/router";
-        server: StandardHost;
-            display: "p=512,58;i=device/server_l";
-        configurator: FlatNetworkConfigurator;
+        client: StandardHost {
             parameters:
-                moduleTypes = "Router StandardHost EtherSwitch",
-                nonIPModuleTypes = "EtherSwitch",
-                networkAddress = "10.0.0.0",
+                @display("p=71,64;i=device/laptop_l");
+        };
+        host1: StandardHost {
+            parameters:
+                @display("p=65,131;i=device/pc");
+        };
+        host2: StandardHost {
+            parameters:
+                @display("p=60,191;i=device/pc");
+        };
+        switch: EtherSwitch {
+            parameters:
+                @display("p=202,156");
+        };
+        net: Router {
+            parameters:
+                @display("p=394,166");
+        };
+        router: Router {
+            parameters:
+                @display("p=311,74");
+        };
+        server: StandardHost {
+            parameters:
+                @display("p=512,58;i=device/server_l");
+        };
+        configurator: FlatNetworkConfigurator {
+            parameters:
+                moduleTypes = "Router StandardHost EtherSwitch";
+                nonIPModuleTypes = "EtherSwitch";
+                networkAddress = "10.0.0.0";
                 netmask = "255.255.0.0";
-            display: "p=495,160;i=block/cogwheel_s";
+                @display("p=495,160");
+        };
     connections:
         client.ethOut++ --> switch.in++;
         switch.out++ --> client.ethIn++;
@@ -64,8 +81,5 @@ module ARPTest
 
         server.out++ --> fiberline --> net.in++;
         net.out++ --> fiberline --> server.in++;
-endmodule
-
-network arpTest : ARPTest
-endnetwork
+}
 

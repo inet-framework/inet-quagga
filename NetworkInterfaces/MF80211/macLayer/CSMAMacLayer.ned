@@ -1,7 +1,7 @@
 //***************************************************************************
 //* file:        CSMAMacLayer.ned
 //*
-//* author:      Marc Löbbers
+//* author:      Marc LÃ¶bbers
 //*
 //* copyright:   (C) 2004 Telecommunication Networks Group (TKN) at
 //*              Technische Universitaet Berlin, Germany.
@@ -25,13 +25,15 @@
 // This component has been taken over from Mobility Framework 1.0a5.
 //
 simple CSMAMacLayer
+{
     parameters:
-        debug: bool, // debug switch
-        headerLength: numeric const,
-        queueLength: numeric const;
+        bool debug = default(false); // debug switch
+        int headerLength;
+        int queueLength;
+        @display("i=prot2");
     gates:
-        in: uppergateIn;
-        out: uppergateOut;
-        in: lowergateIn;
-        out: lowergateOut;
-endsimple
+        input uppergateIn;
+        output uppergateOut;
+        input lowergateIn;
+        output lowergateOut;
+}

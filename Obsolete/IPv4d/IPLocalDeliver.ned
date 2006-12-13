@@ -50,13 +50,15 @@
 // Rewrite: Andras Varga, 2004
 //
 simple IPLocalDeliver
+{
     parameters:
-        protocolMapping : string,
-        fragmentTimeout : numeric const;
+        string protocolMapping;
+        double fragmentTimeout;
+        @display("i=block/fork");
     gates:
-        in: in[];
-        out: transportOut[];
-        out: preRoutingOut;
-endsimple
+        input in[];
+        output transportOut[];
+        output preRoutingOut;
+}
 
 

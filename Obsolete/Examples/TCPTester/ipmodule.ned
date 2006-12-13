@@ -21,7 +21,10 @@
 // \IP module
 //
 simple DummyIP
-       gates:
-         in: from_tcp, from_ppp;
-     out: to_tcp, to_ppp;
-endsimple
+{
+    gates:
+        input from_tcp;
+        input from_ppp;
+        output to_tcp;
+        output to_ppp;
+}

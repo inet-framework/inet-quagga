@@ -31,8 +31,11 @@
 // Redesign: Andras Varga, 02.2004
 //
 simple IPPreRouting
+{
+    parameters:
+        @display("i=block/routing_s");
     gates:
-        in: in[];
-        out: routingOut;
-endsimple
+        input in[];
+        output routingOut;
+}
 

@@ -36,18 +36,20 @@
 //
 //# FIXME merge docu with BasicSnrEval's
 simple SnrEval
+{
     parameters:
-        channelNumber: numeric const, // channel identifier
-        debug : bool, // debug switch
-        transmitterPower : numeric const,
-        bitrate: numeric const,
-        headerLength: numeric const,
-        thermalNoise: numeric const,
-        pathLossAlpha: numeric const,
-        sensitivity: numeric const;
+        double channelNumber = default(0); // channel identifier
+        bool debug = default(false); // debug switch
+        double transmitterPower;
+        double bitrate @unit("bps");
+        int headerLength;
+        double thermalNoise;
+        double pathLossAlpha;
+        double sensitivity;
+        @display("i=block/wrxtx");
     gates:
-        in: uppergateIn;   // from higher layer protocol (MAC)
-        out: uppergateOut; // to decider (decider connects to higher layer protocol, i.e. the MAC)
-        in: radioIn; // to receive frames (AirFrame) on the radio channel
-endsimple
+        input uppergateIn;   // from higher layer protocol (MAC)
+        output uppergateOut; // to decider (decider connects to higher layer protocol, i.e. the MAC)
+        input radioIn; // to receive frames (AirFrame) on the radio channel
+}
 

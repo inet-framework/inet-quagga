@@ -49,13 +49,16 @@
 // @see UDPPacket, UDPControlInfo, UDPCommandCode
 //
 simple UDP
+{
+    parameters:
+        @display("i=block/transport");
     gates:
-        in: from_app[];
-        in: from_ip;
-        in: from_ipv6;
-        out: to_app[];
-        out: to_ip;
-        out: to_ipv6;
-endsimple
+        input from_app[];
+        input from_ip;
+        input from_ipv6;
+        output to_app[];
+        output to_ip;
+        output to_ipv6;
+}
 
 

@@ -21,19 +21,21 @@
 // \TCP client application for testing the TCP model.
 //
 simple TcpTestClient
+{
     parameters:
-        address: string,
-        port: numeric const,
-        active: bool,
-        connectAddress: string,
-        connectPort: numeric const,
-        tOpen: numeric const,
-        tSend: numeric const,
-        sendBytes: numeric const,
-        sendScript: string,
-        tClose: numeric const;
+        string address;
+        double port;
+        bool active;
+        string connectAddress;
+        double connectPort;
+        double tOpen;
+        double tSend;
+        double sendBytes;
+        string sendScript;
+        double tClose;
+        @display("i=block/app");
     gates:
-        in: tcpIn;
-        out: tcpOut;
-endsimple
+        input tcpIn;
+        output tcpOut;
+}
 

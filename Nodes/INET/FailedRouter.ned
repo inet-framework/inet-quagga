@@ -17,39 +17,40 @@
 //
 
 
-import
-    "Dummy";
+import "Dummy";
 
 
 //
 // A failed \IP router. Simply discards all packets it receives, and that's all.
 //
 module FailedRouter
+{
     parameters:
-        namid: numeric,
-        routingFile: string;
+        volatile int namid;
+        string routingFile = default("");
     gates:
-        in: in[];
-        out: out[];
-        in: ethIn[];
-        out: ethOut[];
+        input in[];
+        output out[];
+        input ethIn[];
+        output ethOut[];
     submodules:
-        dummy: Dummy;
+        dummy: Dummy {
             parameters:
                 namid = namid;
-            gatesizes:
-                in[sizeof(in)],
-                out[sizeof(out)],
-                ethIn[sizeof(ethIn)],
+            gates:
+                in[sizeof(in)];
+                out[sizeof(out)];
+                ethIn[sizeof(ethIn)];
                 ethOut[sizeof(ethOut)];
-    connections nocheck:
-        for i=0..sizeof(out)-1 do
+        };
+    connections allowunconnected:
+        for i=0..sizeof(out)-1 {
             in[i] --> dummy.in[i];
             dummy.out[i] --> out[i];
-        endfor;
-        for i=0..sizeof(ethOut)-1 do
+        };
+        for i=0..sizeof(ethOut)-1 {
             ethIn[i] --> dummy.ethIn[i];
             dummy.ethOut[i] --> ethOut[i];
-        endfor;
-endmodule
+        };
+}
 

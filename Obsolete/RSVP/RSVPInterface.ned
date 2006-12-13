@@ -30,11 +30,11 @@
 // decapsulation.
 //
 simple RSVPInterface
+{
     gates:
-        in: from_ip;
-        in: from_rsvp_app;
-        //in: processorManagerIn;
-        out: to_ip;
-        out: to_rsvp_app;
+        input from_ip;
+        input from_rsvp_app;
+        output to_ip;
+        output to_rsvp_app;
 
-endsimple
+}

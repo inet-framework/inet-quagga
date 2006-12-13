@@ -28,8 +28,10 @@
 // @see NAMTrace, NotificationBoard
 //
 simple NAMTraceWriter
+{
     parameters:
-        namid : numeric;
-endsimple
+        volatile int namid;
+        @display("i=block/sink");
+}
 
 

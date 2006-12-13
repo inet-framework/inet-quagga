@@ -11,54 +11,77 @@
 // See the GNU Lesser General Public License for more details.
 //
 
-import
-    "Router",
-    "StandardHost",
-    "EtherBus",
-    "FlatNetworkConfigurator";
+import "Router";
+import "StandardHost";
+import "EtherBus";
+import "FlatNetworkConfigurator";
 
 
-module ARPTest
+network ARPTest
+{
     submodules:
-        server: StandardHost;
-            display: "p=480,198;i=device/server_l";
-        router8: Router;
-            display: "p=478,100;i=abstract/router";
-        router7: Router;
-            display: "p=329,100;i=abstract/router";
-        router6: Router;
-            display: "p=254,100;i=abstract/router";
-        bus2: EtherBus;
+        server: StandardHost {
             parameters:
-                positions = "",
-                propagationSpeed = 2e8,
+                @display("p=480,198;i=device/server_l");
+        };
+        router8: Router {
+            parameters:
+                @display("p=478,100");
+        };
+        router7: Router {
+            parameters:
+                @display("p=329,100");
+        };
+        router6: Router {
+            parameters:
+                @display("p=254,100");
+        };
+        bus2: EtherBus {
+            parameters:
+                positions = "";
+                propagationSpeed = 2e8;
                 writeScalars = false;
-            display: "p=260,40;b=260,10";
-        router5: Router;
-            display: "p=187,98;i=abstract/router";
-        bus1: EtherBus;
+                @display("p=260,40;b=260,10");
+        };
+        router5: Router {
             parameters:
-                positions = "",
-                propagationSpeed = 2e8,
+                @display("p=187,98");
+        };
+        bus1: EtherBus {
+            parameters:
+                positions = "";
+                propagationSpeed = 2e8;
                 writeScalars = false;
-            display: "p=280,170;b=260,10";
-        router4: Router;
-            display: "p=386,240;i=abstract/router";
-        router3: Router;
-            display: "p=320,240;i=abstract/router";
-        router2: Router;
-            display: "p=247,240;i=abstract/router";
-        router1: Router;
-            display: "p=182,283;i=abstract/router";
-        client: StandardHost;
-            display: "p=54,274;i=device/laptop_l";
-        configurator: FlatNetworkConfigurator;
+                @display("p=280,170;b=260,10");
+        };
+        router4: Router {
             parameters:
-                moduleTypes = "Router StandardHost EtherBus",
-                nonIPModuleTypes = "EtherBus",
-                networkAddress = "10.0.0.0",
+                @display("p=386,240");
+        };
+        router3: Router {
+            parameters:
+                @display("p=320,240");
+        };
+        router2: Router {
+            parameters:
+                @display("p=247,240");
+        };
+        router1: Router {
+            parameters:
+                @display("p=182,283");
+        };
+        client: StandardHost {
+            parameters:
+                @display("p=54,274;i=device/laptop_l");
+        };
+        configurator: FlatNetworkConfigurator {
+            parameters:
+                moduleTypes = "Router StandardHost EtherBus";
+                nonIPModuleTypes = "EtherBus";
+                networkAddress = "10.0.0.0";
                 netmask = "255.255.0.0";
-            display: "p=46,111;i=block/cogwheel";
+                @display("p=46,111");
+        };
     connections:
         server.ethOut++ --> router8.ethIn++;
         router8.ethOut++ --> server.ethIn++;
@@ -92,7 +115,5 @@ module ARPTest
 
         client.ethOut++ --> router1.ethIn++;
         router1.ethOut++ --> client.ethIn++;
-endmodule
+}
 
-network arpTest : ARPTest
-endnetwork

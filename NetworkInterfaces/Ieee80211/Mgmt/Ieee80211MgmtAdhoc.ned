@@ -31,11 +31,13 @@
 // @author Andras Varga
 //
 simple Ieee80211MgmtAdhoc
+{
     parameters:
-        frameCapacity: numeric;
+        volatile int frameCapacity = default(100);
+        @display("i=block/cogwheel");
     gates:
-        in: uppergateIn;
-        out: uppergateOut;
-        in: macIn;
-        out: macOut;
-endsimple
+        input uppergateIn;
+        output uppergateOut;
+        input macIn;
+        output macOut;
+}

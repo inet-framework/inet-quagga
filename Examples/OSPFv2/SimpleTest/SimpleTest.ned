@@ -1,59 +1,71 @@
-import
-    "EtherHub",
-    "OSPFRouter",
-    "StandardHost",
-    "ChannelInstaller";
+import "EtherHub";
+import "OSPFRouter";
+import "StandardHost";
+import "ChannelInstaller";
 
-module SimpleTest
+network SimpleTest
+{
+    parameters:
+        @display("p=10,10;b=712,152");
     submodules:
-        channelInstaller : ChannelInstaller;
+        channelInstaller: ChannelInstaller {
             parameters:
-                channelClass = "ThruputMeteringChannel",
+                channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=#N";
-            display: "p=130,40;i=block/cogwheel_s";
-        H1: StandardHost;
-            gatesizes:
-                ethIn[1],
+                @display("p=130,40");
+        };
+        H1: StandardHost {
+            parameters:
+                @display("p=56,92;i=device/laptop");
+            gates:
+                ethIn[1];
                 ethOut[1];
-            display: "p=56,92;i=device/laptop";
-        N1: EtherHub;
-            gatesizes:
-                in[2],
+        };
+        N1: EtherHub {
+            parameters:
+                @display("p=184,92");
+            gates:
+                in[2];
                 out[2];
-            display: "p=184,92;i=device/hub";
-        R1: OSPFRouter;
-            gatesizes:
-                ethIn[2],
+        };
+        R1: OSPFRouter {
+            parameters:
+                @display("p=296,92");
+            gates:
+                ethIn[2];
                 ethOut[2];
-            display: "p=296,92;i=srouter";
-        R2: OSPFRouter;
-            gatesizes:
-                ethIn[2],
+        };
+        R2: OSPFRouter {
+            parameters:
+                @display("p=416,92");
+            gates:
+                ethIn[2];
                 ethOut[2];
-            display: "p=416,92;i=srouter";
-        N2: EtherHub;
-            gatesizes:
-                in[2],
+        };
+        N2: EtherHub {
+            parameters:
+                @display("p=532,92");
+            gates:
+                in[2];
                 out[2];
-            display: "p=532,92;i=device/hub";
-        H2: StandardHost;
-            gatesizes:
-                ethIn[1],
+        };
+        H2: StandardHost {
+            parameters:
+                @display("p=660,92;i=device/laptop");
+            gates:
+                ethIn[1];
                 ethOut[1];
-            display: "p=660,92;i=device/laptop";
+        };
     connections:
-        H1.ethOut[0] --> delay 0.1us --> N1.in[0];
-        N1.out[0] --> delay 0.1us --> H1.ethIn[0];
-        N1.out[1] --> delay 0.1us --> R1.ethIn[0];
-        R1.ethOut[0] --> delay 0.1us --> N1.in[1];
-        R1.ethOut[1] --> delay 0.1us --> R2.ethIn[0];
-        R2.ethOut[0] --> delay 0.1us --> R1.ethIn[1];
-        R2.ethOut[1] --> delay 0.1us --> N2.in[0];
-        N2.out[0] --> delay 0.1us --> R2.ethIn[1];
-        N2.out[1] --> delay 0.1us --> H2.ethIn[0];
-        H2.ethOut[0] --> delay 0.1us --> N2.in[1];
-    display: "p=10,10;b=712,152";
-endmodule
+        H1.ethOut[0] --> {  delay = 0.1us; } --> N1.in[0];
+        N1.out[0] --> {  delay = 0.1us; } --> H1.ethIn[0];
+        N1.out[1] --> {  delay = 0.1us; } --> R1.ethIn[0];
+        R1.ethOut[0] --> {  delay = 0.1us; } --> N1.in[1];
+        R1.ethOut[1] --> {  delay = 0.1us; } --> R2.ethIn[0];
+        R2.ethOut[0] --> {  delay = 0.1us; } --> R1.ethIn[1];
+        R2.ethOut[1] --> {  delay = 0.1us; } --> N2.in[0];
+        N2.out[0] --> {  delay = 0.1us; } --> R2.ethIn[1];
+        N2.out[1] --> {  delay = 0.1us; } --> H2.ethIn[0];
+        H2.ethOut[0] --> {  delay = 0.1us; } --> N2.in[1];
+}
 
-network OSPFSimpleTest : SimpleTest
-endnetwork

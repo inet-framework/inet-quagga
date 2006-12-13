@@ -22,8 +22,9 @@
 // Joins multiple input streams into a single output stream.
 //
 simple Join
-    gates: 
-        in: in[]; 
-        out: out; 
-endsimple
+{
+    gates:
+        input in[];
+        output out;
+}
 

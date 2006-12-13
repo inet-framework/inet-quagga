@@ -32,5 +32,8 @@
 // @author: Andras Varga
 //
 simple InterfaceTable
-endsimple
+{
+    parameters:
+        @display("i=block/table");
+}
 

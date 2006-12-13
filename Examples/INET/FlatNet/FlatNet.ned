@@ -17,38 +17,49 @@
 //
 
 
-import
-    "Router",
-    "StandardHost",
-    "FlatNetworkConfigurator";
+import "Router";
+import "StandardHost";
+import "FlatNetworkConfigurator";
 
 
-channel fiberline
-    delay 1us;
-    datarate 512*1000000;
-endchannel
+channel fiberline extends cBasicChannel
+{
+    parameters:
+        delay = 1us;
+        datarate = 512*1000000;
+}
 
-channel ethernetline
-    delay 0.1us;
-    datarate 10*1000000;
-endchannel
+channel ethernetline extends cBasicChannel
+{
+    parameters:
+        delay = 0.1us;
+        datarate = 10*1000000;
+}
 
-module FlatNet
+network FlatNet
+{
     submodules:
-        configurator: FlatNetworkConfigurator;
+        configurator: FlatNetworkConfigurator {
             parameters:
-                moduleTypes = "Router StandardHost",
-                nonIPModuleTypes = "",
-                networkAddress = "145.236.0.0",
+                moduleTypes = "Router StandardHost";
+                nonIPModuleTypes = "";
+                networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
-            display: "i=block/cogwheel";
-        rte: Router[57];
-            display: "i=misc/node_vs,green4";
-        cli: StandardHost[2];
-            display: "i=device/laptop_s";
-        srv: StandardHost;
-            display: "i=device/server_s";
-    connections nocheck:
+                @display("");
+        };
+        rte[57]: Router {
+            parameters:
+                @display(",green4");
+        };
+        cli[2]: StandardHost {
+            parameters:
+                @display("i=device/laptop_s");
+        };
+        srv: StandardHost {
+            parameters:
+                @display("i=device/server_s");
+        };
+    connections allowunconnected:
         cli[0].out++ --> ethernetline --> rte[50].in++;
         cli[0].in++ <-- ethernetline <-- rte[50].out++;
         cli[1].out++ --> ethernetline --> rte[8].in++;
@@ -299,8 +310,5 @@ module FlatNet
 
         rte[55].out++ --> fiberline --> rte[56].in++;
         rte[55].in++ <-- fiberline <-- rte[56].out++;
-endmodule
-
-network flatNet : FlatNet
-endnetwork
+}
 

@@ -40,17 +40,18 @@
 //
 simple LDPproc
 
+{
     parameters:
-        local_addr : string,
-        helloTimeout : numeric,
-        peerNo : numeric;
+        string local_addr;
+        volatile double helloTimeout;
+        volatile double peerNo;
 
     gates:
-        in: from_mpls_switch;  // receives messages here by direct sending
-        in: from_tcp_interface;
-        in: from_udp_interface;
-        out: to_mpls_switch;
-        out: to_tcp_interface;
-        out: to_udp_interface;
+        input from_mpls_switch;  // receives messages here by direct sending
+        input from_tcp_interface;
+        input from_udp_interface;
+        output to_mpls_switch;
+        output to_tcp_interface;
+        output to_udp_interface;
 
-endsimple
+}

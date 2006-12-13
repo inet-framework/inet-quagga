@@ -11,61 +11,66 @@
 //
 
 
-import
-    "LDP_LSR";
+import "LDP_LSR";
 
 
 //
 // FIXME: add documentation here
 //
-module MPLSNetOnly
+network MPLSNetOnly
+{
     submodules:
-        LSR1: LDP_LSR;
+        LSR1: LDP_LSR {
             parameters:
-                isIR = true,
-                isER = false,
+                isIR = true;
+                isER = false;
                 peerNo = 2;
-            gatesizes:
-                in[4],
+                @display("p=184,95");
+            gates:
+                in[4];
                 out[4];
-            display: "p=184,95;i=abstract/router";
-        LSR2: LDP_LSR;
+        };
+        LSR2: LDP_LSR {
             parameters:
-                isIR = false,
-                isER = false,
+                isIR = false;
+                isER = false;
                 peerNo = 3;
-            gatesizes:
-                in[3],
+                @display("p=238,247");
+            gates:
+                in[3];
                 out[3];
-            display: "p=238,247;i=abstract/router";
-        LSR3: LDP_LSR;
+        };
+        LSR3: LDP_LSR {
             parameters:
-                isIR = false,
-                isER = false,
+                isIR = false;
+                isER = false;
                 peerNo = 4;
-            gatesizes:
-                in[4],
+                @display("p=322,95");
+            gates:
+                in[4];
                 out[4];
-            display: "p=322,95;i=abstract/router";
-        LSR4: LDP_LSR;
+        };
+        LSR4: LDP_LSR {
             parameters:
-                isIR = false,
-                isER = false,
+                isIR = false;
+                isER = false;
                 peerNo = 3;
-            gatesizes:
-                in[3],
+                @display("p=398,247");
+            gates:
+                in[3];
                 out[3];
-            display: "p=398,247;i=abstract/router";
-        LSR5: LDP_LSR;
+        };
+        LSR5: LDP_LSR {
             parameters:
-                isIR = false,
-                isER = true,
+                isIR = false;
+                isER = true;
                 peerNo = 2;
-            gatesizes:
-                in[4],
+                @display("p=500,95");
+            gates:
+                in[4];
                 out[4];
-            display: "p=500,95;i=abstract/router";
-    connections nocheck:
+        };
+    connections allowunconnected:
         LSR1.out[2] --> LSR2.in[0];
         LSR1.in[2] <-- LSR2.out[0];
 
@@ -87,13 +92,6 @@ module MPLSNetOnly
         LSR4.out[2] --> LSR5.in[1];
         LSR4.in[2] <-- LSR5.out[1];
 
-endmodule
-
-
-//
-// FIXME: add documentation here
-//
-network mplsOnlyTest : MPLSNetOnly
-endnetwork
+}
 
 

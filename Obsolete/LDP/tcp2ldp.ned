@@ -11,42 +11,47 @@
 //
 
 
-import
-    "TcpIpInterface",
-    "LDPInterface",
-    "tcpmodule";
+import "TcpIpInterface";
+import "LDPInterface";
+import "tcpmodule";
 
 
 //
 // FIXME: add documentation here
 //
 module TCP2LDP
+{
     parameters:
-        local_addr : string,
-        timeout : numeric,
-        keepAliveTime : numeric;
+        string local_addr;
+        volatile double timeout;
+        volatile double keepAliveTime;
+        @display("p=10,10;b=150,236,rect");
     gates:
-        in: from_tcp;
-        in: from_ldp;
-        out: to_tcp;
-        out: to_ldp;
+        input from_tcp;
+        input from_ldp;
+        output to_tcp;
+        output to_ldp;
     submodules:
-        application: LDPInterface;
+        application: LDPInterface {
             parameters:
-                local_addr = local_addr,
-                timeout = timeout,
+                local_addr = local_addr;
+                timeout = timeout;
                 keepAliveTime = keepAliveTime;
 
-            display: "p=76,52;b=40,24,rect";
-        tcp: TcpModule;
+                @display("p=76,52;b=40,24,rect");
+        };
+        tcp: TcpModule {
             parameters:
-                TCPDelayedAck = true,
-                TCPFastRetrans = false,
-                TCPFastRecovery = false,
+                TCPDelayedAck = true;
+                TCPFastRetrans = false;
+                TCPFastRecovery = false;
                 TCPNewReno = false;
-            display: "p=79,120;i=block/wheelbarrow";
-        tcpipinterface: TcpIpInterface;
-            display: "p=81,202;i=prot3";
+                @display("p=79,120");
+        };
+        tcpipinterface: TcpIpInterface {
+            parameters:
+                @display("p=81,202");
+        };
     connections:
         application.to_tcp --> tcp.from_appl;
         application.from_tcp <-- tcp.to_appl;
@@ -56,6 +61,5 @@ module TCP2LDP
         tcp.from_ip <-- tcpipinterface.to_tcp;
         tcpipinterface.to_ip --> to_tcp;
         tcpipinterface.from_ip <-- from_tcp;
-    display: "p=10,10;b=150,236,rect";
-endmodule
+}
 

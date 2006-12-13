@@ -17,58 +17,63 @@
 //
 
 
-import
-    "Router",
-    "StandardHost",
-    "FlatNetworkConfigurator";
+import "Router";
+import "StandardHost";
+import "FlatNetworkConfigurator";
 
 
-channel ethernetline2
-    delay 0.1us;
-    datarate 100*1000000;
-endchannel
-
-channel gigabitline2
-    delay 0.1us;
-    datarate 1000*1000000;
-endchannel
-
-module NClients2
+channel ethernetline2 extends cBasicChannel
+{
     parameters:
-        numrouters: numeric const,
-        hostsperrouter: numeric const;
-    submodules:
-        configurator: FlatNetworkConfigurator;
-            parameters:
-                moduleTypes = "Router StandardHost",
-                nonIPModuleTypes = "",
-                networkAddress = "145.236.0.0",
-                netmask = "255.255.0.0";
-            display: "i=block/cogwheel";
+        delay = 0.1us;
+        datarate = 100*1000000;
+}
 
-        r: Router[numrouters];
-            display: "i=abstract/router";
-        cli: StandardHost[numrouters*hostsperrouter];
-            display: "i=device/laptop_vs";
-        srv: StandardHost;
-            display: "i=device/server_l";
-    connections nocheck:
-        for i=0..numrouters-1, j=0..hostsperrouter-1 do
+channel gigabitline2 extends cBasicChannel
+{
+    parameters:
+        delay = 0.1us;
+        datarate = 1000*1000000;
+}
+
+network NClients2
+{
+    parameters:
+        double numrouters;
+        double hostsperrouter;
+    submodules:
+        configurator: FlatNetworkConfigurator {
+            parameters:
+                moduleTypes = "Router StandardHost";
+                nonIPModuleTypes = "";
+                networkAddress = "145.236.0.0";
+                netmask = "255.255.0.0";
+                @display("");
+
+        };
+        r[numrouters]: Router {
+            parameters:
+                @display("");
+        };
+        cli[numrouters*hostsperrouter]: StandardHost {
+            parameters:
+                @display("i=device/laptop_vs");
+        };
+        srv: StandardHost {
+            parameters:
+                @display("i=device/server_l");
+        };
+    connections allowunconnected:
+        for i=0..numrouters-1, for j=0..hostsperrouter-1 {
             cli[i*hostsperrouter+j].out++ --> ethernetline2 --> r[i].in++;
             cli[i*hostsperrouter+j].in++ <-- ethernetline2 <-- r[i].out++;
-        endfor
+        };
 
-        for i=0..numrouters-2 do
+        for i=0..numrouters-2 {
             r[i].out++ --> gigabitline2 --> r[i+1].in++;
             r[i+1].out++ --> gigabitline2 --> r[i].in++;
-        endfor
+        };
         r[numrouters-1].out++ --> ethernetline2 --> srv.in++;
         r[numrouters-1].in++ <-- ethernetline2 <-- srv.out++;
-endmodule
-
-network nClients2 : NClients2
-    parameters:
-        numrouters = input(3, "Number of routers"),
-        hostsperrouter = input(5, "Hosts per router");
-endnetwork
+}
 

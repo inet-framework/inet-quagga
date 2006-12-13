@@ -1,48 +1,64 @@
-import
-    "EtherHub",
-    "OSPFRouter",
-    "StandardHost";
+import "EtherHub";
+import "OSPFRouter";
+import "StandardHost";
 
 module TwoNetsArea
+{
+    parameters:
+        @display("p=10,10;b=412,316");
     gates:
-        in: in[];
-        out: out[];
+        input in[];
+        output out[];
     submodules:
-        R1: OSPFRouter;
-            gatesizes:
-                ethIn[3],
+        R1: OSPFRouter {
+            parameters:
+                @display("p=248,124");
+            gates:
+                ethIn[3];
                 ethOut[3];
-            display: "p=248,124;i=srouter";
-        N1: EtherHub;
-            gatesizes:
-                in[2],
+        };
+        N1: EtherHub {
+            parameters:
+                @display("p=156,72");
+            gates:
+                in[2];
                 out[2];
-            display: "p=156,72;i=switch2";
-        N2: EtherHub;
-            gatesizes:
-                in[2],
+        };
+        N2: EtherHub {
+            parameters:
+                @display("p=160,284");
+            gates:
+                in[2];
                 out[2];
-            display: "p=160,284;i=switch2";
-        R3: OSPFRouter;
-            gatesizes:
-                ethIn[3],
+        };
+        R3: OSPFRouter {
+            parameters:
+                @display("p=360,180");
+            gates:
+                ethIn[3];
                 ethOut[3];
-            display: "p=360,180;i=srouter";
-        H1: StandardHost;
-            gatesizes:
-                ethIn[1],
+        };
+        H1: StandardHost {
+            parameters:
+                @display("p=56,72;i=laptop3");
+            gates:
+                ethIn[1];
                 ethOut[1];
-            display: "p=56,72;i=laptop3";
-        H2: StandardHost;
-            gatesizes:
-                ethIn[1],
+        };
+        H2: StandardHost {
+            parameters:
+                @display("p=56,288;i=laptop3");
+            gates:
+                ethIn[1];
                 ethOut[1];
-            display: "p=56,288;i=laptop3";
-        R2: OSPFRouter;
-            gatesizes:
-                ethIn[3],
+        };
+        R2: OSPFRouter {
+            parameters:
+                @display("p=248,232");
+            gates:
+                ethIn[3];
                 ethOut[3];
-            display: "p=248,232;i=srouter";
+        };
     connections:
         H1.ethOut[0] --> N1.in[1];
         N1.out[1] --> H1.ethIn[0];
@@ -60,6 +76,5 @@ module TwoNetsArea
         N2.out[0] --> R2.ethIn[2];
         R3.ethOut[0] --> out[0];
         in[0] --> R3.ethIn[0];
-    display: "p=10,10;b=412,316";
-endmodule
+}
 

@@ -17,55 +17,61 @@
 //
 
 
-import
-    "Blackboard",
-    "NetworkLayer",
-    "TCPUpperLayers";
+import "Blackboard";
+import "NetworkLayer";
+import "TCPUpperLayers";
 
 
 //
 // Definition of an IPNode with transport layers.
 //
 module TCPServerNode
+{
     parameters:
         // TCP information
-        local_addr : numeric,
+        volatile double local_addr;
         // Network information
-        routingFile : string;
+        string routingFile;
     gates:
-        in: in[];
-        out: out[];
+        input in[];
+        output out[];
     submodules:
-        blackboard: Blackboard;
-            display: "i=block/blackboard;p=60,60";
+        blackboard: Blackboard {
+            parameters:
+                @display("p=60,60");
+        };
         // transport and application layers
-        tcpApp: TCPUpperLayers;
+        tcpApp: TCPUpperLayers {
             parameters:
-                tcpApplType = "TCPServer",
-                local_addr = local_addr,
+                tcpApplType = "TCPServer";
+                local_addr = local_addr;
                 server_addr = 0;
-            display: "p=84,61;b=40,24,rect";
-        networkLayer: NetworkLayer;
+                @display("p=84,61;b=40,24,rect");
+        };
+        networkLayer: NetworkLayer {
             parameters:
-                IPForward = false,
+                IPForward = false;
                 routingFile = routingFile;
-            gatesizes:
-                physIn[sizeof(out)],
+                @display("p=87,155");
+            gates:
+                physIn[sizeof(out)];
                 physOut[sizeof(out)];
-            display: "p=87,155;i=block/fork";
-        ppp : PPPInterface[sizeof(out)];
-            display: "p=80,220,row;q=queue;i=block/ifcard";
-    connections nocheck:
+        };
+        ppp[sizeof(out)]: PPPInterface {
+            parameters:
+                @display("p=80,220,row;q=queue");
+        };
+    connections allowunconnected:
         // transport connections
         networkLayer.TCPOut --> tcpApp.in;
         networkLayer.TCPIn <-- tcpApp.out;
 
         // connections to network outside
-        for i=0..sizeof(out)-1 do
+        for i=0..sizeof(out)-1 {
             in[i] --> ppp[i].physIn;
             out[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.physIn[i];
             ppp[i].netwIn <-- networkLayer.physOut[i];
-        endfor;
-endmodule
+        };
+}
 

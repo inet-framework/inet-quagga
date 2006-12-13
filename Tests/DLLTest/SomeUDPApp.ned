@@ -22,16 +22,17 @@
 // A copy of UDPBasicApp, just for testing.
 //
 simple SomeUDPApp
+{
     parameters:
-        local_port : numeric const, // if -1, app doesn't bind in UDP
-        dest_port : numeric const,
-        message_length : numeric const, // (bits)
-        message_freq : numeric, // should usually be a random value, e.g. exponential(1)
-        dest_addresses: string; // list of \IP addresses, separated by spaces
+        double local_port; // if -1, app doesn't bind in UDP
+        double dest_port;
+        double message_length; // (bits)
+        volatile double message_freq; // should usually be a random value, e.g. exponential(1)
+        string dest_addresses; // list of \IP addresses, separated by spaces
     gates:
-        in: from_udp;
-        out: to_udp;
-endsimple
+        input from_udp;
+        output to_udp;
+}
 
 
 

@@ -28,9 +28,11 @@
 // @see FlatNetworkConfigurator
 //
 simple FlatNetworkConfigurator6
+{
     parameters:
-        moduleTypes: string, // all module types to be considered part of the topology
-        nonIPModuleTypes: string; // module types which don't need \IP configuration
+        string moduleTypes; // all module types to be considered part of the topology
+        string nonIPModuleTypes; // module types which don't need \IP configuration
                                   // (e.g. Ethernet hub, switch or bus)
-endsimple
+        @display("i=block/cogwheel");
+}
 

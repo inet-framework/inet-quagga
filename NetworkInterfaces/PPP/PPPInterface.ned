@@ -25,27 +25,32 @@
 // @see PPPInterfaceNoQueue
 //
 module PPPInterface
+{
     parameters:
-        queueType: string;
+        string queueType = default("DropTailQueue");
+        @display("i=block/ifcard");
     gates:
-        in: physIn;
-        out: physOut;
-        in: netwIn;
-        out: netwOut;
+        input physIn;
+        output physOut;
+        input netwIn;
+        output netwOut;
     submodules:
-        queue: queueType like OutputQueue;
-            display: "i=block/queue;p=60,85;q=l2queue";
-        ppp: PPP;
+        queue: <queueType> like OutputQueue {
             parameters:
-                queueModule = "queue",
+                @display("p=60,85;q=l2queue");
+        };
+        ppp: PPP {
+            parameters:
+                queueModule = "queue";
                 txQueueLimit = 1; // queue sends one packet at a time
-            display: "i=block/rxtx;p=88,165";
+                @display("p=88,165");
+        };
     connections:
-        netwIn --> queue.in display "m=n";
+        netwIn --> { @display("m=n"); } --> queue.in;
         queue.out --> ppp.netwIn;
-        netwOut <-- ppp.netwOut display "m=n";
-        physIn --> ppp.physIn display "m=s";
-        physOut <-- ppp.physOut display "m=s";
-endmodule
+        netwOut <-- { @display("m=n"); } <-- ppp.netwOut;
+        physIn --> { @display("m=s"); } --> ppp.physIn;
+        physOut <-- { @display("m=s"); } <-- ppp.physOut;
+}
 
 

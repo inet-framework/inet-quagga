@@ -19,103 +19,119 @@
 
 
 
-import
-    "Router",
-    "StandardHost";
+import "Router";
+import "StandardHost";
 
-channel ethernet
-    delay normal(0.00015,0.00005);
-    datarate 10*10^6;
-endchannel
+channel ethernet extends cBasicChannel
+{
+    parameters:
+        delay = normal(0.00015,0.00005);
+        datarate = 10*10^6;
+}
 
-channel dialup
-    delay normal(0.004,0.0018);
-    datarate 64*10^3;
-endchannel
+channel dialup extends cBasicChannel
+{
+    parameters:
+        delay = normal(0.004,0.0018);
+        datarate = 64*10^3;
+}
 
-channel fiberrouter
-    delay normal(0.000001,0.0000001);
-    datarate 512*10^6;
-endchannel
+channel fiberrouter extends cBasicChannel
+{
+    parameters:
+        delay = normal(0.000001,0.0000001);
+        datarate = 512*10^6;
+}
 
-module MulticastNetwork
+network MulticastNetwork
+{
     submodules:
-        host1: StandardHost;
+        host1: StandardHost {
             parameters:
-                IPForward = false,
+                IPForward = false;
                 routingFile = "mchost1.mrt";
-            gatesizes:
-                in[1],
+                @display("p=125,52;i=device/pc2");
+            gates:
+                in[1];
                 out[1];
-            display: "p=125,52;i=device/pc2";
-        host2: StandardHost;
+        };
+        host2: StandardHost {
             parameters:
-                IPForward = true,
+                IPForward = true;
                 routingFile = "mchost2.mrt";
-            gatesizes:
-                in[2],
+                @display("p=60,244;i=device/pc2");
+            gates:
+                in[2];
                 out[2];
-            display: "p=60,244;i=device/pc2";
-        host3: StandardHost;
+        };
+        host3: StandardHost {
             parameters:
-                IPForward = true,
+                IPForward = true;
                 routingFile = "mchost3.mrt";
-            gatesizes:
-                in[2],
+                @display("p=196,244;i=device/pc2");
+            gates:
+                in[2];
                 out[2];
-            display: "p=196,244;i=device/pc2";
-        host4: StandardHost;
+        };
+        host4: StandardHost {
             parameters:
-                IPForward = false,
+                IPForward = false;
                 routingFile = "mchost4.mrt";
-            gatesizes:
-                in[1],
+                @display("p=406,305;i=device/pc2");
+            gates:
+                in[1];
                 out[1];
-            display: "p=406,305;i=device/pc2";
-        host5: StandardHost;
+        };
+        host5: StandardHost {
             parameters:
-                IPForward = false,
+                IPForward = false;
                 routingFile = "mchost5.mrt";
-            gatesizes:
-                in[1],
+                @display("p=492,59;i=device/pc2");
+            gates:
+                in[1];
                 out[1];
-            display: "p=492,59;i=device/pc2";
-        host6: StandardHost;
+        };
+        host6: StandardHost {
             parameters:
-                IPForward = false,
+                IPForward = false;
                 routingFile = "mchost6.mrt";
-            gatesizes:
-                in[1],
+                @display("p=492,204;i=device/pc2");
+            gates:
+                in[1];
                 out[1];
-            display: "p=492,204;i=device/pc2";
-        router1: Router;
+        };
+        router1: Router {
             parameters:
                 routingFile = "mcrouter1.mrt";
-            gatesizes:
-                in[4],
+                @display("p=124,135");
+            gates:
+                in[4];
                 out[4];
-            display: "p=124,135;i=abstract/router";
-        router2: Router;
+        };
+        router2: Router {
             parameters:
                 routingFile = "mcrouter2.mrt";
-            gatesizes:
-                in[3],
+                @display("p=292,135");
+            gates:
+                in[3];
                 out[3];
-            display: "p=292,135;i=abstract/router";
-        router3: Router;
+        };
+        router3: Router {
             parameters:
                 routingFile = "mcrouter3.mrt";
-            gatesizes:
-                in[2],
+                @display("p=292,238");
+            gates:
+                in[2];
                 out[2];
-            display: "p=292,238;i=abstract/router";
-        router4: Router;
+        };
+        router4: Router {
             parameters:
                 routingFile = "mcrouter4.mrt";
-            gatesizes:
-                in[3],
+                @display("p=408,135");
+            gates:
+                in[3];
                 out[3];
-            display: "p=408,135;i=abstract/router";
+        };
     connections:
         // * Domain 1 * (172.0.0.x)
         host1.out[0] --> ethernet --> router1.in[0];
@@ -149,8 +165,5 @@ module MulticastNetwork
 
         router2.out[2] --> fiberrouter --> router4.in[2];
         router2.in[2] <-- fiberrouter <-- router4.out[2];
-endmodule
-
-network multicastNetwork : MulticastNetwork
-endnetwork
+}
 

@@ -17,9 +17,8 @@
 //
 
 
-import
-    "MACRelayUnit",
-    "EtherMAC2";
+import "MACRelayUnit";
+import "EtherMAC2";
 
 
 //
@@ -30,31 +29,36 @@ import
 // This model does not contain the spanning tree algorithm.
 //
 module EtherSwitch2
+{
     parameters:
-        relayUnitType: string; // type of the MACRelayUnit; currently possible
+        string relayUnitType = default("MACRelayUnitNP"); // type of the MACRelayUnit; currently possible
                                // values are MACRelayUnitNP and MACRelayUnitPP
+        @display("i=switch2");
     gates:
-        in: in[];
-        out: out[];
+        input in[];
+        output out[];
 
     submodules:
-        relayUnit: relayUnitType like MACRelayUnit;
-            gatesizes:
-                lowerLayerIn[sizeof(in)],
-                lowerLayerOut[sizeof(in)];
-            display: "i=greenbox;p=200,50";
-        mac: EtherMAC2[sizeof(in)];
+        relayUnit: <relayUnitType> like MACRelayUnit {
             parameters:
-                promiscuous = true,
-                txQueueLimit = 1000, // increase if needed
+                @display("p=200,50");
+            gates:
+                lowerLayerIn[sizeof(in)];
+                lowerLayerOut[sizeof(in)];
+        };
+        mac[sizeof(in)]: EtherMAC2 {
+            parameters:
+                promiscuous = true;
+                txQueueLimit = 1000; // increase if needed
                 queueModule = "";
-            display: "i=block/queue;p=70,150,row;q=queue";
+                @display("p=70,150,row;q=queue");
+        };
     connections:
-        for i=0..sizeof(in)-1 do
+        for i=0..sizeof(in)-1 {
             mac[i].upperLayerIn <-- relayUnit.lowerLayerOut[i];
             mac[i].upperLayerOut --> relayUnit.lowerLayerIn[i];
             mac[i].physIn <-- in[i];
             mac[i].physOut --> out[i];
-        endfor;
-endmodule
+        };
+}
 

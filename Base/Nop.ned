@@ -22,10 +22,11 @@
 // Just lets messages through without any change or delay.
 //
 module Nop
-    gates: 
-        in: in; 
-        out: out; 
+{
+    gates:
+        input in;
+        output out;
     connections:
         in --> out;
-endmodule
+}
 

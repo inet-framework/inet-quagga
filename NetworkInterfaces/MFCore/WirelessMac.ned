@@ -31,10 +31,11 @@
 // @author Daniel Willkomm, Andras Varga
 //
 simple WirelessMac
+{
     gates:
-        in: uppergateIn; // from the network layer
-        out: uppergateOut; // to the network layer
-        in: lowergateIn; // from the physical layer
-        out: lowergateOut; // to the physical layer
-endsimple
+        input uppergateIn; // from the network layer
+        output uppergateOut; // to the network layer
+        input lowergateIn; // from the physical layer
+        output lowergateOut; // to the physical layer
+}
 

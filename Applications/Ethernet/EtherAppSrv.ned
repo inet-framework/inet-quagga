@@ -23,10 +23,11 @@
 // It should be connected directly to EtherLLC or a Ieee802NicXXX module.
 //
 simple EtherAppSrv
+{
     parameters:
-        registerSAP : bool, // whether to sent IEEE802CTRL_REGISTER_DSAP on startup
-        writeScalars: bool; // enable/disable recording statistics in omnetpp.sca
+        bool registerSAP; // whether to sent IEEE802CTRL_REGISTER_DSAP on startup
+        bool writeScalars = default(true); // enable/disable recording statistics in omnetpp.sca
     gates:
-        in: in;
-        out: out;
-endsimple
+        input in;
+        output out;
+}

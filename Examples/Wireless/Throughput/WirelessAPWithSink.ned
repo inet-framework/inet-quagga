@@ -17,29 +17,39 @@
 //
 
 
-import
-    "Sink",
-    "Ieee80211NicAPSimplified",
-    "NullMobility",
-    "NotificationBoard";
+import "Sink";
+import "Ieee80211NicAPSimplified";
+import "NullMobility";
+import "NotificationBoard";
 
 //
 // Well, it Models a 802.11 Access Point with a Sink.
 //
 module WirelessAPWithSink
+{
+    parameters:
+        @display("i=device/accesspoint");
     gates:
-        in: radioIn;
+        input radioIn;
     submodules:
-        sink: Sink;
-            display: "i=block/sink;p=169,124";
-        wlan: Ieee80211NicAPSimplified;
-            display: "p=89,225;q=queue;i=block/ifcard,#ff8000";
-        notificationBoard: NotificationBoard;
-            display: "p=78,60;i=block/control";
-        mobility: NullMobility;
-            display: "p=71,121;i=block/cogwheel_s";
-    connections nocheck:
-        radioIn --> wlan.radioIn display "m=s";
+        sink: Sink {
+            parameters:
+                @display("p=169,124");
+        };
+        wlan: Ieee80211NicAPSimplified {
+            parameters:
+                @display("p=89,225;q=queue;,#ff8000");
+        };
+        notificationBoard: NotificationBoard {
+            parameters:
+                @display("p=78,60");
+        };
+        mobility: NullMobility {
+            parameters:
+                @display("p=71,121");
+        };
+    connections allowunconnected:
+        radioIn --> { @display("m=s"); } --> wlan.radioIn;
         wlan.uppergateOut --> sink.in++;
-endmodule
+}
 

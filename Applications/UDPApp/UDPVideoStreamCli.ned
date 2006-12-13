@@ -23,13 +23,14 @@
 // @see UDPVideoStreamSvr
 //
 simple UDPVideoStreamCli
+{
     parameters:
-        localPort: numeric,
-        serverAddress: string,
-        serverPort: numeric,
-        startTime: numeric;
+        volatile int localPort;
+        string serverAddress;
+        volatile int serverPort;
+        volatile double startTime = default(1) @unit("s");
     gates:
-        in: from_udp;
-        out: to_udp;
-endsimple
+        input from_udp;
+        output to_udp;
+}
 

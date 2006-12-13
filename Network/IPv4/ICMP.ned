@@ -38,11 +38,14 @@
 // redesign: Andras Varga 1.3.2004
 //
 simple ICMP
+{
+    parameters:
+        @display("i=block/control_s");
     gates:
-        in: localIn;  // delivered ICMP packets
-        in: pingIn;  // ping requests from app
-        out: pingOut;  // result of ping
-        out: sendOut;  // towards network
-        out: errorOut;  // errors
-endsimple
+        input localIn;  // delivered ICMP packets
+        input pingIn;  // ping requests from app
+        output pingOut;  // result of ping
+        output sendOut;  // towards network
+        output errorOut;  // errors
+}
 

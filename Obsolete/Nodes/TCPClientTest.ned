@@ -2,56 +2,62 @@
 
 // Definition of an IPNode with transport layers
 
-import
-    "Blackboard",
-    "NetworkLayer",
-    "mytcp4ip";
+import "Blackboard";
+import "NetworkLayer";
+import "mytcp4ip";
 
 
 
 module TCPClientTest
+{
     parameters:
         // TCP information
-        start_time : numeric,
-        local_addr : string,
-        server_addr : string,
+        volatile double start_time;
+        string local_addr;
+        string server_addr;
         // Network information
-        routingFile : string;
+        string routingFile;
     gates:
-        in: in[];
-        out: out[];
+        input in[];
+        output out[];
     submodules:
-        blackboard: Blackboard;
-            display: "i=block/blackboard;p=60,60";
+        blackboard: Blackboard {
+            parameters:
+                @display("p=60,60");
+        };
         // transport and application layers
-        tcpApp: MyTCPUpperLayers;
+        tcpApp: MyTCPUpperLayers {
             parameters:
-                mytcpApplType = "MyTCPClient",
-                start_time = start_time,
-                local_addr = local_addr,
+                mytcpApplType = "MyTCPClient";
+                start_time = start_time;
+                local_addr = local_addr;
                 server_addr = server_addr;
-            display: "p=84,69;b=40,24,rect";
-        networkLayer: NetworkLayer;
+                @display("p=84,69;b=40,24,rect");
+        };
+        networkLayer: NetworkLayer {
             parameters:
-                IPForward = false,
+                IPForward = false;
                 routingFile = routingFile;
-            gatesizes:
-                physIn[sizeof(out)],
+                @display("p=87,155");
+            gates:
+                physIn[sizeof(out)];
                 physOut[sizeof(out)];
-            display: "p=87,155;i=block/fork";
-        ppp : PPPInterface[sizeof(out)];
-            display: "p=80,220,row;q=queue;i=block/ifcard";
-    connections nocheck:
+        };
+        ppp[sizeof(out)]: PPPInterface {
+            parameters:
+                @display("p=80,220,row;q=queue");
+        };
+    connections allowunconnected:
         // transport connections
         networkLayer.TCPOut --> tcpApp.in;
         networkLayer.TCPIn <-- tcpApp.out;
 
         // connections to network outside
-        for i=0..sizeof(out)-1 do
+        for i=0..sizeof(out)-1 {
             in[i] --> ppp[i].physIn;
             out[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.physIn[i];
             ppp[i].netwIn <-- networkLayer.physOut[i];
-        endfor;
-endmodule
+        };
+}
 

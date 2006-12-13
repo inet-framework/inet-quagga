@@ -1,50 +1,63 @@
-import
-    "TestRouter";
+import "TestRouter";
 
-channel ethernetlineX
-    delay 10ms;
-    datarate 100000;
-endchannel
+channel ethernetlineX extends cBasicChannel
+{
+    parameters:
+        delay = 10ms;
+        datarate = 100000;
+}
 
-module Test
+network Test
+{
     submodules:
-        channelInstaller: ChannelInstaller;
+        channelInstaller: ChannelInstaller {
             parameters:
-                channelClass = "ThruputMeteringChannel",
+                channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=u #N";
-            display: "p=284,50;i=block/cogwheel_s";
+                @display("p=284,50");
 
-		r1: TestRouter;
-			gatesizes:
-				in[2],
-				out[2];
-			display: "p=100,30";
-				
-		r2: TestRouter;
-			gatesizes:
-				in[4],
-				out[4];
-			display: "p=50,100";
-				
-		r3: TestRouter;
-			gatesizes:
-				in[4],
-				out[4];
-			display: "p=150,100";
-				
-		r4: TestRouter;
-			gatesizes:
-				in[2],
-				out[2];
-			display: "p=10,150";
-				
-		r5: TestRouter;
-			gatesizes:
-				in[3],
-				out[3];
-			display: "p=100,150";				
-        
-    connections nocheck:
+        };
+        r1: TestRouter {
+            parameters:
+                @display("p=100,30");
+
+            gates:
+                in[2];
+                out[2];
+        };
+        r2: TestRouter {
+            parameters:
+                @display("p=50,100");
+
+            gates:
+                in[4];
+                out[4];
+        };
+        r3: TestRouter {
+            parameters:
+                @display("p=150,100");
+
+            gates:
+                in[4];
+                out[4];
+        };
+        r4: TestRouter {
+            parameters:
+                @display("p=10,150");
+
+            gates:
+                in[2];
+                out[2];
+        };
+        r5: TestRouter {
+            parameters:
+                @display("p=100,150");
+
+            gates:
+                in[3];
+                out[3];
+        };
+    connections allowunconnected:
         r1.out[0] --> ethernetlineX --> r2.in[0];
         r1.in[0] <-- ethernetlineX <-- r2.out[0];
 
@@ -59,14 +72,11 @@ module Test
 
         r2.out[3] --> ethernetlineX --> r5.in[0];
         r2.in[3] <-- ethernetlineX <-- r5.out[0];
-        
+
         r3.out[2] --> ethernetlineX --> r5.in[1];
         r3.in[2] <-- ethernetlineX <-- r5.out[1];
-        
+
         r4.out[1] --> ethernetlineX --> r5.in[2];
         r4.in[1] <-- ethernetlineX <-- r5.out[2];
-endmodule
-
-network testNetwork : Test
-endnetwork
+}
 

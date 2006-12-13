@@ -16,29 +16,36 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-import
-    "Ieee80211MgmtAP",
-    "Ieee80211Mac",
-    "Ieee80211Radio";
+import "Ieee80211MgmtAP";
+import "Ieee80211Mac";
+import "Ieee80211Radio";
 
 //
 // This NIC implements an 802.11 network interface card,
 // in an AP, using infrastructure mode.
 //
 module Ieee80211NicAP
+{
+    parameters:
+        @display("i=block/ifcard");
     gates:
-        in: uppergateIn; // to upper layers
-        out: uppergateOut; // from upper layers
-        in: radioIn; // to receive AirFrames
+        input uppergateIn; // to upper layers
+        output uppergateOut; // from upper layers
+        input radioIn; // to receive AirFrames
     submodules:
-        mgmt: Ieee80211MgmtAP;
-            display: "p=96,69;i=block/cogwheel;q=wlanDataQueue";
-        mac: Ieee80211Mac;
+        mgmt: Ieee80211MgmtAP {
+            parameters:
+                @display("p=96,69;q=wlanDataQueue");
+        };
+        mac: Ieee80211Mac {
             parameters:
                 queueModule = "mgmt";
-            display: "p=96,155;i=block/layer";
-        radio: Ieee80211Radio;
-            display: "p=96,240;i=block/wrxtx";
+                @display("p=96,155");
+        };
+        radio: Ieee80211Radio {
+            parameters:
+                @display("p=96,240");
+        };
     connections:
         radioIn --> radio.radioIn;
         radio.uppergateIn <-- mac.lowergateOut;
@@ -50,5 +57,5 @@ module Ieee80211NicAP
         mgmt.uppergateOut --> uppergateOut;
         mgmt.uppergateIn <-- uppergateIn;
 
-endmodule
+}
 

@@ -36,12 +36,14 @@
 //   higher layers. Accepts EtherFrameWithLLC and EtherFrameWithSNAP too.
 //
 simple EtherEncap
+{
     parameters:
-        writeScalars: bool; // enable/disable recording statistics in omnetpp.sca
+        bool writeScalars = default(true); // enable/disable recording statistics in omnetpp.sca
+        @display("i=block/square");
     gates:
-        in: upperLayerIn;   // higher layer
-        out: upperLayerOut; // higher layer
-        in: lowerLayerIn;   // to Ethernet MAC
-        out: lowerLayerOut; // to Ethernet MAC
-endsimple
+        input upperLayerIn;   // higher layer
+        output upperLayerOut; // higher layer
+        input lowerLayerIn;   // to Ethernet MAC
+        output lowerLayerOut; // to Ethernet MAC
+}
 

@@ -21,9 +21,10 @@
 // Simple network switch
 //
 simple Switch
+{
     parameters:
-       pk_rate;
+        volatile double pk_rate;
     gates:
-       in: in[];
-       out: out[];
-endsimple
+        input in[];
+        output out[];
+}

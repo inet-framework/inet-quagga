@@ -11,79 +11,88 @@
 //
 
 
-import
-    "LDP_LSR",
-    "StandardHost";
+import "LDP_LSR";
+import "StandardHost";
 
 
 //
 // FIXME: add documentation here
 //
-module MPLSNet
+network MPLSNet
+{
     submodules:
-        LSR1: LDP_LSR;
+        LSR1: LDP_LSR {
             parameters:
-                id = "LSR1",
-                isIR = true,
-                isER = false,
+                id = "LSR1";
+                isIR = true;
+                isER = false;
                 peerNo = 2;
-            gatesizes:
-                in[4],
+                @display("p=184,95");
+            gates:
+                in[4];
                 out[4];
-            display: "p=184,95;i=abstract/router";
-        LSR2: LDP_LSR;
+        };
+        LSR2: LDP_LSR {
             parameters:
-                id = "LSR2",
-                isIR = false,
-                isER = false,
+                id = "LSR2";
+                isIR = false;
+                isER = false;
                 peerNo = 3;
-            gatesizes:
-                in[3],
+                @display("p=238,247");
+            gates:
+                in[3];
                 out[3];
-            display: "p=238,247;i=abstract/router";
-        LSR3: LDP_LSR;
+        };
+        LSR3: LDP_LSR {
             parameters:
-                id = "LSR3",
-                isIR = false,
-                isER = false,
+                id = "LSR3";
+                isIR = false;
+                isER = false;
                 peerNo = 4;
-            gatesizes:
-                in[4],
+                @display("p=322,95");
+            gates:
+                in[4];
                 out[4];
-            display: "p=322,95;i=abstract/router";
-        LSR4: LDP_LSR;
+        };
+        LSR4: LDP_LSR {
             parameters:
-                id = "LSR4",
-                isIR = false,
-                isER = false,
+                id = "LSR4";
+                isIR = false;
+                isER = false;
                 peerNo = 3;
-            gatesizes:
-                in[3],
+                @display("p=398,247");
+            gates:
+                in[3];
                 out[3];
-            display: "p=398,247;i=abstract/router";
-        LSR5: LDP_LSR;
+        };
+        LSR5: LDP_LSR {
             parameters:
-                id = "LSR5",
-                isIR = false,
-                isER = true,
+                id = "LSR5";
+                isIR = false;
+                isER = true;
                 peerNo = 2;
-            gatesizes:
-                in[4],
+                @display("p=500,95");
+            gates:
+                in[4];
                 out[4];
-            display: "p=500,95;i=abstract/router";
-        host1: StandardHost;  // client
+        };
+        host1: StandardHost {  // client
             parameters:
-            display: "p=26,98;i=device/pc3_s";
-        host2: StandardHost;  // client
+                @display("p=26,98;i=device/pc3_s");
+        };
+        host2: StandardHost {  // client
             parameters:
-            display: "p=26,256;i=device/pc3_s";
-        host3: StandardHost;  // server
+                @display("p=26,256;i=device/pc3_s");
+        };
+        host3: StandardHost {  // server
             parameters:
-            display: "p=570,88;i=device/pc3_s";
-        host4: StandardHost;  // server
+                @display("p=570,88;i=device/pc3_s");
+        };
+        host4: StandardHost {  // server
             parameters:
-            display: "p=578,240;i=device/pc3_s";
-    connections nocheck:
+                @display("p=578,240;i=device/pc3_s");
+        };
+    connections allowunconnected:
         host1.in[0] <-- LSR1.out[0];
         host1.out[0] --> LSR1.in[0];
 
@@ -117,11 +126,6 @@ module MPLSNet
 
         LSR5.out[3] --> host4.in[0];
         LSR5.in[3] <-- host4.out[0];
-endmodule
+}
 
 
-//
-// FIXME: add documentation here
-//
-network mplsTest : MPLSNet
-endnetwork

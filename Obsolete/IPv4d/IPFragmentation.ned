@@ -27,8 +27,12 @@
 // author: Jochen Reber, Andras Varga
 //
 simple IPFragmentation
+{
+    parameters:
+        @display("i=block/segm");
     gates:
-        in: routingIn, multicastIn;
-        out: outputOut;
-endsimple
+        input routingIn;
+        input multicastIn;
+        output outputOut;
+}
 

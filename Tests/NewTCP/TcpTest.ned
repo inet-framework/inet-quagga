@@ -1,52 +1,73 @@
 
-import
-    "TcpTestClient.ned",
-    "TCPTester.ned",
-    "TCP.ned",
-    "TCPDump.ned";
+import "TcpTestClient.ned";
+import "TCPTester.ned";
+import "TCP.ned";
+import "TCPDump.ned";
 
 
-module TcpTestNet1
+network TcpTestNet1
+{
     parameters:
-        testing: bool;
+        bool testing;
     submodules:
-        cli: TcpTestClient;
-            display: "p=95,95;i=block/app";
-        tcpcli: TCP;
-            display: "p=95,178;i=block/wheelbarrow";
-        tcpsrv: TCP;
-            display: "p=302,178;i=block/wheelbarrow";
-        srv: TcpTestClient;
-            display: "p=303,96;i=block/app";
-        tcptester: TCPScriptableTester;
-            display: "p=198,178;i=device/router";
+        cli: TcpTestClient {
+            parameters:
+                @display("p=95,95");
+        };
+        tcpcli: TCP {
+            parameters:
+                @display("p=95,178");
+        };
+        tcpsrv: TCP {
+            parameters:
+                @display("p=302,178");
+        };
+        srv: TcpTestClient {
+            parameters:
+                @display("p=303,96");
+        };
+        tcptester: TCPScriptableTester {
+            parameters:
+                @display("p=198,178");
+        };
     connections:
         cli.tcpOut --> tcpcli.from_appl++;
         cli.tcpIn <-- tcpcli.to_appl++;
         srv.tcpOut --> tcpsrv.from_appl++;
         srv.tcpIn <-- tcpsrv.to_appl++;
 
-        tcpcli.to_ip --> delay 1ms --> tcptester.in1;
-        tcpcli.from_ip <-- delay 1ms <-- tcptester.out1;
-        tcptester.out2 --> delay 1ms --> tcpsrv.from_ip;
-        tcptester.in2 <-- delay 1ms <-- tcpsrv.to_ip;
-endmodule
+        tcpcli.to_ip --> {  delay = 1ms; } --> tcptester.in1;
+        tcpcli.from_ip <-- {  delay = 1ms; } <-- tcptester.out1;
+        tcptester.out2 --> {  delay = 1ms; } --> tcpsrv.from_ip;
+        tcptester.in2 <-- {  delay = 1ms; } <-- tcpsrv.to_ip;
+}
 
 
-module TcpTestNet2
+network TcpTestNet2
+{
     parameters:
-        testing: bool;
+        bool testing;
     submodules:
-        cli: TcpTestClient;
-            display: "p=95,95;i=block/app";
-        tcpcli: TCP;
-            display: "p=95,178;i=block/wheelbarrow";
-        tcpsrv: TCP;
-            display: "p=302,178;i=block/wheelbarrow";
-        srv: TcpTestClient;
-            display: "p=303,96;i=block/app";
-        tcptester: TCPRandomTester;
-            display: "p=198,178;i=device/router";
+        cli: TcpTestClient {
+            parameters:
+                @display("p=95,95");
+        };
+        tcpcli: TCP {
+            parameters:
+                @display("p=95,178");
+        };
+        tcpsrv: TCP {
+            parameters:
+                @display("p=302,178");
+        };
+        srv: TcpTestClient {
+            parameters:
+                @display("p=303,96");
+        };
+        tcptester: TCPRandomTester {
+            parameters:
+                @display("p=198,178");
+        };
     connections:
         cli.tcpOut --> tcpcli.from_appl++;
         cli.tcpIn <-- tcpcli.to_appl++;
@@ -55,12 +76,7 @@ module TcpTestNet2
 
         tcpcli.to_ip --> tcptester.in1;
         tcpcli.from_ip <-- tcptester.out1;
-        tcptester.out2 --> delay 1ms datarate 1000000 --> tcpsrv.from_ip;
-        tcptester.in2 <-- delay 1ms datarate 1000000 <-- tcpsrv.to_ip;
-endmodule
+        tcptester.out2 --> {  delay = 1ms; datarate = 1000000; } --> tcpsrv.from_ip;
+        tcptester.in2 <-- {  delay = 1ms; datarate = 1000000; } <-- tcpsrv.to_ip;
+}
 
-network tcpTestNet1 : TcpTestNet1
-endnetwork
-
-network tcpTestNet2 : TcpTestNet2
-endnetwork

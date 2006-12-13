@@ -24,7 +24,10 @@
 // and discards the message.
 //
 simple ErrorHandling
+{
+    parameters:
+        @display("i=block/process_s");
     gates:
-        in: in;
-endsimple
+        input in;
+}
 

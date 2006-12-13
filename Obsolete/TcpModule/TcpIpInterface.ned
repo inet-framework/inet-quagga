@@ -22,31 +22,38 @@
 //
 //
 simple Tcp2Ip
-      //parameters:
-      gates:
-        in: in;
-    out: out;
-endsimple
+{
+    //parameters:
+    gates:
+        input in;
+        output out;
+}
 
 
 simple Ip2Tcp
-      //parameters:
-      gates:
-        in: in;
-        out: out;
-endsimple
+{
+    //parameters:
+    gates:
+        input in;
+        output out;
+}
 
 
 module TcpIpInterface
-      gates:
-         in: from_tcp, from_ip;
-         out: to_tcp, to_ip;
-      submodules:
-         tcp2Ip: Tcp2Ip;
-         ip2Tcp: Ip2Tcp;
-      connections:
-         from_tcp --> tcp2Ip.in,
-         tcp2Ip.out --> to_ip,
-         from_ip --> ip2Tcp.in,
-         ip2Tcp.out --> to_tcp;
-endmodule
+{
+    parameters:
+        @display("i=prot3");
+    gates:
+        input from_tcp;
+        input from_ip;
+        output to_tcp;
+        output to_ip;
+    submodules:
+        tcp2Ip: Tcp2Ip {};
+        ip2Tcp: Ip2Tcp {};
+    connections:
+        from_tcp --> tcp2Ip.in;
+        tcp2Ip.out --> to_ip;
+        from_ip --> ip2Tcp.in;
+        ip2Tcp.out --> to_tcp;
+}

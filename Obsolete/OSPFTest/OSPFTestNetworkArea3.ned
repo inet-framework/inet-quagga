@@ -1,68 +1,92 @@
-import
-    "EtherHub",
-    "OSPFRouter",
-    "StandardHost";
+import "EtherHub";
+import "OSPFRouter";
+import "StandardHost";
 
 module OSPF_Area3
+{
+    parameters:
+        @display("p=10,10;b=264,528");
     gates:
-        in: in[];
-        out: out[];
+        input in[];
+        output out[];
     submodules:
-        RT9: OSPFRouter;
-            gatesizes:
-                ethIn[2],
+        RT9: OSPFRouter {
+            parameters:
+                @display("p=148,200");
+            gates:
+                ethIn[2];
                 ethOut[2];
-            display: "p=148,200;i=srouter";
-        RT12: OSPFRouter;
-            gatesizes:
-                ethIn[3],
+        };
+        RT12: OSPFRouter {
+            parameters:
+                @display("p=148,360");
+            gates:
+                ethIn[3];
                 ethOut[3];
-            display: "p=148,360;i=srouter";
-        N9: EtherHub;
-            gatesizes:
-                in[4],
+        };
+        N9: EtherHub {
+            parameters:
+                @display("p=148,284");
+            gates:
+                in[4];
                 out[4];
-            display: "p=148,284;i=switch2";
-        N10: EtherHub;
-            gatesizes:
-                in[3],
+        };
+        N10: EtherHub {
+            parameters:
+                @display("p=148,452");
+            gates:
+                in[3];
                 out[3];
-            display: "p=148,452;i=switch2";
-        N11: EtherHub;
-            gatesizes:
-                in[3],
+        };
+        N11: EtherHub {
+            parameters:
+                @display("p=144,112");
+            gates:
+                in[3];
                 out[3];
-            display: "p=144,112;i=switch2";
-        H12: StandardHost;
-            gatesizes:
-                ethIn[1],
+        };
+        H12: StandardHost {
+            parameters:
+                @display("p=92,52;i=comp2_s");
+            gates:
+                ethIn[1];
                 ethOut[1];
-            display: "p=92,52;i=comp2_s";
-        H13: StandardHost;
-            gatesizes:
-                ethIn[1],
+        };
+        H13: StandardHost {
+            parameters:
+                @display("p=196,52;i=comp2_s");
+            gates:
+                ethIn[1];
                 ethOut[1];
-            display: "p=196,52;i=comp2_s";
-        H14: StandardHost;
-            gatesizes:
-                ethIn[1],
+        };
+        H14: StandardHost {
+            parameters:
+                @display("p=60,284;i=comp2_s");
+            gates:
+                ethIn[1];
                 ethOut[1];
-            display: "p=60,284;i=comp2_s";
-        H15: StandardHost;
-            gatesizes:
-                ethIn[1],
+        };
+        H15: StandardHost {
+            parameters:
+                @display("p=60,360;i=comp2_s");
+            gates:
+                ethIn[1];
                 ethOut[1];
-            display: "p=60,360;i=comp2_s";
-        H16: StandardHost;
-            gatesizes:
-                ethIn[1],
+        };
+        H16: StandardHost {
+            parameters:
+                @display("p=92,492;i=comp2_s");
+            gates:
+                ethIn[1];
                 ethOut[1];
-            display: "p=92,492;i=comp2_s";
-        H17: StandardHost;
-            gatesizes:
-                ethIn[1],
+        };
+        H17: StandardHost {
+            parameters:
+                @display("p=196,492;i=comp2_s");
+            gates:
+                ethIn[1];
                 ethOut[1];
-            display: "p=196,492;i=comp2_s";
+        };
     connections:
         H12.ethOut[0] --> N11.in[0];
         N11.out[0] --> H12.ethIn[0];
@@ -86,6 +110,5 @@ module OSPF_Area3
         H16.ethOut[0] --> N10.in[1];
         N10.out[2] --> H17.ethIn[0];
         H17.ethOut[0] --> N10.in[2];
-    display: "p=10,10;b=264,528";
-endmodule
+}
 

@@ -32,17 +32,18 @@
 // end (or abortion) of transmission.
 //
 simple EtherBus
+{
     parameters:
-        positions : string,  // positions of taps on the cable in meters, as a sequence
+        string positions;  // positions of taps on the cable in meters, as a sequence
                              // of numbers separated by spaces. If there are too
                              // few values, the distance between the last two positions
                              // is repeated, or 5 meters is used.
-        propagationSpeed : numeric,
+        volatile double propagationSpeed @unit("mps");
                              // signal propagation speed on the bus, in m/s
                              // (typically 200,000 m/s)
-        writeScalars: bool;  // enable/disable recording statistics in omnetpp.sca
+        bool writeScalars = default(true);  // enable/disable recording statistics in omnetpp.sca
     gates:
-        in: in[];    // to stations; each in[k], out[k] pair represents a tap
-        out: out[];  // to stations; each in[k], out[k] pair represents a tap
-endsimple
+        input in[];    // to stations; each in[k], out[k] pair represents a tap
+        output out[];  // to stations; each in[k], out[k] pair represents a tap
+}
 

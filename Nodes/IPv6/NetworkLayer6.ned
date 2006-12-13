@@ -18,11 +18,10 @@
 
 
 
-import
-    "IPv6",
-    "ICMPv6",
-    "IPv6NeighbourDiscovery",
-    "IPv6ErrorHandling";
+import "IPv6";
+import "ICMPv6";
+import "IPv6NeighbourDiscovery";
+import "IPv6ErrorHandling";
 
 
 //
@@ -32,49 +31,59 @@ import
 // several network interfaces.
 //
 module NetworkLayer6
+{
+    parameters:
+        @display("i=block/fork");
     gates:
-        in: ifIn[];
-        out: ifOut[];
-        in: TCPIn;
-        out: TCPOut;
-        in: UDPIn;
-        out: UDPOut;
-        in: RSVPIn;
-        out: RSVPOut;
-        in: OSPFIn;
-        out: OSPFOut;
-        in: pingIn;
-        out: pingOut;
-        out: errorOut;
+        input ifIn[];
+        output ifOut[];
+        input TCPIn;
+        output TCPOut;
+        input UDPIn;
+        output UDPOut;
+        input RSVPIn;
+        output RSVPOut;
+        input OSPFIn;
+        output OSPFOut;
+        input pingIn;
+        output pingOut;
+        output errorOut;
     submodules:
-        ipv6: IPv6;
+        ipv6: IPv6 {
             parameters:
                 protocolMapping = "6:0,17:1,46:2,89:3";
-            gatesizes:
-                transportIn[4],
-                transportOut[4],
-                queueIn[sizeof(ifIn)],
+                @display("p=84,129");
+            gates:
+                transportIn[4];
+                transportOut[4];
+                queueIn[sizeof(ifIn)];
                 queueOut[sizeof(ifIn)];
-            display: "i=block/network2;p=84,129";
-        icmpv6: ICMPv6;
-            display: "i=block/control;p=208,79";
-        ipv6ErrorHandling: IPv6ErrorHandling;
-            display: "p=280,79;i=block/process_s";
-        neighbourDiscovery: IPv6NeighbourDiscovery;
-            display: "p=208,171;i=block/network";
-    connections nocheck:  // FIXME remove 'nocheck'!
+        };
+        icmpv6: ICMPv6 {
+            parameters:
+                @display("p=208,79");
+        };
+        ipv6ErrorHandling: IPv6ErrorHandling {
+            parameters:
+                @display("p=280,79");
+        };
+        neighbourDiscovery: IPv6NeighbourDiscovery {
+            parameters:
+                @display("p=208,171");
+        };
+    connections allowunconnected:  // FIXME remove 'nocheck'!
         // IPv6 to transport Layer
-        ipv6.transportOut[0] --> TCPOut display "m=n";
-        ipv6.transportIn[0] <-- TCPIn display "m=n";
+        ipv6.transportOut[0] --> { @display("m=n"); } --> TCPOut;
+        ipv6.transportIn[0] <-- { @display("m=n"); } <-- TCPIn;
 
-        ipv6.transportOut[1] --> UDPOut display "m=n";
-        ipv6.transportIn[1] <-- UDPIn display "m=n";
+        ipv6.transportOut[1] --> { @display("m=n"); } --> UDPOut;
+        ipv6.transportIn[1] <-- { @display("m=n"); } <-- UDPIn;
 
-        ipv6.transportOut[2] --> RSVPOut display "m=n";
-        ipv6.transportIn[2] <-- RSVPIn display "m=n";
+        ipv6.transportOut[2] --> { @display("m=n"); } --> RSVPOut;
+        ipv6.transportIn[2] <-- { @display("m=n"); } <-- RSVPIn;
 
-        ipv6.transportOut[3] --> OSPFOut display "m=n";
-        ipv6.transportIn[3] <-- OSPFIn display "m=n";
+        ipv6.transportOut[3] --> { @display("m=n"); } --> OSPFOut;
+        ipv6.transportIn[3] <-- { @display("m=n"); } <-- OSPFIn;
 
         // IPv6 to ICMPv6
         ipv6.icmpOut --> icmpv6.fromIPv6;
@@ -92,9 +101,9 @@ module NetworkLayer6
         ipv6.ndIn <-- neighbourDiscovery.toIPv6;
 
         // IPv6 to L2
-        for i=0..sizeof(ifOut)-1 do
-            ifIn[i] --> ipv6.queueIn[i] display "m=s";
-            ifOut[i] <-- ipv6.queueOut[i] display "m=s";
-        endfor;
-endmodule
+        for i=0..sizeof(ifOut)-1 {
+            ifIn[i] --> { @display("m=s"); } --> ipv6.queueIn[i];
+            ifOut[i] <-- { @display("m=s"); } <-- ipv6.queueOut[i];
+        };
+}
 

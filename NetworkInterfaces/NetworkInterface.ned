@@ -21,10 +21,11 @@
 // Prototype module for link layer protocols.
 //
 module NetworkInterface
+{
     gates:
-        in: physIn;
-        out: physOut;
-        in: netwIn;
-        out: netwOut;
-endmodule
+        input physIn;
+        output physOut;
+        input netwIn;
+        output netwOut;
+}
 

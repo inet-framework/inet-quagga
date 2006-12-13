@@ -17,10 +17,9 @@
 //
 
 
-import
-    "EtherMAC",
-    "EtherEncap",
-    "OutputQueue";
+import "EtherMAC";
+import "EtherEncap";
+import "OutputQueue";
 
 //
 // Ethernet network interface. Corresponds to the prototype NetworkInterface.
@@ -30,30 +29,37 @@ import
 // @see EthernetInterface2, EthernetInterfaceNoQueue
 //
 module EthernetInterface
+{
     parameters:
-        queueType: string;
+        string queueType = default("DropTailQueue");
+        @display("i=block/ifcard");
     gates:
-        in: physIn;
-        in: netwIn;
-        out: physOut;
-        out: netwOut;
+        input physIn;
+        input netwIn;
+        output physOut;
+        output netwOut;
     submodules:
-        queue: queueType like OutputQueue;
-            display: "i=block/queue;p=92,71;q=l2queue";
-        mac: EtherMAC;
+        queue: <queueType> like OutputQueue {
             parameters:
-                queueModule = "queue",
+                @display("p=92,71;q=l2queue");
+        };
+        mac: EtherMAC {
+            parameters:
+                queueModule = "queue";
                 txQueueLimit = 1; // queue sends one packet at a time
-            display: "i=block/rxtx;p=116,231";
-        encap: EtherEncap;
-            display: "i=block/square;p=116,151";
+                @display("p=116,231");
+        };
+        encap: EtherEncap {
+            parameters:
+                @display("p=116,151");
+        };
     connections:
         netwIn --> queue.in;
         queue.out --> encap.upperLayerIn;
-        netwOut <-- encap.upperLayerOut display "m=n";
+        netwOut <-- { @display("m=n"); } <-- encap.upperLayerOut;
         encap.lowerLayerOut --> mac.upperLayerIn;
         encap.lowerLayerIn <-- mac.upperLayerOut;
         mac.physIn <-- physIn;
         mac.physOut --> physOut;
-endmodule
+}
 

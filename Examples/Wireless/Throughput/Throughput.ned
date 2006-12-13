@@ -16,47 +16,60 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-import
-    "WirelessAPWithSink";
+import "WirelessAPWithSink";
 
 module ThroughputClient
+{
+    parameters:
+        @display("i=device/wifilaptop");
     gates:
-        in: radioIn;
+        input radioIn;
 
     submodules:
-        notificationBoard: NotificationBoard;
-            display: "p=52,70;i=block/control";
-        cli: EtherAppCli;
+        notificationBoard: NotificationBoard {
+            parameters:
+                @display("p=52,70");
+        };
+        cli: EtherAppCli {
             parameters:
                 registerSAP = false;
-            display: "b=40,24;p=180,60,col";
-        wlan: Ieee80211NicSTASimplified;
-            display: "p=112,134;q=queue;i=block/ifcard";
-        mobility: NullMobility;
-            display: "p=50,141;i=block/cogwheel_s";
-    connections nocheck:
+                @display("b=40,24;p=180,60,col");
+        };
+        wlan: Ieee80211NicSTASimplified {
+            parameters:
+                @display("p=112,134;q=queue");
+        };
+        mobility: NullMobility {
+            parameters:
+                @display("p=50,141");
+        };
+    connections allowunconnected:
         wlan.radioIn <-- radioIn;
         cli.out --> wlan.uppergateIn;
-endmodule
+}
 
-module Throughput
+network Throughput
+{
     parameters:
-        numCli: numeric const,
-        playgroundSizeX: numeric const,
-        playgroundSizeY: numeric const;
+        double numCli;
+        double playgroundSizeX;
+        double playgroundSizeY;
+        @display("b=297,203");
     submodules:
-        cliHost: ThroughputClient[numCli];
-            display: "i=device/wifilaptop;r=,,#707070";
-        ap: WirelessAPWithSink;
-            display: "p=200,200;i=device/accesspoint;r=,,#707070";
-        channelcontrol: ChannelControl;
+        cliHost[numCli]: ThroughputClient {
             parameters:
-                playgroundSizeX = playgroundSizeX,
+                @display("r=,,#707070");
+        };
+        ap: WirelessAPWithSink {
+            parameters:
+                @display("p=200,200;r=,,#707070");
+        };
+        channelcontrol: ChannelControl {
+            parameters:
+                playgroundSizeX = playgroundSizeX;
                 playgroundSizeY = playgroundSizeY;
-            display: "p=61,46;i=misc/sun";
-    connections nocheck:
-    display: "b=297,203";
-endmodule
+                @display("p=61,46");
+        };
+    connections allowunconnected:
+}
 
-network throughput : Throughput
-endnetwork

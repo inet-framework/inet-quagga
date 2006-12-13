@@ -29,12 +29,15 @@
 //#FIXME gate descriptions needed...
 //
 simple ICMPv6
+{
+    parameters:
+        @display("i=block/control");
     gates:
-        in: fromIPv6;
-        out: toIPv6;
-        in: pingIn; // ping requests from app
-        out: pingOut;
-	out: errorOut;  // for errors
-endsimple
+        input fromIPv6;
+        output toIPv6;
+        input pingIn; // ping requests from app
+        output pingOut;
+        output errorOut;  // for errors
+}
 
 

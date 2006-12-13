@@ -11,20 +11,19 @@
 //
 
 
-import
-    "NotificationBoard",
-    "RoutingTable",
-    "InterfaceTable",
-    "NetworkLayer",
-    "LDP",
-    "TCP",
-    "UDP",
-    "LinkStateRouting",
-    "TED",
-    "MPLS",
-    "PPPInterface",
-    "LIBTable",
-    "NAMTraceWriter";
+import "NotificationBoard";
+import "RoutingTable";
+import "InterfaceTable";
+import "NetworkLayer";
+import "LDP";
+import "TCP";
+import "UDP";
+import "LinkStateRouting";
+import "TED";
+import "MPLS";
+import "PPPInterface";
+import "LIBTable";
+import "NAMTraceWriter";
 
 
 //
@@ -33,71 +32,93 @@ import
 // LDP Capable Routers are main building blocks for an LDP MPLS network.
 //
 module LDP_LSR
+{
     parameters:
-        holdTime: numeric,
-        helloInterval: numeric,
+        volatile double holdTime = default(15) @unit("s");
+        volatile double helloInterval = default(5) @unit("s");
 
-        namid: numeric,
+        volatile int namid;
 
-        peers: string,
-        routerId: string,
-        routingFile: string;
+        string peers;
+        string routerId = default("auto");
+        string routingFile = default("");
+        @display("i=abstract/router");
     gates:
-        in: in[];
-        out: out[];
+        input in[];
+        output out[];
 
     submodules:
-        notificationBoard: NotificationBoard;
-            display: "p=70,60;i=block/control";
-        interfaceTable: InterfaceTable;
-            display: "p=70,150;i=block/table";
-        routingTable: RoutingTable;
+        notificationBoard: NotificationBoard {
             parameters:
-                IPForward = true,
-                routerId = routerId,
+                @display("p=70,60");
+        };
+        interfaceTable: InterfaceTable {
+            parameters:
+                @display("p=70,150");
+        };
+        routingTable: RoutingTable {
+            parameters:
+                IPForward = true;
+                routerId = routerId;
                 routingFile = routingFile;
-            display: "p=70,240;i=block/table";
-        ldp: LDP;
+                @display("p=70,240");
+        };
+        ldp: LDP {
             parameters:
-                holdTime = holdTime,
+                holdTime = holdTime;
                 helloInterval = helloInterval;
-            display: "p=222,67;i=block/control";
-        ted: TED;
-            display: "p=340,244;i=block/table";
-        linkStateRouting: LinkStateRouting;
+                @display("p=222,67");
+        };
+        ted: TED {
+            parameters:
+                @display("p=340,244");
+        };
+        linkStateRouting: LinkStateRouting {
             parameters:
                 peers = peers;
-            display: "p=360,150;i=block/network2";
-        tcp: TCP;
-            display: "p=177,145;i=block/wheelbarrow";
-        udp: UDP;
-            display: "p=267,145;i=block/transport";
-        networkLayer: NetworkLayer;
-            gatesizes:
-                ifIn[sizeof(out)],
+                @display("p=360,150");
+        };
+        tcp: TCP {
+            parameters:
+                @display("p=177,145");
+        };
+        udp: UDP {
+            parameters:
+                @display("p=267,145");
+        };
+        networkLayer: NetworkLayer {
+            parameters:
+                @display("p=224,223");
+            gates:
+                ifIn[sizeof(out)];
                 ifOut[sizeof(out)];
-            display: "p=224,223;i=block/fork";
-        ppp: PPPInterface[sizeof(out)];
-            display: "p=105,388,row,90;q=l2queue;i=block/ifcard";
-        mpls: MPLS;
+        };
+        ppp[sizeof(out)]: PPPInterface {
+            parameters:
+                @display("p=105,388,row,90;q=l2queue");
+        };
+        mpls: MPLS {
             parameters:
                 //peers = peers,
                 classifier = "ldp";
-            gatesizes:
-                netwIn[sizeof(out)],
-                netwOut[sizeof(out)],
-                ifIn[sizeof(out)],
+                @display("p=224,302");
+            gates:
+                netwIn[sizeof(out)];
+                netwOut[sizeof(out)];
+                ifIn[sizeof(out)];
                 ifOut[sizeof(out)];
-            display: "p=224,302;i=block/switch";
-        libTable: LIBTable;
+        };
+        libTable: LIBTable {
             parameters:
-            display: "p=340,305;i=block/table2";
-        namTrace: NAMTraceWriter;
+                @display("p=340,305");
+        };
+        namTrace: NAMTraceWriter {
             parameters:
                 namid = namid;
-            display: "p=70,310;i=old/floppy1";
+                @display("p=70,310");
 
-    connections nocheck:
+        };
+    connections allowunconnected:
         linkStateRouting.to_ip --> networkLayer.OSPFIn;
         linkStateRouting.from_ip <-- networkLayer.OSPFOut;
 
@@ -113,7 +134,7 @@ module LDP_LSR
         tcp.to_ip --> networkLayer.TCPIn;
         tcp.from_ip <-- networkLayer.TCPOut;
 
-        for i=0..sizeof(out)-1 do
+        for i=0..sizeof(out)-1 {
             in[i] --> ppp[i].physIn;
             out[i] <-- ppp[i].physOut;
 
@@ -122,8 +143,8 @@ module LDP_LSR
 
             mpls.netwOut[i] --> networkLayer.ifIn[i];
             mpls.netwIn[i] <-- networkLayer.ifOut[i];
-        endfor;
-endmodule
+        };
+}
 
 
 

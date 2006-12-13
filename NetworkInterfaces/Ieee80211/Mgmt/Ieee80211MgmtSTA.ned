@@ -25,13 +25,15 @@
 // @author Andras Varga
 //
 simple Ieee80211MgmtSTA
+{
     parameters:
-        frameCapacity: numeric const; // maximum queue length
+        int frameCapacity = default(100); // maximum queue length
+        @display("i=block/cogwheel");
     gates:
-        in: uppergateIn;
-        out: uppergateOut;
-        in: macIn;
-        out: macOut;
-        in: agentIn;
-        out: agentOut;
-endsimple
+        input uppergateIn;
+        output uppergateOut;
+        input macIn;
+        output macOut;
+        input agentIn;
+        output agentOut;
+}

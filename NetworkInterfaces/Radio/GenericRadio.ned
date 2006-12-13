@@ -26,20 +26,21 @@
 // @author Andras Varga
 //
 simple GenericRadio
+{
     parameters:
-        channelNumber: numeric const, // channel identifier
-        transmitterPower : numeric const, // power used for transmission of messages (in mW)
-        bitrate: numeric const, // (in bits/s)
-        thermalNoise: numeric const, // base noise level (dBm)
-        pathLossAlpha: numeric const, // used by the path loss calculation
-        snirThreshold: numeric const, // if signal-noise ratio is below this threshold, frame is considered noise (in dB)
-        sensitivity: numeric const, // received signals with power below sensitivity are ignored
-        headerLengthBits: numeric const, // length of physical layer framing (preamble, etc)
-        bandwidth: numeric const, // signal bandwidth, used for bit error calculation
-        modulation: string; // "BPSK", "16-QAM", "256-QAM" or "null"; selects bit error calculation method
+        int channelNumber = default(0); // channel identifier
+        double transmitterPower = default(20) @unit("mW"); // power used for transmission of messages (in mW)
+        double bitrate @unit("bps"); // (in bits/s)
+        double thermalNoise = default(-110) @unit("dBm"); // base noise level (dBm)
+        double pathLossAlpha = default(2); // used by the path loss calculation
+        double snirThreshold = default(4) @unit("dB"); // if signal-noise ratio is below this threshold, frame is considered noise (in dB)
+        double sensitivity = default(-85) @unit("mW"); // received signals with power below sensitivity are ignored
+        int headerLengthBits; // length of physical layer framing (preamble, etc)
+        double bandwidth @unit("Hz"); // signal bandwidth, used for bit error calculation
+        string modulation; // "BPSK", "16-QAM", "256-QAM" or "null"; selects bit error calculation method
     gates:
-        in: uppergateIn;   // from higher layer protocol (MAC)
-        out: uppergateOut; // to decider (decider connects to higher layer protocol, i.e. the MAC)
-        in: radioIn; // to receive frames (AirFrame) on the radio channel
-endsimple
+        input uppergateIn;   // from higher layer protocol (MAC)
+        output uppergateOut; // to decider (decider connects to higher layer protocol, i.e. the MAC)
+        input radioIn; // to receive frames (AirFrame) on the radio channel
+}
 

@@ -24,22 +24,24 @@
 // @see PPPInterface
 //
 module PPPInterfaceNoQueue
+{
     gates:
-        in: physIn;
-        out: physOut;
-        in: netwIn;
-        out: netwOut;
+        input physIn;
+        output physOut;
+        input netwIn;
+        output netwOut;
     submodules:
-        ppp: PPP;
+        ppp: PPP {
             parameters:
-                queueModule = "",
+                queueModule = "";
                 txQueueLimit = 100000; // prevents overflow in bogus simulations
-            display: "i=block/rxtx;p=80,80;q=txQueue";
+                @display("p=80,80;q=txQueue");
+        };
     connections:
-        netwIn --> ppp.netwIn display "m=n";
-        netwOut <-- ppp.netwOut display "m=n";
-        physIn --> ppp.physIn display "m=s";
-        physOut <-- ppp.physOut display "m=s";
-endmodule
+        netwIn --> { @display("m=n"); } --> ppp.netwIn;
+        netwOut <-- { @display("m=n"); } <-- ppp.netwOut;
+        physIn --> { @display("m=s"); } --> ppp.physIn;
+        physOut <-- { @display("m=s"); } <-- ppp.physOut;
+}
 
 

@@ -18,13 +18,14 @@
 // See <a href="traffic-xml-file.html">The traffic.xml File</a>.
 //
 simple RSVPAppl
+{
     parameters:
-        traffic : string, // traffic XML file
-        isIR : bool,
-        isER : bool;
+        string traffic; // traffic XML file
+        bool isIR;
+        bool isER;
     gates:
-        in: from_rsvp;
-        out: to_rsvp;
-        in: from_mpls_switch; // for receiving path request commands from MPLSModule via sendDirect()
-        in: from_tester; // for receiveing commands from Tester via sendDirect()
-endsimple
+        input from_rsvp;
+        output to_rsvp;
+        input from_mpls_switch; // for receiving path request commands from MPLSModule via sendDirect()
+        input from_tester; // for receiveing commands from Tester via sendDirect()
+}

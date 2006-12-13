@@ -26,9 +26,12 @@
 // Redesign: Andras Varga, 02.2004
 //
 simple IPOutput
+{
+    parameters:
+        @display("i=block/queue");
     gates:
-        in: in;
-        in: arpIn;
-        out: queueOut;
-endsimple
+        input in;
+        input arpIn;
+        output queueOut;
+}
 

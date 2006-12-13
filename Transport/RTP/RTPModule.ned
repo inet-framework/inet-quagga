@@ -1,7 +1,14 @@
 simple RTPModule
 
-	gates:
-		in: fromApp, fromProfile, fromRTCP, fromSocketLayer;
-		out: toApp, toProfile, toRTCP, toSocketLayer;
+{
+    gates:
+        input fromApp;
+        input fromProfile;
+        input fromRTCP;
+        input fromSocketLayer;
+        output toApp;
+        output toProfile;
+        output toRTCP;
+        output toSocketLayer;
 
-endsimple
+}

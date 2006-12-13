@@ -17,18 +17,17 @@
 //
 
 
-import
-    "NotificationBoard",
-    "InterfaceTable",
-    "RoutingTable",
-    "TCPApp.ned",
-    "TCP.ned",
-    "UDP",
-    "UDPApp",
-    "NetworkLayer",
-    "PingApp",
-    "Ieee80211Nic",
-    "BasicMobility";
+import "NotificationBoard";
+import "InterfaceTable";
+import "RoutingTable";
+import "TCPApp.ned";
+import "TCP.ned";
+import "UDP";
+import "UDPApp";
+import "NetworkLayer";
+import "PingApp";
+import "Ieee80211Nic";
+import "BasicMobility";
 
 
 //
@@ -40,61 +39,83 @@ import
 // @see MFMobileHost, WirelessHost
 //
 module MobileHost
+{
     parameters:
-        numTcpApps: numeric const,
-        numUdpApps: numeric const,
-        tcpAppType: string,
-        udpAppType: string,
-        IPForward: bool,
-        routingFile: string,
-        mobilityType: string;
+        int numTcpApps = default(0);
+        int numUdpApps = default(0);
+        string tcpAppType = default("");
+        string udpAppType = default("");
+        bool IPForward = default(false);
+        string routingFile = default("");
+        string mobilityType = default("NullMobility");
+        @display("i=device/pocketpc_s");
     gates:
-        in: radioIn;
+        input radioIn;
     submodules:
-        notificationBoard: NotificationBoard;
-            display: "p=60,70;i=block/control";
-        interfaceTable: InterfaceTable;
-            display: "p=60,150;i=block/table";
-        routingTable: RoutingTable;
+        notificationBoard: NotificationBoard {
             parameters:
-                IPForward = IPForward,
-                routerId = "",
+                @display("p=60,70");
+        };
+        interfaceTable: InterfaceTable {
+            parameters:
+                @display("p=60,150");
+        };
+        routingTable: RoutingTable {
+            parameters:
+                IPForward = IPForward;
+                routerId = "";
                 routingFile = routingFile;
-            display: "p=60,230;i=block/table";
-        tcpApp: tcpAppType[numTcpApps] like TCPApp;
-            display: "p=163,67;i=block/app";
-        tcp: TCP;
-            display: "p=163,154;i=block/wheelbarrow";
-        udpApp: udpAppType[numUdpApps] like UDPApp;
-            display: "i=block/app;p=272,67";
-        udp: UDP;
-            display: "p=272,154;i=block/transport";
-        pingApp: PingApp;
-            display: "i=block/app;p=343,200";
-        networkLayer: NetworkLayer;
+                @display("p=60,230");
+        };
+        tcpApp[numTcpApps]: <tcpAppType> like TCPApp {
+            parameters:
+                @display("p=163,67");
+        };
+        tcp: TCP {
+            parameters:
+                @display("p=163,154");
+        };
+        udpApp[numUdpApps]: <udpAppType> like UDPApp {
+            parameters:
+                @display("p=272,67");
+        };
+        udp: UDP {
+            parameters:
+                @display("p=272,154");
+        };
+        pingApp: PingApp {
+            parameters:
+                @display("p=343,200");
+        };
+        networkLayer: NetworkLayer {
             parameters:
                 proxyARP = false;
-            gatesizes:
-                ifIn[1],
+                @display("p=248,247;q=queue");
+            gates:
+                ifIn[1];
                 ifOut[1];
-            display: "p=248,247;i=block/fork;q=queue";
-        wlan: Ieee80211NicAdhoc;
-            display: "p=248,349;q=queue;i=block/ifcard";
-        mobility: mobilityType like BasicMobility;
-            display: "p=149,307;i=block/cogwheel";
-    connections nocheck:
-        for i=0..numTcpApps-1 do
+        };
+        wlan: Ieee80211NicAdhoc {
+            parameters:
+                @display("p=248,349;q=queue");
+        };
+        mobility: <mobilityType> like BasicMobility {
+            parameters:
+                @display("p=149,307");
+        };
+    connections allowunconnected:
+        for i=0..numTcpApps-1 {
             tcpApp[i].tcpOut --> tcp.from_appl++;
             tcpApp[i].tcpIn <-- tcp.to_appl++;
-        endfor;
+        };
 
         tcp.to_ip --> networkLayer.TCPIn;
         tcp.from_ip <-- networkLayer.TCPOut;
 
-        for i=0..numUdpApps-1 do
+        for i=0..numUdpApps-1 {
             udpApp[i].to_udp --> udp.from_app++;
             udpApp[i].from_udp <-- udp.to_app++;
-        endfor;
+        };
 
         udp.to_ip --> networkLayer.UDPIn;
         udp.from_ip <-- networkLayer.UDPOut;
@@ -106,5 +127,5 @@ module MobileHost
         radioIn --> wlan.radioIn;
         wlan.uppergateOut --> networkLayer.ifIn[0];
         wlan.uppergateIn <-- networkLayer.ifOut[0];
-endmodule
+}
 

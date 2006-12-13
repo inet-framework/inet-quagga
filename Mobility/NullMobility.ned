@@ -23,10 +23,12 @@
 // @author Andras Varga
 //
 simple NullMobility
+{
     parameters:
-        x: numeric const, // start x coordinate (-1 = display string position, or random if it's missing)
-        y: numeric const; // start y coordinate (-1 = display string position, or random if it's missing)
-endsimple
+        double x = default(-1); // start x coordinate (-1 = display string position, or random if it's missing)
+        double y = default(-1); // start y coordinate (-1 = display string position, or random if it's missing)
+        @display("i=block/cogwheel_s");
+}
 
 
 

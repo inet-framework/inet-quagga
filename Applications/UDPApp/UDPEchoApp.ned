@@ -21,16 +21,17 @@
 // Similar to UDPBasicApp, but it sends back the packet after reception.
 //
 simple UDPEchoApp
+{
     parameters:
-        local_port : numeric const,
-        dest_port : numeric const,
-        message_length : numeric const, // (bits)
-        message_freq : numeric, // should usually be a random value, e.g. exponential(1)
-        dest_addresses: string; // list of \IP addresses, separated by spaces
+        int local_port;
+        int dest_port;
+        int message_length @unit("b"); // (bits)
+        volatile double message_freq @unit("s"); // should usually be a random value, e.g. exponential(1)
+        string dest_addresses = default(""); // list of \IP addresses, separated by spaces
     gates:
-        in: from_udp;
-        out: to_udp;
-endsimple
+        input from_udp;
+        output to_udp;
+}
 
 
 

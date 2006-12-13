@@ -37,14 +37,16 @@
 // @see BasicMobility
 //
 simple ChannelControl
+{
     parameters:
-        coreDebug: bool, // debug switch for core framework
-        playgroundSizeX: numeric const, // x size of the playground (in meters)
-        playgroundSizeY: numeric const, // y size of the playground (in meters)
-        pMax: numeric const, // maximum sending power used for this network (in mW)
-        sat: numeric const, // signal attenuation threshold (in dBm)
-        alpha: numeric const, // path loss coefficient
-        carrierFrequency: numeric const, // carrier frequency of the channel (in Hz)
-        numChannels: numeric const; // number of radio channels (frequencies)
-endsimple
+        bool coreDebug = default(false); // debug switch for core framework
+        double playgroundSizeX = default(600); // x size of the playground (in meters)
+        double playgroundSizeY = default(400); // y size of the playground (in meters)
+        double pMax = default(2) @unit("mW"); // maximum sending power used for this network (in mW)
+        double sat = default(-110) @unit("dBm"); // signal attenuation threshold (in dBm)
+        double alpha = default(2); // path loss coefficient
+        double carrierFrequency = default(2.4GHz) @unit("Hz"); // carrier frequency of the channel (in Hz)
+        int numChannels = default(1); // number of radio channels (frequencies)
+        @display("i=misc/sun");
+}
 

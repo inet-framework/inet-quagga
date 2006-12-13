@@ -176,8 +176,8 @@
 // <pre>
 // #lib table for MPLS network simulation test
 // #lib1.table for LSR1 - this is an edge router
-// #no incoming label for traffic from in-intf 0 & 1 - LSR1 is ingress router for those traffic
-// #no outgoing label for traffic from in_intf 2 & 3 - LSR 1 is egress router for those traffic
+// #no incoming label for traffic from in-intf 0 &1 - LSR1 is ingress router for those traffic
+// #no outgoing label for traffic from in_intf 2 &3 - LSR 1 is egress router for those traffic
 //
 // LIB TABLE:
 //
