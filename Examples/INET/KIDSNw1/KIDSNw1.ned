@@ -38,7 +38,7 @@ module KIDSNw1
     submodules:
         host: StandardHost[3];
             parameters:
-                IPForward = false;
+                IPForward = false,
                 routingFile = index==0 ? "host1.irt" :
 			      index==1 ? "host2.irt" :
 			      index==2 ? "host3.irt" : "PROBLEM";
