@@ -40,7 +40,7 @@ class INET_API MPLSPacket: public cMessage
     /**
      * cloning function
      */
-    virtual cObject *dup() const {return new MPLSPacket(*this);}
+    virtual MPLSPacket *dup() {return new MPLSPacket(*this);}
 
     /**
      * Swap Label operation

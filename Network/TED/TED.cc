@@ -87,7 +87,7 @@ void TED::initialize(int stage)
         // find bandwidth of the link
         cGate *g = parentModule()->gate(ie->nodeOutputGateId());
         ASSERT(g);
-        double linkBandwidth = g->datarate()->doubleValue();
+        double linkBandwidth = g->channel()->par("datarate");
 
         //
         // fill in and insert TED entry

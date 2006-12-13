@@ -25,7 +25,7 @@
 #include "IQoSClassifier.h"
 
 /**
- * Drop-tail QoS queue. See NED for more info.
+ * Drop-front QoS queue. See NED for more info.
  */
 class INET_API DropTailQoSQueue : public PassiveQueueBase
 {

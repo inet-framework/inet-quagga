@@ -24,7 +24,7 @@
 #include "PassiveQueueBase.h"
 
 /**
- * Drop-tail queue. See NED for more info.
+ * Drop-front queue. See NED for more info.
  */
 class INET_API DropTailQueue : public PassiveQueueBase
 {
