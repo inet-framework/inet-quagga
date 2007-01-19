@@ -40,7 +40,7 @@ void RTPProfile::initialize() {
     _preferredPort = IPSuite_PORT_UNDEF;
 
     // how many gates to payload receivers do we have
-    _maxReceivers = gate("toPayloadReceiver")->size();
+    _maxReceivers = gateSize("toPayloadReceiver");
     _ssrcGates = new cArray("SSRCGates");
     _autoOutputFileNames = par("autoOutputFileNames").boolValue();
 }

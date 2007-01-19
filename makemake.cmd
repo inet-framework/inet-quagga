@@ -1,6 +1,6 @@
 @echo off
 cd %~dp0
-if exist ..\omnetpp\setenv-vc71.bat call ..\omnetpp\setenv-vc71.bat
+if exist C:\home\omnetpp40\omnetpp\setenv-vc71.bat call C:\home\omnetpp40\omnetpp\setenv-vc71.bat
 nmake /? >nul 2>nul || echo *** ERROR: nmake.exe is not in the PATH *** && goto end
 call opp_test >nul 2>nul || echo *** ERROR: OMNeT++/bin is not in the PATH *** && goto end
 

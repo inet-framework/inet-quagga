@@ -18,7 +18,7 @@
 
 #include "NAMTrace.h"
 #include <errno.h>
-#include "platdep/misc.h"
+#include "platdep/platmisc.h"
 
 Define_Module(NAMTrace);
 
