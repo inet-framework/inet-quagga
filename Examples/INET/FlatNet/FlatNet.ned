@@ -48,7 +48,7 @@ network FlatNet
         };
         rte[57]: Router {
             parameters:
-                @display("i=,green4");
+                @display("is=vs");
         };
         cli[2]: StandardHost {
             parameters:
