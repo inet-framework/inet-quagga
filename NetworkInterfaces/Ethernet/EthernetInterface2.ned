@@ -34,10 +34,9 @@ module EthernetInterface2
     parameters:
         string queueType = default("DropTailQueue");
     gates:
-        input physIn;
         input netwIn;
-        output physOut;
         output netwOut;
+        inout phys;
     submodules:
         queue: <queueType> like OutputQueue {
             parameters:
@@ -59,7 +58,7 @@ module EthernetInterface2
         netwOut <-- { @display("m=n"); } <-- encap.upperLayerOut;
         encap.lowerLayerOut --> mac.upperLayerIn;
         encap.lowerLayerIn <-- mac.upperLayerOut;
-        mac.physIn <-- physIn;
-        mac.physOut --> physOut;
+        mac.phys$i <-- phys$i;
+        mac.phys$o --> phys$o;
 }
 

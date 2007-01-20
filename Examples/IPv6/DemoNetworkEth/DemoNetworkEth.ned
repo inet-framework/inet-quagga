@@ -37,24 +37,17 @@ network DemoNetworkEth
                 moduleTypes = "Router6 StandardHost6 TCPDump";
                 nonIPModuleTypes = "EtherHub TCPDump";
         };
-        r1: Router6 {
-        };
-        r2: Router6 {
-        };
-        cli[n]: StandardHost6 {
-        };
-        srv[n]: StandardHost6 {
-        };
-        linemonitor[n]: TCPDump {
-        };
+        r1: Router6;
+        r2: Router6
+        cli[n]: StandardHost6;
+        srv[n]: StandardHost6;
+        linemonitor[n]: TCPDump;
     connections allowunconnected:
         for i=0..n-1 {
             cli[i].ethg$o++ --> ethernetline --> linemonitor[i].in1;
             linemonitor[i].out2 --> ethernetline --> r1.ethg$i++;
             linemonitor[i].in2 <-- ethernetline <-- r1.ethg$o++;
             cli[i].ethg$i++ <-- ethernetline <-- linemonitor[i].out1;
-            //cli[i].ethg++ <--> ethernetline <--> r1.ethg++;
-            //            srv[i].ethg++ <--> ethernetline <--> r2.ethg++;
         };
 
         r1.ethg++ <--> ethernetline <--> r2.ethg++;

@@ -62,7 +62,7 @@ void EtherMAC::initialize()
     endJammingMsg = new cMessage("EndJamming", ENDJAMMING);
 
     // check: datarate is forbidden with EtherMAC -- module's txrate must be used
-    cGate *g = gate("physOut");
+    cGate *g = gate("phys$o");
     while (g)
     {
         cBasicChannel *chan = dynamic_cast<cBasicChannel*>(g->channel());
@@ -131,7 +131,7 @@ void EtherMAC::startAutoconfig()
             autoconf->setHalfDuplex(true);
         if (initialTxrate>0)
             autoconf->setTxrate(initialTxrate);
-        send(autoconf, "physOut");
+        send(autoconf, "phys$o");
     }
     scheduleAt(simTime()+AUTOCONFIG_PERIOD, new cMessage("EndAutoconfig",ENDAUTOCONFIG));
 }
@@ -424,7 +424,7 @@ void EtherMAC::startFrameTransmission()
     // add preamble and SFD (Starting Frame Delimiter), then send out
     frame->addByteLength(PREAMBLE_BYTES+SFD_BYTES);
     if (ev.isGUI())  updateConnectionColor(TRANSMITTING_STATE);
-    send(frame, "physOut");
+    send(frame, "phys$o");
 
     // update burst variables
     if (frameBursting)
@@ -566,7 +566,7 @@ void EtherMAC::sendJamSignal()
     cMessage *jam = new cMessage("JAM_SIGNAL", JAM_SIGNAL);
     jam->setByteLength(JAM_SIGNAL_BYTES);
     if (ev.isGUI())  updateConnectionColor(JAMMING_STATE);
-    send(jam, "physOut");
+    send(jam, "phys$o");
 
     scheduleAt(simTime()+jamDuration, endJammingMsg);
     transmitState = JAMMING_STATE;

@@ -117,7 +117,7 @@ void EtherMACBase::initializeNotificationBoard()
 void EtherMACBase::initializeFlags()
 {
     // initialize connected flag
-    connected = gate("physOut")->destinationGate()->isConnected();
+    connected = gate("phys$o")->destinationGate()->isConnected();
     if (!connected) EV << "MAC not connected to a network.\n";
     WATCH(connected);
 
@@ -658,7 +658,7 @@ void EtherMACBase::updateConnectionColor(int txState)
     else
         color = "";
 
-    cGate *g = gate("physOut");
+    cGate *g = gate("phys$o");
     while (g && g->type()=='O')
     {
         g->displayString().setTagArg("o",0,color);

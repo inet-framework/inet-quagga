@@ -43,7 +43,7 @@ void EtherMAC2::initialize()
 void EtherMAC2::initializeTxrate()
 {
     // if we're connected, find the gate with transmission rate
-    cGate *g = gate("physOut");
+    cGate *g = gate("phys$o");
     txrate = 0;
 
     if (connected)
@@ -62,7 +62,7 @@ void EtherMAC2::initializeTxrate()
         }
 
         if (!g)
-            error("gate physOut must be connected (directly or indirectly) to a link with data rate");
+            error("gate phys$o must be connected (directly or indirectly) to a link with data rate");
     }
 }
 
@@ -89,7 +89,7 @@ void EtherMAC2::handleMessage(cMessage *msg)
     {
         if (msg->arrivalGate() == gate("upperLayerIn"))
             processFrameFromUpperLayer(check_and_cast<EtherFrame *>(msg));
-        else if (msg->arrivalGate() == gate("physIn"))
+        else if (msg->arrivalGate() == gate("phys$i"))
             processMsgFromNetwork(check_and_cast<EtherFrame *>(msg));
         else
             error("Message received from unknown gate!");
@@ -114,7 +114,7 @@ void EtherMAC2::startFrameTransmission()
 
     // send
     EV << "Starting transmission of " << frame << endl;
-    send(frame, "physOut");
+    send(frame, "phys$o");
     scheduleEndTxPeriod(frame);
 
     // update burst variables

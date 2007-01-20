@@ -74,8 +74,8 @@ module WirelessAPWithEthSimplified
         for i=0..sizeof(ethg)-1 {
             eth[i].upperLayerIn <-- relayUnit.lowerLayerOut[i+1];
             eth[i].upperLayerOut --> relayUnit.lowerLayerIn[i+1];
-            eth[i].physIn <-- ethg$i[i];
-            eth[i].physOut --> ethg$o[i];
+            eth[i].phys$i <-- ethg$i[i];
+            eth[i].phys$o --> ethg$o[i];
         };
 }
 

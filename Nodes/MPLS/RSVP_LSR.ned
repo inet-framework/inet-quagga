@@ -114,8 +114,8 @@ module RSVP_LSR
         rsvp.from_ip <-- networkLayer.RSVPOut;
 
         for i=0..sizeof(pppg)-1 {
-            pppg$i[i] --> ppp[i].physIn;
-            pppg$o[i] <-- ppp[i].physOut;
+            pppg$i[i] --> ppp[i].phys$i;
+            pppg$o[i] <-- ppp[i].phys$o;
 
             ppp[i].netwOut --> mpls.ifIn[i];
             ppp[i].netwIn <-- mpls.ifOut[i];

@@ -30,10 +30,9 @@ module PPPInterface
         string queueType = default("DropTailQueue");
         @display("i=block/ifcard");
     gates:
-        input physIn;
-        output physOut;
         input netwIn;
         output netwOut;
+        inout phys;
     submodules:
         queue: <queueType> like OutputQueue {
             parameters:
@@ -49,8 +48,7 @@ module PPPInterface
         netwIn --> { @display("m=n"); } --> queue.in;
         queue.out --> ppp.netwIn;
         netwOut <-- { @display("m=n"); } <-- ppp.netwOut;
-        physIn --> { @display("m=s"); } --> ppp.physIn;
-        physOut <-- { @display("m=s"); } <-- ppp.physOut;
+        phys <--> { @display("m=s"); } <--> ppp.phys;
 }
 
 

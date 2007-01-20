@@ -75,7 +75,7 @@ void PPP::initialize(int stage)
     }
 
     // we're connected if other end of connection path is an input gate
-    cGate *physOut = gate("physOut");
+    cGate *physOut = gate("phys$o");
     connected = physOut->destinationGate()->type()=='I';
 
     // if we're connected, get the gate with transmission rate
@@ -93,7 +93,7 @@ void PPP::initialize(int stage)
             gateToWatch = gateToWatch->toGate();
         }
         if (!gateToWatch)
-            error("gate physOut must be connected (directly or indirectly) to a link with data rate");
+            error("gate phys must be connected (directly or indirectly) to a link with data rate");
     }
 
     // register our interface entry in InterfaceTable
@@ -173,7 +173,7 @@ void PPP::startTransmitting(cMessage *msg)
 
     // send
     EV << "Starting transmission of " << pppFrame << endl;
-    send(pppFrame, "physOut");
+    send(pppFrame, "phys$o");
 
     // schedule an event for the time when last bit will leave the gate.
     simtime_t endTransmission = gateToWatch->transmissionFinishes();
@@ -210,7 +210,7 @@ void PPP::handleMessage(cMessage *msg)
             queueModule->requestPacket();
         }
     }
-    else if (msg->arrivedOn("physIn"))
+    else if (msg->arrivedOn("phys$i"))
     {
         // fire notification
         notifDetails.setMessage(msg);
@@ -266,8 +266,8 @@ void PPP::displayBusy()
     displayString().setTagArg("i",1, txQueue.length()>=3 ? "red" : "yellow");
     gateToWatch->displayString().setTagArg("o",0,"yellow");
     gateToWatch->displayString().setTagArg("o",1,"3");
-    gate("physOut")->displayString().setTagArg("o",0,"yellow");
-    gate("physOut")->displayString().setTagArg("o",1,"3");
+    gate("phys$o")->displayString().setTagArg("o",0,"yellow");
+    gate("phys$o")->displayString().setTagArg("o",1,"3");
 }
 
 void PPP::displayIdle()
@@ -275,8 +275,8 @@ void PPP::displayIdle()
     displayString().setTagArg("i",1,"");
     gateToWatch->displayString().setTagArg("o",0,oldConnColor.c_str());
     gateToWatch->displayString().setTagArg("o",1,"1");
-    gate("physOut")->displayString().setTagArg("o",0,"black");
-    gate("physOut")->displayString().setTagArg("o",1,"1");
+    gate("phys$o")->displayString().setTagArg("o",0,"black");
+    gate("phys$o")->displayString().setTagArg("o",1,"1");
 }
 
 void PPP::updateDisplayString()

@@ -28,10 +28,9 @@ import "EtherEncap";
 module EthernetInterfaceNoQueue
 {
     gates:
-        input physIn;
         input netwIn;
-        output physOut;
         output netwOut;
+        inout phys;
     submodules:
         mac: EtherMAC {
             parameters:
@@ -48,7 +47,7 @@ module EthernetInterfaceNoQueue
         netwOut <-- encap.upperLayerOut;
         encap.lowerLayerOut --> mac.upperLayerIn;
         encap.lowerLayerIn <-- mac.upperLayerOut;
-        mac.physIn <-- physIn;
-        mac.physOut --> physOut;
+        mac.phys$i <-- phys$i;
+        mac.phys$o --> phys$o;
 }
 

@@ -56,8 +56,8 @@ module EtherSwitch2
         for i=0..sizeof(ethg)-1 {
             mac[i].upperLayerIn <-- relayUnit.lowerLayerOut[i];
             mac[i].upperLayerOut --> relayUnit.lowerLayerIn[i];
-            mac[i].physIn <-- ethg$i[i];
-            mac[i].physOut --> ethg$o[i];
+            mac[i].phys$i <-- ethg$i[i];
+            mac[i].phys$o --> ethg$o[i];
         };
 }
 

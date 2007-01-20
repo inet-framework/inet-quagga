@@ -26,10 +26,9 @@
 module PPPInterfaceNoQueue
 {
     gates:
-        input physIn;
-        output physOut;
         input netwIn;
         output netwOut;
+        inout phys;
     submodules:
         ppp: PPP {
             parameters:
@@ -40,8 +39,7 @@ module PPPInterfaceNoQueue
     connections:
         netwIn --> { @display("m=n"); } --> ppp.netwIn;
         netwOut <-- { @display("m=n"); } <-- ppp.netwOut;
-        physIn --> { @display("m=s"); } --> ppp.physIn;
-        physOut <-- { @display("m=s"); } <-- ppp.physOut;
+        phys <--> { @display("m=s"); } <--> ppp.phys;
 }
 
 

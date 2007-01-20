@@ -32,7 +32,7 @@
 // RAW mode (only used by the IPX protocol) is not supported.
 //
 // Expected environment:
-// - physIn and physOut should be connected to the "network"
+// - phys$i and phys$o should be connected to the "network"
 // - upperLayerIn and upperLayerOut are usually connected to EtherLLC (in hosts)
 //   or MACRelayUnitPP (in a switch)
 //
@@ -147,9 +147,8 @@ simple EtherMAC
         bool writeScalars = default(true);     // enable/disable recording statistics in omnetpp.sca
         @display("i=block/rxtx");
     gates:
-        input physIn;      // to physical layer or the network
-        output physOut;    // to physical layer or the network
         input upperLayerIn;    // to EtherLLC or MACRelayUnitPP
         output upperLayerOut;  // to EtherLLC or MACRelayUnitPP
+        inout phys;            // to physical layer or the network
 }
 
