@@ -49,7 +49,6 @@ network KIDSNw1
                 @display("p=101,307,row;i=device/pc2");
 
             gates:
-                //REMOVE THIS LINE
                 pppg[1];
         };
         // First Hop Router
@@ -60,7 +59,6 @@ network KIDSNw1
                 @display("p=119,222,row,130");
 
             gates:
-                //REMOVE THIS LINE
                 pppg[index==0 ? 3 : 2];
         };
         // InteriorRouter
@@ -69,7 +67,6 @@ network KIDSNw1
                 routingFile = "irouter2.irt";
                 @display("p=115,144");
             gates:
-                //REMOVE THIS LINE
                 pppg[2];
         };
         // Border Gatgeway Router
@@ -80,7 +77,6 @@ network KIDSNw1
                   index==1 ? "bgrouter4.irt" : "PROBLEM";
                 @display("p=135,64,row");
             gates:
-                //REMOVE THIS LINE
                 pppg[2];
         };
     connections allowunconnected:

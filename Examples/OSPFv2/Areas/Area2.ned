@@ -7,35 +7,30 @@ module OneNetArea
     parameters:
         @display("p=10,10;b=404,108");
     gates:
-        //REMOVE THIS LINE
         input ethg[];
     submodules:
         H3: StandardHost {
             parameters:
                 @display("p=372,72;i=device/laptop");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         N3: EtherHub {
             parameters:
                 @display("p=264,72");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         R5: OSPFRouter {
             parameters:
                 @display("p=160,72");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         R4: OSPFRouter {
             parameters:
                 @display("p=64,72");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
     connections:

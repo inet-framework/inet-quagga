@@ -52,7 +52,6 @@ network MulticastNetwork
                 routingFile = "mchost1.mrt";
                 @display("p=125,52;i=device/pc2");
             gates:
-                //REMOVE THIS LINE
                 pppg[1];
         };
         host2: StandardHost {
@@ -61,7 +60,6 @@ network MulticastNetwork
                 routingFile = "mchost2.mrt";
                 @display("p=60,244;i=device/pc2");
             gates:
-                //REMOVE THIS LINE
                 pppg[2];
         };
         host3: StandardHost {
@@ -70,7 +68,6 @@ network MulticastNetwork
                 routingFile = "mchost3.mrt";
                 @display("p=196,244;i=device/pc2");
             gates:
-                //REMOVE THIS LINE
                 pppg[2];
         };
         host4: StandardHost {
@@ -79,7 +76,6 @@ network MulticastNetwork
                 routingFile = "mchost4.mrt";
                 @display("p=406,305;i=device/pc2");
             gates:
-                //REMOVE THIS LINE
                 pppg[1];
         };
         host5: StandardHost {
@@ -88,7 +84,6 @@ network MulticastNetwork
                 routingFile = "mchost5.mrt";
                 @display("p=492,59;i=device/pc2");
             gates:
-                //REMOVE THIS LINE
                 pppg[1];
         };
         host6: StandardHost {
@@ -97,7 +92,6 @@ network MulticastNetwork
                 routingFile = "mchost6.mrt";
                 @display("p=492,204;i=device/pc2");
             gates:
-                //REMOVE THIS LINE
                 pppg[1];
         };
         router1: Router {
@@ -105,7 +99,6 @@ network MulticastNetwork
                 routingFile = "mcrouter1.mrt";
                 @display("p=124,135");
             gates:
-                //REMOVE THIS LINE
                 pppg[4];
         };
         router2: Router {
@@ -113,7 +106,6 @@ network MulticastNetwork
                 routingFile = "mcrouter2.mrt";
                 @display("p=292,135");
             gates:
-                //REMOVE THIS LINE
                 pppg[3];
         };
         router3: Router {
@@ -121,7 +113,6 @@ network MulticastNetwork
                 routingFile = "mcrouter3.mrt";
                 @display("p=292,238");
             gates:
-                //REMOVE THIS LINE
                 pppg[2];
         };
         router4: Router {
@@ -129,7 +120,6 @@ network MulticastNetwork
                 routingFile = "mcrouter4.mrt";
                 @display("p=408,135");
             gates:
-                //REMOVE THIS LINE
                 pppg[3];
         };
     connections:

@@ -9,98 +9,84 @@ module OSPF_Area1
     parameters:
         @display("p=10,42;b=432,504");
     gates:
-        //REMOVE THIS LINE
         input ethg[];
     submodules:
         RT1: OSPFRouter {
             parameters:
                 @display("p=232,136");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         RT2: OSPFRouter {
             parameters:
                 @display("p=236,348");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         N1: EtherHub {
             parameters:
                 @display("p=140,136");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         N2: EtherHub {
             parameters:
                 @display("p=140,348");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         N3: EtherHub {
             parameters:
                 @display("p=360,252");
             gates:
-                //REMOVE THIS LINE
                 ethg[5];
         };
         N4: EtherHub {
             parameters:
                 @display("p=360,464");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         H1: StandardHost {
             parameters:
                 @display("p=56,96;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H2: StandardHost {
             parameters:
                 @display("p=56,172;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H3: StandardHost {
             parameters:
                 @display("p=56,316;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H4: StandardHost {
             parameters:
                 @display("p=56,388;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H5: StandardHost {
             parameters:
                 @display("p=360,188;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H6: StandardHost {
             parameters:
                 @display("p=316,520;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H7: StandardHost {
             parameters:
                 @display("p=400,520;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
     connections:

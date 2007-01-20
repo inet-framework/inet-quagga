@@ -69,7 +69,6 @@ network RTPMulticast1
                 numOfProcessors = 1;
                 @display("p=150,150");
             gates:
-                //REMOVE THIS LINE
                 pppg[4];
 
         };

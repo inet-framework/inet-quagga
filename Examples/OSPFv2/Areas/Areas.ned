@@ -16,14 +16,12 @@ network OSPF_AreaTest
             parameters:
                 @display("p=108,112;b=136,128");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         Area2: OneNetArea {
             parameters:
                 @display("p=324,112;b=136,128");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
     connections:

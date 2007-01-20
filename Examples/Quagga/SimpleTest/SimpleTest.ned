@@ -18,42 +18,36 @@ network SimpleTest
             parameters:
                 @display("p=56,92;i=device/laptop");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         N1: EtherHub {
             parameters:
                 @display("p=184,92");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         R1: QuaggaRouter {
             parameters:
                 @display("p=296,92");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         R2: QuaggaRouter {
             parameters:
                 @display("p=416,92");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         N2: EtherHub {
             parameters:
                 @display("p=532,92");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         H2: StandardHost {
             parameters:
                 @display("p=660,92;i=device/laptop");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
     connections:

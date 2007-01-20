@@ -7,7 +7,6 @@ module TwoNetsArea
     parameters:
         @display("p=10,10;b=412,316");
     gates:
-        //REMOVE THIS LINE
         input ethg[];
     submodules:
         R1: OSPFRouter {
@@ -20,14 +19,12 @@ module TwoNetsArea
             parameters:
                 @display("p=156,72");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         N2: EtherHub {
             parameters:
                 @display("p=160,284");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         R3: OSPFRouter {
@@ -40,21 +37,18 @@ module TwoNetsArea
             parameters:
                 @display("p=56,72;i=device/laptop");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H2: StandardHost {
             parameters:
                 @display("p=56,288;i=device/laptop");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         R2: OSPFRouter {
             parameters:
                 @display("p=248,232");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
     connections:

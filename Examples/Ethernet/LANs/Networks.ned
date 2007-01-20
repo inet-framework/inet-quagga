@@ -185,7 +185,6 @@ network SwitchedLAN
             parameters:
                 @display("p=162,124");
             gates:
-                //REMOVE THIS LINE
                 ethg[4];
         };
     connections:
@@ -226,7 +225,6 @@ network HubLAN
             parameters:
                 @display("p=162,124");
             gates:
-                //REMOVE THIS LINE
                 ethg[4];
         };
     connections:
@@ -269,7 +267,6 @@ network BusLAN
                 propagationSpeed = 200000000;
                 @display("p=250,100;b=400,6;o=#408060");
             gates:
-                //REMOVE THIS LINE
                 ethg[4];
         };
     connections:
@@ -313,7 +310,6 @@ network SwitchedDuplexLAN
             parameters:
                 @display("p=162,124");
             gates:
-                //REMOVE THIS LINE
                 ethg[4];
         };
     connections:

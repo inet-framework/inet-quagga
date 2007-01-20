@@ -7,63 +7,54 @@ module OSPF_Area2
     parameters:
         @display("p=10,10;b=424,400");
     gates:
-        //REMOVE THIS LINE
         input ethg[];
     submodules:
         RT8: OSPFRouter {
             parameters:
                 @display("p=304,196");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         N6: EtherHub {
             parameters:
                 @display("p=304,100");
             gates:
-                //REMOVE THIS LINE
                 ethg[4];
         };
         N7: EtherHub {
             parameters:
                 @display("p=304,300");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         N8: EtherHub {
             parameters:
                 @display("p=104,100");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         H8: StandardHost {
             parameters:
                 @display("p=392,100;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H9: StandardHost {
             parameters:
                 @display("p=348,364;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H10: StandardHost {
             parameters:
                 @display("p=260,364;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H11: StandardHost {
             parameters:
                 @display("p=104,156;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
     connections:

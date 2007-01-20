@@ -7,84 +7,72 @@ module OSPF_Area3
     parameters:
         @display("p=10,10;b=264,528");
     gates:
-        //REMOVE THIS LINE
         input ethg[];
     submodules:
         RT9: OSPFRouter {
             parameters:
                 @display("p=148,200");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         RT12: OSPFRouter {
             parameters:
                 @display("p=148,360");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         N9: EtherHub {
             parameters:
                 @display("p=148,284");
             gates:
-                //REMOVE THIS LINE
                 ethg[4];
         };
         N10: EtherHub {
             parameters:
                 @display("p=148,452");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         N11: EtherHub {
             parameters:
                 @display("p=144,112");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         H12: StandardHost {
             parameters:
                 @display("p=92,52;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H13: StandardHost {
             parameters:
                 @display("p=196,52;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H14: StandardHost {
             parameters:
                 @display("p=60,284;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H15: StandardHost {
             parameters:
                 @display("p=60,360;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H16: StandardHost {
             parameters:
                 @display("p=92,492;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H17: StandardHost {
             parameters:
                 @display("p=196,492;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
     connections:

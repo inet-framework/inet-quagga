@@ -24,125 +24,107 @@ network OSPF_TestNetwork
                 @display("p=120,172;b=176,168");
             gates:
                 ethg[3];
-                //REMOVE THIS LINE
         };
         Area2: OSPF_Area2 {
             parameters:
                 @display("p=448,468;b=176,168");
             gates:
-                //REMOVE THIS LINE
                 ethg[4];
         };
         Area3: OSPF_Area3 {
             parameters:
                 @display("p=128,468;b=176,168");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         RT3: OSPFRouter {
             parameters:
                 @display("p=276,208");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         RT4: OSPFRouter {
             parameters:
                 @display("p=276,144");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         RT5: OSPFRouter {
             parameters:
                 @display("p=496,144");
             gates:
-                //REMOVE THIS LINE
                 ethg[6];
         };
         RT6: OSPFRouter {
             parameters:
                 @display("p=424,208");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         RT7: OSPFRouter {
             parameters:
                 @display("p=496,328");
             gates:
-                //REMOVE THIS LINE
                 ethg[4];
         };
         RT10: OSPFRouter {
             parameters:
                 @display("p=424,328");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         RT11: OSPFRouter {
             parameters:
                 @display("p=284,468");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         N12: EtherHub {
             parameters:
                 @display("p=608,296");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         N13: EtherHub {
             parameters:
                 @display("p=500,92");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         N14: EtherHub {
             parameters:
                 @display("p=608,92");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         N15: EtherHub {
             parameters:
                 @display("p=608,356");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         H18: StandardHost {
             parameters:
                 @display("p=496,36;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H19: StandardHost {
             parameters:
                 @display("p=612,36;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H20: StandardHost {
             parameters:
                 @display("p=688,296;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H21: StandardHost {
             parameters:
                 @display("p=688,356;i=device/pc_s");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
     connections:

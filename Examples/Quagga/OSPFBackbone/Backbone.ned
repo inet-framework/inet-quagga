@@ -18,105 +18,90 @@ network QuaggaOSPFBackbone
             parameters:
                 @display("p=372,340");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         N1: EtherHub {
             parameters:
                 @display("p=368,268");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         N2: EtherHub {
             parameters:
                 @display("p=452,384");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         R2: QuaggaRouter {
             parameters:
                 @display("p=368,188");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         R4: QuaggaRouter {
             parameters:
                 @display("p=216,432");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         R3: QuaggaRouter {
             parameters:
                 @display("p=532,428");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         N4: EtherHub {
             parameters:
                 @display("p=368,100");
             gates:
-                //REMOVE THIS LINE
                 ethg[4];
         };
         N5: EtherHub {
             parameters:
                 @display("p=612,476");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         R5: QuaggaRouter {
             parameters:
                 @display("p=488,284");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         R7: QuaggaRouter {
             parameters:
                 @display("p=256,284");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         R6: QuaggaRouter {
             parameters:
                 @display("p=372,476");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         N6: EtherHub {
             parameters:
                 @display("p=136,476");
             gates:
-                //REMOVE THIS LINE
                 ethg[3];
         };
         N3: EtherHub {
             parameters:
                 @display("p=292,384");
             gates:
-                //REMOVE THIS LINE
                 ethg[2];
         };
         H1: StandardHost {
             parameters:
                 @display("p=372,420;i=device/laptop");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
         H2: StandardHost {
             parameters:
                 @display("p=368,40;i=device/laptop");
             gates:
-                //REMOVE THIS LINE
                 ethg[1];
         };
     connections:
