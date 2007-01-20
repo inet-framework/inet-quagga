@@ -77,8 +77,7 @@ module BurstHost
 
         // connections to network outside
         for i=0..0 {
-            pppg$i[i] --> ppp[i].phys$i;
-            pppg$o[i] <-- ppp[i].phys$o;
+            pppg[i] <--> ppp[i].phys;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
         };

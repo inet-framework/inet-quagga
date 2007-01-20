@@ -47,7 +47,6 @@ module EthernetInterfaceNoQueue
         netwOut <-- encap.upperLayerOut;
         encap.lowerLayerOut --> mac.upperLayerIn;
         encap.lowerLayerIn <-- mac.upperLayerOut;
-        mac.phys$i <-- phys$i;
-        mac.phys$o --> phys$o;
+        mac.phys <--> phys;
 }
 

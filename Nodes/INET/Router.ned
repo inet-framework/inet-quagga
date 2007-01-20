@@ -75,15 +75,13 @@ module Router
     connections allowunconnected:
         // connections to network outside
         for i=0..sizeof(pppg)-1 {
-            pppg$i[i] --> ppp[i].phys$i;
-            pppg$o[i] <-- ppp[i].phys$o;
+            pppg[i] <--> ppp[i].phys;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
         };
 
         for i=0..sizeof(ethg)-1 {
-            ethg$i[i] --> eth[i].phys$i;
-            ethg$o[i] <-- eth[i].phys$o;
+            ethg[i] <--> eth[i].phys;
             eth[i].netwOut --> networkLayer.ifIn[sizeof(pppg)+i];
             eth[i].netwIn <-- networkLayer.ifOut[sizeof(pppg)+i];
         };

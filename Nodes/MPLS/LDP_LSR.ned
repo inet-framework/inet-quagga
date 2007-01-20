@@ -131,8 +131,7 @@ module LDP_LSR
         tcp.from_ip <-- networkLayer.TCPOut;
 
         for i=0..sizeof(pppg)-1 {
-            pppg$i[i] --> ppp[i].phys$i;
-            pppg$o[i] <-- ppp[i].phys$o;
+            pppg[i] <--> ppp[i].phys;
 
             ppp[i].netwOut --> mpls.ifIn[i];
             ppp[i].netwIn <-- mpls.ifOut[i];
