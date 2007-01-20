@@ -7,7 +7,7 @@ module OneNetArea
     parameters:
         @display("p=10,10;b=404,108");
     gates:
-        input ethg[];
+        inout ethg[];
     submodules:
         H3: StandardHost {
             parameters:
@@ -36,10 +36,10 @@ module OneNetArea
     connections:
         R4.ethg$o[0] --> {  delay = 0.1us; } --> R5.ethg$i[1];
         R5.ethg$o[1] --> {  delay = 0.1us; } --> R4.ethg$i[0];
-        R5.ethg$o[0] --> {  delay = 0.1us; } --> N3.pppg$i[1];
-        N3.pppg$o[1] --> {  delay = 0.1us; } --> R5.ethg$i[0];
-        N3.pppg$o[0] --> {  delay = 0.1us; } --> H3.ethg$i[0];
-        H3.ethg$o[0] --> {  delay = 0.1us; } --> N3.pppg$i[0];
+        R5.ethg$o[0] --> {  delay = 0.1us; } --> N3.ethg$i[1];
+        N3.ethg$o[1] --> {  delay = 0.1us; } --> R5.ethg$i[0];
+        N3.ethg$o[0] --> {  delay = 0.1us; } --> H3.ethg$i[0];
+        H3.ethg$o[0] --> {  delay = 0.1us; } --> N3.ethg$i[0];
 
         // towards other areas
         ethg$i[0] --> R4.ethg$i[1];
