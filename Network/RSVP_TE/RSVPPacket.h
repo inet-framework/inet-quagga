@@ -26,13 +26,13 @@
  * This class adds convenience get() and set() methods to the generated
  * base class, but no extra data.
  */
-class RSVPPacket: public RSVPPacket_Base
+class RSVPPacket : public RSVPPacket_Base
 {
   public:
     RSVPPacket(const char *name=NULL, int kind=0) : RSVPPacket_Base(name,RSVP_TRAFFIC) { this->rsvpKind_var = kind; }
     RSVPPacket(const RSVPPacket& other) : RSVPPacket_Base(other.name()) {operator=(other);}
     RSVPPacket& operator=(const RSVPPacket& other) {RSVPPacket_Base::operator=(other); return *this;}
-    virtual cObject *dup() {return new RSVPPacket(*this);}
+    virtual RSVPPacket *dup() const {return new RSVPPacket(*this);}
 
     inline IPAddress getDestAddress() {return getSession().DestAddress;}
     inline int getTunnelId()    {return getSession().Tunnel_Id;}

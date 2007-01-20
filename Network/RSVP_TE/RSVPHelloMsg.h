@@ -41,7 +41,7 @@ class RSVPHelloMsg : public RSVPHelloMsg_Base
     RSVPHelloMsg(const char *name=NULL, int kind=RSVP_TRAFFIC) : RSVPHelloMsg_Base(name,kind) {}
     RSVPHelloMsg(const RSVPHelloMsg& other) : RSVPHelloMsg_Base(other.name()) {operator=(other);}
     RSVPHelloMsg& operator=(const RSVPHelloMsg& other) {RSVPHelloMsg_Base::operator=(other); return *this;}
-    virtual cObject *dup() {return new RSVPHelloMsg(*this);}
+    virtual RSVPHelloMsg *dup() const {return new RSVPHelloMsg(*this);}
 };
 
 #endif

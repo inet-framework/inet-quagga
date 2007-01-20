@@ -101,7 +101,7 @@ class SIM_API ThruputMeteringChannel : public cBasicChannel
      * Creates and returns an exact copy of this object.
      * See cObject for more details.
      */
-    virtual ThruputMeteringChannel *dup() {return new ThruputMeteringChannel(*this);}
+    virtual ThruputMeteringChannel *dup() const {return new ThruputMeteringChannel(*this);}
 
     /**
      * Redefined to add an extra attribute
