@@ -21,16 +21,15 @@ import "StandardHost6";
 import "FlatNetworkConfigurator6";
 import "TCPDump";
 
-channel ethernetline extends cBasicChannel
-{
-    parameters:
-        delay = 0.1us;
-}
 
 network DemoNetworkEth
 {
     parameters:
         int n;
+    types:
+        channel ethernetline extends cBasicChannel {
+            delay = 0.1us;
+        }
     submodules:
         configurator: FlatNetworkConfigurator6 {
             parameters:
@@ -44,13 +43,9 @@ network DemoNetworkEth
         linemonitor[n]: TCPDump;
     connections allowunconnected:
         for i=0..n-1 {
-            cli[i].ethg$o++ --> ethernetline --> linemonitor[i].in1;
-            linemonitor[i].out2 --> ethernetline --> r1.ethg$i++;
-            linemonitor[i].in2 <-- ethernetline <-- r1.ethg$o++;
-            cli[i].ethg$i++ <-- ethernetline <-- linemonitor[i].out1;
+            cli[i].ethg++ <--> ethernetline <--> linemonitor[i].a;
+            linemonitor[i].b <--> ethernetline <--> r1.ethg++;
         };
-
         r1.ethg++ <--> ethernetline <--> r2.ethg++;
-
 }
 

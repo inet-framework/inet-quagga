@@ -17,28 +17,21 @@
 //
 
 
-
-
 import "Router";
 import "StandardHost";
 
 
-channel ethernet extends cBasicChannel
-{
-    parameters:
-        delay = normal(0.00015,0.00005);
-        datarate = 10*1000000;
-}
-
-channel fiberrouterline extends cBasicChannel
-{
-    parameters:
-        delay = normal(0.000001,0.0000001);
-        datarate = 512*1000000;
-}
-
 network KIDSNw1
 {
+    types:
+        channel ethernet extends cBasicChannel {
+            delay = normal(0.00015,0.00005);
+            datarate = 10Mbps;
+        }
+        channel fiberrouterline extends cBasicChannel {
+            delay = normal(0.000001,0.0000001);
+            datarate = 512Mbps;
+        }
     submodules:
         host[3]: StandardHost {
             parameters:
@@ -80,19 +73,15 @@ network KIDSNw1
                 pppg[2];
         };
     connections allowunconnected:
-        // * host connections *
+        // host connections
         host[0].pppg[0] <--> ethernet <--> fhrouter[0].pppg[0];
         host[1].pppg[0] <--> ethernet <--> fhrouter[0].pppg[1];
         host[2].pppg[0] <--> ethernet <--> fhrouter[1].pppg[0];
 
-        // * Router Connections *
+        // router connections
         fhrouter[0].pppg[2] <--> fiberrouterline <--> irouter.pppg[0];
-
         irouter.pppg[1] <--> fiberrouterline <--> bgrouter[0].pppg[0];
-
         bgrouter[0].pppg[1] <--> fiberrouterline <--> bgrouter[1].pppg[1];
-
         bgrouter[1].pppg[0] <--> fiberrouterline <--> fhrouter[1].pppg[1];
-
 }
 

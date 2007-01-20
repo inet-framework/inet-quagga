@@ -1,19 +1,15 @@
 import "RTPHost";
 
 
-channel ErrorChannel extends cBasicChannel
-{
-    parameters:
-        //delay normal (0.004, 0.0041)
-        error = 0.0;
-}
-
 network RTPNetwork
-
 {
     parameters:
-        bool debug;
-
+        bool debug = default(false);
+    types:
+        channel ErrorChannel extends cBasicChannel {
+            //delay normal (0.004, 0.0041)
+            error = 0.0;
+        }
     submodules:
         sender: RTPHost {
             parameters:
@@ -42,6 +38,5 @@ network RTPNetwork
         };
     connections:
         sender.pppg[0] <--> ErrorChannel <--> receiver.pppg[0];
-
 }
 

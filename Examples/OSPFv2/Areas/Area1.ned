@@ -8,6 +8,10 @@ module TwoNetsArea
         @display("p=10,10;b=412,316");
     gates:
         inout ethg[];
+    types:
+        channel C extends cBasicChannel {
+            delay = 0.1us;
+        }
     submodules:
         R1: OSPFRouter {
             parameters:
@@ -52,13 +56,13 @@ module TwoNetsArea
                 ethg[3];
         };
     connections:
-        H1.ethg[0] <--> {  delay = 0.1us; } <--> N1.ethg[1];
-        N1.ethg[0] <--> {  delay = 0.1us; } <--> R1.ethg[2];
-        R1.ethg[0] <--> {  delay = 0.1us; } <--> R3.ethg[2];
-        N2.ethg[1] <--> {  delay = 0.1us; } <--> H2.ethg[0];
-        R1.ethg[1] <--> {  delay = 0.1us; } <--> R2.ethg[0];
-        R2.ethg[1] <--> {  delay = 0.1us; } <--> R3.ethg[1];
-        R2.ethg[2] <--> {  delay = 0.1us; } <--> N2.ethg[0];
+        H1.ethg[0] <--> C <--> N1.ethg[1];
+        N1.ethg[0] <--> C <--> R1.ethg[2];
+        R1.ethg[0] <--> C <--> R3.ethg[2];
+        N2.ethg[1] <--> C <--> H2.ethg[0];
+        R1.ethg[1] <--> C <--> R2.ethg[0];
+        R2.ethg[1] <--> C <--> R3.ethg[1];
+        R2.ethg[2] <--> C <--> N2.ethg[0];
 
         // towards other areas
         ethg[0] <--> R3.ethg[0];

@@ -79,20 +79,16 @@ network REDTestDebug
                 @display("p=248,135");
         };
     connections allowunconnected:
-        r1.pppg$o++ --> {  datarate = 1.5e6; delay = 20e-3; } --> th.in;
-        th.out --> dump.in1;
-        dump.out2 --> r2.pppg$i++;
+        r1.pppg$o++ --> {datarate = 1.5Mbps; delay = 20ms;} --> th.in;
+        th.out --> dump.a$i; dump.b$o --> r2.pppg$i++;
 
-        r1.pppg$i++ <-- {  datarate = 1.5e6; delay = 20e-3; } <-- dump.out1;
-        dump.in2 <-- {  datarate = 1.5e6; delay = 20e-3; } <-- r2.pppg$o++;
+        dump.a$o --> {datarate = 1.5Mbps; delay = 20ms;} --> r1.pppg$i++;
+        dump.b$i <-- {datarate = 1.5Mbps; delay = 20ms;} <-- r2.pppg$o++;
 
-        s1.pppg++ <--> {  datarate = 10e6; delay = 2e-3; } <--> r1.pppg++;
-
-        s2.pppg++ <--> {  datarate = 10e6; delay = 3e-3; } <--> r1.pppg++;
-
-        s3.pppg++ <--> {  datarate = 10e6; delay = 4e-3; } <--> r2.pppg++;
-
-        s4.pppg++ <--> {  datarate = 10e6; delay = 5e-3; } <--> r2.pppg++;
+        s1.pppg++ <--> {datarate = 10Mbps; delay = 2ms;} <--> r1.pppg++;
+        s2.pppg++ <--> {datarate = 10Mbps; delay = 3ms;} <--> r1.pppg++;
+        s3.pppg++ <--> {datarate = 10Mbps; delay = 4ms;} <--> r2.pppg++;
+        s4.pppg++ <--> {datarate = 10Mbps; delay = 5ms;} <--> r2.pppg++;
 
 }
 

@@ -7,6 +7,10 @@ network SimpleTest
 {
     parameters:
         @display("p=10,10;b=712,152");
+    types:
+        channel C extends cBasicChannel {
+            delay = 0.1us;
+        }
     submodules:
         channelInstaller: ChannelInstaller {
             parameters:
@@ -51,10 +55,10 @@ network SimpleTest
                 ethg[1];
         };
     connections:
-        H1.ethg[0] <--> {  delay = 0.1us; } <--> N1.ethg[0];
-        N1.ethg[1] <--> {  delay = 0.1us; } <--> R1.ethg[0];
-        R1.ethg[1] <--> {  delay = 0.1us; } <--> R2.ethg[0];
-        R2.ethg[1] <--> {  delay = 0.1us; } <--> N2.ethg[0];
-        N2.ethg[1] <--> {  delay = 0.1us; } <--> H2.ethg[0];
+        H1.ethg[0] <--> C <--> N1.ethg[0];
+        N1.ethg[1] <--> C <--> R1.ethg[0];
+        R1.ethg[1] <--> C <--> R2.ethg[0];
+        R2.ethg[1] <--> C <--> N2.ethg[0];
+        N2.ethg[1] <--> C <--> H2.ethg[0];
 }
 

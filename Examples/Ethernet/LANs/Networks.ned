@@ -103,25 +103,20 @@ network MixedLAN
         };
     connections:
         bus.ethg[0] <--> busHostA.ethg;
-
         bus.ethg[1] <--> busHostB.ethg;
-
         bus.ethg[2] <--> switch.ethg[4];
-
         bus.ethg[3] <--> busHostC.ethg;
-
         bus.ethg[4] <--> hub.ethg[3];
-
         bus.ethg[5] <--> busHostD.ethg;
 
-        switch.ethg[0] <--> {  delay = 0.1us; } <--> switchHostA.ethg;
-        switch.ethg[1] <--> {  delay = 0.1us; } <--> switchHostB.ethg;
-        switch.ethg[2] <--> {  delay = 0.1us; } <--> switchHostC.ethg;
-        switch.ethg[3] <--> {  delay = 0.1us; } <--> switchHostD.ethg;
+        switch.ethg[0] <--> {delay = 0.1us;} <--> switchHostA.ethg;
+        switch.ethg[1] <--> {delay = 0.1us;} <--> switchHostB.ethg;
+        switch.ethg[2] <--> {delay = 0.1us;} <--> switchHostC.ethg;
+        switch.ethg[3] <--> {delay = 0.1us;} <--> switchHostD.ethg;
 
-        hub.ethg[0] <--> {  delay = 0.1us; } <--> hubHostA.ethg;
-        hub.ethg[1] <--> {  delay = 0.3us; } <--> hubHostB.ethg;
-        hub.ethg[2] <--> {  delay = 0.2us; } <--> hubHostC.ethg;
+        hub.ethg[0] <--> {delay = 0.1us;} <--> hubHostA.ethg;
+        hub.ethg[1] <--> {delay = 0.3us;} <--> hubHostB.ethg;
+        hub.ethg[2] <--> {delay = 0.2us;} <--> hubHostC.ethg;
 }
 
 
@@ -150,6 +145,10 @@ network TwoHosts
 //
 network SwitchedLAN
 {
+    types:
+        channel C extends cBasicChannel {
+            delay = 0.1us;
+        }
     submodules:
         hostA: EtherHost {
             parameters:
@@ -174,10 +173,10 @@ network SwitchedLAN
                 ethg[4];
         };
     connections:
-        switch.ethg[0] <--> {  delay = 0.1us; } <--> hostA.ethg;
-        switch.ethg[1] <--> {  delay = 0.1us; } <--> hostB.ethg;
-        switch.ethg[2] <--> {  delay = 0.1us; } <--> hostC.ethg;
-        switch.ethg[3] <--> {  delay = 0.1us; } <--> hostD.ethg;
+        switch.ethg[0] <--> C <--> hostA.ethg;
+        switch.ethg[1] <--> C <--> hostB.ethg;
+        switch.ethg[2] <--> C <--> hostC.ethg;
+        switch.ethg[3] <--> C <--> hostD.ethg;
 }
 
 

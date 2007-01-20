@@ -23,61 +23,45 @@ import "EtherHub";
 import "FlatNetworkConfigurator6";
 
 
-channel fiberline extends cBasicChannel
-{
-    parameters:
-        delay = 1us;
-        datarate = 512*1000000;
-}
-
-channel ethernetline extends cBasicChannel
-{
-    parameters:
-        delay = 0.1us;
-}
-
 network NClientsEth
 {
     parameters:
         int n;
+    types:
+        channel fiberline extends cBasicChannel {
+            delay = 1us;
+            datarate = 512Mbps;
+        }
+        channel ethernetline extends cBasicChannel {
+            delay = 0.1us;
+        }
     submodules:
         configurator: FlatNetworkConfigurator6 {
             parameters:
                 moduleTypes = "Router6 StandardHost6 EtherHub";
                 nonIPModuleTypes = "EtherHub";
         };
-        r1: Router6 {
-        };
-        r2: Router6 {
-        };
-        r3: Router6 {
-        };
-        cli[n]: StandardHost6 {
-        };
-        srv: StandardHost6 {
-        };
-        hub: EtherHub {
-        };
+        r1: Router6;
+        r2: Router6;
+        r3: Router6;
+        cli[n]: StandardHost6;
+        srv: StandardHost6;
+        hub: EtherHub;
     connections allowunconnected:
         for i=0..n-1 {
             cli[i].ethg++ <--> ethernetline <--> hub.pppg++;
         };
-
         hub.pppg++ <--> ethernetline <--> r1.ethg++;
-
         r1.ethg++ <--> ethernetline <--> r2.ethg++;
-
         r2.ethg++ <--> ethernetline <--> r3.ethg++;
-
         r3.ethg++ <--> ethernetline <--> srv.ethg++;
 
+        //XXX
         // Mixing ethernet and ppp currently doesn't work, due to a bug in
         // FlatNetworkConfigurator6::determineGateIndex.
         //
         // r1.pppg++ <--> fiberline <--> r2.pppg++;
-        //        //
         // r2.pppg++ <--> fiberline <--> r3.pppg++;
-        //        //
         // r3.pppg++ <--> fiberline <--> srv.pppg++;
         //
 }

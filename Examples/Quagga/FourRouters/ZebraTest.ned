@@ -26,24 +26,19 @@ import "FailureManager";
 import "ScenarioManager";
 
 
-channel fiberline extends cBasicChannel
-{
-    parameters:
-        delay = 1ms;
-        datarate = 1000000;
-}
-
-channel ethernetline extends cBasicChannel
-{
-    parameters:
-        delay = 10ms;
-        datarate = 100000;
-}
-
 network ZebraTest
 {
     parameters:
         int n;
+    types:
+        channel fiberline extends cBasicChannel {
+            delay = 1ms;
+            datarate = 1Mbps;
+        }
+        channel ethernetline extends cBasicChannel {
+            delay = 10ms;
+            datarate = 100kbps;
+        }
     submodules:
         scenarioManager: ScenarioManager {
             parameters:
@@ -97,15 +92,10 @@ network ZebraTest
         for i=0..n-1 {
             cli[i].pppg++ <--> ethernetline <--> r1.pppg++;
         };
-
         r1.pppg++ <--> ethernetline <--> r2.pppg++;
-
         r2.pppg++ <--> ethernetline <--> r3.pppg++;
-
         r3.pppg++ <--> ethernetline <--> srv.pppg++;
-
         r1.pppg++ <--> ethernetline <--> r4.pppg++;
-
         r3.pppg++ <--> ethernetline <--> r4.pppg++;
 }
 

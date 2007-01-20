@@ -2,22 +2,15 @@ import "RTPHost";
 import "Router";
 
 
-
-
-channel ethernet extends cBasicChannel
-{
-    parameters:
-        delay = normal(0.00015,0.00005);
-        datarate = 10*10^6;
-}
-
-
 network RTPMulticast1
-
 {
     parameters:
-        bool debug;
-
+        bool debug = default(false);
+    types:
+        channel ethernet extends cBasicChannel {
+            delay = normal(0.00015,0.00005);
+            datarate = 10Mbps;
+        }
     submodules:
         host1: RTPHost {
             parameters:

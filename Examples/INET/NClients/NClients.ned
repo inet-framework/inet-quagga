@@ -24,24 +24,19 @@ import "NAMTrace";
 import "ChannelInstaller";
 
 
-channel fiberline extends cBasicChannel
-{
-    parameters:
-        delay = 1us;
-        datarate = 512*1000000;
-}
-
-channel ethernetline extends cBasicChannel
-{
-    parameters:
-        delay = 0.1us;
-        datarate = 10*1000000;
-}
-
 network NClients
 {
     parameters:
         int n;
+    types:
+        channel fiberline extends cBasicChannel {
+            delay = 1us;
+            datarate = 512Mbps;
+        }
+        channel ethernetline extends cBasicChannel {
+            delay = 0.1us;
+            datarate = 10Mbps;
+        }
     submodules:
         channelInstaller: ChannelInstaller {
             parameters:
@@ -85,12 +80,8 @@ network NClients
         for i=0..n-1 {
             cli[i].pppg++ <--> ethernetline <--> r1.pppg++;
         };
-
         r1.pppg++ <--> ethernetline <--> r2.pppg++;
-
         r2.pppg++ <--> ethernetline <--> r3.pppg++;
-
         r3.pppg++ <--> ethernetline <--> srv.pppg++;
-
 }
 

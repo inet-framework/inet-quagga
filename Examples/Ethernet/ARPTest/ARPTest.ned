@@ -16,16 +16,15 @@ import "StandardHost";
 import "EtherSwitch";
 import "FlatNetworkConfigurator";
 
-channel fiberline extends cBasicChannel
-{
-    parameters:
-        delay = 1us;
-        datarate = 512*1000000;
-}
 
 
 network ARPTest
 {
+    types:
+        channel fiberline extends cBasicChannel {
+            delay = 1us;
+            datarate = 512Mbps;
+        }
     submodules:
         client: StandardHost {
             parameters:
@@ -65,16 +64,10 @@ network ARPTest
         };
     connections:
         client.ethg++ <--> switch.ethg++;
-
         switch.ethg++ <--> host1.ethg++;
-
         switch.ethg++ <--> host2.ethg++;
-
         router.ethg++ <--> switch.ethg++;
-
         router.pppg++ <--> fiberline <--> net.pppg++;
-
         server.pppg++ <--> fiberline <--> net.pppg++;
-
 }
 

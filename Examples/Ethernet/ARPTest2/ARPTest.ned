@@ -84,25 +84,15 @@ network ARPTest
         };
     connections:
         server.ethg++ <--> router8.ethg++;
-
         bus2.ethg++ <--> router5.ethg++;
-
         bus2.ethg++ <--> router6.ethg++;
-
         bus2.ethg++ <--> router7.ethg++;
-
         router8.ethg++ <--> router7.ethg++;
-
         bus1.ethg++ <--> router1.ethg++;
-
         bus1.ethg++ <--> router5.ethg++;
-
         bus1.ethg++ <--> router2.ethg++;
-
         bus1.ethg++ <--> router3.ethg++;
-
         bus1.ethg++ <--> router4.ethg++;
-
         client.ethg++ <--> router1.ethg++;
 }
 

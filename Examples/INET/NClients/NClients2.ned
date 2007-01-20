@@ -22,33 +22,27 @@ import "StandardHost";
 import "FlatNetworkConfigurator";
 
 
-channel ethernetline2 extends cBasicChannel
-{
-    parameters:
-        delay = 0.1us;
-        datarate = 100*1000000;
-}
-
-channel gigabitline2 extends cBasicChannel
-{
-    parameters:
-        delay = 0.1us;
-        datarate = 1000*1000000;
-}
-
 network NClients2
 {
     parameters:
         int numrouters;
         double hostsperrouter;
+    types:
+        channel ethernetline2 extends cBasicChannel {
+            delay = 0.1us;
+            datarate = 100Mbps;
+        }
+        channel gigabitline2 extends cBasicChannel {
+            delay = 0.1us;
+            datarate = 1Gbps;
+        }
     submodules:
         configurator: FlatNetworkConfigurator {
             parameters:
                 moduleTypes = "Router StandardHost";
                 nonIPModuleTypes = "";
         };
-        r[numrouters]: Router {
-        };
+        r[numrouters]: Router;
         cli[numrouters*hostsperrouter]: StandardHost {
             parameters:
                 @display("i=device/laptop_vs");
@@ -61,7 +55,6 @@ network NClients2
         for i=0..numrouters-1, for j=0..hostsperrouter-1 {
             cli[i*hostsperrouter+j].pppg++ <--> ethernetline2 <--> r[i].pppg++;
         };
-
         for i=0..numrouters-2 {
             r[i].pppg++ <--> gigabitline2 <--> r[i+1].pppg++;
         };

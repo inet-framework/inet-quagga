@@ -266,11 +266,8 @@ network LargeNet
 
         // connect switches
         switchA.ethg++ <--> cable <--> switchB.ethg++;
-
         switchB.ethg++ <--> cable <--> switchC.ethg++;
-
         switchC.ethg++ <--> cable <--> switchD.ethg++;
-
         switchB.ethg++ <--> cable <--> switchBB[4].ethg++;
 
 }

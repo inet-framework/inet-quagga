@@ -60,8 +60,7 @@ module EtherHost
         llc.lowerLayerIn <-- mac.upperLayerOut;
         llc.lowerLayerOut --> mac.upperLayerIn;
 
-        mac.phys$i <-- ethg$i;
-        mac.phys$o --> ethg$o;
+        mac.phys <--> ethg;
 
         cli.out --> llc.upperLayerIn[0];
         cli.in <-- llc.upperLayerOut[0];

@@ -22,42 +22,32 @@ import "StandardHost6";
 import "FlatNetworkConfigurator6";
 
 
-channel fiberline extends cBasicChannel
-{
-    parameters:
-        delay = 1us;
-        datarate = 512*1000000;
-}
-
 network NClientsPPP
 {
     parameters:
         int n;
+    types:
+        channel fiberline extends cBasicChannel {
+            delay = 1us;
+            datarate = 512Mbps;
+        }
     submodules:
         configurator: FlatNetworkConfigurator6 {
             parameters:
                 moduleTypes = "Router6 StandardHost6";
                 nonIPModuleTypes = "";
         };
-        r1: Router6 {
-        };
-        r2: Router6 {
-        };
-        r3: Router6 {
-        };
-        cli[n]: StandardHost6 {
-        };
-        srv: StandardHost6 {
-        };
+        r1: Router6;
+        r2: Router6;
+        r3: Router6;
+        cli[n]: StandardHost6;
+        srv: StandardHost6;
     connections allowunconnected:
         for i=0..n-1 {
             cli[i].pppg++ <--> fiberline <--> r1.pppg++;
         };
-
         r1.pppg++ <--> fiberline <--> r2.pppg++;
-
         r2.pppg++ <--> fiberline <--> r3.pppg++;
-
         r3.pppg++ <--> fiberline <--> srv.pppg++;
 }
 

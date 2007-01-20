@@ -22,29 +22,22 @@
 import "Router";
 import "StandardHost";
 
-channel ethernet extends cBasicChannel
-{
-    parameters:
-        delay = normal(0.00015,0.00005);
-        datarate = 10*10^6;
-}
-
-channel dialup extends cBasicChannel
-{
-    parameters:
-        delay = normal(0.004,0.0018);
-        datarate = 64*10^3;
-}
-
-channel fiberrouter extends cBasicChannel
-{
-    parameters:
-        delay = normal(0.000001,0.0000001);
-        datarate = 512*10^6;
-}
 
 network MulticastNetwork
 {
+    types:
+        channel ethernet extends cBasicChannel {
+            delay = normal(0.00015,0.00005);
+            datarate = 10Mbps;
+        }
+        channel dialup extends cBasicChannel {
+            delay = normal(0.004,0.0018);
+            datarate = 64kbps;
+        }
+        channel fiberrouter extends cBasicChannel {
+            delay = normal(0.000001,0.0000001);
+            datarate = 512Mbps;
+        }
     submodules:
         host1: StandardHost {
             parameters:
@@ -125,10 +118,8 @@ network MulticastNetwork
     connections:
         // * Domain 1 * (172.0.0.x)
         host1.pppg[0] <--> ethernet <--> router1.pppg[0];
-
         host2.pppg[0] <--> ethernet <--> router1.pppg[1];
         host2.pppg[1] <--> dialup <--> host3.pppg[1];
-
         host3.pppg[0] <--> ethernet <--> router1.pppg[2];
 
         // * Domain 2 * (172.0.1.x)
@@ -136,14 +127,11 @@ network MulticastNetwork
 
         // * Domain 3 * (172.0.2.x)
         host5.pppg[0] <--> dialup <--> router4.pppg[0];
-
         host6.pppg[0] <--> dialup <--> router4.pppg[1];
 
         // * Router Connections * (172.1.0.x)
         router2.pppg[0] <--> fiberrouter <--> router1.pppg[3];
-
         router2.pppg[1] <--> fiberrouter <--> router3.pppg[1];
-
         router2.pppg[2] <--> fiberrouter <--> router4.pppg[2];
 }
 

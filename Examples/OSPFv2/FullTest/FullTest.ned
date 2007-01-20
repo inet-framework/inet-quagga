@@ -12,6 +12,10 @@ network OSPF_TestNetwork
 {
     parameters:
         @display("p=10,10;b=704,560");
+    types:
+        channel C extends cBasicChannel {
+            delay = 0.1us;
+        }
     submodules:
         channelInstaller: ChannelInstaller {
             parameters:
@@ -128,27 +132,27 @@ network OSPF_TestNetwork
                 ethg[1];
         };
     connections:
-        RT11.ethg[0] <--> {  delay = 0.1us; } <--> Area3.ethg[0];
-        RT11.ethg[1] <--> {  delay = 0.1us; } <--> Area2.ethg[0];
-        RT3.ethg[0] <--> {  delay = 0.1us; @display("m=m,41,50,88,40"); } <--> Area1.ethg[1];
-        RT3.ethg[1] <--> {  delay = 0.1us; @display("m=m,77,42,92,96"); } <--> Area1.ethg[2];
-        N13.ethg[1] <--> {  delay = 0.1us; } <--> RT5.ethg[0];
-        N12.ethg[0] <--> {  delay = 0.1us; } <--> RT5.ethg[4];
-        RT5.ethg[5] <--> {  delay = 0.1us; } <--> N14.ethg[1];
-        RT3.ethg[2] <--> {  delay = 0.1us; } <--> RT6.ethg[0];
-        RT10.ethg[0] <--> {  delay = 0.1us; } <--> RT6.ethg[1];
-        RT7.ethg[3] <--> {  delay = 0.1us; } <--> N12.ethg[1];
-        RT7.ethg[2] <--> {  delay = 0.1us; } <--> N15.ethg[0];
-        RT5.ethg[3] <--> {  delay = 0.1us; } <--> RT7.ethg[0];
-        RT5.ethg[2] <--> {  delay = 0.1us; } <--> RT6.ethg[2];
-        RT10.ethg[1] <--> {  delay = 0.1us; @display("m=m,50,50,0,30"); } <--> Area2.ethg[1];
-        RT10.ethg[2] <--> {  delay = 0.1us; @display("m=m,50,50,64,12"); } <--> Area2.ethg[2];
-        RT7.ethg[1] <--> {  delay = 0.1us; } <--> Area2.ethg[3];
-        RT4.ethg[1] <--> {  delay = 0.1us; } <--> RT5.ethg[1];
-        RT4.ethg[0] <--> {  delay = 0.1us; } <--> Area1.ethg[0];
-        N14.ethg[0] <--> {  delay = 0.1us; } <--> H19.ethg[0];
-        H20.ethg[0] <--> {  delay = 0.1us; } <--> N12.ethg[2];
-        H21.ethg[0] <--> {  delay = 0.1us; } <--> N15.ethg[1];
-        H18.ethg[0] <--> {  delay = 0.1us; } <--> N13.ethg[0];
+        RT11.ethg[0] <--> C <--> Area3.ethg[0];
+        RT11.ethg[1] <--> C <--> Area2.ethg[0];
+        RT3.ethg[0] <--> C {@display("m=m,41,50,88,40");} <--> Area1.ethg[1];
+        RT3.ethg[1] <--> C {@display("m=m,77,42,92,96");} <--> Area1.ethg[2];
+        N13.ethg[1] <--> C <--> RT5.ethg[0];
+        N12.ethg[0] <--> C <--> RT5.ethg[4];
+        RT5.ethg[5] <--> C <--> N14.ethg[1];
+        RT3.ethg[2] <--> C <--> RT6.ethg[0];
+        RT10.ethg[0] <--> C <--> RT6.ethg[1];
+        RT7.ethg[3] <--> C <--> N12.ethg[1];
+        RT7.ethg[2] <--> C <--> N15.ethg[0];
+        RT5.ethg[3] <--> C <--> RT7.ethg[0];
+        RT5.ethg[2] <--> C <--> RT6.ethg[2];
+        RT10.ethg[1] <--> C {@display("m=m,50,50,0,30");} <--> Area2.ethg[1];
+        RT10.ethg[2] <--> C {@display("m=m,50,50,64,12");} <--> Area2.ethg[2];
+        RT7.ethg[1] <--> C <--> Area2.ethg[3];
+        RT4.ethg[1] <--> C <--> RT5.ethg[1];
+        RT4.ethg[0] <--> C <--> Area1.ethg[0];
+        N14.ethg[0] <--> C <--> H19.ethg[0];
+        H20.ethg[0] <--> C <--> N12.ethg[2];
+        H21.ethg[0] <--> C <--> N15.ethg[1];
+        H18.ethg[0] <--> C <--> N13.ethg[0];
 }
 

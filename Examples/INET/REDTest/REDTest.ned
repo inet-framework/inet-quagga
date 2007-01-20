@@ -69,15 +69,10 @@ network REDTest
                 @display("p=420,195;i=device/laptop");
         };
     connections allowunconnected:
-        r1.pppg++ <--> {  datarate = 1.5e6; delay = 20e-3; } <--> r2.pppg++;
-
-        s1.pppg++ <--> {  datarate = 10e6; delay = 2e-3; } <--> r1.pppg++;
-
-        s2.pppg++ <--> {  datarate = 10e6; delay = 3e-3; } <--> r1.pppg++;
-
-        s3.pppg++ <--> {  datarate = 10e6; delay = 4e-3; } <--> r2.pppg++;
-
-        s4.pppg++ <--> {  datarate = 10e6; delay = 5e-3; } <--> r2.pppg++;
-
+        r1.pppg++ <--> { datarate = 1.5Mbps; delay = 20ms; } <--> r2.pppg++;
+        s1.pppg++ <--> { datarate = 10Mbps; delay = 2ms; } <--> r1.pppg++;
+        s2.pppg++ <--> { datarate = 10Mbps; delay = 3ms; } <--> r1.pppg++;
+        s3.pppg++ <--> { datarate = 10Mbps; delay = 4ms; } <--> r2.pppg++;
+        s4.pppg++ <--> { datarate = 10Mbps; delay = 5ms; } <--> r2.pppg++;
 }
 

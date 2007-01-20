@@ -10,6 +10,10 @@ module OSPF_Area1
         @display("p=10,42;b=432,504");
     gates:
         inout ethg[];
+    types:
+        channel C extends cBasicChannel {
+            delay = 0.1us;
+        }
     submodules:
         RT1: OSPFRouter {
             parameters:
@@ -90,17 +94,17 @@ module OSPF_Area1
                 ethg[1];
         };
     connections:
-        H1.ethg[0] <--> {  delay = 0.1us; } <--> N1.ethg[0];
-        N1.ethg[1] <--> {  delay = 0.1us; } <--> H2.ethg[0];
-        N2.ethg[0] <--> {  delay = 0.1us; } <--> H3.ethg[0];
-        N2.ethg[1] <--> {  delay = 0.1us; } <--> H4.ethg[0];
-        N1.ethg[2] <--> {  delay = 0.1us; } <--> RT1.ethg[0];
-        RT1.ethg[1] <--> {  delay = 0.1us; } <--> N3.ethg[1];
-        N3.ethg[0] <--> {  delay = 0.1us; } <--> H5.ethg[0];
-        N4.ethg[0] <--> {  delay = 0.1us; } <--> H6.ethg[0];
-        N4.ethg[1] <--> {  delay = 0.1us; } <--> H7.ethg[0];
-        N2.ethg[2] <--> {  delay = 0.1us; } <--> RT2.ethg[0];
-        RT2.ethg[1] <--> {  delay = 0.1us; } <--> N3.ethg[2];
+        H1.ethg[0] <--> C <--> N1.ethg[0];
+        N1.ethg[1] <--> C <--> H2.ethg[0];
+        N2.ethg[0] <--> C <--> H3.ethg[0];
+        N2.ethg[1] <--> C <--> H4.ethg[0];
+        N1.ethg[2] <--> C <--> RT1.ethg[0];
+        RT1.ethg[1] <--> C <--> N3.ethg[1];
+        N3.ethg[0] <--> C <--> H5.ethg[0];
+        N4.ethg[0] <--> C <--> H6.ethg[0];
+        N4.ethg[1] <--> C <--> H7.ethg[0];
+        N2.ethg[2] <--> C <--> RT2.ethg[0];
+        RT2.ethg[1] <--> C <--> N3.ethg[2];
 
         // towards other areas
         N3.ethg[4] <--> { @display("m=m,100,44,100,32"); } <--> ethg[0];

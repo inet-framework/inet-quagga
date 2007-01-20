@@ -19,11 +19,23 @@ import "NAMTrace";
 
 network LDPTEST
 {
+    types:
+        channel C5 extends cBasicChannel {
+            datarate = 600kbps;
+            delay = 15us;
+        }
+        channel C10 extends cBasicChannel {
+            datarate = 600kbps;
+            delay = 15us;
+        }
+        channel C15 extends cBasicChannel {
+            datarate = 600kbps;
+            delay = 15us;
+        }
     submodules:
         nam: NAMTrace {
             parameters:
                 @display("p=152,280");
-
         };
         LSR1: LDP_LSR {
             parameters:
@@ -57,7 +69,6 @@ network LDPTEST
             parameters:
                 peers = "ppp0 ppp1 ppp2";
                 @display("p=250,300");
-
             gates:
                 pppg[4];
         };
@@ -76,41 +87,27 @@ network LDPTEST
         host4: StandardHost { // client
             parameters:
                 @display("p=250,390;i=device/pc2");
-
         };
         scenarioManager: ScenarioManager {
             parameters:
                 @display("p=150,50");
-
         };
         failureManager: FailureManager {
             parameters:
                 @display("p=350,50");
-
         };
     connections allowunconnected:
-        LSR1.pppg[0] <--> {  delay = 15ms; datarate = 600000; } <--> LSR2.pppg[0];
-
-        LSR1.pppg[1] <--> {  delay = 5ms; datarate = 600000; } <--> LSR4.pppg[0];
-
-        LSR1.pppg[2] <--> {  delay = 5ms; datarate = 600000; } <--> LSR5.pppg[0];
-
-        LSR2.pppg[1] <--> {  delay = 5ms; datarate = 600000; } <--> LSR3.pppg[0];
-
-        LSR2.pppg[2] <--> {  delay = 5ms; datarate = 600000; } <--> LSR4.pppg[1];
-
-        LSR2.pppg[3] <--> {  delay = 5ms; datarate = 600000; } <--> LSR5.pppg[1];
-
-        LSR3.pppg[1] <--> {  delay = 10ms; datarate = 600000; } <--> LSR4.pppg[2];
-
-        LSR3.pppg[2] <--> {  delay = 10ms; datarate = 600000; } <--> LSR5.pppg[2];
-
-        host1.pppg++ <--> {  delay = 10ms; datarate = 600000; } <--> LSR1.pppg[3];
-
-        host2.pppg++ <--> {  delay = 10ms; datarate = 600000; } <--> LSR3.pppg[3];
-
-        host3.pppg++ <--> {  delay = 10ms; datarate = 600000; } <--> LSR4.pppg[3];
-
-        host4.pppg++ <--> {  delay = 10ms; datarate = 600000; } <--> LSR5.pppg[3];
+        LSR1.pppg[0] <--> C15 <--> LSR2.pppg[0];
+        LSR1.pppg[1] <--> C5 <--> LSR4.pppg[0];
+        LSR1.pppg[2] <--> C5 <--> LSR5.pppg[0];
+        LSR2.pppg[1] <--> C5 <--> LSR3.pppg[0];
+        LSR2.pppg[2] <--> C5 <--> LSR4.pppg[1];
+        LSR2.pppg[3] <--> C5 <--> LSR5.pppg[1];
+        LSR3.pppg[1] <--> C10 <--> LSR4.pppg[2];
+        LSR3.pppg[2] <--> C10 <--> LSR5.pppg[2];
+        host1.pppg++ <--> C10 <--> LSR1.pppg[3];
+        host2.pppg++ <--> C10 <--> LSR3.pppg[3];
+        host3.pppg++ <--> C10 <--> LSR4.pppg[3];
+        host4.pppg++ <--> C10 <--> LSR5.pppg[3];
 }
 

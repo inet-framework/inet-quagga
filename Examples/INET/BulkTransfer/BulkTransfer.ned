@@ -24,6 +24,11 @@ import "FlatNetworkConfigurator";
 
 network BulkTransfer
 {
+    types:
+        channel C extends cBasicChannel {
+            datarate = 1Mbps;
+            delay = 0.1us;
+        }
     submodules:
         client1: StandardHost {
             parameters:
@@ -54,14 +59,10 @@ network BulkTransfer
                 @display("p=62,119");
         };
     connections:
-        client1.pppg++ <--> {  datarate = 1000000; } <--> router.pppg++;
-
-        client2.pppg++ <--> {  datarate = 1000000; } <--> router.pppg++;
-
-        client3.pppg++ <--> {  datarate = 1000000; } <--> router.pppg++;
-
-        server.pppg++ <--> {  datarate = 1000000; } <--> router.pppg++;
-
-        client1.pppg++ <--> {  datarate = 1000000; } <--> server.pppg++;
+        client1.pppg++ <--> C <--> router.pppg++;
+        client2.pppg++ <--> C <--> router.pppg++;
+        client3.pppg++ <--> C <--> router.pppg++;
+        client1.pppg++ <--> C <--> server.pppg++;
+        server.pppg++ <--> C <--> router.pppg++;
 }
 

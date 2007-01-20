@@ -14,7 +14,7 @@ channel net37ch extends cBasicChannel
 {
     parameters:
         delay = 15ms;
-        datarate = 60000;
+        datarate = 60kbps;
 }
 
 network R37orig
