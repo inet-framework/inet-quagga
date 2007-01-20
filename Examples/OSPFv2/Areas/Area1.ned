@@ -7,57 +7,55 @@ module TwoNetsArea
     parameters:
         @display("p=10,10;b=412,316");
     gates:
-        input in[];
-        output out[];
+        //REMOVE THIS LINE
+        input ethg[];
     submodules:
         R1: OSPFRouter {
             parameters:
                 @display("p=248,124");
             gates:
-                ethIn[3];
-                ethOut[3];
+                ethg[3];
         };
         N1: EtherHub {
             parameters:
                 @display("p=156,72");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         N2: EtherHub {
             parameters:
                 @display("p=160,284");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         R3: OSPFRouter {
             parameters:
                 @display("p=360,180");
             gates:
-                ethIn[3];
-                ethOut[3];
+                ethg[3];
         };
         H1: StandardHost {
             parameters:
                 @display("p=56,72;i=device/laptop");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H2: StandardHost {
             parameters:
                 @display("p=56,288;i=device/laptop");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         R2: OSPFRouter {
             parameters:
                 @display("p=248,232");
             gates:
-                ethIn[3];
-                ethOut[3];
+                //REMOVE THIS LINE
+                ethg[3];
         };
     connections:
         H1.ethg$o[0] --> {  delay = 0.1us; } --> N1.pppg$i[1];
@@ -76,7 +74,7 @@ module TwoNetsArea
         N2.pppg$o[0] --> {  delay = 0.1us; } --> R2.ethg$i[2];
 
         // towards other areas
-        R3.ethg$o[0] --> out[0];
-        in[0] --> R3.ethg$i[0];
+        R3.ethg$o[0] --> ethg$o[0];
+        ethg$i[0] --> R3.ethg$i[0];
 }
 

@@ -52,8 +52,8 @@ network MulticastNetwork
                 routingFile = "mchost1.mrt";
                 @display("p=125,52;i=device/pc2");
             gates:
-                in[1];
-                out[1];
+                //REMOVE THIS LINE
+                pppg[1];
         };
         host2: StandardHost {
             parameters:
@@ -61,8 +61,8 @@ network MulticastNetwork
                 routingFile = "mchost2.mrt";
                 @display("p=60,244;i=device/pc2");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                pppg[2];
         };
         host3: StandardHost {
             parameters:
@@ -70,8 +70,8 @@ network MulticastNetwork
                 routingFile = "mchost3.mrt";
                 @display("p=196,244;i=device/pc2");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                pppg[2];
         };
         host4: StandardHost {
             parameters:
@@ -79,8 +79,8 @@ network MulticastNetwork
                 routingFile = "mchost4.mrt";
                 @display("p=406,305;i=device/pc2");
             gates:
-                in[1];
-                out[1];
+                //REMOVE THIS LINE
+                pppg[1];
         };
         host5: StandardHost {
             parameters:
@@ -88,8 +88,8 @@ network MulticastNetwork
                 routingFile = "mchost5.mrt";
                 @display("p=492,59;i=device/pc2");
             gates:
-                in[1];
-                out[1];
+                //REMOVE THIS LINE
+                pppg[1];
         };
         host6: StandardHost {
             parameters:
@@ -97,40 +97,40 @@ network MulticastNetwork
                 routingFile = "mchost6.mrt";
                 @display("p=492,204;i=device/pc2");
             gates:
-                in[1];
-                out[1];
+                //REMOVE THIS LINE
+                pppg[1];
         };
         router1: Router {
             parameters:
                 routingFile = "mcrouter1.mrt";
                 @display("p=124,135");
             gates:
-                in[4];
-                out[4];
+                //REMOVE THIS LINE
+                pppg[4];
         };
         router2: Router {
             parameters:
                 routingFile = "mcrouter2.mrt";
                 @display("p=292,135");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                pppg[3];
         };
         router3: Router {
             parameters:
                 routingFile = "mcrouter3.mrt";
                 @display("p=292,238");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                pppg[2];
         };
         router4: Router {
             parameters:
                 routingFile = "mcrouter4.mrt";
                 @display("p=408,135");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                pppg[3];
         };
     connections:
         // * Domain 1 * (172.0.0.x)

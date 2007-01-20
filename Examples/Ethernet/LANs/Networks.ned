@@ -185,8 +185,8 @@ network SwitchedLAN
             parameters:
                 @display("p=162,124");
             gates:
-                in[4];
-                out[4];
+                //REMOVE THIS LINE
+                ethg[4];
         };
     connections:
         switch.ethg$o[0] --> {  delay = 0.1us; } --> hostA.ethg$i;
@@ -226,8 +226,8 @@ network HubLAN
             parameters:
                 @display("p=162,124");
             gates:
-                in[4];
-                out[4];
+                //REMOVE THIS LINE
+                ethg[4];
         };
     connections:
         hub.ethg$o[0] --> {  delay = 0.1us; } --> hostA.ethg$i;
@@ -269,8 +269,8 @@ network BusLAN
                 propagationSpeed = 200000000;
                 @display("p=250,100;b=400,6;o=#408060");
             gates:
-                in[4];
-                out[4];
+                //REMOVE THIS LINE
+                ethg[4];
         };
     connections:
         bus.ethg$i[0] <-- hostA.ethg$o;
@@ -313,8 +313,8 @@ network SwitchedDuplexLAN
             parameters:
                 @display("p=162,124");
             gates:
-                in[4];
-                out[4];
+                //REMOVE THIS LINE
+                ethg[4];
         };
     connections:
         switch.ethg$o[0] --> ethernetline --> hostA.ethg$i;

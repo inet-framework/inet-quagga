@@ -7,85 +7,85 @@ module OSPF_Area3
     parameters:
         @display("p=10,10;b=264,528");
     gates:
-        input in[];
-        output out[];
+        //REMOVE THIS LINE
+        input ethg[];
     submodules:
         RT9: OSPFRouter {
             parameters:
                 @display("p=148,200");
             gates:
-                ethIn[2];
-                ethOut[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         RT12: OSPFRouter {
             parameters:
                 @display("p=148,360");
             gates:
-                ethIn[3];
-                ethOut[3];
+                //REMOVE THIS LINE
+                ethg[3];
         };
         N9: EtherHub {
             parameters:
                 @display("p=148,284");
             gates:
-                in[4];
-                out[4];
+                //REMOVE THIS LINE
+                ethg[4];
         };
         N10: EtherHub {
             parameters:
                 @display("p=148,452");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                ethg[3];
         };
         N11: EtherHub {
             parameters:
                 @display("p=144,112");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                ethg[3];
         };
         H12: StandardHost {
             parameters:
                 @display("p=92,52;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H13: StandardHost {
             parameters:
                 @display("p=196,52;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H14: StandardHost {
             parameters:
                 @display("p=60,284;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H15: StandardHost {
             parameters:
                 @display("p=60,360;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H16: StandardHost {
             parameters:
                 @display("p=92,492;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H17: StandardHost {
             parameters:
                 @display("p=196,492;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
     connections:
         H12.ethg$o[0] --> {  delay = 0.1us; } --> N11.pppg$i[0];
@@ -110,7 +110,7 @@ module OSPF_Area3
         H17.ethg$o[0] --> {  delay = 0.1us; } --> N10.pppg$i[2];
 
         // towards other areas
-        N9.pppg$o[3] --> out[0];
-        in[0] --> N9.pppg$i[3];
+        N9.pppg$o[3] --> ethg$o[0];
+        ethg$i[0] --> N9.pppg$i[3];
 }
 

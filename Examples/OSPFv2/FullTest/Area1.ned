@@ -9,99 +9,99 @@ module OSPF_Area1
     parameters:
         @display("p=10,42;b=432,504");
     gates:
-        input in[];
-        output out[];
+        //REMOVE THIS LINE
+        input ethg[];
     submodules:
         RT1: OSPFRouter {
             parameters:
                 @display("p=232,136");
             gates:
-                ethIn[2];
-                ethOut[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         RT2: OSPFRouter {
             parameters:
                 @display("p=236,348");
             gates:
-                ethIn[2];
-                ethOut[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         N1: EtherHub {
             parameters:
                 @display("p=140,136");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                ethg[3];
         };
         N2: EtherHub {
             parameters:
                 @display("p=140,348");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                ethg[3];
         };
         N3: EtherHub {
             parameters:
                 @display("p=360,252");
             gates:
-                in[5];
-                out[5];
+                //REMOVE THIS LINE
+                ethg[5];
         };
         N4: EtherHub {
             parameters:
                 @display("p=360,464");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                ethg[3];
         };
         H1: StandardHost {
             parameters:
                 @display("p=56,96;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H2: StandardHost {
             parameters:
                 @display("p=56,172;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H3: StandardHost {
             parameters:
                 @display("p=56,316;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H4: StandardHost {
             parameters:
                 @display("p=56,388;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H5: StandardHost {
             parameters:
                 @display("p=360,188;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H6: StandardHost {
             parameters:
                 @display("p=316,520;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H7: StandardHost {
             parameters:
                 @display("p=400,520;i=device/pc_s");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
     connections:
         H1.ethg$o[0] --> {  delay = 0.1us; } --> N1.pppg$i[0];
@@ -128,11 +128,11 @@ module OSPF_Area1
         N3.pppg$o[2] --> {  delay = 0.1us; } --> RT2.ethg$i[1];
 
         // towards other areas
-        N3.pppg$o[4] --> { @display("m=m,100,44,100,32"); } --> out[0];
-        in[0] --> { @display("m=m,100,32,100,48"); } --> N3.pppg$i[4];
-        N3.pppg$o[3] --> { @display("m=m,96,96,100,52"); } --> out[1];
-        in[1] --> { @display("m=m,100,52,89,64"); } --> N3.pppg$i[3];
-        N4.pppg$o[2] --> out[2];
-        in[2] --> N4.pppg$i[2];
+        N3.pppg$o[4] --> { @display("m=m,100,44,100,32"); } --> ethg$o[0];
+        ethg$i[0] --> { @display("m=m,100,32,100,48"); } --> N3.pppg$i[4];
+        N3.pppg$o[3] --> { @display("m=m,96,96,100,52"); } --> ethg$o[1];
+        ethg$i[1] --> { @display("m=m,100,52,89,64"); } --> N3.pppg$i[3];
+        N4.pppg$o[2] --> ethg$o[2];
+        ethg$i[2] --> N4.pppg$i[2];
 }
 

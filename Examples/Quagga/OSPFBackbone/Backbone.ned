@@ -18,106 +18,106 @@ network QuaggaOSPFBackbone
             parameters:
                 @display("p=372,340");
             gates:
-                ethIn[3];
-                ethOut[3];
+                //REMOVE THIS LINE
+                ethg[3];
         };
         N1: EtherHub {
             parameters:
                 @display("p=368,268");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         N2: EtherHub {
             parameters:
                 @display("p=452,384");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                ethg[3];
         };
         R2: QuaggaRouter {
             parameters:
                 @display("p=368,188");
             gates:
-                ethIn[2];
-                ethOut[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         R4: QuaggaRouter {
             parameters:
                 @display("p=216,432");
             gates:
-                ethIn[2];
-                ethOut[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         R3: QuaggaRouter {
             parameters:
                 @display("p=532,428");
             gates:
-                ethIn[2];
-                ethOut[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         N4: EtherHub {
             parameters:
                 @display("p=368,100");
             gates:
-                in[4];
-                out[4];
+                //REMOVE THIS LINE
+                ethg[4];
         };
         N5: EtherHub {
             parameters:
                 @display("p=612,476");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                ethg[3];
         };
         R5: QuaggaRouter {
             parameters:
                 @display("p=488,284");
             gates:
-                ethIn[2];
-                ethOut[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         R7: QuaggaRouter {
             parameters:
                 @display("p=256,284");
             gates:
-                ethIn[2];
-                ethOut[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         R6: QuaggaRouter {
             parameters:
                 @display("p=372,476");
             gates:
-                ethIn[2];
-                ethOut[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         N6: EtherHub {
             parameters:
                 @display("p=136,476");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                ethg[3];
         };
         N3: EtherHub {
             parameters:
                 @display("p=292,384");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         H1: StandardHost {
             parameters:
                 @display("p=372,420;i=device/laptop");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         H2: StandardHost {
             parameters:
                 @display("p=368,40;i=device/laptop");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
     connections:
         R1.ethg$o[0] --> {  delay = 0.1us; } --> N1.pppg$i[1];

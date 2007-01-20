@@ -35,56 +35,56 @@ network RSVPTE4
                 peers = "ppp0 ppp1";
                 @display("p=160,167");
             gates:
-                in[5];
-                out[5];
+                //REMOVE THIS LINE
+                pppg[5];
         };
         LSR2: RSVP_LSR {
             parameters:
                 peers = "ppp0 ppp1 ppp2";
                 @display("p=254,255");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                pppg[3];
         };
         LSR3: RSVP_LSR {
             parameters:
                 peers = "ppp0 ppp1 ppp2";
                 @display("p=253,78");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                pppg[3];
         };
         LSR4: RSVP_LSR {
             parameters:
                 peers = "ppp0 ppp1 ppp2";
                 @display("p=358,167");
             gates:
-                in[3];
-                out[3];
+                //REMOVE THIS LINE
+                pppg[3];
         };
         LSR5: RSVP_LSR {
             parameters:
                 peers = "ppp0 ppp3 ppp4";
                 @display("p=460,167");
             gates:
-                in[5];
-                out[5];
+                //REMOVE THIS LINE
+                pppg[5];
         };
         LSR6: RSVP_LSR {
             parameters:
                 peers = "ppp0 ppp1";
                 @display("p=400,300");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                pppg[2];
         };
         LSR7: RSVP_LSR {
             parameters:
                 peers = "ppp0 ppp1";
                 @display("p=400,50");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                pppg[2];
         };
         host1: StandardHost { // client
             parameters:

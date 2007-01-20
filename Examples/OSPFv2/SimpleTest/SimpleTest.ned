@@ -18,43 +18,43 @@ network SimpleTest
             parameters:
                 @display("p=56,92;i=device/laptop");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
         N1: EtherHub {
             parameters:
                 @display("p=184,92");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         R1: OSPFRouter {
             parameters:
                 @display("p=296,92");
             gates:
-                ethIn[2];
-                ethOut[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         R2: OSPFRouter {
             parameters:
                 @display("p=416,92");
             gates:
-                ethIn[2];
-                ethOut[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         N2: EtherHub {
             parameters:
                 @display("p=532,92");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                ethg[2];
         };
         H2: StandardHost {
             parameters:
                 @display("p=660,92;i=device/laptop");
             gates:
-                ethIn[1];
-                ethOut[1];
+                //REMOVE THIS LINE
+                ethg[1];
         };
     connections:
         H1.ethg$o[0] --> {  delay = 0.1us; } --> N1.pppg$i[0];

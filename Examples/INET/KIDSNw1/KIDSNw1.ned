@@ -49,8 +49,8 @@ network KIDSNw1
                 @display("p=101,307,row;i=device/pc2");
 
             gates:
-                in[1];
-                out[1];
+                //REMOVE THIS LINE
+                pppg[1];
         };
         // First Hop Router
         fhrouter[2]: Router {
@@ -60,8 +60,8 @@ network KIDSNw1
                 @display("p=119,222,row,130");
 
             gates:
-                in[index==0 ? 3 : 2];
-                out[index==0 ? 3 : 2];
+                //REMOVE THIS LINE
+                pppg[index==0 ? 3 : 2];
         };
         // InteriorRouter
         irouter: Router {
@@ -69,8 +69,8 @@ network KIDSNw1
                 routingFile = "irouter2.irt";
                 @display("p=115,144");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                pppg[2];
         };
         // Border Gatgeway Router
         bgrouter[2]: Router {
@@ -80,8 +80,8 @@ network KIDSNw1
                   index==1 ? "bgrouter4.irt" : "PROBLEM";
                 @display("p=135,64,row");
             gates:
-                in[2];
-                out[2];
+                //REMOVE THIS LINE
+                pppg[2];
         };
     connections allowunconnected:
         // * host connections *

@@ -30,32 +30,32 @@ network LDPTEST
                 peers = "ppp0 ppp1 ppp2";
                 @display("p=150,200");
             gates:
-                in[4];
-                out[4];
+                //REMOVE THIS LINE
+                pppg[4];
         };
         LSR2: LDP_LSR {
             parameters:
                 peers = "ppp0 ppp1 ppp2 ppp3";
                 @display("p=250,200");
             gates:
-                in[4];
-                out[4];
+                //REMOVE THIS LINE
+                pppg[4];
         };
         LSR3: LDP_LSR {
             parameters:
                 peers = "ppp0 ppp1 ppp2";
                 @display("p=350,200");
             gates:
-                in[4];
-                out[4];
+                //REMOVE THIS LINE
+                pppg[4];
         };
         LSR4: LDP_LSR {
             parameters:
                 peers = "ppp0 ppp1 ppp2";
                 @display("p=250,100");
             gates:
-                in[4];
-                out[4];
+                //REMOVE THIS LINE
+                pppg[4];
         };
         LSR5: LDP_LSR {
             parameters:
@@ -63,8 +63,8 @@ network LDPTEST
                 @display("p=250,300");
 
             gates:
-                in[4];
-                out[4];
+                //REMOVE THIS LINE
+                pppg[4];
         };
         host1: StandardHost { // client
             parameters:
