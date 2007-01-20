@@ -2,7 +2,6 @@
 import "TcpTestClient.ned";
 import "TCPTester.ned";
 import "TCP.ned";
-import "TCPDump.ned";
 
 
 network TcpTestNet1

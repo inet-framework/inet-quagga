@@ -155,7 +155,7 @@ void TCPDump::handleMessage(cMessage *msg)
     // dump
     if (!ev.disabled())
     {
-        bool l2r = msg->arrivedOn("in1");
+        bool l2r = msg->arrivedOn("a$i");
         if (dynamic_cast<TCPSegment *>(msg))
         {
             tcpdump.dump(l2r, "", (TCPSegment *)msg, std::string(l2r?"A":"B"),std::string(l2r?"B":"A"));
@@ -185,7 +185,7 @@ void TCPDump::handleMessage(cMessage *msg)
     }
 
     // forward
-    send(msg, msg->arrivedOn("in1") ? "out2" : "out1");
+    send(msg, msg->arrivedOn("a$i") ? "b$o" : "a$o");
 }
 
 void TCPDump::finish()

@@ -32,7 +32,7 @@ network MulticastNetwork
         }
         channel dialup extends cBasicChannel {
             delay = normal(0.004,0.0018);
-            datarate = 64kbps;
+            datarate = 64Kbps;
         }
         channel fiberrouter extends cBasicChannel {
             delay = normal(0.000001,0.0000001);

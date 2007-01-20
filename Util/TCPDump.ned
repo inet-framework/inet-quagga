@@ -25,8 +25,6 @@ simple TCPDump
     parameters:
         @display("i=device/clock");
     gates:
-        input in1;
-        input in2;
-        output out1;
-        output out2;
+        inout a;
+        inout b;
 }

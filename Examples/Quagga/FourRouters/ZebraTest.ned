@@ -37,7 +37,7 @@ network ZebraTest
         }
         channel ethernetline extends cBasicChannel {
             delay = 10ms;
-            datarate = 100kbps;
+            datarate = 100Kbps;
         }
     submodules:
         scenarioManager: ScenarioManager {
