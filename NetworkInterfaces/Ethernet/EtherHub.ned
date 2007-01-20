@@ -20,8 +20,8 @@
 //
 // A generic wiring hub model.
 //
-// in[i], out[i] gate pairs represent ports. Messages arriving on a port
-// are broadcast to every other port.
+// ethg[i] gates represent ports. Messages arriving on a port are broadcast 
+// to every other port.
 //
 // The connections should have data rate set to zero. Cable lengths
 // should be reflected in the delays of the connections.
@@ -35,10 +35,8 @@ simple EtherHub
 {
     parameters:
         bool writeScalars = default(true);   // enable/disable recording statistics in omnetpp.sca
-
         @display("i=device/hub");
     gates:
-        input in[];    // to stations; each in[k], out[k] pair represents a port
-        output out[];  // to stations; each in[k], out[k] pair represents a port
+        inout ethg[];  // to stations; each one represents a port
 }
 

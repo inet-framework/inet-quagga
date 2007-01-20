@@ -31,8 +31,7 @@ module EtherHost2
     parameters:
         @display("b=271,262i=device/pc2");
     gates:
-        input in;
-        output out;
+        inout ethg;
 
     submodules:
         cli: EtherAppCli {
@@ -62,8 +61,8 @@ module EtherHost2
         llc.lowerLayerIn <-- mac.upperLayerOut;
         llc.lowerLayerOut --> mac.upperLayerIn;
 
-        mac.physIn <-- in;
-        mac.physOut --> out;
+        mac.physIn <-- ethg$i;
+        mac.physOut --> ethg$o;
 
         cli.out --> llc.upperLayerIn[0];
         cli.in <-- llc.upperLayerOut[0];

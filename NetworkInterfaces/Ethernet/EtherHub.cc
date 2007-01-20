@@ -56,10 +56,7 @@ void EtherHub::initialize()
     numMessages = 0;
     WATCH(numMessages);
 
-    ports = gate("in",0)->size();
-    if (gate("out",0)->size()!=ports)
-        error("the sizes of the in[] and out[] gate vectors must be the same");
-
+    ports = gateSize("ethg");
 
     // autoconfig: tell everyone that full duplex is not possible over shared media
     EV << "Autoconfig: advertising that we only support half-duplex operation\n";
@@ -67,7 +64,7 @@ void EtherHub::initialize()
     {
         EtherAutoconfig *autoconf = new EtherAutoconfig("autoconf-halfduplex");
         autoconf->setHalfDuplex(true);
-        send(autoconf,"out",i);
+        send(autoconf,"ethg$o",i);
     }
 }
 
@@ -90,7 +87,7 @@ void EtherHub::handleMessage(cMessage *msg)
         {
             bool isLast = (arrivalPort==ports-1) ? (i==ports-2) : (i==ports-1);
             cMessage *msg2 = isLast ? msg : (cMessage*) msg->dup();
-            send(msg2,"out",i);
+            send(msg2,"ethg$o",i);
         }
     }
 }

@@ -86,32 +86,32 @@ network ARPTest
         server.ethg$o++ --> router8.ethg$i++;
         router8.ethg$o++ --> server.ethg$i++;
 
-        bus2.pppg$o++ --> router5.ethg$i++;
-        router5.ethg$o++ --> bus2.pppg$i++;
+        bus2.ethg$o++ --> router5.ethg$i++;
+        router5.ethg$o++ --> bus2.ethg$i++;
 
-        bus2.pppg$o++ --> router6.ethg$i++;
-        router6.ethg$o++ --> bus2.pppg$i++;
+        bus2.ethg$o++ --> router6.ethg$i++;
+        router6.ethg$o++ --> bus2.ethg$i++;
 
-        bus2.pppg$o++ --> router7.ethg$i++;
-        router7.ethg$o++ --> bus2.pppg$i++;
+        bus2.ethg$o++ --> router7.ethg$i++;
+        router7.ethg$o++ --> bus2.ethg$i++;
 
         router8.ethg$o++ --> router7.ethg$i++;
         router7.ethg$o++ --> router8.ethg$i++;
 
-        bus1.pppg$o++ --> router1.ethg$i++;
-        router1.ethg$o++ --> bus1.pppg$i++;
+        bus1.ethg$o++ --> router1.ethg$i++;
+        router1.ethg$o++ --> bus1.ethg$i++;
 
-        bus1.pppg$o++ --> router5.ethg$i++;
-        router5.ethg$o++ --> bus1.pppg$i++;
+        bus1.ethg$o++ --> router5.ethg$i++;
+        router5.ethg$o++ --> bus1.ethg$i++;
 
-        bus1.pppg$o++ --> router2.ethg$i++;
-        router2.ethg$o++ --> bus1.pppg$i++;
+        bus1.ethg$o++ --> router2.ethg$i++;
+        router2.ethg$o++ --> bus1.ethg$i++;
 
-        bus1.pppg$o++ --> router3.ethg$i++;
-        router3.ethg$o++ --> bus1.pppg$i++;
+        bus1.ethg$o++ --> router3.ethg$i++;
+        router3.ethg$o++ --> bus1.ethg$i++;
 
-        bus1.pppg$o++ --> router4.ethg$i++;
-        router4.ethg$o++ --> bus1.pppg$i++;
+        bus1.ethg$o++ --> router4.ethg$i++;
+        router4.ethg$o++ --> bus1.ethg$i++;
 
         client.ethg$o++ --> router1.ethg$i++;
         router1.ethg$o++ --> client.ethg$i++;

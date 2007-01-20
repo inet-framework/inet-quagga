@@ -64,22 +64,23 @@ network ARPTest
                 @display("p=495,160");
         };
     connections:
-        client.ethg$o++ --> switch.pppg$i++;
-        switch.pppg$o++ --> client.ethg$i++;
+        client.ethg$o++ --> switch.ethg$i++;
+        switch.ethg$o++ --> client.ethg$i++;
 
-        switch.pppg$o++ --> host1.ethg$i++;
-        host1.ethg$o++ --> switch.pppg$i++;
+        switch.ethg$o++ --> host1.ethg$i++;
+        host1.ethg$o++ --> switch.ethg$i++;
 
-        switch.pppg$o++ --> host2.ethg$i++;
-        host2.ethg$o++ --> switch.pppg$i++;
+        switch.ethg$o++ --> host2.ethg$i++;
+        host2.ethg$o++ --> switch.ethg$i++;
 
-        router.ethg$o++ --> switch.pppg$i++;
-        switch.pppg$o++ --> router.ethg$i++;
+        router.ethg$o++ --> switch.ethg$i++;
+        switch.ethg$o++ --> router.ethg$i++;
 
         router.pppg$o++ --> fiberline --> net.pppg$i++;
         net.pppg$o++ --> fiberline --> router.pppg$i++;
 
         server.pppg$o++ --> fiberline --> net.pppg$i++;
         net.pppg$o++ --> fiberline --> server.pppg$i++;
+
 }
 

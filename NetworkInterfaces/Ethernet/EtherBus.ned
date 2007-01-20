@@ -20,7 +20,7 @@
 //
 // A generic bus model.
 //
-// in[i], out[i] gate pairs represent taps. Messages arriving on a tap
+// The ethg[i] gates represent taps. Messages arriving on a tap
 // travel on the bus on both directions, and copies of it are sent out
 // on every other tap after delays proportional to their distances.
 //
@@ -43,7 +43,6 @@ simple EtherBus
                              // (typically 200,000 m/s)
         bool writeScalars = default(true);  // enable/disable recording statistics in omnetpp.sca
     gates:
-        input in[];    // to stations; each in[k], out[k] pair represents a tap
-        output out[];  // to stations; each in[k], out[k] pair represents a tap
+        inout ethg[];    // to stations; each one represents a tap
 }
 

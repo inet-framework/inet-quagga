@@ -92,9 +92,7 @@ void EtherBus::initialize()
     propagationSpeed = par("propagationSpeed").doubleValue();
 
     // initialize the positions where the hosts connects to the bus
-    taps = gate("in",0)->size();
-    if (gate("out",0)->size()!=taps)
-        error("the sizes of the in[] and out[] gate vectors must be the same");
+    taps = gateSize("ethg");
 
     // read positions and check if positions are defined in order (we're lazy to sort...)
     std::vector<double> pos;
@@ -160,7 +158,7 @@ void EtherBus::initialize()
         EtherAutoconfig *autoconf = new EtherAutoconfig("autoconf-10Mb-halfduplex");
         autoconf->setHalfDuplex(true);
         autoconf->setTxrate(10000000); // 10Mb
-        send(autoconf,"out",i);
+        send(autoconf,"ethg$o",i);
     }
 }
 
@@ -209,7 +207,7 @@ void EtherBus::handleMessage (cMessage *msg)
         // send out on gate
         bool isLast = (direction==UPSTREAM) ? (tapPoint==0) : (tapPoint==taps-1);
         cMessage *msg2 = isLast ? msg->decapsulate() : (cMessage *)msg->encapsulatedMsg()->dup();
-        send(msg2, "out", tapPoint);
+        send(msg2, "ethg$o", tapPoint);
 
         // if not end of the bus, schedule for next tap
         if (isLast)

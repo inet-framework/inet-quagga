@@ -37,16 +37,16 @@ module EtherSwitch
                                // values are MACRelayUnitNP and MACRelayUnitPP
         @display("i=device/switch");
     gates:
-        inout eth[];
+        inout ethg[];
     submodules:
         relayUnit: <relayUnitType> like MACRelayUnit {
             parameters:
                 @display("p=200,50");
             gates:
-                lowerLayerIn[sizeof(eth)];
-                lowerLayerOut[sizeof(eth)];
+                lowerLayerIn[sizeof(ethg)];
+                lowerLayerOut[sizeof(ethg)];
         };
-        mac[sizeof(eth)]: EtherMAC {
+        mac[sizeof(ethg)]: EtherMAC {
             parameters:
                 promiscuous = true;
                 txQueueLimit = 1000; // increase if needed
@@ -54,11 +54,11 @@ module EtherSwitch
                 @display("p=70,150,row;q=queue");
         };
     connections:
-        for i=0..sizeof(eth)-1 {
+        for i=0..sizeof(ethg)-1 {
             mac[i].upperLayerIn <-- relayUnit.lowerLayerOut[i];
             mac[i].upperLayerOut --> relayUnit.lowerLayerIn[i];
-            mac[i].physIn <-- eth$i[i];
-            mac[i].physOut --> eth$o[i];
+            mac[i].physIn <-- ethg$i[i];
+            mac[i].physOut --> ethg$o[i];
         };
 }
 
