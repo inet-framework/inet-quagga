@@ -83,37 +83,26 @@ network ARPTest
                 @display("p=46,111");
         };
     connections:
-        server.ethg$o++ --> router8.ethg$i++;
-        router8.ethg$o++ --> server.ethg$i++;
+        server.ethg++ <--> router8.ethg++;
 
-        bus2.ethg$o++ --> router5.ethg$i++;
-        router5.ethg$o++ --> bus2.ethg$i++;
+        bus2.ethg++ <--> router5.ethg++;
 
-        bus2.ethg$o++ --> router6.ethg$i++;
-        router6.ethg$o++ --> bus2.ethg$i++;
+        bus2.ethg++ <--> router6.ethg++;
 
-        bus2.ethg$o++ --> router7.ethg$i++;
-        router7.ethg$o++ --> bus2.ethg$i++;
+        bus2.ethg++ <--> router7.ethg++;
 
-        router8.ethg$o++ --> router7.ethg$i++;
-        router7.ethg$o++ --> router8.ethg$i++;
+        router8.ethg++ <--> router7.ethg++;
 
-        bus1.ethg$o++ --> router1.ethg$i++;
-        router1.ethg$o++ --> bus1.ethg$i++;
+        bus1.ethg++ <--> router1.ethg++;
 
-        bus1.ethg$o++ --> router5.ethg$i++;
-        router5.ethg$o++ --> bus1.ethg$i++;
+        bus1.ethg++ <--> router5.ethg++;
 
-        bus1.ethg$o++ --> router2.ethg$i++;
-        router2.ethg$o++ --> bus1.ethg$i++;
+        bus1.ethg++ <--> router2.ethg++;
 
-        bus1.ethg$o++ --> router3.ethg$i++;
-        router3.ethg$o++ --> bus1.ethg$i++;
+        bus1.ethg++ <--> router3.ethg++;
 
-        bus1.ethg$o++ --> router4.ethg$i++;
-        router4.ethg$o++ --> bus1.ethg$i++;
+        bus1.ethg++ <--> router4.ethg++;
 
-        client.ethg$o++ --> router1.ethg$i++;
-        router1.ethg$o++ --> client.ethg$i++;
+        client.ethg++ <--> router1.ethg++;
 }
 

@@ -81,25 +81,18 @@ network KIDSNw1
         };
     connections allowunconnected:
         // * host connections *
-        host[0].pppg$o[0] --> ethernet --> fhrouter[0].pppg$i[0];
-        host[0].pppg$i[0] <-- ethernet <-- fhrouter[0].pppg$o[0];
-        host[1].pppg$o[0] --> ethernet --> fhrouter[0].pppg$i[1];
-        host[1].pppg$i[0] <-- ethernet <-- fhrouter[0].pppg$o[1];
-        host[2].pppg$o[0] --> ethernet --> fhrouter[1].pppg$i[0];
-        host[2].pppg$i[0] <-- ethernet <-- fhrouter[1].pppg$o[0];
+        host[0].pppg[0] <--> ethernet <--> fhrouter[0].pppg[0];
+        host[1].pppg[0] <--> ethernet <--> fhrouter[0].pppg[1];
+        host[2].pppg[0] <--> ethernet <--> fhrouter[1].pppg[0];
 
         // * Router Connections *
-        fhrouter[0].pppg$o[2] --> fiberrouterline --> irouter.pppg$i[0];
-        fhrouter[0].pppg$i[2] <-- fiberrouterline <-- irouter.pppg$o[0];
+        fhrouter[0].pppg[2] <--> fiberrouterline <--> irouter.pppg[0];
 
-        irouter.pppg$o[1] --> fiberrouterline --> bgrouter[0].pppg$i[0];
-        irouter.pppg$i[1] <-- fiberrouterline <-- bgrouter[0].pppg$o[0];
+        irouter.pppg[1] <--> fiberrouterline <--> bgrouter[0].pppg[0];
 
-        bgrouter[0].pppg$o[1] --> fiberrouterline --> bgrouter[1].pppg$i[1];
-        bgrouter[0].pppg$i[1] <-- fiberrouterline <-- bgrouter[1].pppg$o[1];
+        bgrouter[0].pppg[1] <--> fiberrouterline <--> bgrouter[1].pppg[1];
 
-        bgrouter[1].pppg$o[0] --> fiberrouterline --> fhrouter[1].pppg$i[1];
-        bgrouter[1].pppg$i[0] <-- fiberrouterline <-- fhrouter[1].pppg$o[1];
+        bgrouter[1].pppg[0] <--> fiberrouterline <--> fhrouter[1].pppg[1];
 
 }
 

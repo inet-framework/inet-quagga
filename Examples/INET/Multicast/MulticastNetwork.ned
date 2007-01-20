@@ -124,36 +124,26 @@ network MulticastNetwork
         };
     connections:
         // * Domain 1 * (172.0.0.x)
-        host1.pppg$o[0] --> ethernet --> router1.pppg$i[0];
-        host1.pppg$i[0] <-- ethernet <-- router1.pppg$o[0];
+        host1.pppg[0] <--> ethernet <--> router1.pppg[0];
 
-        host2.pppg$o[0] --> ethernet --> router1.pppg$i[1];
-        host2.pppg$i[0] <-- ethernet <-- router1.pppg$o[1];
-        host2.pppg$o[1] --> dialup --> host3.pppg$i[1];
-        host2.pppg$i[1] <-- dialup <-- host3.pppg$o[1];
+        host2.pppg[0] <--> ethernet <--> router1.pppg[1];
+        host2.pppg[1] <--> dialup <--> host3.pppg[1];
 
-        host3.pppg$o[0] --> ethernet --> router1.pppg$i[2];
-        host3.pppg$i[0] <-- ethernet <-- router1.pppg$o[2];
+        host3.pppg[0] <--> ethernet <--> router1.pppg[2];
 
         // * Domain 2 * (172.0.1.x)
-        host4.pppg$o[0] --> ethernet --> router3.pppg$i[0];
-        host4.pppg$i[0] <-- ethernet <-- router3.pppg$o[0];
+        host4.pppg[0] <--> ethernet <--> router3.pppg[0];
 
         // * Domain 3 * (172.0.2.x)
-        host5.pppg$o[0] --> dialup --> router4.pppg$i[0];
-        host5.pppg$i[0] <-- dialup <-- router4.pppg$o[0];
+        host5.pppg[0] <--> dialup <--> router4.pppg[0];
 
-        host6.pppg$o[0] --> dialup --> router4.pppg$i[1];
-        host6.pppg$i[0] <-- dialup <-- router4.pppg$o[1];
+        host6.pppg[0] <--> dialup <--> router4.pppg[1];
 
         // * Router Connections * (172.1.0.x)
-        router2.pppg$o[0] --> fiberrouter --> router1.pppg$i[3];
-        router2.pppg$i[0] <-- fiberrouter <-- router1.pppg$o[3];
+        router2.pppg[0] <--> fiberrouter <--> router1.pppg[3];
 
-        router2.pppg$o[1] --> fiberrouter --> router3.pppg$i[1];
-        router2.pppg$i[1] <-- fiberrouter <-- router3.pppg$o[1];
+        router2.pppg[1] <--> fiberrouter <--> router3.pppg[1];
 
-        router2.pppg$o[2] --> fiberrouter --> router4.pppg$i[2];
-        router2.pppg$i[2] <-- fiberrouter <-- router4.pppg$o[2];
+        router2.pppg[2] <--> fiberrouter <--> router4.pppg[2];
 }
 

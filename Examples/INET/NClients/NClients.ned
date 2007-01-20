@@ -83,18 +83,14 @@ network NClients
         };
     connections allowunconnected:
         for i=0..n-1 {
-            cli[i].pppg$o++ --> ethernetline --> r1.pppg$i++;
-            cli[i].pppg$i++ <-- ethernetline <-- r1.pppg$o++;
+            cli[i].pppg++ <--> ethernetline <--> r1.pppg++;
         };
 
-        r1.pppg$o++ --> ethernetline --> r2.pppg$i++;
-        r1.pppg$i++ <-- ethernetline <-- r2.pppg$o++;
+        r1.pppg++ <--> ethernetline <--> r2.pppg++;
 
-        r2.pppg$o++ --> ethernetline --> r3.pppg$i++;
-        r2.pppg$i++ <-- ethernetline <-- r3.pppg$o++;
+        r2.pppg++ <--> ethernetline <--> r3.pppg++;
 
-        r3.pppg$o++ --> ethernetline --> srv.pppg$i++;
-        r3.pppg$i++ <-- ethernetline <-- srv.pppg$o++;
+        r3.pppg++ <--> ethernetline <--> srv.pppg++;
 
 }
 

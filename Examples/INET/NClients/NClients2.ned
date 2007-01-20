@@ -59,15 +59,12 @@ network NClients2
         };
     connections allowunconnected:
         for i=0..numrouters-1, for j=0..hostsperrouter-1 {
-            cli[i*hostsperrouter+j].pppg$o++ --> ethernetline2 --> r[i].pppg$i++;
-            cli[i*hostsperrouter+j].pppg$i++ <-- ethernetline2 <-- r[i].pppg$o++;
+            cli[i*hostsperrouter+j].pppg++ <--> ethernetline2 <--> r[i].pppg++;
         };
 
         for i=0..numrouters-2 {
-            r[i].pppg$o++ --> gigabitline2 --> r[i+1].pppg$i++;
-            r[i+1].pppg$o++ --> gigabitline2 --> r[i].pppg$i++;
+            r[i].pppg++ <--> gigabitline2 <--> r[i+1].pppg++;
         };
-        r[numrouters-1].pppg$o++ --> ethernetline2 --> srv.pppg$i++;
-        r[numrouters-1].pppg$i++ <-- ethernetline2 <-- srv.pppg$o++;
+        r[numrouters-1].pppg++ <--> ethernetline2 <--> srv.pppg++;
 }
 

@@ -102,39 +102,26 @@ network MixedLAN
                 ethg[4];
         };
     connections:
-        bus.ethg$i[0] <-- busHostA.ethg$o;
-        bus.ethg$o[0] --> busHostA.ethg$i;
+        bus.ethg[0] <--> busHostA.ethg;
 
-        bus.ethg$i[1] <-- busHostB.ethg$o;
-        bus.ethg$o[1] --> busHostB.ethg$i;
+        bus.ethg[1] <--> busHostB.ethg;
 
-        bus.ethg$i[2] <-- switch.ethg$o[4];
-        bus.ethg$o[2] --> switch.ethg$i[4];
+        bus.ethg[2] <--> switch.ethg[4];
 
-        bus.ethg$i[3] <-- busHostC.ethg$o;
-        bus.ethg$o[3] --> busHostC.ethg$i;
+        bus.ethg[3] <--> busHostC.ethg;
 
-        bus.ethg$i[4] <-- hub.ethg$o[3];
-        bus.ethg$o[4] --> hub.ethg$i[3];
+        bus.ethg[4] <--> hub.ethg[3];
 
-        bus.ethg$i[5] <-- busHostD.ethg$o;
-        bus.ethg$o[5] --> busHostD.ethg$i;
+        bus.ethg[5] <--> busHostD.ethg;
 
-        switch.ethg$o[0] --> {  delay = 0.1us; } --> switchHostA.ethg$i;
-        switch.ethg$i[0] <-- {  delay = 0.1us; } <-- switchHostA.ethg$o;
-        switch.ethg$o[1] --> {  delay = 0.1us; } --> switchHostB.ethg$i;
-        switch.ethg$i[1] <-- {  delay = 0.1us; } <-- switchHostB.ethg$o;
-        switch.ethg$o[2] --> {  delay = 0.1us; } --> switchHostC.ethg$i;
-        switch.ethg$i[2] <-- {  delay = 0.1us; } <-- switchHostC.ethg$o;
-        switch.ethg$o[3] --> {  delay = 0.1us; } --> switchHostD.ethg$i;
-        switch.ethg$i[3] <-- {  delay = 0.1us; } <-- switchHostD.ethg$o;
+        switch.ethg[0] <--> {  delay = 0.1us; } <--> switchHostA.ethg;
+        switch.ethg[1] <--> {  delay = 0.1us; } <--> switchHostB.ethg;
+        switch.ethg[2] <--> {  delay = 0.1us; } <--> switchHostC.ethg;
+        switch.ethg[3] <--> {  delay = 0.1us; } <--> switchHostD.ethg;
 
-        hub.ethg$o[0] --> {  delay = 0.1us; } --> hubHostA.ethg$i;
-        hub.ethg$i[0] <-- {  delay = 0.1us; } <-- hubHostA.ethg$o;
-        hub.ethg$o[1] --> {  delay = 0.3us; } --> hubHostB.ethg$i;
-        hub.ethg$i[1] <-- {  delay = 0.3us; } <-- hubHostB.ethg$o;
-        hub.ethg$o[2] --> {  delay = 0.2us; } --> hubHostC.ethg$i;
-        hub.ethg$i[2] <-- {  delay = 0.2us; } <-- hubHostC.ethg$o;
+        hub.ethg[0] <--> {  delay = 0.1us; } <--> hubHostA.ethg;
+        hub.ethg[1] <--> {  delay = 0.3us; } <--> hubHostB.ethg;
+        hub.ethg[2] <--> {  delay = 0.2us; } <--> hubHostC.ethg;
 }
 
 
@@ -154,8 +141,7 @@ network TwoHosts
                 @display("p=200,140");
         };
     connections:
-        hostA.ethg$o --> {  delay = 0.5us; } --> hostB.ethg$i;
-        hostB.ethg$o --> {  delay = 0.5us; } --> hostA.ethg$i;
+        hostA.ethg <--> {  delay = 0.5us; } <--> hostB.ethg;
 }
 
 
@@ -188,14 +174,10 @@ network SwitchedLAN
                 ethg[4];
         };
     connections:
-        switch.ethg$o[0] --> {  delay = 0.1us; } --> hostA.ethg$i;
-        switch.ethg$i[0] <-- {  delay = 0.1us; } <-- hostA.ethg$o;
-        switch.ethg$o[1] --> {  delay = 0.1us; } --> hostB.ethg$i;
-        switch.ethg$i[1] <-- {  delay = 0.1us; } <-- hostB.ethg$o;
-        switch.ethg$o[2] --> {  delay = 0.1us; } --> hostC.ethg$i;
-        switch.ethg$i[2] <-- {  delay = 0.1us; } <-- hostC.ethg$o;
-        switch.ethg$o[3] --> {  delay = 0.1us; } --> hostD.ethg$i;
-        switch.ethg$i[3] <-- {  delay = 0.1us; } <-- hostD.ethg$o;
+        switch.ethg[0] <--> {  delay = 0.1us; } <--> hostA.ethg;
+        switch.ethg[1] <--> {  delay = 0.1us; } <--> hostB.ethg;
+        switch.ethg[2] <--> {  delay = 0.1us; } <--> hostC.ethg;
+        switch.ethg[3] <--> {  delay = 0.1us; } <--> hostD.ethg;
 }
 
 
@@ -228,14 +210,10 @@ network HubLAN
                 ethg[4];
         };
     connections:
-        hub.ethg$o[0] --> {  delay = 0.1us; } --> hostA.ethg$i;
-        hub.ethg$i[0] <-- {  delay = 0.1us; } <-- hostA.ethg$o;
-        hub.ethg$o[1] --> {  delay = 0.3us; } --> hostB.ethg$i;
-        hub.ethg$i[1] <-- {  delay = 0.3us; } <-- hostB.ethg$o;
-        hub.ethg$o[2] --> {  delay = 0.4us; } --> hostC.ethg$i;
-        hub.ethg$i[2] <-- {  delay = 0.4us; } <-- hostC.ethg$o;
-        hub.ethg$o[3] --> {  delay = 0.2us; } --> hostD.ethg$i;
-        hub.ethg$i[3] <-- {  delay = 0.2us; } <-- hostD.ethg$o;
+        hub.ethg[0] <--> {  delay = 0.1us; } <--> hostA.ethg;
+        hub.ethg[1] <--> {  delay = 0.3us; } <--> hostB.ethg;
+        hub.ethg[2] <--> {  delay = 0.4us; } <--> hostC.ethg;
+        hub.ethg[3] <--> {  delay = 0.2us; } <--> hostD.ethg;
 }
 
 
@@ -270,14 +248,10 @@ network BusLAN
                 ethg[4];
         };
     connections:
-        bus.ethg$i[0] <-- hostA.ethg$o;
-        bus.ethg$o[0] --> hostA.ethg$i;
-        bus.ethg$i[1] <-- hostB.ethg$o;
-        bus.ethg$o[1] --> hostB.ethg$i;
-        bus.ethg$i[2] <-- hostC.ethg$o;
-        bus.ethg$o[2] --> hostC.ethg$i;
-        bus.ethg$i[3] <-- hostD.ethg$o;
-        bus.ethg$o[3] --> hostD.ethg$i;
+        bus.ethg[0] <--> hostA.ethg;
+        bus.ethg[1] <--> hostB.ethg;
+        bus.ethg[2] <--> hostC.ethg;
+        bus.ethg[3] <--> hostD.ethg;
 }
 
 channel ethernetline extends cBasicChannel
@@ -313,13 +287,9 @@ network SwitchedDuplexLAN
                 ethg[4];
         };
     connections:
-        switch.ethg$o[0] --> ethernetline --> hostA.ethg$i;
-        switch.ethg$i[0] <-- ethernetline <-- hostA.ethg$o;
-        switch.ethg$o[1] --> ethernetline --> hostB.ethg$i;
-        switch.ethg$i[1] <-- ethernetline <-- hostB.ethg$o;
-        switch.ethg$o[2] --> ethernetline --> hostC.ethg$i;
-        switch.ethg$i[2] <-- ethernetline <-- hostC.ethg$o;
-        switch.ethg$o[3] --> ethernetline --> hostD.ethg$i;
-        switch.ethg$i[3] <-- ethernetline <-- hostD.ethg$o;
+        switch.ethg[0] <--> ethernetline <--> hostA.ethg;
+        switch.ethg[1] <--> ethernetline <--> hostB.ethg;
+        switch.ethg[2] <--> ethernetline <--> hostC.ethg;
+        switch.ethg[3] <--> ethernetline <--> hostD.ethg;
 }
 

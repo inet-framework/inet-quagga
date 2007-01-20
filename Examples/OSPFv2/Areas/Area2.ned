@@ -34,15 +34,11 @@ module OneNetArea
                 ethg[2];
         };
     connections:
-        R4.ethg$o[0] --> {  delay = 0.1us; } --> R5.ethg$i[1];
-        R5.ethg$o[1] --> {  delay = 0.1us; } --> R4.ethg$i[0];
-        R5.ethg$o[0] --> {  delay = 0.1us; } --> N3.ethg$i[1];
-        N3.ethg$o[1] --> {  delay = 0.1us; } --> R5.ethg$i[0];
-        N3.ethg$o[0] --> {  delay = 0.1us; } --> H3.ethg$i[0];
-        H3.ethg$o[0] --> {  delay = 0.1us; } --> N3.ethg$i[0];
+        R4.ethg[0] <--> {  delay = 0.1us; } <--> R5.ethg[1];
+        R5.ethg[0] <--> {  delay = 0.1us; } <--> N3.ethg[1];
+        N3.ethg[0] <--> {  delay = 0.1us; } <--> H3.ethg[0];
 
         // towards other areas
-        ethg$i[0] --> R4.ethg$i[1];
-        R4.ethg$o[1] --> ethg$o[0];
+        ethg[0] <--> R4.ethg[1];
 }
 

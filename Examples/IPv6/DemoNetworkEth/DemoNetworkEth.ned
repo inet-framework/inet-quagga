@@ -53,14 +53,11 @@ network DemoNetworkEth
             linemonitor[i].out2 --> ethernetline --> r1.ethg$i++;
             linemonitor[i].in2 <-- ethernetline <-- r1.ethg$o++;
             cli[i].ethg$i++ <-- ethernetline <-- linemonitor[i].out1;
-            //cli[i].ethg$o++ --> ethernetline --> r1.ethg$i++;
-            //cli[i].ethg$i++ <-- ethernetline <-- r1.ethg$o++;
-            srv[i].ethg$o++ --> ethernetline --> r2.ethg$i++;
-            srv[i].ethg$i++ <-- ethernetline <-- r2.ethg$o++;
+            //cli[i].ethg++ <--> ethernetline <--> r1.ethg++;
+            //            srv[i].ethg++ <--> ethernetline <--> r2.ethg++;
         };
 
-        r1.ethg$o++ --> ethernetline --> r2.ethg$i++;
-        r1.ethg$i++ <-- ethernetline <-- r2.ethg$o++;
+        r1.ethg++ <--> ethernetline <--> r2.ethg++;
 
 }
 

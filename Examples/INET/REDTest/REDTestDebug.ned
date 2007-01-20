@@ -86,17 +86,13 @@ network REDTestDebug
         r1.pppg$i++ <-- {  datarate = 1.5e6; delay = 20e-3; } <-- dump.out1;
         dump.in2 <-- {  datarate = 1.5e6; delay = 20e-3; } <-- r2.pppg$o++;
 
-        s1.pppg$o++ --> {  datarate = 10e6; delay = 2e-3; } --> r1.pppg$i++;
-        s1.pppg$i++ <-- {  datarate = 10e6; delay = 2e-3; } <-- r1.pppg$o++;
+        s1.pppg++ <--> {  datarate = 10e6; delay = 2e-3; } <--> r1.pppg++;
 
-        s2.pppg$o++ --> {  datarate = 10e6; delay = 3e-3; } --> r1.pppg$i++;
-        s2.pppg$i++ <-- {  datarate = 10e6; delay = 3e-3; } <-- r1.pppg$o++;
+        s2.pppg++ <--> {  datarate = 10e6; delay = 3e-3; } <--> r1.pppg++;
 
-        s3.pppg$o++ --> {  datarate = 10e6; delay = 4e-3; } --> r2.pppg$i++;
-        s3.pppg$i++ <-- {  datarate = 10e6; delay = 4e-3; } <-- r2.pppg$o++;
+        s3.pppg++ <--> {  datarate = 10e6; delay = 4e-3; } <--> r2.pppg++;
 
-        s4.pppg$o++ --> {  datarate = 10e6; delay = 5e-3; } --> r2.pppg$i++;
-        s4.pppg$i++ <-- {  datarate = 10e6; delay = 5e-3; } <-- r2.pppg$o++;
+        s4.pppg++ <--> {  datarate = 10e6; delay = 5e-3; } <--> r2.pppg++;
 
 }
 

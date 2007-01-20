@@ -60,33 +60,25 @@ network NClientsEth
         };
     connections allowunconnected:
         for i=0..n-1 {
-            cli[i].ethg$o++ --> ethernetline --> hub.pppg$i++;
-            cli[i].ethg$i++ <-- ethernetline <-- hub.pppg$o++;
+            cli[i].ethg++ <--> ethernetline <--> hub.pppg++;
         };
 
-        hub.pppg$o++ --> ethernetline --> r1.ethg$i++;
-        hub.pppg$i++ <-- ethernetline <-- r1.ethg$o++;
+        hub.pppg++ <--> ethernetline <--> r1.ethg++;
 
-        r1.ethg$o++ --> ethernetline --> r2.ethg$i++;
-        r1.ethg$i++ <-- ethernetline <-- r2.ethg$o++;
+        r1.ethg++ <--> ethernetline <--> r2.ethg++;
 
-        r2.ethg$o++ --> ethernetline --> r3.ethg$i++;
-        r2.ethg$i++ <-- ethernetline <-- r3.ethg$o++;
+        r2.ethg++ <--> ethernetline <--> r3.ethg++;
 
-        r3.ethg$o++ --> ethernetline --> srv.ethg$i++;
-        r3.ethg$i++ <-- ethernetline <-- srv.ethg$o++;
+        r3.ethg++ <--> ethernetline <--> srv.ethg++;
 
         // Mixing ethernet and ppp currently doesn't work, due to a bug in
         // FlatNetworkConfigurator6::determineGateIndex.
         //
-        // r1.pppg$o++ --> fiberline --> r2.pppg$i++;
-        // r1.pppg$i++ <-- fiberline <-- r2.pppg$o++;
+        // r1.pppg++ <--> fiberline <--> r2.pppg++;
+        //        //
+        // r2.pppg++ <--> fiberline <--> r3.pppg++;
+        //        //
+        // r3.pppg++ <--> fiberline <--> srv.pppg++;
         //
-        // r2.pppg$o++ --> fiberline --> r3.pppg$i++;
-        // r2.pppg$i++ <-- fiberline <-- r3.pppg$o++;
-        //
-        // r3.pppg$o++ --> fiberline --> srv.pppg$i++;
-        // r3.pppg$i++ <-- fiberline <-- srv.pppg$o++;
-
 }
 

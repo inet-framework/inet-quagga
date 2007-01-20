@@ -76,29 +76,18 @@ module OSPF_Area3
                 ethg[1];
         };
     connections:
-        H12.ethg$o[0] --> {  delay = 0.1us; } --> N11.ethg$i[0];
-        N11.ethg$o[0] --> {  delay = 0.1us; } --> H12.ethg$i[0];
-        N11.ethg$o[1] --> {  delay = 0.1us; } --> RT9.ethg$i[0];
-        RT9.ethg$o[0] --> {  delay = 0.1us; } --> N11.ethg$i[1];
-        N11.ethg$o[2] --> {  delay = 0.1us; } --> H13.ethg$i[0];
-        H13.ethg$o[0] --> {  delay = 0.1us; } --> N11.ethg$i[2];
-        RT9.ethg$o[1] --> {  delay = 0.1us; } --> N9.ethg$i[0];
-        N9.ethg$o[0] --> {  delay = 0.1us; } --> RT9.ethg$i[1];
-        N9.ethg$o[1] --> {  delay = 0.1us; } --> H14.ethg$i[0];
-        H14.ethg$o[0] --> {  delay = 0.1us; } --> N9.ethg$i[1];
-        N9.ethg$o[2] --> {  delay = 0.1us; } --> RT12.ethg$i[0];
-        RT12.ethg$o[0] --> {  delay = 0.1us; } --> N9.ethg$i[2];
-        RT12.ethg$o[1] --> {  delay = 0.1us; } --> H15.ethg$i[0];
-        H15.ethg$o[0] --> {  delay = 0.1us; } --> RT12.ethg$i[1];
-        RT12.ethg$o[2] --> {  delay = 0.1us; } --> N10.ethg$i[0];
-        N10.ethg$o[0] --> {  delay = 0.1us; } --> RT12.ethg$i[2];
-        N10.ethg$o[1] --> {  delay = 0.1us; } --> H16.ethg$i[0];
-        H16.ethg$o[0] --> {  delay = 0.1us; } --> N10.ethg$i[1];
-        N10.ethg$o[2] --> {  delay = 0.1us; } --> H17.ethg$i[0];
-        H17.ethg$o[0] --> {  delay = 0.1us; } --> N10.ethg$i[2];
+        H12.ethg[0] <--> {  delay = 0.1us; } <--> N11.ethg[0];
+        N11.ethg[1] <--> {  delay = 0.1us; } <--> RT9.ethg[0];
+        N11.ethg[2] <--> {  delay = 0.1us; } <--> H13.ethg[0];
+        RT9.ethg[1] <--> {  delay = 0.1us; } <--> N9.ethg[0];
+        N9.ethg[1] <--> {  delay = 0.1us; } <--> H14.ethg[0];
+        N9.ethg[2] <--> {  delay = 0.1us; } <--> RT12.ethg[0];
+        RT12.ethg[1] <--> {  delay = 0.1us; } <--> H15.ethg[0];
+        RT12.ethg[2] <--> {  delay = 0.1us; } <--> N10.ethg[0];
+        N10.ethg[1] <--> {  delay = 0.1us; } <--> H16.ethg[0];
+        N10.ethg[2] <--> {  delay = 0.1us; } <--> H17.ethg[0];
 
         // towards other areas
-        N9.ethg$o[3] --> ethg$o[0];
-        ethg$i[0] --> N9.ethg$i[3];
+        ethg[0] <--> N9.ethg[3];
 }
 

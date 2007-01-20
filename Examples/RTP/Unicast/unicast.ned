@@ -41,8 +41,7 @@ network RTPNetwork
 
         };
     connections:
-        sender.pppg$o[0] --> ErrorChannel --> receiver.pppg$i[0];
-        sender.pppg$i[0] <-- ErrorChannel <-- receiver.pppg$o[0];
+        sender.pppg[0] <--> ErrorChannel <--> receiver.pppg[0];
 
 }
 

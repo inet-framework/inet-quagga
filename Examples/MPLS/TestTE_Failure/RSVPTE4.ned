@@ -108,46 +108,32 @@ network RSVPTE4
                 @display("p=500,50");
         };
     connections allowunconnected:
-        LSR1.pppg$o[0] --> {  delay = 15ms; datarate = 600000; } --> LSR2.pppg$i[0];
-        LSR1.pppg$i[0] <-- {  delay = 15ms; datarate = 600000; } <-- LSR2.pppg$o[0];
+        LSR1.pppg[0] <--> {  delay = 15ms; datarate = 600000; } <--> LSR2.pppg[0];
 
-        LSR1.pppg$o[1] --> {  delay = 5ms; datarate = 600000; } --> LSR3.pppg$i[0];
-        LSR1.pppg$i[1] <-- {  delay = 5ms; datarate = 600000; } <-- LSR3.pppg$o[0];
+        LSR1.pppg[1] <--> {  delay = 5ms; datarate = 600000; } <--> LSR3.pppg[0];
 
-        host2.pppg$i++ <-- {  delay = 10ms; datarate = 600000; } <-- LSR1.pppg$o[2];
-        host2.pppg$o++ --> {  delay = 10ms; datarate = 600000; } --> LSR1.pppg$i[2];
+        host2.pppg++ <--> {  delay = 10ms; datarate = 600000; } <--> LSR1.pppg[2];
 
-        host1.pppg$i++ <-- {  delay = 10ms; datarate = 600000; } <-- LSR1.pppg$o[3];
-        host1.pppg$o++ --> {  delay = 10ms; datarate = 600000; } --> LSR1.pppg$i[3];
+        host1.pppg++ <--> {  delay = 10ms; datarate = 600000; } <--> LSR1.pppg[3];
 
-        LSR2.pppg$o[1] --> {  delay = 5ms; datarate = 600000; } --> LSR4.pppg$i[0];
-        LSR2.pppg$i[1] <-- {  delay = 5ms; datarate = 600000; } <-- LSR4.pppg$o[0];
+        LSR2.pppg[1] <--> {  delay = 5ms; datarate = 600000; } <--> LSR4.pppg[0];
 
-        LSR3.pppg$o[1] --> {  delay = 5ms; datarate = 600000; } --> LSR4.pppg$i[2];
-        LSR3.pppg$i[1] <-- {  delay = 5ms; datarate = 600000; } <-- LSR4.pppg$o[2];
+        LSR3.pppg[1] <--> {  delay = 5ms; datarate = 600000; } <--> LSR4.pppg[2];
 
-        LSR4.pppg$o[1] --> {  delay = 5ms; datarate = 600000; } --> LSR5.pppg$i[0];
-        LSR4.pppg$i[1] <-- {  delay = 5ms; datarate = 600000; } <-- LSR5.pppg$o[0];
+        LSR4.pppg[1] <--> {  delay = 5ms; datarate = 600000; } <--> LSR5.pppg[0];
 
-        LSR5.pppg$o[1] --> {  delay = 10ms; datarate = 600000; } --> host3.pppg$i++;
-        LSR5.pppg$i[1] <-- {  delay = 10ms; datarate = 600000; } <-- host3.pppg$o++;
+        LSR5.pppg[1] <--> {  delay = 10ms; datarate = 600000; } <--> host3.pppg++;
 
-        LSR5.pppg$o[2] --> {  delay = 10ms; datarate = 600000; } --> host4.pppg$i++;
-        LSR5.pppg$i[2] <-- {  delay = 10ms; datarate = 600000; } <-- host4.pppg$o++;
+        LSR5.pppg[2] <--> {  delay = 10ms; datarate = 600000; } <--> host4.pppg++;
 
-        LSR2.pppg$o[2] --> {  delay = 10ms; datarate = 600000; } --> LSR6.pppg$i[0];
-        LSR2.pppg$i[2] <-- {  delay = 10ms; datarate = 600000; } <-- LSR6.pppg$o[0];
+        LSR2.pppg[2] <--> {  delay = 10ms; datarate = 600000; } <--> LSR6.pppg[0];
 
-        LSR5.pppg$o[3] --> {  delay = 10ms; datarate = 600000; } --> LSR6.pppg$i[1];
-        LSR5.pppg$i[3] <-- {  delay = 10ms; datarate = 600000; } <-- LSR6.pppg$o[1];
+        LSR5.pppg[3] <--> {  delay = 10ms; datarate = 600000; } <--> LSR6.pppg[1];
 
-        LSR3.pppg$o[2] --> {  delay = 10ms; datarate = 600000; } --> LSR7.pppg$i[0];
-        LSR3.pppg$i[2] <-- {  delay = 10ms; datarate = 600000; } <-- LSR7.pppg$o[0];
+        LSR3.pppg[2] <--> {  delay = 10ms; datarate = 600000; } <--> LSR7.pppg[0];
 
-        LSR5.pppg$o[4] --> {  delay = 10ms; datarate = 600000; } --> LSR7.pppg$i[1];
-        LSR5.pppg$i[4] <-- {  delay = 10ms; datarate = 600000; } <-- LSR7.pppg$o[1];
+        LSR5.pppg[4] <--> {  delay = 10ms; datarate = 600000; } <--> LSR7.pppg[1];
 
-        host5.pppg$i++ <-- {  delay = 10ms; datarate = 600000; } <-- LSR1.pppg$o[4];
-        host5.pppg$o++ --> {  delay = 10ms; datarate = 600000; } --> LSR1.pppg$i[4];
+        host5.pppg++ <--> {  delay = 10ms; datarate = 600000; } <--> LSR1.pppg[4];
 }
 
