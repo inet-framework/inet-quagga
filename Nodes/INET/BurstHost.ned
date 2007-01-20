@@ -38,8 +38,7 @@ module BurstHost
         string routingFile = default("");
         @display("i=device/pc3");
     gates:
-        input in[];
-        output out[];
+        inout pppg[];
     submodules:
         notificationBoard: NotificationBoard {
             parameters:
@@ -67,7 +66,7 @@ module BurstHost
                 ifIn[1];
                 ifOut[1];
         };
-        ppp[1]: PPPInterface {
+        pppg[1]: PPPInterface {
             parameters:
                 @display("p=198,262,row,90;q=txQueue");
         };
@@ -78,8 +77,8 @@ module BurstHost
 
         // connections to network outside
         for i=0..0 {
-            in[i] --> ppp[i].physIn;
-            out[i] <-- ppp[i].physOut;
+            pppg$i[i] --> ppp[i].physIn;
+            pppg$o[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
         };

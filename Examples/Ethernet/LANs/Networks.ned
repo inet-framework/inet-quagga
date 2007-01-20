@@ -105,39 +105,39 @@ network MixedLAN
                 out[4];
         };
     connections:
-        bus.in[0] <-- busHostA.out;
-        bus.out[0] --> busHostA.in;
+        bus.pppg$i[0] <-- busHostA.out;
+        bus.pppg$o[0] --> busHostA.in;
 
-        bus.in[1] <-- busHostB.out;
-        bus.out[1] --> busHostB.in;
+        bus.pppg$i[1] <-- busHostB.out;
+        bus.pppg$o[1] --> busHostB.in;
 
-        bus.in[2] <-- switch.out[4];
-        bus.out[2] --> switch.in[4];
+        bus.pppg$i[2] <-- switch.pppg$o[4];
+        bus.pppg$o[2] --> switch.pppg$i[4];
 
-        bus.in[3] <-- busHostC.out;
-        bus.out[3] --> busHostC.in;
+        bus.pppg$i[3] <-- busHostC.out;
+        bus.pppg$o[3] --> busHostC.in;
 
-        bus.in[4] <-- hub.out[3];
-        bus.out[4] --> hub.in[3];
+        bus.pppg$i[4] <-- hub.pppg$o[3];
+        bus.pppg$o[4] --> hub.pppg$i[3];
 
-        bus.in[5] <-- busHostD.out;
-        bus.out[5] --> busHostD.in;
+        bus.pppg$i[5] <-- busHostD.out;
+        bus.pppg$o[5] --> busHostD.in;
 
-        switch.out[0] --> {  delay = 0.1us; } --> switchHostA.in;
-        switch.in[0] <-- {  delay = 0.1us; } <-- switchHostA.out;
-        switch.out[1] --> {  delay = 0.1us; } --> switchHostB.in;
-        switch.in[1] <-- {  delay = 0.1us; } <-- switchHostB.out;
-        switch.out[2] --> {  delay = 0.1us; } --> switchHostC.in;
-        switch.in[2] <-- {  delay = 0.1us; } <-- switchHostC.out;
-        switch.out[3] --> {  delay = 0.1us; } --> switchHostD.in;
-        switch.in[3] <-- {  delay = 0.1us; } <-- switchHostD.out;
+        switch.pppg$o[0] --> {  delay = 0.1us; } --> switchHostA.in;
+        switch.pppg$i[0] <-- {  delay = 0.1us; } <-- switchHostA.out;
+        switch.pppg$o[1] --> {  delay = 0.1us; } --> switchHostB.in;
+        switch.pppg$i[1] <-- {  delay = 0.1us; } <-- switchHostB.out;
+        switch.pppg$o[2] --> {  delay = 0.1us; } --> switchHostC.in;
+        switch.pppg$i[2] <-- {  delay = 0.1us; } <-- switchHostC.out;
+        switch.pppg$o[3] --> {  delay = 0.1us; } --> switchHostD.in;
+        switch.pppg$i[3] <-- {  delay = 0.1us; } <-- switchHostD.out;
 
-        hub.out[0] --> {  delay = 0.1us; } --> hubHostA.in;
-        hub.in[0] <-- {  delay = 0.1us; } <-- hubHostA.out;
-        hub.out[1] --> {  delay = 0.3us; } --> hubHostB.in;
-        hub.in[1] <-- {  delay = 0.3us; } <-- hubHostB.out;
-        hub.out[2] --> {  delay = 0.2us; } --> hubHostC.in;
-        hub.in[2] <-- {  delay = 0.2us; } <-- hubHostC.out;
+        hub.pppg$o[0] --> {  delay = 0.1us; } --> hubHostA.in;
+        hub.pppg$i[0] <-- {  delay = 0.1us; } <-- hubHostA.out;
+        hub.pppg$o[1] --> {  delay = 0.3us; } --> hubHostB.in;
+        hub.pppg$i[1] <-- {  delay = 0.3us; } <-- hubHostB.out;
+        hub.pppg$o[2] --> {  delay = 0.2us; } --> hubHostC.in;
+        hub.pppg$i[2] <-- {  delay = 0.2us; } <-- hubHostC.out;
 }
 
 
@@ -192,14 +192,14 @@ network SwitchedLAN
                 out[4];
         };
     connections:
-        switch.out[0] --> {  delay = 0.1us; } --> hostA.in;
-        switch.in[0] <-- {  delay = 0.1us; } <-- hostA.out;
-        switch.out[1] --> {  delay = 0.1us; } --> hostB.in;
-        switch.in[1] <-- {  delay = 0.1us; } <-- hostB.out;
-        switch.out[2] --> {  delay = 0.1us; } --> hostC.in;
-        switch.in[2] <-- {  delay = 0.1us; } <-- hostC.out;
-        switch.out[3] --> {  delay = 0.1us; } --> hostD.in;
-        switch.in[3] <-- {  delay = 0.1us; } <-- hostD.out;
+        switch.pppg$o[0] --> {  delay = 0.1us; } --> hostA.in;
+        switch.pppg$i[0] <-- {  delay = 0.1us; } <-- hostA.out;
+        switch.pppg$o[1] --> {  delay = 0.1us; } --> hostB.in;
+        switch.pppg$i[1] <-- {  delay = 0.1us; } <-- hostB.out;
+        switch.pppg$o[2] --> {  delay = 0.1us; } --> hostC.in;
+        switch.pppg$i[2] <-- {  delay = 0.1us; } <-- hostC.out;
+        switch.pppg$o[3] --> {  delay = 0.1us; } --> hostD.in;
+        switch.pppg$i[3] <-- {  delay = 0.1us; } <-- hostD.out;
 }
 
 
@@ -233,14 +233,14 @@ network HubLAN
                 out[4];
         };
     connections:
-        hub.out[0] --> {  delay = 0.1us; } --> hostA.in;
-        hub.in[0] <-- {  delay = 0.1us; } <-- hostA.out;
-        hub.out[1] --> {  delay = 0.3us; } --> hostB.in;
-        hub.in[1] <-- {  delay = 0.3us; } <-- hostB.out;
-        hub.out[2] --> {  delay = 0.4us; } --> hostC.in;
-        hub.in[2] <-- {  delay = 0.4us; } <-- hostC.out;
-        hub.out[3] --> {  delay = 0.2us; } --> hostD.in;
-        hub.in[3] <-- {  delay = 0.2us; } <-- hostD.out;
+        hub.pppg$o[0] --> {  delay = 0.1us; } --> hostA.in;
+        hub.pppg$i[0] <-- {  delay = 0.1us; } <-- hostA.out;
+        hub.pppg$o[1] --> {  delay = 0.3us; } --> hostB.in;
+        hub.pppg$i[1] <-- {  delay = 0.3us; } <-- hostB.out;
+        hub.pppg$o[2] --> {  delay = 0.4us; } --> hostC.in;
+        hub.pppg$i[2] <-- {  delay = 0.4us; } <-- hostC.out;
+        hub.pppg$o[3] --> {  delay = 0.2us; } --> hostD.in;
+        hub.pppg$i[3] <-- {  delay = 0.2us; } <-- hostD.out;
 }
 
 
@@ -276,14 +276,14 @@ network BusLAN
                 out[4];
         };
     connections:
-        bus.in[0] <-- hostA.out;
-        bus.out[0] --> hostA.in;
-        bus.in[1] <-- hostB.out;
-        bus.out[1] --> hostB.in;
-        bus.in[2] <-- hostC.out;
-        bus.out[2] --> hostC.in;
-        bus.in[3] <-- hostD.out;
-        bus.out[3] --> hostD.in;
+        bus.pppg$i[0] <-- hostA.out;
+        bus.pppg$o[0] --> hostA.in;
+        bus.pppg$i[1] <-- hostB.out;
+        bus.pppg$o[1] --> hostB.in;
+        bus.pppg$i[2] <-- hostC.out;
+        bus.pppg$o[2] --> hostC.in;
+        bus.pppg$i[3] <-- hostD.out;
+        bus.pppg$o[3] --> hostD.in;
 }
 
 channel ethernetline extends cBasicChannel
@@ -320,13 +320,13 @@ network SwitchedDuplexLAN
                 out[4];
         };
     connections:
-        switch.out[0] --> ethernetline --> hostA.in;
-        switch.in[0] <-- ethernetline <-- hostA.out;
-        switch.out[1] --> ethernetline --> hostB.in;
-        switch.in[1] <-- ethernetline <-- hostB.out;
-        switch.out[2] --> ethernetline --> hostC.in;
-        switch.in[2] <-- ethernetline <-- hostC.out;
-        switch.out[3] --> ethernetline --> hostD.in;
-        switch.in[3] <-- ethernetline <-- hostD.out;
+        switch.pppg$o[0] --> ethernetline --> hostA.in;
+        switch.pppg$i[0] <-- ethernetline <-- hostA.out;
+        switch.pppg$o[1] --> ethernetline --> hostB.in;
+        switch.pppg$i[1] <-- ethernetline <-- hostB.out;
+        switch.pppg$o[2] --> ethernetline --> hostC.in;
+        switch.pppg$i[2] <-- ethernetline <-- hostC.out;
+        switch.pppg$o[3] --> ethernetline --> hostD.in;
+        switch.pppg$i[3] <-- ethernetline <-- hostD.out;
 }
 

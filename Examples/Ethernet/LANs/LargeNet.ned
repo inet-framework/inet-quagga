@@ -41,7 +41,7 @@ module SmallLAN
         input in;
         output out;
     submodules:
-        hub: EtherHub { 
+        hub: EtherHub {
             @display("is=s");
         };
         host[h]: EtherHost {
@@ -49,11 +49,11 @@ module SmallLAN
         };
     connections:
         for i=0..h-1 {
-            hub.out++ --> cable --> host[i].in;
-            hub.in++ <-- cable <-- host[i].out;
+            hub.pppg$o++ --> cable --> host[i].in;
+            hub.pppg$i++ <-- cable <-- host[i].out;
         };
-        hub.out++ --> out;
-        hub.in++ <-- in;
+        hub.pppg$o++ --> out;
+        hub.pppg$i++ <-- in;
 }
 
 
@@ -84,20 +84,20 @@ module MediumLAN
         };
     connections:
         for i=0..n-1 {
-            switch.out++ --> cable --> host[i].in;
-            switch.in++ <-- cable <-- host[i].out;
+            switch.pppg$o++ --> cable --> host[i].in;
+            switch.pppg$i++ <-- cable <-- host[i].out;
         };
 
-        switch.out++ --> out;
-        switch.in++ <-- in;
+        switch.pppg$o++ --> out;
+        switch.pppg$i++ <-- in;
 
         for i=0..h-1 {
-            hub.out++ --> cable --> hhost[i].in;
-            hub.in++ <-- cable <-- hhost[i].out;
+            hub.pppg$o++ --> cable --> hhost[i].in;
+            hub.pppg$i++ <-- cable <-- hhost[i].out;
         };
 
-        switch.out++ --> cable --> hub.in++;
-        switch.in++ <-- cable <-- hub.out++;
+        switch.pppg$o++ --> cable --> hub.pppg$i++;
+        switch.pppg$i++ <-- cable <-- hub.pppg$o++;
 
 }
 
@@ -141,28 +141,28 @@ module LargeLAN
         };
     connections:
         for i=0..n-1 {
-            switch.out++ --> cable --> host[i].in;
-            switch.in++ <-- cable <-- host[i].out;
+            switch.pppg$o++ --> cable --> host[i].in;
+            switch.pppg$i++ <-- cable <-- host[i].out;
         };
 
-        switch.out++ --> out;
-        switch.in++ <-- in;
+        switch.pppg$o++ --> out;
+        switch.pppg$i++ <-- in;
 
         for i=0..h-1 {
-            hub.out++ --> cable --> hhost[i].in;
-            hub.in++ <-- cable <-- hhost[i].out;
+            hub.pppg$o++ --> cable --> hhost[i].in;
+            hub.pppg$i++ <-- cable <-- hhost[i].out;
         };
 
-        switch.out++ --> cable --> hub.in++;
-        switch.in++ <-- cable <-- hub.out++;
+        switch.pppg$o++ --> cable --> hub.pppg$i++;
+        switch.pppg$i++ <-- cable <-- hub.pppg$o++;
 
         for i=0..b-1 {
-            bus.out++ --> bhost[i].in;
-            bus.in++ <-- bhost[i].out;
+            bus.pppg$o++ --> bhost[i].in;
+            bus.pppg$i++ <-- bhost[i].out;
         };
 
-        bus.out++ --> hub.in++;
-        bus.in++ <-- hub.out++;
+        bus.pppg$o++ --> hub.pppg$i++;
+        bus.pppg$i++ <-- hub.pppg$o++;
 
 }
 
@@ -219,98 +219,98 @@ network LargeNet
     connections allowunconnected:
         // "backbone" switches
         for k=0..n-1, for i=0..bbs-1 {
-            switchBB[k].out++ --> cable --> slanBB[k*bbs+i].in;
-            switchBB[k].in++ <-- cable <-- slanBB[k*bbs+i].out;
+            switchBB[k].pppg$o++ --> cable --> slanBB[k*bbs+i].in;
+            switchBB[k].pppg$i++ <-- cable <-- slanBB[k*bbs+i].out;
         };
         for k=0..n-1, for i=0..bbm-1 {
-            switchBB[k].out++ --> cable --> mlanBB[k*bbm+i].in;
-            switchBB[k].in++ <-- cable <-- mlanBB[k*bbm+i].out;
+            switchBB[k].pppg$o++ --> cable --> mlanBB[k*bbm+i].in;
+            switchBB[k].pppg$i++ <-- cable <-- mlanBB[k*bbm+i].out;
         };
         for k=0..n-1, for i=0..bbl-1 {
-            switchBB[k].out++ --> cable --> llanBB[k*bbl+i].in;
-            switchBB[k].in++ <-- cable <-- llanBB[k*bbl+i].out;
+            switchBB[k].pppg$o++ --> cable --> llanBB[k*bbl+i].in;
+            switchBB[k].pppg$i++ <-- cable <-- llanBB[k*bbl+i].out;
         };
         for k=0..n-2 {
-            switchBB[k].out++ --> cable --> switchBB[k+1].in++;
-            switchBB[k].in++ <-- cable <-- switchBB[k+1].out++;
+            switchBB[k].pppg$o++ --> cable --> switchBB[k+1].pppg$i++;
+            switchBB[k].pppg$i++ <-- cable <-- switchBB[k+1].pppg$o++;
         };
 
         // switch A
         for i=0..as-1 {
-            switchA.out++ --> cable --> slanA[i].in;
-            switchA.in++ <-- cable <-- slanA[i].out;
+            switchA.pppg$o++ --> cable --> slanA[i].in;
+            switchA.pppg$i++ <-- cable <-- slanA[i].out;
         };
         for i=0..am-1 {
-            switchA.out++ --> cable --> mlanA[i].in;
-            switchA.in++ <-- cable <-- mlanA[i].out;
+            switchA.pppg$o++ --> cable --> mlanA[i].in;
+            switchA.pppg$i++ <-- cable <-- mlanA[i].out;
         };
         for i=0..al-1 {
-            switchA.out++ --> cable --> llanA[i].in;
-            switchA.in++ <-- cable <-- llanA[i].out;
+            switchA.pppg$o++ --> cable --> llanA[i].in;
+            switchA.pppg$i++ <-- cable <-- llanA[i].out;
         };
-        switchA.out++ --> cable --> serverA.in;
-        switchA.in++ <-- cable <-- serverA.out;
+        switchA.pppg$o++ --> cable --> serverA.in;
+        switchA.pppg$i++ <-- cable <-- serverA.out;
 
         // switch B
         for i=0..bs-1 {
-            switchB.out++ --> cable --> slanB[i].in;
-            switchB.in++ <-- cable <-- slanB[i].out;
+            switchB.pppg$o++ --> cable --> slanB[i].in;
+            switchB.pppg$i++ <-- cable <-- slanB[i].out;
         };
         for i=0..bm-1 {
-            switchB.out++ --> cable --> mlanB[i].in;
-            switchB.in++ <-- cable <-- mlanB[i].out;
+            switchB.pppg$o++ --> cable --> mlanB[i].in;
+            switchB.pppg$i++ <-- cable <-- mlanB[i].out;
         };
         for i=0..bl-1 {
-            switchB.out++ --> cable --> llanB[i].in;
-            switchB.in++ <-- cable <-- llanB[i].out;
+            switchB.pppg$o++ --> cable --> llanB[i].in;
+            switchB.pppg$i++ <-- cable <-- llanB[i].out;
         };
-        switchB.out++ --> cable --> serverB.in;
-        switchB.in++ <-- cable <-- serverB.out;
+        switchB.pppg$o++ --> cable --> serverB.in;
+        switchB.pppg$i++ <-- cable <-- serverB.out;
 
         // switch C
         for i=0..cs-1 {
-            switchC.out++ --> cable --> slanC[i].in;
-            switchC.in++ <-- cable <-- slanC[i].out;
+            switchC.pppg$o++ --> cable --> slanC[i].in;
+            switchC.pppg$i++ <-- cable <-- slanC[i].out;
         };
         for i=0..cm-1 {
-            switchC.out++ --> cable --> mlanC[i].in;
-            switchC.in++ <-- cable <-- mlanC[i].out;
+            switchC.pppg$o++ --> cable --> mlanC[i].in;
+            switchC.pppg$i++ <-- cable <-- mlanC[i].out;
         };
         for i=0..cl-1 {
-            switchC.out++ --> cable --> llanC[i].in;
-            switchC.in++ <-- cable <-- llanC[i].out;
+            switchC.pppg$o++ --> cable --> llanC[i].in;
+            switchC.pppg$i++ <-- cable <-- llanC[i].out;
         };
-        switchC.out++ --> cable --> serverC.in;
-        switchC.in++ <-- cable <-- serverC.out;
+        switchC.pppg$o++ --> cable --> serverC.in;
+        switchC.pppg$i++ <-- cable <-- serverC.out;
 
         // switch D
         for i=0..ds-1 {
-            switchD.out++ --> cable --> slanD[i].in;
-            switchD.in++ <-- cable <-- slanD[i].out;
+            switchD.pppg$o++ --> cable --> slanD[i].in;
+            switchD.pppg$i++ <-- cable <-- slanD[i].out;
         };
         for i=0..dm-1 {
-            switchD.out++ --> cable --> mlanD[i].in;
-            switchD.in++ <-- cable <-- mlanD[i].out;
+            switchD.pppg$o++ --> cable --> mlanD[i].in;
+            switchD.pppg$i++ <-- cable <-- mlanD[i].out;
         };
         for i=0..dl-1 {
-            switchD.out++ --> cable --> llanD[i].in;
-            switchD.in++ <-- cable <-- llanD[i].out;
+            switchD.pppg$o++ --> cable --> llanD[i].in;
+            switchD.pppg$i++ <-- cable <-- llanD[i].out;
         };
-        switchD.out++ --> cable --> serverD.in;
-        switchD.in++ <-- cable <-- serverD.out;
+        switchD.pppg$o++ --> cable --> serverD.in;
+        switchD.pppg$i++ <-- cable <-- serverD.out;
 
         // connect switches
-        switchA.out++ --> cable --> switchB.in++;
-        switchA.in++ <-- cable <-- switchB.out++;
+        switchA.pppg$o++ --> cable --> switchB.pppg$i++;
+        switchA.pppg$i++ <-- cable <-- switchB.pppg$o++;
 
-        switchB.out++ --> cable --> switchC.in++;
-        switchB.in++ <-- cable <-- switchC.out++;
+        switchB.pppg$o++ --> cable --> switchC.pppg$i++;
+        switchB.pppg$i++ <-- cable <-- switchC.pppg$o++;
 
-        switchC.out++ --> cable --> switchD.in++;
-        switchC.in++ <-- cable <-- switchD.out++;
+        switchC.pppg$o++ --> cable --> switchD.pppg$i++;
+        switchC.pppg$i++ <-- cable <-- switchD.pppg$o++;
 
-        switchB.out++ --> cable --> switchBB[4].in++;
-        switchB.in++ <-- cable <-- switchBB[4].out++;
+        switchB.pppg$o++ --> cable --> switchBB[4].pppg$i++;
+        switchB.pppg$i++ <-- cable <-- switchBB[4].pppg$o++;
 
 }
 

@@ -27,7 +27,7 @@ network OSPF_AreaTest
                 out[1];
         };
     connections:
-        Area1.out[0] --> {  delay = 0.1us; } --> Area2.in[0];
-        Area2.out[0] --> {  delay = 0.1us; } --> Area1.in[0];
+        Area1.pppg$o[0] --> {  delay = 0.1us; } --> Area2.pppg$i[0];
+        Area2.pppg$o[0] --> {  delay = 0.1us; } --> Area1.pppg$i[0];
 }
 

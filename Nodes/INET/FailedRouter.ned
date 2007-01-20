@@ -29,28 +29,26 @@ module FailedRouter
         int namid;
         string routingFile = default("");
     gates:
-        input in[];
-        output out[];
-        input ethIn[];
-        output ethOut[];
+        inout pppg[];
+        inout ethg[];
     submodules:
         dummy: Dummy {
             parameters:
                 namid = namid;
             gates:
-                in[sizeof(in)];
-                out[sizeof(out)];
-                ethIn[sizeof(ethIn)];
-                ethOut[sizeof(ethOut)];
+                in[sizeof(pppg)];
+                out[sizeof(pppg)];
+                ethIn[sizeof(ethg)];
+                ethOut[sizeof(ethg)];
         };
     connections allowunconnected:
-        for i=0..sizeof(out)-1 {
-            in[i] --> dummy.in[i];
-            dummy.out[i] --> out[i];
+        for i=0..sizeof(pppg)-1 {
+            pppg$i[i] --> dummy.in[i];
+            dummy.out[i] --> pppg$o[i];
         };
-        for i=0..sizeof(ethOut)-1 {
-            ethIn[i] --> dummy.ethIn[i];
-            dummy.ethOut[i] --> ethOut[i];
+        for i=0..sizeof(ethg)-1 {
+            ethg$i[i] --> dummy.ethIn[i];
+            dummy.ethOut[i] --> ethg$o[i];
         };
 }
 

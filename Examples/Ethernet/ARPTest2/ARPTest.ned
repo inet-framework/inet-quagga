@@ -83,37 +83,37 @@ network ARPTest
                 @display("p=46,111");
         };
     connections:
-        server.ethOut++ --> router8.ethIn++;
-        router8.ethOut++ --> server.ethIn++;
+        server.ethg$o++ --> router8.ethg$i++;
+        router8.ethg$o++ --> server.ethg$i++;
 
-        bus2.out++ --> router5.ethIn++;
-        router5.ethOut++ --> bus2.in++;
+        bus2.pppg$o++ --> router5.ethg$i++;
+        router5.ethg$o++ --> bus2.pppg$i++;
 
-        bus2.out++ --> router6.ethIn++;
-        router6.ethOut++ --> bus2.in++;
+        bus2.pppg$o++ --> router6.ethg$i++;
+        router6.ethg$o++ --> bus2.pppg$i++;
 
-        bus2.out++ --> router7.ethIn++;
-        router7.ethOut++ --> bus2.in++;
+        bus2.pppg$o++ --> router7.ethg$i++;
+        router7.ethg$o++ --> bus2.pppg$i++;
 
-        router8.ethOut++ --> router7.ethIn++;
-        router7.ethOut++ --> router8.ethIn++;
+        router8.ethg$o++ --> router7.ethg$i++;
+        router7.ethg$o++ --> router8.ethg$i++;
 
-        bus1.out++ --> router1.ethIn++;
-        router1.ethOut++ --> bus1.in++;
+        bus1.pppg$o++ --> router1.ethg$i++;
+        router1.ethg$o++ --> bus1.pppg$i++;
 
-        bus1.out++ --> router5.ethIn++;
-        router5.ethOut++ --> bus1.in++;
+        bus1.pppg$o++ --> router5.ethg$i++;
+        router5.ethg$o++ --> bus1.pppg$i++;
 
-        bus1.out++ --> router2.ethIn++;
-        router2.ethOut++ --> bus1.in++;
+        bus1.pppg$o++ --> router2.ethg$i++;
+        router2.ethg$o++ --> bus1.pppg$i++;
 
-        bus1.out++ --> router3.ethIn++;
-        router3.ethOut++ --> bus1.in++;
+        bus1.pppg$o++ --> router3.ethg$i++;
+        router3.ethg$o++ --> bus1.pppg$i++;
 
-        bus1.out++ --> router4.ethIn++;
-        router4.ethOut++ --> bus1.in++;
+        bus1.pppg$o++ --> router4.ethg$i++;
+        router4.ethg$o++ --> bus1.pppg$i++;
 
-        client.ethOut++ --> router1.ethIn++;
-        router1.ethOut++ --> client.ethIn++;
+        client.ethg$o++ --> router1.ethg$i++;
+        router1.ethg$o++ --> client.ethg$i++;
 }
 

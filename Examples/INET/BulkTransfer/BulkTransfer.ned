@@ -54,19 +54,19 @@ network BulkTransfer
                 @display("p=62,119");
         };
     connections:
-        client1.out++ --> {  datarate = 1000000; } --> router.in++;
-        client1.in++ <-- {  datarate = 1000000; } <-- router.out++;
+        client1.pppg$o++ --> {  datarate = 1000000; } --> router.pppg$i++;
+        client1.pppg$i++ <-- {  datarate = 1000000; } <-- router.pppg$o++;
 
-        client2.out++ --> {  datarate = 1000000; } --> router.in++;
-        client2.in++ <-- {  datarate = 1000000; } <-- router.out++;
+        client2.pppg$o++ --> {  datarate = 1000000; } --> router.pppg$i++;
+        client2.pppg$i++ <-- {  datarate = 1000000; } <-- router.pppg$o++;
 
-        client3.out++ --> {  datarate = 1000000; } --> router.in++;
-        client3.in++ <-- {  datarate = 1000000; } <-- router.out++;
+        client3.pppg$o++ --> {  datarate = 1000000; } --> router.pppg$i++;
+        client3.pppg$i++ <-- {  datarate = 1000000; } <-- router.pppg$o++;
 
-        server.out++ --> {  datarate = 1000000; } --> router.in++;
-        server.in++ <-- {  datarate = 1000000; } <-- router.out++;
+        server.pppg$o++ --> {  datarate = 1000000; } --> router.pppg$i++;
+        server.pppg$i++ <-- {  datarate = 1000000; } <-- router.pppg$o++;
 
-        client1.out++ --> {  datarate = 1000000; } --> server.in++;
-        client1.in++ <-- {  datarate = 1000000; } <-- server.out++;
+        client1.pppg$o++ --> {  datarate = 1000000; } --> server.pppg$i++;
+        client1.pppg$i++ <-- {  datarate = 1000000; } <-- server.pppg$o++;
 }
 

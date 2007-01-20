@@ -79,24 +79,24 @@ network REDTestDebug
                 @display("p=248,135");
         };
     connections allowunconnected:
-        r1.out++ --> {  datarate = 1.5e6; delay = 20e-3; } --> th.in;
+        r1.pppg$o++ --> {  datarate = 1.5e6; delay = 20e-3; } --> th.in;
         th.out --> dump.in1;
-        dump.out2 --> r2.in++;
+        dump.out2 --> r2.pppg$i++;
 
-        r1.in++ <-- {  datarate = 1.5e6; delay = 20e-3; } <-- dump.out1;
-        dump.in2 <-- {  datarate = 1.5e6; delay = 20e-3; } <-- r2.out++;
+        r1.pppg$i++ <-- {  datarate = 1.5e6; delay = 20e-3; } <-- dump.out1;
+        dump.in2 <-- {  datarate = 1.5e6; delay = 20e-3; } <-- r2.pppg$o++;
 
-        s1.out++ --> {  datarate = 10e6; delay = 2e-3; } --> r1.in++;
-        s1.in++ <-- {  datarate = 10e6; delay = 2e-3; } <-- r1.out++;
+        s1.pppg$o++ --> {  datarate = 10e6; delay = 2e-3; } --> r1.pppg$i++;
+        s1.pppg$i++ <-- {  datarate = 10e6; delay = 2e-3; } <-- r1.pppg$o++;
 
-        s2.out++ --> {  datarate = 10e6; delay = 3e-3; } --> r1.in++;
-        s2.in++ <-- {  datarate = 10e6; delay = 3e-3; } <-- r1.out++;
+        s2.pppg$o++ --> {  datarate = 10e6; delay = 3e-3; } --> r1.pppg$i++;
+        s2.pppg$i++ <-- {  datarate = 10e6; delay = 3e-3; } <-- r1.pppg$o++;
 
-        s3.out++ --> {  datarate = 10e6; delay = 4e-3; } --> r2.in++;
-        s3.in++ <-- {  datarate = 10e6; delay = 4e-3; } <-- r2.out++;
+        s3.pppg$o++ --> {  datarate = 10e6; delay = 4e-3; } --> r2.pppg$i++;
+        s3.pppg$i++ <-- {  datarate = 10e6; delay = 4e-3; } <-- r2.pppg$o++;
 
-        s4.out++ --> {  datarate = 10e6; delay = 5e-3; } --> r2.in++;
-        s4.in++ <-- {  datarate = 10e6; delay = 5e-3; } <-- r2.out++;
+        s4.pppg$o++ --> {  datarate = 10e6; delay = 5e-3; } --> r2.pppg$i++;
+        s4.pppg$i++ <-- {  datarate = 10e6; delay = 5e-3; } <-- r2.pppg$o++;
 
 }
 

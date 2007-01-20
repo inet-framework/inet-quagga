@@ -44,8 +44,8 @@ network KIDSNw1
             parameters:
                 IPForward = false;
                 routingFile = index==0 ? "host1.irt" :
-			      index==1 ? "host2.irt" :
-			      index==2 ? "host3.irt" : "PROBLEM";
+                  index==1 ? "host2.irt" :
+                  index==2 ? "host3.irt" : "PROBLEM";
                 @display("p=101,307,row;i=device/pc2");
 
             gates:
@@ -56,7 +56,7 @@ network KIDSNw1
         fhrouter[2]: Router {
             parameters:
                 routingFile = index==0 ? "fhrouter1.irt" :
-			      index==1 ? "fhrouter5.irt" : "PROBLEM";
+                  index==1 ? "fhrouter5.irt" : "PROBLEM";
                 @display("p=119,222,row,130");
 
             gates:
@@ -77,7 +77,7 @@ network KIDSNw1
             parameters:
 
                 routingFile = index==0 ? "bgrouter3.irt" :
-			      index==1 ? "bgrouter4.irt" : "PROBLEM";
+                  index==1 ? "bgrouter4.irt" : "PROBLEM";
                 @display("p=135,64,row");
             gates:
                 in[2];
@@ -85,25 +85,25 @@ network KIDSNw1
         };
     connections allowunconnected:
         // * host connections *
-        host[0].out[0] --> ethernet --> fhrouter[0].in[0];
-        host[0].in[0] <-- ethernet <-- fhrouter[0].out[0];
-        host[1].out[0] --> ethernet --> fhrouter[0].in[1];
-        host[1].in[0] <-- ethernet <-- fhrouter[0].out[1];
-        host[2].out[0] --> ethernet --> fhrouter[1].in[0];
-        host[2].in[0] <-- ethernet <-- fhrouter[1].out[0];
+        host[0].pppg$o[0] --> ethernet --> fhrouter[0].pppg$i[0];
+        host[0].pppg$i[0] <-- ethernet <-- fhrouter[0].pppg$o[0];
+        host[1].pppg$o[0] --> ethernet --> fhrouter[0].pppg$i[1];
+        host[1].pppg$i[0] <-- ethernet <-- fhrouter[0].pppg$o[1];
+        host[2].pppg$o[0] --> ethernet --> fhrouter[1].pppg$i[0];
+        host[2].pppg$i[0] <-- ethernet <-- fhrouter[1].pppg$o[0];
 
         // * Router Connections *
-        fhrouter[0].out[2] --> fiberrouterline --> irouter.in[0];
-        fhrouter[0].in[2] <-- fiberrouterline <-- irouter.out[0];
+        fhrouter[0].pppg$o[2] --> fiberrouterline --> irouter.pppg$i[0];
+        fhrouter[0].pppg$i[2] <-- fiberrouterline <-- irouter.pppg$o[0];
 
-        irouter.out[1] --> fiberrouterline --> bgrouter[0].in[0];
-        irouter.in[1] <-- fiberrouterline <-- bgrouter[0].out[0];
+        irouter.pppg$o[1] --> fiberrouterline --> bgrouter[0].pppg$i[0];
+        irouter.pppg$i[1] <-- fiberrouterline <-- bgrouter[0].pppg$o[0];
 
-        bgrouter[0].out[1] --> fiberrouterline --> bgrouter[1].in[1];
-        bgrouter[0].in[1] <-- fiberrouterline <-- bgrouter[1].out[1];
+        bgrouter[0].pppg$o[1] --> fiberrouterline --> bgrouter[1].pppg$i[1];
+        bgrouter[0].pppg$i[1] <-- fiberrouterline <-- bgrouter[1].pppg$o[1];
 
-        bgrouter[1].out[0] --> fiberrouterline --> fhrouter[1].in[1];
-        bgrouter[1].in[0] <-- fiberrouterline <-- fhrouter[1].out[1];
+        bgrouter[1].pppg$o[0] --> fiberrouterline --> fhrouter[1].pppg$i[1];
+        bgrouter[1].pppg$i[0] <-- fiberrouterline <-- fhrouter[1].pppg$o[1];
 
 }
 

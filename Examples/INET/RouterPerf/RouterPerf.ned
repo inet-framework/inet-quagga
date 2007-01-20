@@ -58,11 +58,11 @@ network RouterPerfNetwork
         };
     connections allowunconnected:
         for i=0..nodeNo-1 {
-            sender[i].out++ --> {  datarate = 1000000; } --> router.in++;
-            sender[i].in++ <-- {  datarate = 1000000; } <-- router.out++;
+            sender[i].pppg$o++ --> {  datarate = 1000000; } --> router.pppg$i++;
+            sender[i].pppg$i++ <-- {  datarate = 1000000; } <-- router.pppg$o++;
 
-            recip[i].out++ --> {  datarate = 1000000; } --> router.in++;
-            recip[i].in++ <-- {  datarate = 1000000; } <-- router.out++;
+            recip[i].pppg$o++ --> {  datarate = 1000000; } --> router.pppg$i++;
+            recip[i].pppg$i++ <-- {  datarate = 1000000; } <-- router.pppg$o++;
         };
 
 }

@@ -33,10 +33,8 @@ module Router6
     parameters:
         @display("i=abstract/router");
     gates:
-        input in[];
-        output out[];
-        input ethIn[];
-        output ethOut[];
+        inout pppg[];
+        inout ethg[];
     submodules:
         notificationBoard: NotificationBoard {
             parameters:
@@ -55,31 +53,31 @@ module Router6
             parameters:
                 @display("p=200,141;q=queue");
             gates:
-                ifIn[sizeof(out)+sizeof(ethOut)];
-                ifOut[sizeof(out)+sizeof(ethOut)];
+                ifIn[sizeof(pppg)+sizeof(ethg)];
+                ifOut[sizeof(pppg)+sizeof(ethg)];
         };
-        ppp[sizeof(out)]: PPPInterface {
+        ppp[sizeof(pppg)]: PPPInterface {
             parameters:
                 @display("p=90,257,row,110;q=l2queue");
         };
-        eth[sizeof(ethOut)]: EthernetInterface {
+        eth[sizeof(ethg)]: EthernetInterface {
             parameters:
                 @display("p=145,257,row,110;q=l2queue");
         };
     connections allowunconnected:
         // connections to network outside
-        for i=0..sizeof(out)-1 {
-            in[i] --> ppp[i].physIn;
-            out[i] <-- ppp[i].physOut;
+        for i=0..sizeof(pppg)-1 {
+            pppg$i[i] --> ppp[i].physIn;
+            pppg$o[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
         };
 
-        for i=0..sizeof(ethOut)-1 {
-            ethIn[i] --> eth[i].physIn;
-            ethOut[i] <-- eth[i].physOut;
-            eth[i].netwOut --> networkLayer.ifIn[sizeof(out)+i];
-            eth[i].netwIn <-- networkLayer.ifOut[sizeof(out)+i];
+        for i=0..sizeof(ethg)-1 {
+            ethg$i[i] --> eth[i].physIn;
+            ethg$o[i] <-- eth[i].physOut;
+            eth[i].netwOut --> networkLayer.ifIn[sizeof(pppg)+i];
+            eth[i].netwIn <-- networkLayer.ifOut[sizeof(pppg)+i];
         };
 }
 

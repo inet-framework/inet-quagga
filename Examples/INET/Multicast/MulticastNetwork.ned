@@ -134,36 +134,36 @@ network MulticastNetwork
         };
     connections:
         // * Domain 1 * (172.0.0.x)
-        host1.out[0] --> ethernet --> router1.in[0];
-        host1.in[0] <-- ethernet <-- router1.out[0];
+        host1.pppg$o[0] --> ethernet --> router1.pppg$i[0];
+        host1.pppg$i[0] <-- ethernet <-- router1.pppg$o[0];
 
-        host2.out[0] --> ethernet --> router1.in[1];
-        host2.in[0] <-- ethernet <-- router1.out[1];
-        host2.out[1] --> dialup --> host3.in[1];
-        host2.in[1] <-- dialup <-- host3.out[1];
+        host2.pppg$o[0] --> ethernet --> router1.pppg$i[1];
+        host2.pppg$i[0] <-- ethernet <-- router1.pppg$o[1];
+        host2.pppg$o[1] --> dialup --> host3.pppg$i[1];
+        host2.pppg$i[1] <-- dialup <-- host3.pppg$o[1];
 
-        host3.out[0] --> ethernet --> router1.in[2];
-        host3.in[0] <-- ethernet <-- router1.out[2];
+        host3.pppg$o[0] --> ethernet --> router1.pppg$i[2];
+        host3.pppg$i[0] <-- ethernet <-- router1.pppg$o[2];
 
         // * Domain 2 * (172.0.1.x)
-        host4.out[0] --> ethernet --> router3.in[0];
-        host4.in[0] <-- ethernet <-- router3.out[0];
+        host4.pppg$o[0] --> ethernet --> router3.pppg$i[0];
+        host4.pppg$i[0] <-- ethernet <-- router3.pppg$o[0];
 
         // * Domain 3 * (172.0.2.x)
-        host5.out[0] --> dialup --> router4.in[0];
-        host5.in[0] <-- dialup <-- router4.out[0];
+        host5.pppg$o[0] --> dialup --> router4.pppg$i[0];
+        host5.pppg$i[0] <-- dialup <-- router4.pppg$o[0];
 
-        host6.out[0] --> dialup --> router4.in[1];
-        host6.in[0] <-- dialup <-- router4.out[1];
+        host6.pppg$o[0] --> dialup --> router4.pppg$i[1];
+        host6.pppg$i[0] <-- dialup <-- router4.pppg$o[1];
 
         // * Router Connections * (172.1.0.x)
-        router2.out[0] --> fiberrouter --> router1.in[3];
-        router2.in[0] <-- fiberrouter <-- router1.out[3];
+        router2.pppg$o[0] --> fiberrouter --> router1.pppg$i[3];
+        router2.pppg$i[0] <-- fiberrouter <-- router1.pppg$o[3];
 
-        router2.out[1] --> fiberrouter --> router3.in[1];
-        router2.in[1] <-- fiberrouter <-- router3.out[1];
+        router2.pppg$o[1] --> fiberrouter --> router3.pppg$i[1];
+        router2.pppg$i[1] <-- fiberrouter <-- router3.pppg$o[1];
 
-        router2.out[2] --> fiberrouter --> router4.in[2];
-        router2.in[2] <-- fiberrouter <-- router4.out[2];
+        router2.pppg$o[2] --> fiberrouter --> router4.pppg$i[2];
+        router2.pppg$i[2] <-- fiberrouter <-- router4.pppg$o[2];
 }
 

@@ -42,8 +42,7 @@ module LDP_LSR
         string routingFile = default("");
         @display("i=abstract/router");
     gates:
-        input in[];
-        output out[];
+        inout pppg[];
     submodules:
         notificationBoard: NotificationBoard {
             parameters:
@@ -87,10 +86,10 @@ module LDP_LSR
             parameters:
                 @display("p=224,223");
             gates:
-                ifIn[sizeof(out)];
-                ifOut[sizeof(out)];
+                ifIn[sizeof(pppg)];
+                ifOut[sizeof(pppg)];
         };
-        ppp[sizeof(out)]: PPPInterface {
+        ppp[sizeof(pppg)]: PPPInterface {
             parameters:
                 @display("p=105,388,row,90;q=l2queue");
         };
@@ -100,10 +99,10 @@ module LDP_LSR
                 classifier = "ldp";
                 @display("p=224,302");
             gates:
-                netwIn[sizeof(out)];
-                netwOut[sizeof(out)];
-                ifIn[sizeof(out)];
-                ifOut[sizeof(out)];
+                netwIn[sizeof(pppg)];
+                netwOut[sizeof(pppg)];
+                ifIn[sizeof(pppg)];
+                ifOut[sizeof(pppg)];
         };
         libTable: LIBTable {
             parameters:
@@ -131,9 +130,9 @@ module LDP_LSR
         tcp.to_ip --> networkLayer.TCPIn;
         tcp.from_ip <-- networkLayer.TCPOut;
 
-        for i=0..sizeof(out)-1 {
-            in[i] --> ppp[i].physIn;
-            out[i] <-- ppp[i].physOut;
+        for i=0..sizeof(pppg)-1 {
+            pppg$i[i] --> ppp[i].physIn;
+            pppg$o[i] <-- ppp[i].physOut;
 
             ppp[i].netwOut --> mpls.ifIn[i];
             ppp[i].netwIn <-- mpls.ifOut[i];

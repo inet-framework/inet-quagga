@@ -104,35 +104,35 @@ module OSPF_Area1
                 ethOut[1];
         };
     connections:
-        H1.ethOut[0] --> {  delay = 0.1us; } --> N1.in[0];
-        N1.out[0] --> {  delay = 0.1us; } --> H1.ethIn[0];
-        N1.out[1] --> {  delay = 0.1us; } --> H2.ethIn[0];
-        H2.ethOut[0] --> {  delay = 0.1us; } --> N1.in[1];
-        N2.out[0] --> {  delay = 0.1us; } --> H3.ethIn[0];
-        H3.ethOut[0] --> {  delay = 0.1us; } --> N2.in[0];
-        N2.out[1] --> {  delay = 0.1us; } --> H4.ethIn[0];
-        H4.ethOut[0] --> {  delay = 0.1us; } --> N2.in[1];
-        N1.out[2] --> {  delay = 0.1us; } --> RT1.ethIn[0];
-        RT1.ethOut[0] --> {  delay = 0.1us; } --> N1.in[2];
-        RT1.ethOut[1] --> {  delay = 0.1us; } --> N3.in[1];
-        N3.out[1] --> {  delay = 0.1us; } --> RT1.ethIn[1];
-        N3.out[0] --> {  delay = 0.1us; } --> H5.ethIn[0];
-        H5.ethOut[0] --> {  delay = 0.1us; } --> N3.in[0];
-        N4.out[0] --> {  delay = 0.1us; } --> H6.ethIn[0];
-        H6.ethOut[0] --> {  delay = 0.1us; } --> N4.in[0];
-        N4.out[1] --> {  delay = 0.1us; } --> H7.ethIn[0];
-        H7.ethOut[0] --> {  delay = 0.1us; } --> N4.in[1];
-        N2.out[2] --> {  delay = 0.1us; } --> RT2.ethIn[0];
-        RT2.ethOut[0] --> {  delay = 0.1us; } --> N2.in[2];
-        RT2.ethOut[1] --> {  delay = 0.1us; } --> N3.in[2];
-        N3.out[2] --> {  delay = 0.1us; } --> RT2.ethIn[1];
+        H1.ethg$o[0] --> {  delay = 0.1us; } --> N1.pppg$i[0];
+        N1.pppg$o[0] --> {  delay = 0.1us; } --> H1.ethg$i[0];
+        N1.pppg$o[1] --> {  delay = 0.1us; } --> H2.ethg$i[0];
+        H2.ethg$o[0] --> {  delay = 0.1us; } --> N1.pppg$i[1];
+        N2.pppg$o[0] --> {  delay = 0.1us; } --> H3.ethg$i[0];
+        H3.ethg$o[0] --> {  delay = 0.1us; } --> N2.pppg$i[0];
+        N2.pppg$o[1] --> {  delay = 0.1us; } --> H4.ethg$i[0];
+        H4.ethg$o[0] --> {  delay = 0.1us; } --> N2.pppg$i[1];
+        N1.pppg$o[2] --> {  delay = 0.1us; } --> RT1.ethg$i[0];
+        RT1.ethg$o[0] --> {  delay = 0.1us; } --> N1.pppg$i[2];
+        RT1.ethg$o[1] --> {  delay = 0.1us; } --> N3.pppg$i[1];
+        N3.pppg$o[1] --> {  delay = 0.1us; } --> RT1.ethg$i[1];
+        N3.pppg$o[0] --> {  delay = 0.1us; } --> H5.ethg$i[0];
+        H5.ethg$o[0] --> {  delay = 0.1us; } --> N3.pppg$i[0];
+        N4.pppg$o[0] --> {  delay = 0.1us; } --> H6.ethg$i[0];
+        H6.ethg$o[0] --> {  delay = 0.1us; } --> N4.pppg$i[0];
+        N4.pppg$o[1] --> {  delay = 0.1us; } --> H7.ethg$i[0];
+        H7.ethg$o[0] --> {  delay = 0.1us; } --> N4.pppg$i[1];
+        N2.pppg$o[2] --> {  delay = 0.1us; } --> RT2.ethg$i[0];
+        RT2.ethg$o[0] --> {  delay = 0.1us; } --> N2.pppg$i[2];
+        RT2.ethg$o[1] --> {  delay = 0.1us; } --> N3.pppg$i[2];
+        N3.pppg$o[2] --> {  delay = 0.1us; } --> RT2.ethg$i[1];
 
         // towards other areas
-        N3.out[4] --> { @display("m=m,100,44,100,32"); } --> out[0];
-        in[0] --> { @display("m=m,100,32,100,48"); } --> N3.in[4];
-        N3.out[3] --> { @display("m=m,96,96,100,52"); } --> out[1];
-        in[1] --> { @display("m=m,100,52,89,64"); } --> N3.in[3];
-        N4.out[2] --> out[2];
-        in[2] --> N4.in[2];
+        N3.pppg$o[4] --> { @display("m=m,100,44,100,32"); } --> out[0];
+        in[0] --> { @display("m=m,100,32,100,48"); } --> N3.pppg$i[4];
+        N3.pppg$o[3] --> { @display("m=m,96,96,100,52"); } --> out[1];
+        in[1] --> { @display("m=m,100,52,89,64"); } --> N3.pppg$i[3];
+        N4.pppg$o[2] --> out[2];
+        in[2] --> N4.pppg$i[2];
 }
 

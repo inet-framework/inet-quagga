@@ -38,22 +38,21 @@ module WirelessAPWithEthSimplified
     parameters:
         string relayUnitType = default("MACRelayUnitNP"); // type of the MACRelayUnit (MACRelayUnitNP, MACRelayUnitPP, etc)
     gates:
+        inout ethg[];
         input radioIn;
-        input ethIn[];
-        output ethOut[];
     submodules:
         relayUnit: <relayUnitType> like MACRelayUnit {
             parameters:
                 @display("p=169,124");
             gates:
-                lowerLayerIn[sizeof(ethIn)+1];
-                lowerLayerOut[sizeof(ethIn)+1];
+                lowerLayerIn[sizeof(ethg)+1];
+                lowerLayerOut[sizeof(ethg)+1];
         };
         wlan: Ieee80211NicAPSimplified {
             parameters:
                 @display("p=89,225;q=queue");
         };
-        eth[sizeof(ethIn)]: EtherMAC {
+        eth[sizeof(ethg)]: EtherMAC {
             parameters:
                 promiscuous = true;
                 txQueueLimit = 1000; // increase if needed
@@ -72,11 +71,11 @@ module WirelessAPWithEthSimplified
         radioIn --> { @display("m=s"); } --> wlan.radioIn;
         wlan.uppergateIn <-- relayUnit.lowerLayerOut[0];
         wlan.uppergateOut --> relayUnit.lowerLayerIn[0];
-        for i=0..sizeof(ethIn)-1 {
+        for i=0..sizeof(ethg)-1 {
             eth[i].upperLayerIn <-- relayUnit.lowerLayerOut[i+1];
             eth[i].upperLayerOut --> relayUnit.lowerLayerIn[i+1];
-            eth[i].physIn <-- ethIn[i];
-            eth[i].physOut --> ethOut[i];
+            eth[i].physIn <-- ethg$i[i];
+            eth[i].physOut --> ethg$o[i];
         };
 }
 

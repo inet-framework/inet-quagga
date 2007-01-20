@@ -49,18 +49,18 @@ network DemoNetworkEth
         };
     connections allowunconnected:
         for i=0..n-1 {
-            cli[i].ethOut++ --> ethernetline --> linemonitor[i].in1;
-            linemonitor[i].out2 --> ethernetline --> r1.ethIn++;
-            linemonitor[i].in2 <-- ethernetline <-- r1.ethOut++;
-            cli[i].ethIn++ <-- ethernetline <-- linemonitor[i].out1;
-            //cli[i].ethOut++ --> ethernetline --> r1.ethIn++;
-            //cli[i].ethIn++ <-- ethernetline <-- r1.ethOut++;
-            srv[i].ethOut++ --> ethernetline --> r2.ethIn++;
-            srv[i].ethIn++ <-- ethernetline <-- r2.ethOut++;
+            cli[i].ethg$o++ --> ethernetline --> linemonitor[i].in1;
+            linemonitor[i].out2 --> ethernetline --> r1.ethg$i++;
+            linemonitor[i].in2 <-- ethernetline <-- r1.ethg$o++;
+            cli[i].ethg$i++ <-- ethernetline <-- linemonitor[i].out1;
+            //cli[i].ethg$o++ --> ethernetline --> r1.ethg$i++;
+            //cli[i].ethg$i++ <-- ethernetline <-- r1.ethg$o++;
+            srv[i].ethg$o++ --> ethernetline --> r2.ethg$i++;
+            srv[i].ethg$i++ <-- ethernetline <-- r2.ethg$o++;
         };
 
-        r1.ethOut++ --> ethernetline --> r2.ethIn++;
-        r1.ethIn++ <-- ethernetline <-- r2.ethOut++;
+        r1.ethg$o++ --> ethernetline --> r2.ethg$i++;
+        r1.ethg$i++ <-- ethernetline <-- r2.ethg$o++;
 
 }
 

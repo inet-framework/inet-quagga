@@ -29,18 +29,17 @@ module LDP_FAILED
         string routerId = default("auto");
         string routingFile = default("");
     gates:
-        input in[];
-        output out[];
+        inout pppg[];
     submodules:
         dummy: Dummy {
             gates:
-                in[sizeof(in)];
-                out[sizeof(out)];
+                in[sizeof(pppg)];
+                out[sizeof(pppg)];
 
         };
     connections allowunconnected:
-        for i=0..sizeof(out)-1 {
-            in[i] --> dummy.in[i];
-            dummy.out[i] --> out[i];
+        for i=0..sizeof(pppg)-1 {
+            pppg$i[i] --> dummy.in[i];
+            dummy.out[i] --> pppg$o[i];
         };
 }

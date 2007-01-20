@@ -51,17 +51,17 @@ network NClientsPPP
         };
     connections allowunconnected:
         for i=0..n-1 {
-            cli[i].out++ --> fiberline --> r1.in++;
-            cli[i].in++ <-- fiberline <-- r1.out++;
+            cli[i].pppg$o++ --> fiberline --> r1.pppg$i++;
+            cli[i].pppg$i++ <-- fiberline <-- r1.pppg$o++;
         };
 
-        r1.out++ --> fiberline --> r2.in++;
-        r1.in++ <-- fiberline <-- r2.out++;
+        r1.pppg$o++ --> fiberline --> r2.pppg$i++;
+        r1.pppg$i++ <-- fiberline <-- r2.pppg$o++;
 
-        r2.out++ --> fiberline --> r3.in++;
-        r2.in++ <-- fiberline <-- r3.out++;
+        r2.pppg$o++ --> fiberline --> r3.pppg$i++;
+        r2.pppg$i++ <-- fiberline <-- r3.pppg$o++;
 
-        r3.out++ --> fiberline --> srv.in++;
-        r3.in++ <-- fiberline <-- srv.out++;
+        r3.pppg$o++ --> fiberline --> srv.pppg$i++;
+        r3.pppg$i++ <-- fiberline <-- srv.pppg$o++;
 }
 

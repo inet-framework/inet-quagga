@@ -74,14 +74,14 @@ network RTPMulticast1
 
         };
     connections:
-        host1.out[0] --> ethernet --> router1.in[0];
-        host1.in[0] <-- ethernet <-- router1.out[0];
-        host2.out[0] --> ethernet --> router1.in[1];
-        host2.in[0] <-- ethernet <-- router1.out[1];
-        host3.out[0] --> ethernet --> router1.in[2];
-        host3.in[0] <-- ethernet <-- router1.out[2];
-        host4.out[0] --> ethernet --> router1.in[3];
-        host4.in[0] <-- ethernet <-- router1.out[3];
+        host1.pppg$o[0] --> ethernet --> router1.pppg$i[0];
+        host1.pppg$i[0] <-- ethernet <-- router1.pppg$o[0];
+        host2.pppg$o[0] --> ethernet --> router1.pppg$i[1];
+        host2.pppg$i[0] <-- ethernet <-- router1.pppg$o[1];
+        host3.pppg$o[0] --> ethernet --> router1.pppg$i[2];
+        host3.pppg$i[0] <-- ethernet <-- router1.pppg$o[2];
+        host4.pppg$o[0] --> ethernet --> router1.pppg$i[3];
+        host4.pppg$i[0] <-- ethernet <-- router1.pppg$o[3];
 
 }
 

@@ -59,255 +59,255 @@ network FlatNet
                 @display("i=device/server_s");
         };
     connections allowunconnected:
-        cli[0].out++ --> ethernetline --> rte[50].in++;
-        cli[0].in++ <-- ethernetline <-- rte[50].out++;
-        cli[1].out++ --> ethernetline --> rte[8].in++;
-        cli[1].in++ <-- ethernetline <-- rte[8].out++;
+        cli[0].pppg$o++ --> ethernetline --> rte[50].pppg$i++;
+        cli[0].pppg$i++ <-- ethernetline <-- rte[50].pppg$o++;
+        cli[1].pppg$o++ --> ethernetline --> rte[8].pppg$i++;
+        cli[1].pppg$i++ <-- ethernetline <-- rte[8].pppg$o++;
 
-        srv.out++ --> fiberline --> rte[18].in++;
-        srv.in++ <-- fiberline <-- rte[18].out++;
+        srv.pppg$o++ --> fiberline --> rte[18].pppg$i++;
+        srv.pppg$i++ <-- fiberline <-- rte[18].pppg$o++;
 
-        rte[0].out++ --> fiberline --> rte[1].in++;
-        rte[0].in++ <-- fiberline <-- rte[1].out++;
+        rte[0].pppg$o++ --> fiberline --> rte[1].pppg$i++;
+        rte[0].pppg$i++ <-- fiberline <-- rte[1].pppg$o++;
 
-        rte[1].out++ --> fiberline --> rte[2].in++;
-        rte[1].in++ <-- fiberline <-- rte[2].out++;
+        rte[1].pppg$o++ --> fiberline --> rte[2].pppg$i++;
+        rte[1].pppg$i++ <-- fiberline <-- rte[2].pppg$o++;
 
-        rte[1].out++ --> fiberline --> rte[4].in++;
-        rte[1].in++ <-- fiberline <-- rte[4].out++;
+        rte[1].pppg$o++ --> fiberline --> rte[4].pppg$i++;
+        rte[1].pppg$i++ <-- fiberline <-- rte[4].pppg$o++;
 
-        rte[3].out++ --> fiberline --> rte[4].in++;
-        rte[3].in++ <-- fiberline <-- rte[4].out++;
+        rte[3].pppg$o++ --> fiberline --> rte[4].pppg$i++;
+        rte[3].pppg$i++ <-- fiberline <-- rte[4].pppg$o++;
 
-        rte[4].out++ --> fiberline --> rte[5].in++;
-        rte[4].in++ <-- fiberline <-- rte[5].out++;
+        rte[4].pppg$o++ --> fiberline --> rte[5].pppg$i++;
+        rte[4].pppg$i++ <-- fiberline <-- rte[5].pppg$o++;
 
-        rte[4].out++ --> fiberline --> rte[7].in++;
-        rte[4].in++ <-- fiberline <-- rte[7].out++;
+        rte[4].pppg$o++ --> fiberline --> rte[7].pppg$i++;
+        rte[4].pppg$i++ <-- fiberline <-- rte[7].pppg$o++;
 
-        rte[5].out++ --> fiberline --> rte[6].in++;
-        rte[5].in++ <-- fiberline <-- rte[6].out++;
+        rte[5].pppg$o++ --> fiberline --> rte[6].pppg$i++;
+        rte[5].pppg$i++ <-- fiberline <-- rte[6].pppg$o++;
 
-        rte[5].out++ --> fiberline --> rte[10].in++;
-        rte[5].in++ <-- fiberline <-- rte[10].out++;
+        rte[5].pppg$o++ --> fiberline --> rte[10].pppg$i++;
+        rte[5].pppg$i++ <-- fiberline <-- rte[10].pppg$o++;
 
-        rte[6].out++ --> fiberline --> rte[7].in++;
-        rte[6].in++ <-- fiberline <-- rte[7].out++;
+        rte[6].pppg$o++ --> fiberline --> rte[7].pppg$i++;
+        rte[6].pppg$i++ <-- fiberline <-- rte[7].pppg$o++;
 
-        rte[6].out++ --> fiberline --> rte[9].in++;
-        rte[6].in++ <-- fiberline <-- rte[9].out++;
+        rte[6].pppg$o++ --> fiberline --> rte[9].pppg$i++;
+        rte[6].pppg$i++ <-- fiberline <-- rte[9].pppg$o++;
 
-        rte[7].out++ --> fiberline --> rte[8].in++;
-        rte[7].in++ <-- fiberline <-- rte[8].out++;
+        rte[7].pppg$o++ --> fiberline --> rte[8].pppg$i++;
+        rte[7].pppg$i++ <-- fiberline <-- rte[8].pppg$o++;
 
-        rte[7].out++ --> fiberline --> rte[12].in++;
-        rte[7].in++ <-- fiberline <-- rte[12].out++;
+        rte[7].pppg$o++ --> fiberline --> rte[12].pppg$i++;
+        rte[7].pppg$i++ <-- fiberline <-- rte[12].pppg$o++;
 
-        rte[9].out++ --> fiberline --> rte[11].in++;
-        rte[9].in++ <-- fiberline <-- rte[11].out++;
+        rte[9].pppg$o++ --> fiberline --> rte[11].pppg$i++;
+        rte[9].pppg$i++ <-- fiberline <-- rte[11].pppg$o++;
 
-        rte[10].out++ --> fiberline --> rte[11].in++;
-        rte[10].in++ <-- fiberline <-- rte[11].out++;
+        rte[10].pppg$o++ --> fiberline --> rte[11].pppg$i++;
+        rte[10].pppg$i++ <-- fiberline <-- rte[11].pppg$o++;
 
-        rte[10].out++ --> fiberline --> rte[13].in++;
-        rte[10].in++ <-- fiberline <-- rte[13].out++;
+        rte[10].pppg$o++ --> fiberline --> rte[13].pppg$i++;
+        rte[10].pppg$i++ <-- fiberline <-- rte[13].pppg$o++;
 
-        rte[11].out++ --> fiberline --> rte[12].in++;
-        rte[11].in++ <-- fiberline <-- rte[12].out++;
+        rte[11].pppg$o++ --> fiberline --> rte[12].pppg$i++;
+        rte[11].pppg$i++ <-- fiberline <-- rte[12].pppg$o++;
 
-        rte[11].out++ --> fiberline --> rte[14].in++;
-        rte[11].in++ <-- fiberline <-- rte[14].out++;
+        rte[11].pppg$o++ --> fiberline --> rte[14].pppg$i++;
+        rte[11].pppg$i++ <-- fiberline <-- rte[14].pppg$o++;
 
-        rte[12].out++ --> fiberline --> rte[15].in++;
-        rte[12].in++ <-- fiberline <-- rte[15].out++;
+        rte[12].pppg$o++ --> fiberline --> rte[15].pppg$i++;
+        rte[12].pppg$i++ <-- fiberline <-- rte[15].pppg$o++;
 
-        rte[13].out++ --> fiberline --> rte[18].in++;
-        rte[13].in++ <-- fiberline <-- rte[18].out++;
+        rte[13].pppg$o++ --> fiberline --> rte[18].pppg$i++;
+        rte[13].pppg$i++ <-- fiberline <-- rte[18].pppg$o++;
 
-        rte[14].out++ --> fiberline --> rte[15].in++;
-        rte[14].in++ <-- fiberline <-- rte[15].out++;
+        rte[14].pppg$o++ --> fiberline --> rte[15].pppg$i++;
+        rte[14].pppg$i++ <-- fiberline <-- rte[15].pppg$o++;
 
-        rte[14].out++ --> fiberline --> rte[22].in++;
-        rte[14].in++ <-- fiberline <-- rte[22].out++;
+        rte[14].pppg$o++ --> fiberline --> rte[22].pppg$i++;
+        rte[14].pppg$i++ <-- fiberline <-- rte[22].pppg$o++;
 
-        rte[15].out++ --> fiberline --> rte[16].in++;
-        rte[15].in++ <-- fiberline <-- rte[16].out++;
+        rte[15].pppg$o++ --> fiberline --> rte[16].pppg$i++;
+        rte[15].pppg$i++ <-- fiberline <-- rte[16].pppg$o++;
 
-        rte[16].out++ --> fiberline --> rte[17].in++;
-        rte[16].in++ <-- fiberline <-- rte[17].out++;
+        rte[16].pppg$o++ --> fiberline --> rte[17].pppg$i++;
+        rte[16].pppg$i++ <-- fiberline <-- rte[17].pppg$o++;
 
-        rte[16].out++ --> fiberline --> rte[23].in++;
-        rte[16].in++ <-- fiberline <-- rte[23].out++;
+        rte[16].pppg$o++ --> fiberline --> rte[23].pppg$i++;
+        rte[16].pppg$i++ <-- fiberline <-- rte[23].pppg$o++;
 
-        rte[18].out++ --> fiberline --> rte[19].in++;
-        rte[18].in++ <-- fiberline <-- rte[19].out++;
+        rte[18].pppg$o++ --> fiberline --> rte[19].pppg$i++;
+        rte[18].pppg$i++ <-- fiberline <-- rte[19].pppg$o++;
 
-        rte[18].out++ --> fiberline --> rte[21].in++;
-        rte[18].in++ <-- fiberline <-- rte[21].out++;
+        rte[18].pppg$o++ --> fiberline --> rte[21].pppg$i++;
+        rte[18].pppg$i++ <-- fiberline <-- rte[21].pppg$o++;
 
-        rte[19].out++ --> fiberline --> rte[20].in++;
-        rte[19].in++ <-- fiberline <-- rte[20].out++;
+        rte[19].pppg$o++ --> fiberline --> rte[20].pppg$i++;
+        rte[19].pppg$i++ <-- fiberline <-- rte[20].pppg$o++;
 
-        rte[19].out++ --> fiberline --> rte[26].in++;
-        rte[19].in++ <-- fiberline <-- rte[26].out++;
+        rte[19].pppg$o++ --> fiberline --> rte[26].pppg$i++;
+        rte[19].pppg$i++ <-- fiberline <-- rte[26].pppg$o++;
 
-        rte[20].out++ --> fiberline --> rte[21].in++;
-        rte[20].in++ <-- fiberline <-- rte[21].out++;
+        rte[20].pppg$o++ --> fiberline --> rte[21].pppg$i++;
+        rte[20].pppg$i++ <-- fiberline <-- rte[21].pppg$o++;
 
-        rte[20].out++ --> fiberline --> rte[24].in++;
-        rte[20].in++ <-- fiberline <-- rte[24].out++;
+        rte[20].pppg$o++ --> fiberline --> rte[24].pppg$i++;
+        rte[20].pppg$i++ <-- fiberline <-- rte[24].pppg$o++;
 
-        rte[20].out++ --> fiberline --> rte[25].in++;
-        rte[20].in++ <-- fiberline <-- rte[25].out++;
+        rte[20].pppg$o++ --> fiberline --> rte[25].pppg$i++;
+        rte[20].pppg$i++ <-- fiberline <-- rte[25].pppg$o++;
 
-        rte[21].out++ --> fiberline --> rte[22].in++;
-        rte[21].in++ <-- fiberline <-- rte[22].out++;
+        rte[21].pppg$o++ --> fiberline --> rte[22].pppg$i++;
+        rte[21].pppg$i++ <-- fiberline <-- rte[22].pppg$o++;
 
-        rte[21].out++ --> fiberline --> rte[23].in++;
-        rte[21].in++ <-- fiberline <-- rte[23].out++;
+        rte[21].pppg$o++ --> fiberline --> rte[23].pppg$i++;
+        rte[21].pppg$i++ <-- fiberline <-- rte[23].pppg$o++;
 
-        rte[21].out++ --> fiberline --> rte[24].in++;
-        rte[21].in++ <-- fiberline <-- rte[24].out++;
+        rte[21].pppg$o++ --> fiberline --> rte[24].pppg$i++;
+        rte[21].pppg$i++ <-- fiberline <-- rte[24].pppg$o++;
 
-        rte[23].out++ --> fiberline --> rte[24].in++;
-        rte[23].in++ <-- fiberline <-- rte[24].out++;
+        rte[23].pppg$o++ --> fiberline --> rte[24].pppg$i++;
+        rte[23].pppg$i++ <-- fiberline <-- rte[24].pppg$o++;
 
-        rte[24].out++ --> fiberline --> rte[28].in++;
-        rte[24].in++ <-- fiberline <-- rte[28].out++;
+        rte[24].pppg$o++ --> fiberline --> rte[28].pppg$i++;
+        rte[24].pppg$i++ <-- fiberline <-- rte[28].pppg$o++;
 
-        rte[25].out++ --> fiberline --> rte[27].in++;
-        rte[25].in++ <-- fiberline <-- rte[27].out++;
+        rte[25].pppg$o++ --> fiberline --> rte[27].pppg$i++;
+        rte[25].pppg$i++ <-- fiberline <-- rte[27].pppg$o++;
 
-        rte[26].out++ --> fiberline --> rte[32].in++;
-        rte[26].in++ <-- fiberline <-- rte[32].out++;
+        rte[26].pppg$o++ --> fiberline --> rte[32].pppg$i++;
+        rte[26].pppg$i++ <-- fiberline <-- rte[32].pppg$o++;
 
-        rte[27].out++ --> fiberline --> rte[29].in++;
-        rte[27].in++ <-- fiberline <-- rte[29].out++;
+        rte[27].pppg$o++ --> fiberline --> rte[29].pppg$i++;
+        rte[27].pppg$i++ <-- fiberline <-- rte[29].pppg$o++;
 
-        rte[27].out++ --> fiberline --> rte[30].in++;
-        rte[27].in++ <-- fiberline <-- rte[30].out++;
+        rte[27].pppg$o++ --> fiberline --> rte[30].pppg$i++;
+        rte[27].pppg$i++ <-- fiberline <-- rte[30].pppg$o++;
 
-        rte[27].out++ --> fiberline --> rte[32].in++;
-        rte[27].in++ <-- fiberline <-- rte[32].out++;
+        rte[27].pppg$o++ --> fiberline --> rte[32].pppg$i++;
+        rte[27].pppg$i++ <-- fiberline <-- rte[32].pppg$o++;
 
-        rte[28].out++ --> fiberline --> rte[29].in++;
-        rte[28].in++ <-- fiberline <-- rte[29].out++;
+        rte[28].pppg$o++ --> fiberline --> rte[29].pppg$i++;
+        rte[28].pppg$i++ <-- fiberline <-- rte[29].pppg$o++;
 
-        rte[28].out++ --> fiberline --> rte[31].in++;
-        rte[28].in++ <-- fiberline <-- rte[31].out++;
+        rte[28].pppg$o++ --> fiberline --> rte[31].pppg$i++;
+        rte[28].pppg$i++ <-- fiberline <-- rte[31].pppg$o++;
 
-        rte[29].out++ --> fiberline --> rte[31].in++;
-        rte[29].in++ <-- fiberline <-- rte[31].out++;
+        rte[29].pppg$o++ --> fiberline --> rte[31].pppg$i++;
+        rte[29].pppg$i++ <-- fiberline <-- rte[31].pppg$o++;
 
-        rte[30].out++ --> fiberline --> rte[36].in++;
-        rte[30].in++ <-- fiberline <-- rte[36].out++;
+        rte[30].pppg$o++ --> fiberline --> rte[36].pppg$i++;
+        rte[30].pppg$i++ <-- fiberline <-- rte[36].pppg$o++;
 
-        rte[31].out++ --> fiberline --> rte[33].in++;
-        rte[31].in++ <-- fiberline <-- rte[33].out++;
+        rte[31].pppg$o++ --> fiberline --> rte[33].pppg$i++;
+        rte[31].pppg$i++ <-- fiberline <-- rte[33].pppg$o++;
 
-        rte[32].out++ --> fiberline --> rte[34].in++;
-        rte[32].in++ <-- fiberline <-- rte[34].out++;
+        rte[32].pppg$o++ --> fiberline --> rte[34].pppg$i++;
+        rte[32].pppg$i++ <-- fiberline <-- rte[34].pppg$o++;
 
-        rte[33].out++ --> fiberline --> rte[37].in++;
-        rte[33].in++ <-- fiberline <-- rte[37].out++;
+        rte[33].pppg$o++ --> fiberline --> rte[37].pppg$i++;
+        rte[33].pppg$i++ <-- fiberline <-- rte[37].pppg$o++;
 
-        rte[34].out++ --> fiberline --> rte[35].in++;
-        rte[34].in++ <-- fiberline <-- rte[35].out++;
+        rte[34].pppg$o++ --> fiberline --> rte[35].pppg$i++;
+        rte[34].pppg$i++ <-- fiberline <-- rte[35].pppg$o++;
 
-        rte[34].out++ --> fiberline --> rte[40].in++;
-        rte[34].in++ <-- fiberline <-- rte[40].out++;
+        rte[34].pppg$o++ --> fiberline --> rte[40].pppg$i++;
+        rte[34].pppg$i++ <-- fiberline <-- rte[40].pppg$o++;
 
-        rte[35].out++ --> fiberline --> rte[36].in++;
-        rte[35].in++ <-- fiberline <-- rte[36].out++;
+        rte[35].pppg$o++ --> fiberline --> rte[36].pppg$i++;
+        rte[35].pppg$i++ <-- fiberline <-- rte[36].pppg$o++;
 
-        rte[35].out++ --> fiberline --> rte[39].in++;
-        rte[35].in++ <-- fiberline <-- rte[39].out++;
+        rte[35].pppg$o++ --> fiberline --> rte[39].pppg$i++;
+        rte[35].pppg$i++ <-- fiberline <-- rte[39].pppg$o++;
 
-        rte[36].out++ --> fiberline --> rte[37].in++;
-        rte[36].in++ <-- fiberline <-- rte[37].out++;
+        rte[36].pppg$o++ --> fiberline --> rte[37].pppg$i++;
+        rte[36].pppg$i++ <-- fiberline <-- rte[37].pppg$o++;
 
-        rte[37].out++ --> fiberline --> rte[38].in++;
-        rte[37].in++ <-- fiberline <-- rte[38].out++;
+        rte[37].pppg$o++ --> fiberline --> rte[38].pppg$i++;
+        rte[37].pppg$i++ <-- fiberline <-- rte[38].pppg$o++;
 
-        rte[38].out++ --> fiberline --> rte[39].in++;
-        rte[38].in++ <-- fiberline <-- rte[39].out++;
+        rte[38].pppg$o++ --> fiberline --> rte[39].pppg$i++;
+        rte[38].pppg$i++ <-- fiberline <-- rte[39].pppg$o++;
 
-        rte[38].out++ --> fiberline --> rte[42].in++;
-        rte[38].in++ <-- fiberline <-- rte[42].out++;
+        rte[38].pppg$o++ --> fiberline --> rte[42].pppg$i++;
+        rte[38].pppg$i++ <-- fiberline <-- rte[42].pppg$o++;
 
-        rte[39].out++ --> fiberline --> rte[40].in++;
-        rte[39].in++ <-- fiberline <-- rte[40].out++;
+        rte[39].pppg$o++ --> fiberline --> rte[40].pppg$i++;
+        rte[39].pppg$i++ <-- fiberline <-- rte[40].pppg$o++;
 
-        rte[39].out++ --> fiberline --> rte[41].in++;
-        rte[39].in++ <-- fiberline <-- rte[41].out++;
+        rte[39].pppg$o++ --> fiberline --> rte[41].pppg$i++;
+        rte[39].pppg$i++ <-- fiberline <-- rte[41].pppg$o++;
 
-        rte[40].out++ --> fiberline --> rte[43].in++;
-        rte[40].in++ <-- fiberline <-- rte[43].out++;
+        rte[40].pppg$o++ --> fiberline --> rte[43].pppg$i++;
+        rte[40].pppg$i++ <-- fiberline <-- rte[43].pppg$o++;
 
-        rte[40].out++ --> fiberline --> rte[44].in++;
-        rte[40].in++ <-- fiberline <-- rte[44].out++;
+        rte[40].pppg$o++ --> fiberline --> rte[44].pppg$i++;
+        rte[40].pppg$i++ <-- fiberline <-- rte[44].pppg$o++;
 
-        rte[40].out++ --> fiberline --> rte[52].in++;
-        rte[40].in++ <-- fiberline <-- rte[52].out++;
+        rte[40].pppg$o++ --> fiberline --> rte[52].pppg$i++;
+        rte[40].pppg$i++ <-- fiberline <-- rte[52].pppg$o++;
 
-        rte[41].out++ --> fiberline --> rte[42].in++;
-        rte[41].in++ <-- fiberline <-- rte[42].out++;
+        rte[41].pppg$o++ --> fiberline --> rte[42].pppg$i++;
+        rte[41].pppg$i++ <-- fiberline <-- rte[42].pppg$o++;
 
-        rte[41].out++ --> fiberline --> rte[43].in++;
-        rte[41].in++ <-- fiberline <-- rte[43].out++;
+        rte[41].pppg$o++ --> fiberline --> rte[43].pppg$i++;
+        rte[41].pppg$i++ <-- fiberline <-- rte[43].pppg$o++;
 
-        rte[42].out++ --> fiberline --> rte[43].in++;
-        rte[42].in++ <-- fiberline <-- rte[43].out++;
+        rte[42].pppg$o++ --> fiberline --> rte[43].pppg$i++;
+        rte[42].pppg$i++ <-- fiberline <-- rte[43].pppg$o++;
 
-        rte[43].out++ --> fiberline --> rte[46].in++;
-        rte[43].in++ <-- fiberline <-- rte[46].out++;
+        rte[43].pppg$o++ --> fiberline --> rte[46].pppg$i++;
+        rte[43].pppg$i++ <-- fiberline <-- rte[46].pppg$o++;
 
-        rte[44].out++ --> fiberline --> rte[45].in++;
-        rte[44].in++ <-- fiberline <-- rte[45].out++;
+        rte[44].pppg$o++ --> fiberline --> rte[45].pppg$i++;
+        rte[44].pppg$i++ <-- fiberline <-- rte[45].pppg$o++;
 
-        rte[44].out++ --> fiberline --> rte[47].in++;
-        rte[44].in++ <-- fiberline <-- rte[47].out++;
+        rte[44].pppg$o++ --> fiberline --> rte[47].pppg$i++;
+        rte[44].pppg$i++ <-- fiberline <-- rte[47].pppg$o++;
 
-        rte[45].out++ --> fiberline --> rte[46].in++;
-        rte[45].in++ <-- fiberline <-- rte[46].out++;
+        rte[45].pppg$o++ --> fiberline --> rte[46].pppg$i++;
+        rte[45].pppg$i++ <-- fiberline <-- rte[46].pppg$o++;
 
-        rte[46].out++ --> fiberline --> rte[49].in++;
-        rte[46].in++ <-- fiberline <-- rte[49].out++;
+        rte[46].pppg$o++ --> fiberline --> rte[49].pppg$i++;
+        rte[46].pppg$i++ <-- fiberline <-- rte[49].pppg$o++;
 
-        rte[47].out++ --> fiberline --> rte[48].in++;
-        rte[47].in++ <-- fiberline <-- rte[48].out++;
+        rte[47].pppg$o++ --> fiberline --> rte[48].pppg$i++;
+        rte[47].pppg$i++ <-- fiberline <-- rte[48].pppg$o++;
 
-        rte[48].out++ --> fiberline --> rte[50].in++;
-        rte[48].in++ <-- fiberline <-- rte[50].out++;
+        rte[48].pppg$o++ --> fiberline --> rte[50].pppg$i++;
+        rte[48].pppg$i++ <-- fiberline <-- rte[50].pppg$o++;
 
-        rte[48].out++ --> fiberline --> rte[51].in++;
-        rte[48].in++ <-- fiberline <-- rte[51].out++;
+        rte[48].pppg$o++ --> fiberline --> rte[51].pppg$i++;
+        rte[48].pppg$i++ <-- fiberline <-- rte[51].pppg$o++;
 
-        rte[49].out++ --> fiberline --> rte[50].in++;
-        rte[49].in++ <-- fiberline <-- rte[50].out++;
+        rte[49].pppg$o++ --> fiberline --> rte[50].pppg$i++;
+        rte[49].pppg$i++ <-- fiberline <-- rte[50].pppg$o++;
 
-        rte[50].out++ --> fiberline --> rte[53].in++;
-        rte[50].in++ <-- fiberline <-- rte[53].out++;
+        rte[50].pppg$o++ --> fiberline --> rte[53].pppg$i++;
+        rte[50].pppg$i++ <-- fiberline <-- rte[53].pppg$o++;
 
-        rte[51].out++ --> fiberline --> rte[52].in++;
-        rte[51].in++ <-- fiberline <-- rte[52].out++;
+        rte[51].pppg$o++ --> fiberline --> rte[52].pppg$i++;
+        rte[51].pppg$i++ <-- fiberline <-- rte[52].pppg$o++;
 
-        rte[51].out++ --> fiberline --> rte[53].in++;
-        rte[51].in++ <-- fiberline <-- rte[53].out++;
+        rte[51].pppg$o++ --> fiberline --> rte[53].pppg$i++;
+        rte[51].pppg$i++ <-- fiberline <-- rte[53].pppg$o++;
 
-        rte[52].out++ --> fiberline --> rte[53].in++;
-        rte[52].in++ <-- fiberline <-- rte[53].out++;
+        rte[52].pppg$o++ --> fiberline --> rte[53].pppg$i++;
+        rte[52].pppg$i++ <-- fiberline <-- rte[53].pppg$o++;
 
-        rte[52].out++ --> fiberline --> rte[54].in++;
-        rte[52].in++ <-- fiberline <-- rte[54].out++;
+        rte[52].pppg$o++ --> fiberline --> rte[54].pppg$i++;
+        rte[52].pppg$i++ <-- fiberline <-- rte[54].pppg$o++;
 
-        rte[53].out++ --> fiberline --> rte[56].in++;
-        rte[53].in++ <-- fiberline <-- rte[56].out++;
+        rte[53].pppg$o++ --> fiberline --> rte[56].pppg$i++;
+        rte[53].pppg$i++ <-- fiberline <-- rte[56].pppg$o++;
 
-        rte[54].out++ --> fiberline --> rte[55].in++;
-        rte[54].in++ <-- fiberline <-- rte[55].out++;
+        rte[54].pppg$o++ --> fiberline --> rte[55].pppg$i++;
+        rte[54].pppg$i++ <-- fiberline <-- rte[55].pppg$o++;
 
-        rte[55].out++ --> fiberline --> rte[56].in++;
-        rte[55].in++ <-- fiberline <-- rte[56].out++;
+        rte[55].pppg$o++ --> fiberline --> rte[56].pppg$i++;
+        rte[55].pppg$i++ <-- fiberline <-- rte[56].pppg$o++;
 }
 

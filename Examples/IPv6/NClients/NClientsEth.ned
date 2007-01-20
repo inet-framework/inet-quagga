@@ -60,33 +60,33 @@ network NClientsEth
         };
     connections allowunconnected:
         for i=0..n-1 {
-            cli[i].ethOut++ --> ethernetline --> hub.in++;
-            cli[i].ethIn++ <-- ethernetline <-- hub.out++;
+            cli[i].ethg$o++ --> ethernetline --> hub.pppg$i++;
+            cli[i].ethg$i++ <-- ethernetline <-- hub.pppg$o++;
         };
 
-        hub.out++ --> ethernetline --> r1.ethIn++;
-        hub.in++ <-- ethernetline <-- r1.ethOut++;
+        hub.pppg$o++ --> ethernetline --> r1.ethg$i++;
+        hub.pppg$i++ <-- ethernetline <-- r1.ethg$o++;
 
-        r1.ethOut++ --> ethernetline --> r2.ethIn++;
-        r1.ethIn++ <-- ethernetline <-- r2.ethOut++;
+        r1.ethg$o++ --> ethernetline --> r2.ethg$i++;
+        r1.ethg$i++ <-- ethernetline <-- r2.ethg$o++;
 
-        r2.ethOut++ --> ethernetline --> r3.ethIn++;
-        r2.ethIn++ <-- ethernetline <-- r3.ethOut++;
+        r2.ethg$o++ --> ethernetline --> r3.ethg$i++;
+        r2.ethg$i++ <-- ethernetline <-- r3.ethg$o++;
 
-        r3.ethOut++ --> ethernetline --> srv.ethIn++;
-        r3.ethIn++ <-- ethernetline <-- srv.ethOut++;
+        r3.ethg$o++ --> ethernetline --> srv.ethg$i++;
+        r3.ethg$i++ <-- ethernetline <-- srv.ethg$o++;
 
         // Mixing ethernet and ppp currently doesn't work, due to a bug in
         // FlatNetworkConfigurator6::determineGateIndex.
         //
-        // r1.out++ --> fiberline --> r2.in++;
-        // r1.in++ <-- fiberline <-- r2.out++;
+        // r1.pppg$o++ --> fiberline --> r2.pppg$i++;
+        // r1.pppg$i++ <-- fiberline <-- r2.pppg$o++;
         //
-        // r2.out++ --> fiberline --> r3.in++;
-        // r2.in++ <-- fiberline <-- r3.out++;
+        // r2.pppg$o++ --> fiberline --> r3.pppg$i++;
+        // r2.pppg$i++ <-- fiberline <-- r3.pppg$o++;
         //
-        // r3.out++ --> fiberline --> srv.in++;
-        // r3.in++ <-- fiberline <-- srv.out++;
+        // r3.pppg$o++ --> fiberline --> srv.pppg$i++;
+        // r3.pppg$i++ <-- fiberline <-- srv.pppg$o++;
 
 }
 

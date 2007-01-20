@@ -53,10 +53,8 @@ module WirelessHost
         string mobilityType = default("NullMobility");
         @display("i=device/wifilaptop");
     gates:
-        input in[];
-        output out[];
-        input ethIn[];
-        output ethOut[];
+        inout pppg[];
+        inout ethg[];
         input radioIn;
     submodules:
         notificationBoard: NotificationBoard {
@@ -99,14 +97,14 @@ module WirelessHost
                 proxyARP = false;
                 @display("p=248,247;q=queue");
             gates:
-                ifIn[sizeof(out)+sizeof(ethOut)+1];
-                ifOut[sizeof(out)+sizeof(ethOut)+1];
+                ifIn[sizeof(pppg)+sizeof(ethg)+1];
+                ifOut[sizeof(pppg)+sizeof(ethg)+1];
         };
-        ppp[sizeof(out)]: PPPInterface {
+        ppp[sizeof(pppg)]: PPPInterface {
             parameters:
                 @display("p=205,350,row,90;q=txQueue");
         };
-        eth[sizeof(ethOut)]: EthernetInterface {
+        eth[sizeof(ethg)]: EthernetInterface {
             parameters:
                 @display("p=240,350,row,90;q=txQueue");
         };
@@ -139,22 +137,22 @@ module WirelessHost
         networkLayer.pingIn <-- pingApp.pingOut;
 
         // connections to network outside
-        for i=0..sizeof(out)-1 {
-            in[i] --> ppp[i].physIn;
-            out[i] <-- ppp[i].physOut;
+        for i=0..sizeof(pppg)-1 {
+            pppg$i[i] --> ppp[i].physIn;
+            pppg$o[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
         };
 
-        for i=0..sizeof(ethOut)-1 {
-            ethIn[i] --> eth[i].physIn;
-            ethOut[i] <-- eth[i].physOut;
-            eth[i].netwOut --> networkLayer.ifIn[sizeof(out)+i];
-            eth[i].netwIn <-- networkLayer.ifOut[sizeof(out)+i];
+        for i=0..sizeof(ethg)-1 {
+            ethg$i[i] --> eth[i].physIn;
+            ethg$o[i] <-- eth[i].physOut;
+            eth[i].netwOut --> networkLayer.ifIn[sizeof(pppg)+i];
+            eth[i].netwIn <-- networkLayer.ifOut[sizeof(pppg)+i];
         };
 
         radioIn --> wlan.radioIn;
-        wlan.uppergateOut --> networkLayer.ifIn[sizeof(out)+sizeof(ethOut)];
-        wlan.uppergateIn <-- networkLayer.ifOut[sizeof(out)+sizeof(ethOut)];
+        wlan.uppergateOut --> networkLayer.ifIn[sizeof(pppg)+sizeof(ethg)];
+        wlan.uppergateIn <-- networkLayer.ifOut[sizeof(pppg)+sizeof(ethg)];
 }
 
