@@ -41,9 +41,11 @@ module SmallLAN
         input in;
         output out;
     submodules:
-        hub: EtherHub {
+        hub: EtherHub { 
+            @display("is=s");
         };
         host[h]: EtherHost {
+            @display("is=s");
         };
     connections:
         for i=0..h-1 {
@@ -69,12 +71,16 @@ module MediumLAN
         output out;
     submodules:
         switch: EtherSwitch {
+            @display("is=s");
         };
         host[n]: EtherHost {
+            @display("is=s");
         };
         hub: EtherHub {
+            @display("is=s");
         };
         hhost[h]: EtherHost {
+            @display("is=s");
         };
     connections:
         for i=0..n-1 {
@@ -112,12 +118,16 @@ module LargeLAN
         output out;
     submodules:
         switch: EtherSwitch {
+            @display("is=s");
         };
         host[n]: EtherHost {
+            @display("is=s");
         };
         hub: EtherHub {
+            @display("is=s");
         };
         hhost[h]: EtherHost {
+            @display("is=s");
         };
         bus: EtherBus {
             parameters:
@@ -127,7 +137,7 @@ module LargeLAN
         };
         bhost[b]: EtherHost {
             parameters:
-                @display("p=,,r");
+                @display("is=s;p=,,r");
         };
     connections:
         for i=0..n-1 {
@@ -181,53 +191,31 @@ network LargeNet
         int dl;  // number of large LANs on switch D
     submodules:
         switchBB[n]: EtherSwitch {
+            @display("is=s");
         };
-        slanBB[n*bbs]: SmallLAN {
-        };
-        mlanBB[n*bbm]: MediumLAN {
-        };
-        llanBB[n*bbl]: LargeLAN {
-        };
-        switchA: EtherSwitch {
-        };
-        serverA: EtherHost {
-        };
-        slanA[as]: SmallLAN {
-        };
-        mlanA[am]: MediumLAN {
-        };
-        llanA[al]: LargeLAN {
-        };
-        switchB: EtherSwitch {
-        };
-        serverB: EtherHost {
-        };
-        slanB[bs]: SmallLAN {
-        };
-        mlanB[bm]: MediumLAN {
-        };
-        llanB[bl]: LargeLAN {
-        };
-        switchC: EtherSwitch {
-        };
-        serverC: EtherHost {
-        };
-        slanC[cs]: SmallLAN {
-        };
-        mlanC[cm]: MediumLAN {
-        };
-        llanC[cl]: LargeLAN {
-        };
-        switchD: EtherSwitch {
-        };
-        serverD: EtherHost {
-        };
-        slanD[ds]: SmallLAN {
-        };
-        mlanD[dm]: MediumLAN {
-        };
-        llanD[dl]: LargeLAN {
-        };
+        slanBB[n*bbs]: SmallLAN;
+        mlanBB[n*bbm]: MediumLAN;
+        llanBB[n*bbl]: LargeLAN;
+        switchA: EtherSwitch;
+        serverA: EtherHost;
+        slanA[as]: SmallLAN;
+        mlanA[am]: MediumLAN;
+        llanA[al]: LargeLAN;
+        switchB: EtherSwitch;
+        serverB: EtherHost;
+        slanB[bs]: SmallLAN;
+        mlanB[bm]: MediumLAN;
+        llanB[bl]: LargeLAN;
+        switchC: EtherSwitch;
+        serverC: EtherHost;
+        slanC[cs]: SmallLAN;
+        mlanC[cm]: MediumLAN;
+        llanC[cl]: LargeLAN;
+        switchD: EtherSwitch;
+        serverD: EtherHost;
+        slanD[ds]: SmallLAN;
+        mlanD[dm]: MediumLAN;
+        llanD[dl]: LargeLAN;
     connections allowunconnected:
         // "backbone" switches
         for k=0..n-1, for i=0..bbs-1 {
