@@ -51,7 +51,7 @@ module WirelessAPWithEth
         };
         wlan: Ieee80211NicAP { // see also Ieee80211NicAPSimplified
             parameters:
-                @display("p=89,225;q=queue;,#ff8000");
+                @display("p=89,225;q=queue");
         };
         eth[sizeof(ethIn)]: EtherMAC {
             parameters:

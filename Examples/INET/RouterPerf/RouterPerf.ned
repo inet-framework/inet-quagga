@@ -46,7 +46,7 @@ network RouterPerfNetwork
         };
         sender[nodeNo]: BurstHost {
             parameters:
-                @display("p=100,300,row,100;,yellow,10");
+                @display("p=100,300,row,100");
         };
         recip[nodeNo]: BurstHost {
             parameters:
