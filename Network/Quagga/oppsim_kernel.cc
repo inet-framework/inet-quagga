@@ -85,29 +85,29 @@ static void add_service(char *name, int port, char *proto)
 	(*services).push_back(ser);
 }
 
-static void initialize_services() 
+static void initialize_services()
 {
 	if(services) return;
-	
+
 	// FIXME load settings from /etc/services
 	// (also services must be per-daemon then)
-	
+
 	services = new std::vector<struct servent>;
-	
+
 	add_service("zebrasrv", 2600, "tcp");
 	add_service("zebra", 2601, "tcp");
 	add_service("ripd", 2602, "tcp");
 	add_service("ospfd", 2604, "tcp");
-	add_service("router", 520, "udp");	
+	add_service("router", 520, "udp");
 	add_service("ospfapi", 2607, "tcp");
 	add_service("bgp", 179, "udp");
-	add_service("bgp", 179, "tcp");    
+	add_service("bgp", 179, "tcp");
 };
 
 struct servent *oppsim_getservbyname(const char *name, const char *proto)
 {
     initialize_services();
-	
+
     for(int i = 0; i < (*services).size(); i++)
     {
         if(strcmp(name, (*services)[i].s_name))
@@ -205,7 +205,7 @@ int oppsim_gettimeofday(struct timeval *tp, struct timezone *tzp)
     ASSERT(tp);
     ASSERT(!tzp);
 
-    double ctime = simulation.simTime();
+    simtime_t ctime = simulation.simTime();
 
     tp->tv_sec = zero_time + (int)ctime;
     tp->tv_usec = floor((ctime - floor(ctime)) * 1000000);
@@ -463,17 +463,17 @@ void oppsim_vsyslog(int priority, const char *format, va_list ap)
 int oppsim_fcntl(int fildes, int cmd, ...)
 {
     EV << "fcntl: fildes=" << fildes << " cmd=" << cmd << endl;
-    
+
     long arg;
 	va_list ap;
 
-    switch(cmd) 
+    switch(cmd)
 	{
 		case F_GETFL:
 			EV << "WARNING: F_GETFL currently only recognizes O_NONBLOCK " << endl;
 	   		if(!current_module->isBlocking(fildes)) return O_NONBLOCK;
 	   		else return 0;
-	   			
+
 		case F_SETFL:
 		    EV << "WARNING: F_SETFL currently only recognizes O_NONBLOCK" << endl;
         	va_start(ap, cmd);
@@ -481,8 +481,8 @@ int oppsim_fcntl(int fildes, int cmd, ...)
         	va_end(ap);
         	if(current_module->isBlocking(fildes) == (arg && O_NONBLOCK)) current_module->setBlocking(fildes, !(arg && O_NONBLOCK));
         	return 0;
-        		
-		default:        		
+
+		default:
 		   	EV << "WARNING: only F_SETFL/F_GETFL is recognized, ignoring " << cmd << endl;
 		   	return 0;
 	}
@@ -506,19 +506,19 @@ int oppsim_getsockname(int socket, struct sockaddr *address, socklen_t *address_
 
         return 0;
     }
-    
+
     TCPSocket *tcp = current_module->getIfTcpSocket(socket);
     if(tcp)
     {
     	ASSERT(address && address_len);
     	ASSERT(*address_len >= sizeof(sockaddr_in));
-    	
+
         ((sockaddr_in*)address)->sin_family = AF_INET;
         ((sockaddr_in*)address)->sin_port = htons(tcp->localPort());
         ((sockaddr_in*)address)->sin_addr.s_addr = htonl(tcp->localAddress().get4().getInt());
         *address_len = sizeof(struct sockaddr_in);
-        
-        return 0;    	
+
+        return 0;
     }
 
     ASSERT(false);
@@ -567,13 +567,13 @@ ssize_t receive(int socket, void *buf, size_t nbyte, bool dgram, struct sockaddr
             break;
 
         SocketMsg *msg = check_and_cast<SocketMsg*>(m);
-        
+
         if(dgram && addr)
         {
-        	// copy src address 
-        	
+        	// copy src address
+
         	ASSERT(*len >= sizeof(struct sockaddr_in));
-        	
+
         	UDPControlInfo *udpControlInfo = check_and_cast<UDPControlInfo*>(msg->controlInfo());
         	((sockaddr_in*)addr)->sin_family = AF_INET;
         	((sockaddr_in*)addr)->sin_port = htons(udpControlInfo->srcPort());
@@ -586,8 +586,8 @@ ssize_t receive(int socket, void *buf, size_t nbyte, bool dgram, struct sockaddr
 
         if(datalen > nbyte)
         {
-            if(dgram) EV << "warning: discarding " << (datalen - nbyte) << " bytes from this message" << endl;            	
-            
+            if(dgram) EV << "warning: discarding " << (datalen - nbyte) << " bytes from this message" << endl;
+
             datalen = nbyte;
         }
         else
@@ -610,7 +610,7 @@ ssize_t receive(int socket, void *buf, size_t nbyte, bool dgram, struct sockaddr
         {
             msg->removePrefix(datalen);
         }
-        
+
         if(dgram)
         	break;
     }
@@ -733,7 +733,7 @@ ssize_t oppsim_recvfrom(int socket, void *buffer, size_t length, int flags, stru
     if(udp)
     {
         ASSERT(!flags);
-        
+
         return receive(socket, buffer, length, true, address, address_len);
     }
 
@@ -904,7 +904,7 @@ ssize_t oppsim_sendto(int socket, const void *message, size_t length, int flags,
         msg->setDataFromBuffer(message, length);
 
         msg->setByteLength(length);
-        
+
         udp->sendTo(msg, destAddr, port);
 
         return length;
@@ -1010,7 +1010,7 @@ int oppsim_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds,
             errorfds << " timeout=" << timeout << endl;
 
     int success = 0;
-    
+
     double limit;
     if(timeout)
     {
@@ -1021,14 +1021,14 @@ int oppsim_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds,
     while(!success)
     {
         EV << "select: checking descriptors:" << endl;
-        
+
         // first see if any descriptor is ready
         for(int i = 0; i < nfds; i++)
         {
             if(readfds && FD_ISSET(i, readfds))
             {
                 EV << "read " << i;
-    
+
                 if(dm->getSocketMessage(i))
                 {
                     EV << " (ready)" << endl;
@@ -1046,10 +1046,10 @@ int oppsim_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds,
                     EV << endl;
                 }
             }
-    
+
             if(writefds && FD_ISSET(i, writefds))
             {
-            	if((tcp = current_module->getIfTcpSocket(i)) != NULL) 
+            	if((tcp = current_module->getIfTcpSocket(i)) != NULL)
             	{
             		if(tcp->state() == TCPSocket::CONNECTED)
             		{
@@ -1070,23 +1070,23 @@ int oppsim_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds,
             	}
                 continue;
             }
-    
+
             if(errorfds && FD_ISSET(i, errorfds))
             {
                 EV << "error " << i << endl;
-    
+
                 // exceptions not supported at the moment
             }
         }
 
         // some descriptors are ready, we're done
         if(success) break;
-        
+
         EV << "select" << endl;
-        
+
         if(timeout)
         {
-            double d = limit - simulation.simTime();
+            simtime_t d = limit - simulation.simTime();
             if(!dm->receiveAndHandleMessage(d, "select"))
                return 0; // timeout received before any event arrived
         }
@@ -1126,11 +1126,11 @@ int oppsim_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds,
                 FD_CLR(i, readfds);
             }
         }
-        
+
         if(writefds && FD_ISSET(i, writefds))
         {
         	bool active = false;
-            
+
             if((tcp = current_module->getIfTcpSocket(i)) != NULL)
             {
             	if(tcp->state() == TCPSocket::CONNECTED)
@@ -1149,7 +1149,7 @@ int oppsim_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds,
             	EV << " active (always ready)" << endl;
             	active = true;
             }
-            
+
             if(!active)
             {
             	FD_CLR(i, writefds);
@@ -1189,14 +1189,14 @@ int oppsim_close(int fildes)
 
         return 0;
     }
-    
+
     TCPSocket *tcp = dm->getIfTcpSocket(fildes);
     if(tcp)
     {
         EV << "closing TCP socket" << endl;
-        
+
         dm->closeSocket(fildes);
-        
+
         return 0;
     }
 
@@ -1363,8 +1363,8 @@ int oppsim_getsockopt(int socket, int level, int option_name, void *option_value
 		*(int*)option_value = current_module->getSocketError(socket, true);
 		return 0;
 	}
-						
-	// unsupported	
+
+	// unsupported
     ASSERT(false);
     return -1;
 }
@@ -1474,9 +1474,9 @@ int oppsim_connect(int socket, const struct sockaddr *address, socklen_t address
     EV << "connect: socket=" << socket << " address=" << address << " address_len=" << address_len << endl;
 
     struct sockaddr_in *inaddr = (sockaddr_in*)address;
-    
+
     ASSERT(address_len == sizeof(*inaddr));
-    
+
     IPAddress destAddr = IPAddress(ntohl(inaddr->sin_addr.s_addr));
     int destPort = ntohs(inaddr->sin_port);
 
@@ -1486,19 +1486,19 @@ int oppsim_connect(int socket, const struct sockaddr *address, socklen_t address
 int oppsim_getpeername(int socket, struct sockaddr *address, socklen_t *address_len)
 {
     Daemon *d = current_module; //DAEMON
-    
+
     EV << "getpeername:  socket=" << socket << endl;
-    
+
     TCPSocket *tcp = d->getTcpSocket(socket);
-    
+
     ASSERT(*address_len >= sizeof(struct sockaddr_in));
-    
+
     struct sockaddr_in *inaddr = (struct sockaddr_in*)address;
-    
+
     inaddr->sin_family = AF_INET;
     inaddr->sin_port = htons(tcp->remotePort());
     inaddr->sin_addr.s_addr = htonl(tcp->remoteAddress().get4().getInt());
-    
+
     *address_len = sizeof(struct sockaddr_in);
 
     return 0;
@@ -1507,9 +1507,9 @@ int oppsim_getpeername(int socket, struct sockaddr *address, socklen_t *address_
 unsigned int oppsim_sleep(unsigned int seconds)
 {
 	EV << "sleep: seconds=" << seconds << endl;
-	
+
 	current_module->sleep((double)seconds);
-	
+
 	return 0;
 }
 

@@ -32,7 +32,7 @@ void LineSegmentsMobilityBase::initialize(int stage)
         targetTime = simTime();
 
         // host moves the first time after some random delay to avoid synchronized movements
-        scheduleAt(simTime() + uniform(0, updateInterval), new cMessage("move"));
+        scheduleAt(simTime() + uniform(0, SIMTIME_DBL(updateInterval)), new cMessage("move"));
     }
 }
 

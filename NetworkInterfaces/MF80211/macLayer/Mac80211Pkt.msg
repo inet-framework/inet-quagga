@@ -26,7 +26,7 @@ message Mac80211Pkt extends MacPkt
    fields:
        int address3;
        int address4;
-       double duration;
+       simtime_t duration;
        int fragmentation; //part of the Frame Control field
        int informationDS; //part of the Frame Control field
        int sequenceControl;

@@ -52,8 +52,8 @@ class INET_API TCPBaseAlgStateVariables : public TCPStateVariables
 
     /// round-trip time measurements
     //@{
-    uint32 rtseq;            ///< starting sequence number of timed data
-    simtime_t rtseq_sendtime;  ///< time when rtseq was sent (0 if RTT measurement is not running)
+    uint32 rtseq;             ///< starting sequence number of timed data
+    simtime_t rtseq_sendtime; ///< time when rtseq was sent (0 if RTT measurement is not running)
     //@}
 
     /// round-trip time estimation (Jacobson's algorithm)

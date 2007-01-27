@@ -73,7 +73,7 @@ class INET_API ChannelControl : public cSimpleModule
     ChannelTransmissionLists transmissions; // indexed by channel number (size=numChannels)
 
     /** @brief used to clear the transmission list from time to time */
-    double lastOngoingTransmissionsUpdate;
+    simtime_t lastOngoingTransmissionsUpdate;
 
     friend std::ostream& operator<<(std::ostream&, const HostEntry&);
     friend std::ostream& operator<<(std::ostream&, const TransmissionList&);

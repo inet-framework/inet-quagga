@@ -209,7 +209,7 @@ class Ieee80211BeaconFrameBody extends Ieee80211FrameBody
         bodyLength = 50; // assuming a 8-character SSID, 4 supported datarate plus TIM
         string SSID;
         Ieee80211SupportedRatesElement supportedRates;
-        double beaconInterval;
+        simtime_t beaconInterval;
         int channelNumber;
         Ieee80211HandoverParameters handoverParameters;
 };

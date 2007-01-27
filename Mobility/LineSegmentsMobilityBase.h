@@ -37,13 +37,13 @@ class INET_API LineSegmentsMobilityBase : public BasicMobility
 {
   protected:
     // config
-    double updateInterval; ///< time interval to update the host's position
+    simtime_t updateInterval; ///< time interval to update the host's position
 
     // state
-    double targetTime;  ///< end time of current linear movement
-    Coord targetPos;    ///< end position of current linear movement
-    Coord step;         ///< step size (added to pos every updateInterval)
-    bool stationary;    ///< if set to true, host won't move
+    simtime_t targetTime;  ///< end time of current linear movement
+    Coord targetPos;       ///< end position of current linear movement
+    Coord step;            ///< step size (added to pos every updateInterval)
+    bool stationary;       ///< if set to true, host won't move
 
   protected:
     /** @brief Initializes mobility model parameters.*/

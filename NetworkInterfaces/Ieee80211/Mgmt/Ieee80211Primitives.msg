@@ -107,10 +107,10 @@ class Ieee80211Prim_ScanRequest extends Ieee80211PrimRequest
         MACAddress BSSID; // specific BSSID to scan for (default: any)
         string SSID;      // SSID to scan for SSID (default: any)
         bool activeScan;  // whether to perform active or passive scanning
-        double probeDelay; // delay (in ìs) to be used prior to transmitting a Probe frame during active scanning
+        simtime_t probeDelay; // delay (in ìs) to be used prior to transmitting a Probe frame during active scanning
         int channelList[]; // list of channels to scan (default: all channels)
-        double minChannelTime; // minimum time to spend on each channel when scanning
-        double maxChannelTime; // maximum time to spend on each channel when scanning
+        simtime_t minChannelTime; // minimum time to spend on each channel when scanning
+        simtime_t maxChannelTime; // maximum time to spend on each channel when scanning
 };
 
 class Ieee80211Prim_BSSDescription
@@ -120,7 +120,7 @@ class Ieee80211Prim_BSSDescription
         MACAddress BSSID;
         string SSID;
         Ieee80211SupportedRatesElement supportedRates;
-        double beaconInterval;
+        simtime_t beaconInterval;
 
         double rxPower; // received power from AP; not part of the standard
 };
@@ -147,7 +147,7 @@ class Ieee80211Prim_AuthenticateRequest extends Ieee80211PrimRequest
 {
     fields:
         MACAddress address;
-        double timeout;
+        simtime_t timeout;
 };
 
 //
@@ -163,8 +163,8 @@ class Ieee80211Prim_AuthenticateConfirm extends Ieee80211PrimConfirm
 //
 // Losely based on MLME-DEAUTHENTICATE.request
 //
-// NOTE: there is no Deauthenticate Confirm, because Deauthenticate Request 
-// takes place immediately, and nothing can go wrong (there is no reply 
+// NOTE: there is no Deauthenticate Confirm, because Deauthenticate Request
+// takes place immediately, and nothing can go wrong (there is no reply
 // from the AP to wait for)
 //
 class Ieee80211Prim_DeauthenticateRequest extends Ieee80211PrimRequest
@@ -181,7 +181,7 @@ class Ieee80211Prim_AssociateRequest extends Ieee80211PrimRequest
 {
     fields:
         MACAddress address;
-        double timeout;
+        simtime_t timeout;
 };
 
 //
@@ -209,8 +209,8 @@ class Ieee80211Prim_ReassociateConfirm extends Ieee80211Prim_AssociateConfirm
 //
 // Losely based on MLME-DISASSOCIATE.request.
 //
-// NOTE: there is no Disassociate Confirm, because Disassociate Request 
-// takes place immediately, and nothing can go wrong (there is no reply 
+// NOTE: there is no Disassociate Confirm, because Disassociate Request
+// takes place immediately, and nothing can go wrong (there is no reply
 // from the AP to wait for)
 //
 class Ieee80211Prim_DisassociateRequest extends Ieee80211PrimRequest

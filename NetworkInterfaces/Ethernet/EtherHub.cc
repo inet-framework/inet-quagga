@@ -96,7 +96,7 @@ void EtherHub::finish ()
 {
     if (par("writeScalars").boolValue())
     {
-        double t = simTime();
+        simtime_t t = simTime();
         recordScalar("simulated time", t);
         recordScalar("messages handled", numMessages);
         if (t>0)

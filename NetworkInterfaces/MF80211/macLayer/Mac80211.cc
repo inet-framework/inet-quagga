@@ -839,14 +839,14 @@ void Mac80211::beginNewCycle()
 /**
  * Compute the backoff value.
  */
-double Mac80211::backoff()
+simtime_t Mac80211::backoff()
 {
     // the MAC has won the previous contention. We have to compute a new
     // backoff window
     if (BW == 0) {
         int CW = contentionWindow();
         EV << "generating backoff for CW: " << CW << endl;
-        BW = ((double) intrand(CW + 1)) * ST;
+        BW = intrand(CW + 1) * ST;
     }
     // CW is the contention window (see the function). ST is the
     // slot time.  else we take the old value of BW, in order to give a
@@ -964,9 +964,9 @@ void Mac80211::receiveChangeNotification(int category, cPolymorphic *details)
  *  Return a time-out value for a type of frame. Called by
  *  SendRTSframe, sendCTSframe, etc.
  */
-double Mac80211::timeOut(_802_11frameType type, double last_frame_duration)
+simtime_t Mac80211::timeOut(_802_11frameType type, simtime_t last_frame_duration)
 {
-    double time_out = 0;
+    simtime_t time_out = 0;
     switch (type)
     {
     case RTS:
@@ -993,7 +993,7 @@ double Mac80211::timeOut(_802_11frameType type, double last_frame_duration)
  * physical channel. 'bits' should be the total length of the MAC
  * packet in bits.
  */
-double Mac80211::packetDuration(int bits)
+simtime_t Mac80211::packetDuration(int bits)
 {
     return bits / bitrate + PHY_HEADER_LENGTH / BITRATE_HEADER;
 }

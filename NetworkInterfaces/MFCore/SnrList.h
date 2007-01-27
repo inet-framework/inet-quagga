@@ -35,7 +35,7 @@
  */
 struct SnrListEntry{
   /** @brief timestamp for this SNR value*/
-  double time;
+  simtime_t time;
   /** @brief the SNR value*/
   double snr;
 };

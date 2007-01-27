@@ -73,8 +73,8 @@ message Ieee80211Frame
         bool fromDS;
         bool retry;
         bool moreFragments;
-        double duration = -1; // "duration" in the Duration/ID field (-1=no duration)
-        short AID = -1;      // "id" (Association ID) in the Duration/ID field (-1=no ID)
+        simtime_t duration = -1; // "duration" in the Duration/ID field (-1=no duration)
+        short AID = -1;          // "id" (Association ID) in the Duration/ID field (-1=no ID)
         MACAddress receiverAddress; // aka address1
 };
 

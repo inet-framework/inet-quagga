@@ -154,7 +154,7 @@ class INET_API Mac80211 : public WirelessMacBase, public INotifiable
     virtual void beginNewCycle();
 
     /** @brief Compute a backoff value */
-    double backoff();
+    simtime_t backoff();
 
     /** @brief Compute a new contention window */
     int contentionWindow();
@@ -163,10 +163,10 @@ class INET_API Mac80211 : public WirelessMacBase, public INotifiable
     void testMaxAttempts();
 
     /** @brief return a timeOut value for a certain type of frame*/
-    double timeOut(_802_11frameType type, double last_frame_duration);
+    simtime_t timeOut(_802_11frameType type, simtime_t last_frame_duration);
 
     /** @brief computes the duration of a transmission over the physical channel*/
-    double packetDuration(int bits);
+    simtime_t packetDuration(int bits);
 
     /** @brief Produce a readable name of the given state */
     const char *stateName(State state);
@@ -205,10 +205,10 @@ class INET_API Mac80211 : public WirelessMacBase, public INotifiable
     cMessage* endSifs;
 
     /** @brief extended interframe space*/
-    double EIFS;
+    simtime_t EIFS;
 
     /** @brief Variable to store the current backoff value*/
-    double BW;
+    simtime_t BW;
 
     /** @brief Current state of the MAC*/
     State state;
@@ -238,7 +238,7 @@ class INET_API Mac80211 : public WirelessMacBase, public INotifiable
 
     /** @brief Very small value used in timer scheduling in order to avoid
        multiple changements of state in the same simulation time.*/
-    double delta;
+    simtime_t delta;
 
     /** @brief The bitrate should be set in omnetpp.ini; be sure to use a
        valid 802.11 bitrate*/

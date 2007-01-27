@@ -560,17 +560,17 @@ void EtherMACBase::beginSendFrames()
 
 void EtherMACBase::fireChangeNotification(int type, cMessage *msg)
 {
-   	if (nb) {
-	    notifDetails.setMessage(msg);
-		nb->fireChangeNotification(type, &notifDetails);
-	}
+    if (nb) {
+        notifDetails.setMessage(msg);
+        nb->fireChangeNotification(type, &notifDetails);
+    }
 }
 
 void EtherMACBase::finish()
 {
     if (!disabled && par("writeScalars").boolValue())
     {
-        double t = simTime();
+        simtime_t t = simTime();
         recordScalar("simulated time", t);
         recordScalar("txrate (Mb)", txrate/1000000);
         recordScalar("full duplex", duplexMode);

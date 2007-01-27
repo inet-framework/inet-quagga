@@ -42,12 +42,12 @@ class INET_API Ieee80211MgmtSTA : public Ieee80211MgmtBase
         MACAddress bssid; // specific BSSID to scan for, or the broadcast address
         std::string ssid; // SSID to scan for (empty=any)
         bool activeScan;  // whether to perform active or passive scanning
-        double probeDelay; // delay (in s) to be used prior to transmitting a Probe frame during active scanning
+        simtime_t probeDelay; // delay (in s) to be used prior to transmitting a Probe frame during active scanning
         std::vector<int> channelList; // list of channels to scan
         int currentChannelIndex; // index into channelList[]
         bool busyChannelDetected; // during minChannelTime, we have to listen for busy channel
-        double minChannelTime; // minimum time to spend on each channel when scanning
-        double maxChannelTime; // maximum time to spend on each channel when scanning
+        simtime_t minChannelTime; // minimum time to spend on each channel when scanning
+        simtime_t maxChannelTime; // maximum time to spend on each channel when scanning
     };
 
     //
@@ -59,7 +59,7 @@ class INET_API Ieee80211MgmtSTA : public Ieee80211MgmtBase
         MACAddress address; // alias bssid
         std::string ssid;
         Ieee80211SupportedRatesElement supportedRates;
-        double beaconInterval;
+        simtime_t beaconInterval;
         double rxPower;
 
         bool isAuthenticated;
@@ -120,10 +120,10 @@ class INET_API Ieee80211MgmtSTA : public Ieee80211MgmtBase
     virtual Ieee80211DataFrame *encapsulate(cMessage *msg);
 
     /** Utility function: sends authentication request */
-    virtual void startAuthentication(APInfo *ap, double timeout);
+    virtual void startAuthentication(APInfo *ap, simtime_t timeout);
 
     /** Utility function: sends association request */
-    virtual void startAssociation(APInfo *ap, double timeout);
+    virtual void startAssociation(APInfo *ap, simtime_t timeout);
 
     /** Utility function: looks up AP in our AP list. Returns NULL if not found. */
     APInfo *lookupAP(const MACAddress& address);

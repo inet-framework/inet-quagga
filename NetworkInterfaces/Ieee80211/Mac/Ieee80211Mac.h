@@ -149,7 +149,7 @@ class INET_API Ieee80211Mac : public WirelessMacBase, public INotifiable
     bool nav;
 
     /** Remaining backoff period in seconds */
-    double backoffPeriod;
+    simtime_t backoffPeriod;
 
     /**
      * Number of frame retransmission attempts, this is a simpification of

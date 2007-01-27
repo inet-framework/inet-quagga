@@ -38,10 +38,10 @@ struct TELinkStateInfo
         double MaxBandwidth; // maximum bandwidth (bps)
         double UnResvBandwidth[8]; // unreserved bandwidths --FIXME indexed by what?
 
-        double timestamp;    // time of originating this entry
+        simtime_t timestamp;    // time of originating this entry
         unsigned int sourceId;  // FIXME looks like this is the same as advrouter -- really needed?
         unsigned int messageId; // id assigned to originating LinkStateMsg (FIXME or?)
-        bool state;          // false = down, true = up
+        bool state;             // false = down, true = up
 };
 
 

@@ -89,7 +89,7 @@ void TCPSpoof::sendToIP(TCPSegment *tcpseg, IPvXAddress src, IPvXAddress dest)
 unsigned long TCPSpoof::initialSeqNum()
 {
     // choose an initial send sequence number in the same way as TCP does
-    return (unsigned long)(fmod(simTime()*250000.0, 1.0+(double)(unsigned)0xffffffffUL)) & 0xffffffffUL;
+    return (unsigned long)SIMTIME_DBL(fmod(simTime()*250000.0, 1.0+(double)(unsigned)0xffffffffUL)) & 0xffffffffUL;
 }
 
 

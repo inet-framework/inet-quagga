@@ -263,18 +263,18 @@ void TCPBaseAlg::rttMeasurementComplete(simtime_t tSent, simtime_t tAcked)
 
     // update smoothed RTT estimate (srtt) and variance (rttvar)
     const double g = 0.125;   // 1/8; (1-alpha) where alpha=7/8;
-    double newRTT = tAcked-tSent;
+    simtime_t newRTT = tAcked-tSent;
 
-    double& srtt = state->srtt;
-    double& rttvar = state->rttvar;
+    simtime_t& srtt = state->srtt;
+    simtime_t& rttvar = state->rttvar;
 
-    double err = newRTT - srtt;
+    simtime_t err = newRTT - srtt;
 
     srtt += g*err;
     rttvar += g*(fabs(err) - rttvar);
 
     // assign RTO (here: rexmit_timeout) a new value
-    double rto = srtt + 4*rttvar;
+    simtime_t rto = srtt + 4*rttvar;
     if (rto>MAX_REXMIT_TIMEOUT)
         rto = MAX_REXMIT_TIMEOUT;
     else if (rto<MIN_REXMIT_TIMEOUT)
@@ -350,7 +350,7 @@ void TCPBaseAlg::receivedDataAck(uint32 firstSeqAcked)
     {
         // print value
         tcpEV << "Round-trip time measured on rtseq=" << state->rtseq << ": "
-              << int((conn->getTcpMain()->simTime() - state->rtseq_sendtime)*1000+0.5) << "ms\n";
+              << floor((conn->getTcpMain()->simTime() - state->rtseq_sendtime)*1000+0.5) << "ms\n";
 
         // update RTT variables with new value
         rttMeasurementComplete(state->rtseq_sendtime, conn->getTcpMain()->simTime());

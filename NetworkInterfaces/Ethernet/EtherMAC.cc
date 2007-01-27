@@ -633,7 +633,7 @@ void EtherMAC::finish()
 
     if (!disabled && par("writeScalars").boolValue())
     {
-        double t = simTime();
+        simtime_t t = simTime();
         simtime_t totalChannelIdleTime = t - totalSuccessfulRxTxTime - totalCollisionTime;
         recordScalar("rx channel idle (%)", 100*totalChannelIdleTime/t);
         recordScalar("rx channel utilization (%)", 100*totalSuccessfulRxTxTime/t);

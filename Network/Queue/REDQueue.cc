@@ -71,7 +71,7 @@ bool REDQueue::enqueue(cMessage *msg)
         // Note: f() is supposed to estimate the number of packets
         // that could have arrived during the idle interval (see Section 11
         // of the paper). We use pkrate for this purpose.
-        double m = (simTime()-q_time) * pkrate;
+        double m = SIMTIME_DBL(simTime()-q_time) * pkrate;
         avg = pow(1-wq, m) * avg;
     }
 

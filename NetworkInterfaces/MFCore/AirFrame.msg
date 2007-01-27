@@ -49,7 +49,7 @@ message AirFrame
     fields:
         double pSend; // Power with which this packet is transmitted
         int channelNumber; // Channel on which the packet is sent
-        double duration; // Time it takes to transmit the packet, in seconds!
+        simtime_t duration; // Time it takes to transmit the packet, in seconds
         double bitrate;
         Coord senderPos;
 };

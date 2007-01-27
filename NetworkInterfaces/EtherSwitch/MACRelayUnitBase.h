@@ -40,8 +40,8 @@ class INET_API MACRelayUnitBase : public cSimpleModule
     // An entry of the Address Lookup Table
     struct AddressEntry
     {
-        int portno;             // Input port
-        double insertionTime;   // Arrival time of Lookup Address Table entry
+        int portno;              // Input port
+        simtime_t insertionTime; // Arrival time of Lookup Address Table entry
     };
 
   protected:

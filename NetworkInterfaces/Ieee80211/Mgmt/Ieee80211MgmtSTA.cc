@@ -267,7 +267,7 @@ void Ieee80211MgmtSTA::sendManagementFrame(Ieee80211ManagementFrame *frame, cons
     sendOrEnqueue(frame);
 }
 
-void Ieee80211MgmtSTA::startAuthentication(APInfo *ap, double timeout)
+void Ieee80211MgmtSTA::startAuthentication(APInfo *ap, simtime_t timeout)
 {
     if (ap->authTimeoutMsg)
         error("startAuthentication: authentication currently in progress with AP address=", ap->address.str().c_str());
@@ -293,7 +293,7 @@ void Ieee80211MgmtSTA::startAuthentication(APInfo *ap, double timeout)
     scheduleAt(simTime()+timeout, ap->authTimeoutMsg);
 }
 
-void Ieee80211MgmtSTA::startAssociation(APInfo *ap, double timeout)
+void Ieee80211MgmtSTA::startAssociation(APInfo *ap, simtime_t timeout)
 {
     if (isAssociated || assocTimeoutMsg)
         error("startAssociation: already associated or association currently in progress");
