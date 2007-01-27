@@ -922,7 +922,7 @@ void Mac80211::receiveChangeNotification(int category, cPolymorphic *details)
         // even when called during initialization phase!
 
         EV << "** Radio state update in " << className() << ": " << details->info()
-           << " (at T=" << simtimeToStr(simTime()) << ")\n";
+           << " (at T=" << simTime() << ")\n";
 
         // beginning of a reception
         if (radioState == RadioState::RECV)

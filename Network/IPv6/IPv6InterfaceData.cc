@@ -80,8 +80,8 @@ std::string IPv6InterfaceData::info() const
         os << (i?"\t            , ":"\tAddrs:") << address(i)
            << "(" << IPv6Address::scopeName(address(i).scope())
            << (isTentativeAddress(i)?" tent":"") << ") "
-           << " expiryTime: " << (addresses[i].expiryTime==0?"inf":simtimeToStr(addresses[i].expiryTime))
-           << " prefExpiryTime: " << (addresses[i].prefExpiryTime==0?"inf":simtimeToStr(addresses[i].prefExpiryTime))
+           << " expiryTime: " << (addresses[i].expiryTime==0 ? "inf" : addresses[i].expiryTime)
+           << " prefExpiryTime: " << (addresses[i].prefExpiryTime==0 ? "inf" : addresses[i].prefExpiryTime)
            << endl;
 
     for (int i=0; i<numAdvPrefixes(); i++)
@@ -90,10 +90,10 @@ std::string IPv6InterfaceData::info() const
         os << (i?", ":"\tAdvPrefixes: ") << a.prefix << "/" << a.prefixLength << "("
            << (a.advOnLinkFlag?"":"off-link ")
            << (a.advAutonomousFlag?"":"non-auto ");
-        if (a.advValidLifetime==0) 
-           os  << "lifetime:inf"; 
+        if (a.advValidLifetime==0)
+           os  << "lifetime:inf";
         else if (a.advValidLifetime>0)
-           os  << "expires:" << simtimeToStr(a.advValidLifetime);
+           os  << "expires:" << a.advValidLifetime;
         else
            os  << "lifetime:+" << (-a.advValidLifetime);
         os << ")" << endl;

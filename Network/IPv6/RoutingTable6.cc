@@ -36,7 +36,7 @@ std::string IPv6Route::info() const
     out << "if=" << interfaceID() << " next hop:" << nextHop(); // FIXME try printing interface name
     out << " " << routeSrcName(src());
     if (expiryTime()>0)
-        out << " exp:" << simtimeToStr(expiryTime());
+        out << " exp:" << expiryTime();
     return out.str();
 }
 

@@ -32,9 +32,9 @@ std::ostream& operator<<(std::ostream& os, const IPv6NeighbourCache::Neighbour& 
     if (e.isRouter) os << " ROUTER";
     if (e.isDefaultRouter) os << " defaultRtr";
     os << " " << IPv6NeighbourCache::stateName(e.reachabilityState);
-    os << " reachabilityExp:"  << simtimeToStr(e.reachabilityExpires);
+    os << " reachabilityExp:"  << e.reachabilityExpires;
     if (e.numProbesSent) os << " probesSent:" << e.numProbesSent;
-    if (e.isRouter) os << " rtrExp:" << simtimeToStr(e.routerExpiryTime);
+    if (e.isRouter) os << " rtrExp:" << e.routerExpiryTime;
     return os;
 }
 

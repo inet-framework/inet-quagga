@@ -86,7 +86,7 @@ void NAMTraceWriter::initialize(int stage)
             ie->setPeerNamId(peernamid);
 
             // find delay
-            double delay = 0;
+            simtime_t delay = 0;
             cBasicChannel *chan = dynamic_cast<cBasicChannel*>(outgate->channel());
             if (chan) delay = chan->delay();
 
@@ -151,7 +151,7 @@ void NAMTraceWriter::recordNodeEvent(char *state, char *shape)
     out << " -s " << namid << " -a " << namid << " -S " << state << " -v " << shape << endl;
 }
 
-void NAMTraceWriter::recordLinkEvent(int peernamid, double datarate, double delay, char *state)
+void NAMTraceWriter::recordLinkEvent(int peernamid, double datarate, simtime_t delay, char *state)
 {
     ASSERT(nt && nt->enabled());
     std::ostream& out = nt->out();
