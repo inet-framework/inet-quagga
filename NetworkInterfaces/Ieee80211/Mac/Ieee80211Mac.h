@@ -105,12 +105,13 @@ class INET_API Ieee80211Mac : public WirelessMacBase, public INotifiable
     static const int fragmentationThreshold = 2346;
     //@}
 
-  protected:
+  public:
     /**
      * @name Ieee80211Mac state variables
      * Various state information checked and modified according to the state machine.
      */
     //@{
+    // don't forget to keep synchronized the C++ enum and the runtime enum definition
     /** the 80211 MAC state machine */
     enum State {
         IDLE,
@@ -123,13 +124,16 @@ class INET_API Ieee80211Mac : public WirelessMacBase, public INotifiable
         WAITSIFS,
         RECEIVE,
     };
+  protected:
     cFSM fsm;
 
+  public:
     /** 80211 MAC operation modes */
     enum Mode {
         DCF,  ///< Distributed Coordination Function
         PCF,  ///< Point Coordination Function
     };
+  protected:
     Mode mode;
 
     /** Sequence number to be assigned to the next frame */

@@ -16,6 +16,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
+#include "cEnum.h"
 #include "Ieee80211Mac.h"
 #include "RadioState.h"
 #include "InterfaceTable.h"
@@ -23,6 +24,17 @@
 #include "PhyControlInfo_m.h"
 
 Define_Module(Ieee80211Mac);
+// don't forget to keep synchronized the C++ enum and the runtime enum definition
+Register_Enum(Ieee80211Mac,
+   (Ieee80211Mac::IDLE,
+    Ieee80211Mac::DEFER,
+    Ieee80211Mac::WAITDIFS,
+    Ieee80211Mac::BACKOFF,
+    Ieee80211Mac::WAITACK,
+    Ieee80211Mac::WAITBROADCAST,
+    Ieee80211Mac::WAITCTS,
+    Ieee80211Mac::WAITSIFS,
+    Ieee80211Mac::RECEIVE));
 
 /****************************************************************
  * Construction functions.
@@ -128,6 +140,7 @@ void Ieee80211Mac::initialize(int stage)
         numSentBroadcast = 0;
         numReceivedBroadcast = 0;
         stateVector.setName("State");
+        stateVector.setEnum("Ieee80211Mac");
         radioStateVector.setName("RadioState");
 
         // initialize watches
