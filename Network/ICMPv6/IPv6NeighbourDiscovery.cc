@@ -1063,7 +1063,7 @@ IPv6RouterAdvertisement *IPv6NeighbourDiscovery::createAndSendRAPacket(
         Section 4.2:*/
 
         //- In the Router Lifetime field: the interface's configured AdvDefaultLifetime.
-        ra->setRouterLifetime(ie->ipv6()->advDefaultLifetime());
+        ra->setRouterLifetime(SIMTIME_DBL(ie->ipv6()->advDefaultLifetime()));
 
         //- In the M and O flags: the interface's configured AdvManagedFlag and
         //AdvOtherConfigFlag, respectively.  See [ADDRCONF].
@@ -1099,12 +1099,12 @@ IPv6RouterAdvertisement *IPv6NeighbourDiscovery::createAndSendRAPacket(
             //- In the "on-link" flag: the entry's AdvOnLinkFlag.
             prefixInfo.setOnlinkFlag(advPrefix.advOnLinkFlag);
             //- In the Valid Lifetime field: the entry's AdvValidLifetime.
-            prefixInfo.setValidLifetime(advPrefix.advValidLifetime);
+            prefixInfo.setValidLifetime(SIMTIME_DBL(advPrefix.advValidLifetime));
             //- In the "Autonomous address configuration" flag: the entry's
             //AdvAutonomousFlag.
             prefixInfo.setAutoAddressConfFlag(advPrefix.advAutonomousFlag);
             //- In the Preferred Lifetime field: the entry's AdvPreferredLifetime.
-            prefixInfo.setPreferredLifetime(advPrefix.advPreferredLifetime);
+            prefixInfo.setPreferredLifetime(SIMTIME_DBL(advPrefix.advPreferredLifetime));
             //Now we pop the prefix info into the RA.
             ra->setPrefixInformation(i, prefixInfo);
         }
@@ -1246,7 +1246,7 @@ void IPv6NeighbourDiscovery::processRAForRouterUpdates(IPv6RouterAdvertisement *
     if (ra->reachableTime() != 0)
     {
         EV << "RA's reachable time is non-zero ";
-        if (ra->reachableTime() != ie->ipv6()->reachableTime())
+        if (ra->reachableTime() != SIMTIME_DBL(ie->ipv6()->reachableTime()))
         {
             EV << " and RA's and Host's reachable time differ, \nsetting host's base"
                << " reachable time to received value.\n";
@@ -1445,7 +1445,7 @@ void IPv6NeighbourDiscovery::createRATimer(InterfaceEntry *ie)
     advIfEntry->interfaceId = ie->interfaceId();
     advIfEntry->numRASent = 0;
     simtime_t interval
-        = uniform(ie->ipv6()->minRtrAdvInterval(),ie->ipv6()->maxRtrAdvInterval());
+        = uniform(SIMTIME_DBL(ie->ipv6()->minRtrAdvInterval()),SIMTIME_DBL(ie->ipv6()->maxRtrAdvInterval()));
     advIfEntry->raTimeoutMsg = msg;
 
     simtime_t nextScheduledTime = simTime() + interval;
@@ -1493,7 +1493,7 @@ void IPv6NeighbourDiscovery::sendPeriodicRA(cMessage *msg)
     configured MinRtrAdvInterval and MaxRtrAdvInterval; expiration of the timer
     causes the next advertisement to be sent and a new random value to be chosen.*/
     simtime_t interval
-        = uniform(ie->ipv6()->minRtrAdvInterval(),ie->ipv6()->maxRtrAdvInterval());
+        = uniform(SIMTIME_DBL(ie->ipv6()->minRtrAdvInterval()),SIMTIME_DBL(ie->ipv6()->maxRtrAdvInterval()));
     nextScheduledTime = simTime() + interval;
 
     /*For the first few advertisements (up to MAX_INITIAL_RTR_ADVERTISEMENTS)
