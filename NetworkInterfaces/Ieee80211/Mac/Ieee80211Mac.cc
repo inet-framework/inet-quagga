@@ -24,6 +24,7 @@
 #include "PhyControlInfo_m.h"
 
 Define_Module(Ieee80211Mac);
+
 // don't forget to keep synchronized the C++ enum and the runtime enum definition
 Register_Enum(Ieee80211Mac,
    (Ieee80211Mac::IDLE,
@@ -35,6 +36,13 @@ Register_Enum(Ieee80211Mac,
     Ieee80211Mac::WAITCTS,
     Ieee80211Mac::WAITSIFS,
     Ieee80211Mac::RECEIVE));
+
+// don't forget to keep synchronized the C++ enum and the runtime enum definition
+Register_Enum(RadioState,
+   (RadioState::IDLE,
+    RadioState::RECV,
+    RadioState::TRANSMIT,
+    RadioState::SLEEP));
 
 /****************************************************************
  * Construction functions.
@@ -142,6 +150,7 @@ void Ieee80211Mac::initialize(int stage)
         stateVector.setName("State");
         stateVector.setEnum("Ieee80211Mac");
         radioStateVector.setName("RadioState");
+        radioStateVector.setEnum("RadioState");
 
         // initialize watches
         WATCH(fsm);
