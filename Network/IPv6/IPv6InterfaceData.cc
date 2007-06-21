@@ -77,12 +77,14 @@ std::string IPv6InterfaceData::info() const
     std::ostringstream os;
     os << "IPv6:{" << endl;
     for (int i=0; i<numAddresses(); i++)
+    {
         os << (i?"\t            , ":"\tAddrs:") << address(i)
            << "(" << IPv6Address::scopeName(address(i).scope())
            << (isTentativeAddress(i)?" tent":"") << ") "
            << " expiryTime: " << (addresses[i].expiryTime==0 ? "inf" : SIMTIME_STR(addresses[i].expiryTime))
            << " prefExpiryTime: " << (addresses[i].prefExpiryTime==0 ? "inf" : SIMTIME_STR(addresses[i].prefExpiryTime))
            << endl;
+    }
 
     for (int i=0; i<numAdvPrefixes(); i++)
     {
@@ -95,7 +97,7 @@ std::string IPv6InterfaceData::info() const
         else if (a.advValidLifetime>0)
            os  << "expires:" << a.advValidLifetime;
         else
-           os  << "lifetime:+" << SIMTIME_STR(-1 * a.advValidLifetime);
+           os  << "lifetime:+" << (-1 * a.advValidLifetime);
         os << ")" << endl;
     }
     os << " ";

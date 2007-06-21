@@ -1445,7 +1445,7 @@ void IPv6NeighbourDiscovery::createRATimer(InterfaceEntry *ie)
     advIfEntry->interfaceId = ie->interfaceId();
     advIfEntry->numRASent = 0;
     simtime_t interval
-        = uniform(SIMTIME_DBL(ie->ipv6()->minRtrAdvInterval()),SIMTIME_DBL(ie->ipv6()->maxRtrAdvInterval()));
+        = uniform(SIMTIME_DBL(ie->ipv6()->minRtrAdvInterval()), SIMTIME_DBL(ie->ipv6()->maxRtrAdvInterval()));
     advIfEntry->raTimeoutMsg = msg;
 
     simtime_t nextScheduledTime = simTime() + interval;
@@ -1493,7 +1493,7 @@ void IPv6NeighbourDiscovery::sendPeriodicRA(cMessage *msg)
     configured MinRtrAdvInterval and MaxRtrAdvInterval; expiration of the timer
     causes the next advertisement to be sent and a new random value to be chosen.*/
     simtime_t interval
-        = uniform(SIMTIME_DBL(ie->ipv6()->minRtrAdvInterval()),SIMTIME_DBL(ie->ipv6()->maxRtrAdvInterval()));
+        = uniform(SIMTIME_DBL(ie->ipv6()->minRtrAdvInterval()), SIMTIME_DBL(ie->ipv6()->maxRtrAdvInterval()));
     nextScheduledTime = simTime() + interval;
 
     /*For the first few advertisements (up to MAX_INITIAL_RTR_ADVERTISEMENTS)
