@@ -17,10 +17,6 @@
 // * part of:     framework implementation developed by tkn
 // **************************************************************************/
 
-import "Mac80211";
-import "Mac80211v2";
-import "Decider80211";
-import "SnrEval80211";
 
 //
 // This NIC implements an 802.11 network interface card.

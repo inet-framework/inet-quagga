@@ -20,10 +20,6 @@
 //
 
 
-import "IPv6";
-import "ICMPv6";
-import "IPv6NeighbourDiscovery";
-import "IPv6ErrorHandling";
 
 
 //

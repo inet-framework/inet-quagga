@@ -11,11 +11,6 @@
 //
 
 
-import "StandardHost";
-import "RSVP_LSR";
-import "FailureManager";
-import "ScenarioManager";
-import "NAMTrace";
 
 //
 // Example network to demonstrate \RSVP-TE.

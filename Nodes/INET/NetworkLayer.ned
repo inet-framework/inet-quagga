@@ -18,11 +18,6 @@
 //
 
 
-import "IP";
-import "ARP";
-import "ICMP";
-import "IGMP";
-import "ErrorHandling";
 
 //
 // Network layer of an \IP node.

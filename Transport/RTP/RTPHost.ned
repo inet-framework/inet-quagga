@@ -1,11 +1,5 @@
 // the original file was included in the UDP sockets example
 
-import "NetworkLayer";
-import "UDP";
-import "UDPModule";
-import "socketlayer";
-import "RTPLayer";
-import "RTPApplication";
 
 
 module RTPHost

@@ -1,5 +1,3 @@
-import "RTPHost";
-import "Router";
 
 
 network RTPMulticast1

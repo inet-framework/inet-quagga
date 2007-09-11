@@ -11,10 +11,6 @@
 // See the GNU Lesser General Public License for more details.
 //
 
-import "Router";
-import "StandardHost";
-import "EtherBus";
-import "FlatNetworkConfigurator";
 
 
 network ARPTest

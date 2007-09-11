@@ -1,6 +1,3 @@
-import "OSPFAreaTest_Area1";
-import "OSPFAreaTest_Area2";
-import "ChannelInstaller";
 
 
 network OSPF_AreaTest

@@ -11,7 +11,6 @@
 //
 
 
-import "LDP_LSR";
 
 //
 // A network with LIB tables set up to test MPLSModule only.

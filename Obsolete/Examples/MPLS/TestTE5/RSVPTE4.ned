@@ -11,10 +11,6 @@
 //
 
 
-import "StandardHost";
-import "RSVP_LSR";
-import "NewBWRequestTester";
-import "TED";
 
 //
 // Another example of traffic rerouting.

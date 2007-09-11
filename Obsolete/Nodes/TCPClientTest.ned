@@ -2,9 +2,6 @@
 
 // Definition of an IPNode with transport layers
 
-import "Blackboard";
-import "NetworkLayer";
-import "mytcp4ip";
 
 
 

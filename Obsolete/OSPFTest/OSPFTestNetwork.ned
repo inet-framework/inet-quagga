@@ -1,9 +1,3 @@
-import "EtherHub";
-import "OSPFRouter";
-import "StandardHost";
-import "OSPFTestNetworkArea1";
-import "OSPFTestNetworkArea2";
-import "OSPFTestNetworkArea3";
 
 
 

@@ -17,8 +17,6 @@
 //
 
 
-import "MobileHost";
-import "ChannelControl";
 
 
 network Net80211

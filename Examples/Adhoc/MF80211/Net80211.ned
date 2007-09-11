@@ -17,8 +17,6 @@
 //
 
 
-import "MFMobileHost";
-import "ChannelControl";
 
 
 network Net80211

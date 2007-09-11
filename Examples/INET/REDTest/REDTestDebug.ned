@@ -17,13 +17,6 @@
 //
 
 
-import "Router";
-import "StandardHost";
-import "ThruputMeter";
-import "TCPDump";
-import "FlatNetworkConfigurator";
-import "ScenarioManager";
-import "ChannelInstaller";
 
 network REDTestDebug
 {

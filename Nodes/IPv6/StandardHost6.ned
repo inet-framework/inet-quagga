@@ -18,17 +18,6 @@
 //
 
 
-import "NotificationBoard";
-import "InterfaceTable";
-import "RoutingTable6";
-import "TCPApp.ned";
-import "TCP.ned";
-import "UDP";
-import "UDPApp";
-import "NetworkLayer6";
-import "PingApp";
-import "PPPInterface";
-import "EthernetInterface";
 
 
 

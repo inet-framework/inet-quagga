@@ -1,7 +1,4 @@
 
-import "TcpTestClient.ned";
-import "TCPTester.ned";
-import "TCP.ned";
 
 
 network TcpTestNet1

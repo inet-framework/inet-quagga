@@ -1,7 +1,3 @@
-import "EtherHub";
-import "QuaggaRouter";
-import "StandardHost";
-import "ChannelInstaller";
 
 network SimpleTest
 {

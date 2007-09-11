@@ -1,11 +1,3 @@
-import "NotificationBoard";
-import "InterfaceTable";
-import "RoutingTable";
-import "PPPInterface";
-import "NetworkLayer";
-import "TCP";
-import "UDP";
-import "TestNop";
 
 module TestRouter
 {

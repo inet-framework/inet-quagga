@@ -11,11 +11,6 @@
 //
 
 
-import "StandardHost";
-import "LDP_LSR";
-import "FailureManager";
-import "ScenarioManager";
-import "NAMTrace";
 
 network LDPTEST
 {

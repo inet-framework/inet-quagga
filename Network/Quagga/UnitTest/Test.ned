@@ -1,4 +1,3 @@
-import "TestRouter";
 
 channel ethernetlineX extends cBasicChannel
 {

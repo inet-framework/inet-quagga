@@ -17,9 +17,6 @@
 //
 
 
-import "EtherMAC2";
-import "EtherEncap";
-import "OutputQueue";
 
 //
 // Ethernet network interface, which supports full-duplex operation only.

@@ -11,9 +11,6 @@
 //
 
 
-import "StandardHost";
-import "RSVP_LSR";
-import "TED";
 
 //
 // Example network to demonstrate CSPF algorithm used in \RSVP-TE.

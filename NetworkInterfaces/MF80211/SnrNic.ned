@@ -19,9 +19,6 @@
 //*
 //***************************************************************************
 
-import "CSMAMacLayer";
-import "SnrDecider";
-import "SnrEval";
 
 
 // This is the easiest nic to implement "real" network behaviour. It uses

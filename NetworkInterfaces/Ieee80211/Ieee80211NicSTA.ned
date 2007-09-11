@@ -16,10 +16,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-import "Ieee80211MgmtAgentSTA";
-import "Ieee80211MgmtSTA";
-import "Ieee80211Mac";
-import "Ieee80211Radio";
 
 //
 // This NIC implements an 802.11 network interface card,

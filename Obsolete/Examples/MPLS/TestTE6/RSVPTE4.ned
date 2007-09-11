@@ -11,9 +11,6 @@
 //
 
 
-import "StandardHost";
-import "RSVP_LSR";
-import "TED";
 
 //
 // Network for the LSP preemption example.

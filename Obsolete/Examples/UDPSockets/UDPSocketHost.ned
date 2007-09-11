@@ -16,10 +16,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-import "NetworkLayer";
-import "UDPProcessing";
-import "SocketApp";
-import "socketlayer";
 
 
 // FIXME socketLayer should get a local_port parameter, UDPProcessing needs that (?!?!)

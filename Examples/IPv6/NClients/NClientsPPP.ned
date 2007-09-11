@@ -17,9 +17,6 @@
 //
 
 
-import "Router6";
-import "StandardHost6";
-import "FlatNetworkConfigurator6";
 
 
 network NClientsPPP

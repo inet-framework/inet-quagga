@@ -1,7 +1,3 @@
-import "EtherHub";
-import "OSPFRouter";
-import "StandardHost";
-import "ChannelInstaller";
 
 network Backbone
 {

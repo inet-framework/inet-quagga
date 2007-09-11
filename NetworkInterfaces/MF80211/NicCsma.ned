@@ -17,9 +17,6 @@
 // * part of:     framework implementation developed by tkn
 // **************************************************************************/
 
-import "CSMAMacLayer";
-import "BasicDecider";
-import "SnrEval";
 
 //
 // The CsmaNic contains a csma-like MAC layer.

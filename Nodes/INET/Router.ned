@@ -17,12 +17,6 @@
 //
 
 
-import "NotificationBoard";
-import "InterfaceTable";
-import "RoutingTable";
-import "PPPInterface";
-import "EthernetInterface";
-import "NetworkLayer";
 
 
 //

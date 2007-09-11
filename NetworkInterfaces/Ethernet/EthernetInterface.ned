@@ -17,9 +17,6 @@
 //
 
 
-import "EtherMAC";
-import "EtherEncap";
-import "OutputQueue";
 
 //
 // Ethernet network interface. Corresponds to the prototype NetworkInterface.

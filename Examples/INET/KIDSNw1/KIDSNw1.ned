@@ -17,8 +17,6 @@
 //
 
 
-import "Router";
-import "StandardHost";
 
 
 network KIDSNw1

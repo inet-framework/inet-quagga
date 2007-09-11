@@ -16,10 +16,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-import "Router6";
-import "StandardHost6";
-import "FlatNetworkConfigurator6";
-import "TCPDump";
 
 
 network DemoNetworkEth

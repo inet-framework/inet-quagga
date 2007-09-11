@@ -17,8 +17,6 @@
 //
 
 
-import "PlainMobilityHost";
-import "ChannelControl";
 
 
 network MobileNet

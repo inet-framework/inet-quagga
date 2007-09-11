@@ -17,8 +17,6 @@
 //
 
 
-import "EtherMAC";
-import "EtherEncap";
 
 //
 // Ethernet network interface. Assumes inifinite queue.

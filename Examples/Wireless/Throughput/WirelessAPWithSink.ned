@@ -17,10 +17,6 @@
 //
 
 
-import "Sink";
-import "Ieee80211NicAPSimplified";
-import "NullMobility";
-import "NotificationBoard";
 
 //
 // Well, it Models a 802.11 Access Point with a Sink.

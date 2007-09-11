@@ -1,6 +1,3 @@
-import "EtherHub";
-import "OSPFRouter";
-import "StandardHost";
 
 module TwoNetsArea
 {

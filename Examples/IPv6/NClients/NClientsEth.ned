@@ -17,10 +17,6 @@
 //
 
 
-import "Router6";
-import "StandardHost6";
-import "EtherHub";
-import "FlatNetworkConfigurator6";
 
 
 network NClientsEth

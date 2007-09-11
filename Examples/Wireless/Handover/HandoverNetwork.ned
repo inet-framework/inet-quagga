@@ -17,9 +17,6 @@
 //
 
 
-import "WirelessHost";
-import "WirelessAP";
-import "WirelessAP2";
 
 
 network HandoverNetwork

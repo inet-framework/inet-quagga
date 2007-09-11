@@ -11,17 +11,15 @@
 // See the GNU Lesser General Public License for more details.
 //
 
-import "Router";
-import "StandardHost";
-import "EtherSwitch";
-import "FlatNetworkConfigurator";
 
+import ned.cBasicChannel;
 
 
 network ARPTest
 {
     types:
-        channel fiberline extends cBasicChannel {
+        channel fiberline extends cBasicChannel
+        {
             delay = 1us;
             datarate = 512Mbps;
         }
@@ -29,31 +27,31 @@ network ARPTest
         client: StandardHost {
             parameters:
                 @display("p=71,64;i=device/laptop_l");
-        };
+        }
         host1: StandardHost {
             parameters:
                 @display("p=65,131;i=device/pc");
-        };
+        }
         host2: StandardHost {
             parameters:
                 @display("p=60,191;i=device/pc");
-        };
+        }
         switch: EtherSwitch {
             parameters:
                 @display("p=202,156");
-        };
+        }
         net: Router {
             parameters:
                 @display("p=394,166");
-        };
+        }
         router: Router {
             parameters:
                 @display("p=311,74");
-        };
+        }
         server: StandardHost {
             parameters:
                 @display("p=512,58;i=device/server_l");
-        };
+        }
         configurator: FlatNetworkConfigurator {
             parameters:
                 moduleTypes = "Router StandardHost EtherSwitch";
@@ -61,7 +59,7 @@ network ARPTest
                 networkAddress = "10.0.0.0";
                 netmask = "255.255.0.0";
                 @display("p=495,160");
-        };
+        }
     connections:
         client.ethg++ <--> switch.ethg++;
         switch.ethg++ <--> host1.ethg++;

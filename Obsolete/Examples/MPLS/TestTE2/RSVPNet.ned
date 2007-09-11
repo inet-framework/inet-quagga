@@ -11,9 +11,6 @@
 //
 
 
-import "StandardHost";
-import "RSVP_LSR";
-import "TED";
 
 //
 // An example of Hop-by-Hop routing. The network consists of 5 LSRs and

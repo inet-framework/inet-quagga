@@ -17,17 +17,6 @@
 //
 
 
-import "NotificationBoard";
-import "InterfaceTable";
-import "RoutingTable";
-import "TCPApp.ned";
-import "TCP.ned";
-import "UDP";
-import "UDPApp";
-import "NetworkLayer";
-import "PingApp";
-import "Ieee80211Nic";
-import "BasicMobility";
 
 
 //

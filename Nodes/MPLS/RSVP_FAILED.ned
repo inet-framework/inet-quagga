@@ -10,7 +10,6 @@
 // See the GNU Lesser General Public License for more details.
 //
 
-import "Dummy";
 
 //
 // Failed router. Discards all incoming traffic and generates nothing. Its

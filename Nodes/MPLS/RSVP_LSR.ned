@@ -11,17 +11,6 @@
 //
 
 
-import "NotificationBoard";
-import "NetworkLayer";
-import "MPLS";
-import "LIBTable";
-import "RoutingTable";
-import "InterfaceTable";
-import "SimpleClassifier";
-import "RSVP";
-import "LinkStateRouting";
-import "TED";
-import "NAMTraceWriter";
 
 //
 // An \RSVP-TE capable router.

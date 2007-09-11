@@ -1,5 +1,3 @@
-import "OSPFAreaTest_Area1";
-import "OSPFAreaTest_Area2";
 
 
 network OSPF_AreaTest

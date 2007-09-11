@@ -1,5 +1,3 @@
-import "RTPModule";
-import "RTCPModule";
 
 module RTPLayer
 
