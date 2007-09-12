@@ -65,7 +65,6 @@ network RTPMulticast1
         router1: Router {
             parameters:
                 routingFile = "router1.mrt";
-                numOfProcessors = 1;
                 @display("p=150,150");
             gates:
                 pppg[4];

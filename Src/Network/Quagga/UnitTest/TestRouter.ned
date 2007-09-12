@@ -10,6 +10,16 @@ import org.omnetpp.inet.Transport.TCP.TCP;
 import org.omnetpp.inet.Transport.UDP.UDP;
 
 
+moduleinterface TestNop {
+    gates:
+        input tcpIn;
+        output tcpOut;
+        input udpIn;
+        output udpOut;
+        input ipIn;
+        output ipOut;
+}
+
 module TestRouter
 {
     parameters:
@@ -17,8 +27,7 @@ module TestRouter
         string routerId;
         string testUnit;
     gates:
-        input in[];
-        output out[];
+        inout pppg[];
     submodules:
         notificationBoard: NotificationBoard {
             parameters:
@@ -61,8 +70,7 @@ module TestRouter
     connections allowunconnected:
         // connections to network outside
         for i=0..sizeof(out)-1 {
-            in[i] --> ppp[i].physIn;
-            out[i] <-- ppp[i].physOut;
+            pppg[i] <--> ppp[i].phys;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
         }
