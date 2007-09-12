@@ -69,7 +69,7 @@ module BurstHost
                 ifIn[1];
                 ifOut[1];
         }
-        pppg[1]: PPPInterface {
+        ppp[1]: PPPInterface {
             parameters:
                 @display("p=198,262,row,90;q=txQueue");
         }
