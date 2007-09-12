@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.World;
+
 //
 // NAMTrace manages a "nam" trace file which can be played back with ns2's
 // Network ANimator, nam. The trace is actually written by NAMTraceWriter

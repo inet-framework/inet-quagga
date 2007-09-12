@@ -1,4 +1,12 @@
 
+package org.omnetpp.inet.examples.OSPFv2.Areas;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherHub;
+import org.omnetpp.inet.Nodes.INET.OSPFRouter;
+import org.omnetpp.inet.Nodes.INET.StandardHost;
+
+
 module OneNetArea
 {
     parameters:
@@ -6,7 +14,8 @@ module OneNetArea
     gates:
         inout ethg[];
     types:
-        channel C extends cBasicChannel {
+        channel C extends cBasicChannel
+        {
             delay = 0.1us;
         }
     submodules:
@@ -15,25 +24,25 @@ module OneNetArea
                 @display("p=372,72;i=device/laptop");
             gates:
                 ethg[1];
-        };
+        }
         N3: EtherHub {
             parameters:
                 @display("p=264,72");
             gates:
                 ethg[2];
-        };
+        }
         R5: OSPFRouter {
             parameters:
                 @display("p=160,72");
             gates:
                 ethg[2];
-        };
+        }
         R4: OSPFRouter {
             parameters:
                 @display("p=64,72");
             gates:
                 ethg[2];
-        };
+        }
     connections:
         R4.ethg[0] <--> C <--> R5.ethg[1];
         R5.ethg[0] <--> C <--> N3.ethg[1];

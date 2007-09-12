@@ -20,14 +20,25 @@
 
 
 
+package org.omnetpp.inet.examples.INET.FlatNet;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.Network.AutoRouting.FlatNetworkConfigurator;
+import org.omnetpp.inet.Nodes.INET.Router;
+import org.omnetpp.inet.Nodes.INET.StandardHost;
+import org.omnetpp.inet.examples.Ethernet.LANs.ethernetline;
+
+
 network FlatNet
 {
     types:
-        channel fiberline extends cBasicChannel {
+        channel fiberline extends cBasicChannel
+        {
             delay = 1us;
             datarate = 512Mbps;
         }
-        channel ethernetline extends cBasicChannel {
+        channel ethernetline extends cBasicChannel
+        {
             delay = 0.1us;
             datarate = 10Mbps;
         }
@@ -38,19 +49,19 @@ network FlatNet
                 nonIPModuleTypes = "";
                 networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
-        };
+        }
         rte[57]: Router {
             parameters:
                 @display("is=vs");
-        };
+        }
         cli[2]: StandardHost {
             parameters:
                 @display("i=device/laptop_s");
-        };
+        }
         srv: StandardHost {
             parameters:
                 @display("i=device/server_s");
-        };
+        }
     connections allowunconnected:
         cli[0].pppg++ <--> ethernetline <--> rte[50].pppg++;
         cli[1].pppg++ <--> ethernetline <--> rte[8].pppg++;

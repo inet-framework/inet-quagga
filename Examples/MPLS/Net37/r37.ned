@@ -10,10 +10,21 @@
 // See the GNU Lesser General Public License for more details.
 //
 
+package org.omnetpp.inet.examples.MPLS.Net37;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.Network.AutoRouting.NetworkConfigurator;
+import org.omnetpp.inet.Nodes.INET.StandardHost;
+import org.omnetpp.inet.Nodes.MPLS.RSVP_LSR;
+import org.omnetpp.inet.World.ChannelInstaller;
+import org.omnetpp.inet.World.NAMTrace;
+
+
 network R37
 {
     types:
-        channel line extends cBasicChannel {
+        channel line extends cBasicChannel
+        {
             delay = 15ms;
             datarate = 128Kbps;
         }
@@ -22,175 +33,175 @@ network R37
             parameters:
                 moduleTypes = "RSVP_LSR StandardHost";
                 @display("p=100,100");
-        };
+        }
         channelInstaller: ChannelInstaller {
             parameters:
                 channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=u";
                 @display("p=100,160");
-        };
+        }
         nam: NAMTrace {
             parameters:
                 @display("p=100,220");
-        };
+        }
         LSR0: RSVP_LSR {
             parameters:
                 @display("p=391,225");
-        };
+        }
         LSR1: RSVP_LSR {
             parameters:
                 @display("p=799,589");
-        };
+        }
         LSR2: RSVP_LSR {
             parameters:
                 @display("p=289,472");
-        };
+        }
         LSR3: RSVP_LSR {
             parameters:
                 @display("p=712,418");
-        };
+        }
         LSR4: RSVP_LSR {
             parameters:
                 @display("p=541,228");
-        };
+        }
         LSR5: RSVP_LSR {
             parameters:
                 @display("p=288,169");
-        };
+        }
         LSR6: RSVP_LSR {
             parameters:
                 @display("p=256,394");
-        };
+        }
         LSR7: RSVP_LSR {
             parameters:
                 @display("p=380,263");
-        };
+        }
         LSR8: RSVP_LSR {
             parameters:
                 @display("p=682,348");
-        };
+        }
         LSR9: RSVP_LSR {
             parameters:
                 @display("p=536,142");
-        };
+        }
         LSR10: RSVP_LSR {
             parameters:
                 @display("p=177,170");
-        };
+        }
         LSR11: RSVP_LSR {
             parameters:
                 @display("p=424,262");
-        };
+        }
         LSR12: RSVP_LSR {
             parameters:
                 @display("p=470,279");
-        };
+        }
         LSR13: RSVP_LSR {
             parameters:
                 @display("p=278,91");
-        };
+        }
         LSR14: RSVP_LSR {
             parameters:
                 @display("p=467,214");
-        };
+        }
         LSR15: RSVP_LSR {
             parameters:
                 @display("p=724,19");
-        };
+        }
         LSR16: RSVP_LSR {
             parameters:
                 @display("p=685,287");
-        };
+        }
         LSR17: RSVP_LSR {
             parameters:
                 @display("p=20,519");
-        };
+        }
         LSR18: RSVP_LSR {
             parameters:
                 @display("p=298,236");
-        };
+        }
         LSR19: RSVP_LSR {
             parameters:
                 @display("p=390,390");
-        };
+        }
         LSR20: RSVP_LSR {
             parameters:
                 @display("p=148,502");
-        };
+        }
         LSR21: RSVP_LSR {
             parameters:
                 @display("p=362,448");
-        };
+        }
         LSR22: RSVP_LSR {
             parameters:
                 @display("p=476,397");
-        };
+        }
         LSR23: RSVP_LSR {
             parameters:
                 @display("p=517,325");
-        };
+        }
         LSR24: RSVP_LSR {
             parameters:
                 @display("p=514,34");
-        };
+        }
         LSR25: RSVP_LSR {
             parameters:
                 @display("p=548,599");
-        };
+        }
         LSR26: RSVP_LSR {
             parameters:
                 @display("p=330,301");
-        };
+        }
         LSR27: RSVP_LSR {
             parameters:
                 @display("p=612,310");
-        };
+        }
         LSR28: RSVP_LSR {
             parameters:
                 @display("p=556,502");
-        };
+        }
         LSR29: RSVP_LSR {
             parameters:
                 @display("p=83,570");
-        };
+        }
         LSR30: RSVP_LSR {
             parameters:
                 @display("p=796,466");
-        };
+        }
         LSR31: RSVP_LSR {
             parameters:
                 @display("p=610,65");
-        };
+        }
         LSR32: RSVP_LSR {
             parameters:
                 @display("p=435,321");
-        };
+        }
         LSR33: RSVP_LSR {
             parameters:
                 @display("p=605,337");
-        };
+        }
         LSR34: RSVP_LSR {
             parameters:
                 @display("p=707,227");
-        };
+        }
         LSR35: RSVP_LSR {
             parameters:
                 @display("p=613,405");
-        };
+        }
         LSR36: RSVP_LSR {
             parameters:
                 @display("p=435,361");
 
-        };
+        }
         host1: StandardHost {
             parameters:
                 @display("p=299,522;i=device/laptop_s");
-        };
+        }
         host2: StandardHost {
             parameters:
                 @display("p=757,227;i=device/laptop_s");
 
-        };
+        }
     connections:
         LSR7.pppg++ <--> line <--> LSR0.pppg++;   // cost 259
         LSR8.pppg++ <--> line <--> LSR3.pppg++;   // cost 474

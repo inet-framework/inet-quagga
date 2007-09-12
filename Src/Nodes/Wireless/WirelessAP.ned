@@ -19,6 +19,13 @@
 
 
 
+package org.omnetpp.inet.Nodes.Wireless;
+
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Mobility.NullMobility;
+import org.omnetpp.inet.NetworkInterfaces.Ieee80211.Ieee80211NicAP;
+
+
 //
 // Models a 802.11 Access Point. It can be used in conjunction with
 // WirelessHost, or any other host model containing WirelessNicSTA.
@@ -37,15 +44,15 @@ module WirelessAP
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=79,74");
-        };
+        }
         wlan: Ieee80211NicAP { // see also Ieee80211NicAPSimplified
             parameters:
                 @display("p=110,179;q=queue");
-        };
+        }
         mobility: NullMobility {
             parameters:
                 @display("p=144,70");
-        };
+        }
     connections allowunconnected:
         radioIn --> { @display("m=s"); } --> wlan.radioIn;
 }

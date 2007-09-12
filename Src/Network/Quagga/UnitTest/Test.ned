@@ -1,4 +1,10 @@
 
+package org.omnetpp.inet.Network.Quagga.UnitTest;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.World.ChannelInstaller;
+
+
 channel ethernetlineX extends cBasicChannel
 {
     parameters:
@@ -15,7 +21,7 @@ network Test
                 channelAttrs = "format=u #N";
                 @display("p=284,50");
 
-        };
+        }
         r1: TestRouter {
             parameters:
                 @display("p=100,30");
@@ -23,7 +29,7 @@ network Test
             gates:
                 in[2];
                 out[2];
-        };
+        }
         r2: TestRouter {
             parameters:
                 @display("p=50,100");
@@ -31,7 +37,7 @@ network Test
             gates:
                 in[4];
                 out[4];
-        };
+        }
         r3: TestRouter {
             parameters:
                 @display("p=150,100");
@@ -39,7 +45,7 @@ network Test
             gates:
                 in[4];
                 out[4];
-        };
+        }
         r4: TestRouter {
             parameters:
                 @display("p=10,150");
@@ -47,7 +53,7 @@ network Test
             gates:
                 in[2];
                 out[2];
-        };
+        }
         r5: TestRouter {
             parameters:
                 @display("p=100,150");
@@ -55,7 +61,7 @@ network Test
             gates:
                 in[3];
                 out[3];
-        };
+        }
     connections allowunconnected:
         r1.out[0] --> ethernetlineX --> r2.in[0];
         r1.in[0] <-- ethernetlineX <-- r2.out[0];

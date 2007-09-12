@@ -19,6 +19,15 @@
 
 
 
+package org.omnetpp.inet.Nodes.Wireless;
+
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Mobility.NullMobility;
+import org.omnetpp.inet.NetworkInterfaces.EtherSwitch.MACRelayUnit;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherMAC;
+import org.omnetpp.inet.NetworkInterfaces.Ieee80211.Ieee80211NicAP;
+
+
 //
 // Models a 802.11 Access Point with Ethernet ports.
 // It can be used in conjunction with WirelessHost, or any other host model
@@ -42,26 +51,26 @@ module WirelessAPWithEth
             gates:
                 lowerLayerIn[sizeof(ethg)+1];
                 lowerLayerOut[sizeof(ethg)+1];
-        };
+        }
         wlan: Ieee80211NicAP { // see also Ieee80211NicAPSimplified
             parameters:
                 @display("p=89,225;q=queue");
-        };
+        }
         eth[sizeof(ethg)]: EtherMAC {
             parameters:
                 promiscuous = true;
                 txQueueLimit = 1000; // increase if needed
                 queueModule = "";
                 @display("p=174,225,row;q=queue");
-        };
+        }
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=78,60");
-        };
+        }
         mobility: NullMobility {
             parameters:
                 @display("p=71,121");
-        };
+        }
     connections allowunconnected:
         radioIn --> { @display("m=s"); } --> wlan.radioIn;
         wlan.uppergateIn <-- relayUnit.lowerLayerOut[0];
@@ -70,6 +79,6 @@ module WirelessAPWithEth
             eth[i].upperLayerIn <-- relayUnit.lowerLayerOut[i+1];
             eth[i].upperLayerOut --> relayUnit.lowerLayerIn[i+1];
             eth[i].phys <--> ethg[i];
-        };
+        }
 }
 

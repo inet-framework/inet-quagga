@@ -19,6 +19,13 @@
 
 
 
+package org.omnetpp.inet.examples.Adhoc.MF80211;
+
+import org.omnetpp.inet.Network.AutoRouting.FlatNetworkConfigurator;
+import org.omnetpp.inet.Nodes.Adhoc.MFMobileHost;
+import org.omnetpp.inet.World.ChannelControl;
+
+
 network Net80211
 {
     parameters:
@@ -29,13 +36,13 @@ network Net80211
         host[numHosts]: MFMobileHost {
             parameters:
                 @display("r=,,#707070");
-        };
+        }
         channelcontrol: ChannelControl {
             parameters:
                 playgroundSizeX = playgroundSizeX;
                 playgroundSizeY = playgroundSizeY;
                 @display("p=60,50");
-        };
+        }
         configurator: FlatNetworkConfigurator {
             parameters:
                 moduleTypes = "MFMobileHost";
@@ -43,7 +50,7 @@ network Net80211
                 networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
                 @display("p=140,50");
-        };
+        }
     connections allowunconnected:
 }
 

@@ -18,6 +18,8 @@
 //
 
 
+package org.omnetpp.inet.Network.IPv4;
+
 //
 // ICMP implementation
 //

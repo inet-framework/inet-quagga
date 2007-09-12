@@ -18,6 +18,8 @@
 
 
 
+package org.omnetpp.inet.Base;
+
 //
 // Using NotificationBoard, modules can now notify each other about
 // "events" such as routing table changes, interface status changes (up/down),

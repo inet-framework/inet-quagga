@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Util;
+
 //
 // Provides tcpdump-like functionality
 //

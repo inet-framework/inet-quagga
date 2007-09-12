@@ -12,6 +12,11 @@
 
 
 
+package org.omnetpp.inet.Nodes.MPLS;
+
+import org.omnetpp.inet.Network.Extras.Dummy;
+
+
 //
 // Failed router. Discards all incoming traffic and generates nothing. Its
 // interface (gates, parameters) is fully compatible with the RSVP_LSR router
@@ -35,10 +40,10 @@ module LDP_FAILED
                 in[sizeof(pppg)];
                 out[sizeof(pppg)];
 
-        };
+        }
     connections allowunconnected:
         for i=0..sizeof(pppg)-1 {
             pppg$i[i] --> dummy.in[i];
             dummy.out[i] --> pppg$o[i];
-        };
+        }
 }

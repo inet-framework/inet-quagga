@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.TCPApp;
+
 //
 // Template for TCP applications.
 //

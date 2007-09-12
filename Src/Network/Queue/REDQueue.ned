@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Network.Queue;
+
 //
 // RED (Random Early Detection) queue, to be used in routers' network
 // interfaces. Conforms to the OutputQueue interface.

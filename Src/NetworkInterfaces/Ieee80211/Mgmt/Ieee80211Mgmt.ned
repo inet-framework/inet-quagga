@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2006 Andras Varga and Levente M√©sz√°ros
+// Copyright (C) 2006 Andras Varga and Levente MÈsz·ros
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -16,6 +16,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
+
+package org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mgmt;
 
 //
 // This is not a concrete module type, but a prototype for all IEEE 802.11

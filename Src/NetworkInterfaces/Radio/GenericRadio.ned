@@ -18,6 +18,8 @@
 //
 
 
+package org.omnetpp.inet.NetworkInterfaces.Radio;
+
 //
 // Generic radio module. The implementation is largely based on the
 // Mobility Framework's SnrEval and Decider modules.

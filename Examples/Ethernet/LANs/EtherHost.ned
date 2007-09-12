@@ -18,6 +18,14 @@
 
 
 
+package org.omnetpp.inet.examples.Ethernet.LANs;
+
+import org.omnetpp.inet.Applications.Ethernet.EtherAppCli;
+import org.omnetpp.inet.Applications.Ethernet.EtherAppSrv;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherLLC;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherMAC;
+
+
 //
 // Example host model with one Ethernet port and several traffic generators
 // to create traffic in the test network.
@@ -33,25 +41,25 @@ module EtherHost
             parameters:
                 registerSAP = true;
                 @display("p=60,60,col");
-        };
+        }
         srv: EtherAppSrv {
             parameters:
                 registerSAP = true;
                 @display("p=250,60,col");
-        };
+        }
         llc: EtherLLC {
             parameters:
                 @display("p=155,120");
             gates:
                 upperLayerIn[2];
                 upperLayerOut[2];
-        };
+        }
         mac: EtherMAC {
             parameters:
                 txQueueLimit = 1000; // increase if needed
                 queueModule = "";
                 @display("p=155,200;q=queue");
-        };
+        }
     connections:
         llc.lowerLayerIn <-- mac.upperLayerOut;
         llc.lowerLayerOut --> mac.upperLayerIn;

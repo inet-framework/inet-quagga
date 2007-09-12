@@ -19,6 +19,11 @@
 
 
 
+package org.omnetpp.inet.NetworkInterfaces.EtherSwitch;
+
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherMAC;
+
+
 //
 // Model of an Ethernet switch.
 //
@@ -43,19 +48,19 @@ module EtherSwitch
             gates:
                 lowerLayerIn[sizeof(ethg)];
                 lowerLayerOut[sizeof(ethg)];
-        };
+        }
         mac[sizeof(ethg)]: EtherMAC {
             parameters:
                 promiscuous = true;
                 txQueueLimit = 1000; // increase if needed
                 queueModule = "";
                 @display("p=70,150,row;q=queue");
-        };
+        }
     connections:
         for i=0..sizeof(ethg)-1 {
             mac[i].upperLayerIn <-- relayUnit.lowerLayerOut[i];
             mac[i].upperLayerOut --> relayUnit.lowerLayerIn[i];
             mac[i].phys <--> ethg[i];
-        };
+        }
 }
 

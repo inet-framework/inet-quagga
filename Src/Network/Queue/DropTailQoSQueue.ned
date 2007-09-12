@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Network.Queue;
+
 //
 // Drop-tail queue with QoS support, to be used in network interfaces.
 // Performs priority queueing.

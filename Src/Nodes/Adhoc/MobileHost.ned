@@ -19,6 +19,21 @@
 
 
 
+package org.omnetpp.inet.Nodes.Adhoc;
+
+import org.omnetpp.inet.Applications.PingApp.PingApp;
+import org.omnetpp.inet.Applications.TCPApp.TCPApp;
+import org.omnetpp.inet.Applications.UDPApp.UDPApp;
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Mobility.BasicMobility;
+import org.omnetpp.inet.Network.Contract.InterfaceTable;
+import org.omnetpp.inet.Network.IPv4.RoutingTable;
+import org.omnetpp.inet.NetworkInterfaces.Ieee80211.Ieee80211NicAdhoc;
+import org.omnetpp.inet.Nodes.INET.NetworkLayer;
+import org.omnetpp.inet.Transport.TCP.TCP;
+import org.omnetpp.inet.Transport.UDP.UDP;
+
+
 //
 // Models a mobile host with a wireless (802.11b) card in ad-hoc mode.
 // This model contains the new IEEE 802.11 implementation, Ieee80211Nic,
@@ -44,38 +59,38 @@ module MobileHost
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=60,70");
-        };
+        }
         interfaceTable: InterfaceTable {
             parameters:
                 @display("p=60,150");
-        };
+        }
         routingTable: RoutingTable {
             parameters:
                 IPForward = IPForward;
                 routerId = "";
                 routingFile = routingFile;
                 @display("p=60,230");
-        };
+        }
         tcpApp[numTcpApps]: <tcpAppType> like TCPApp {
             parameters:
                 @display("p=163,67");
-        };
+        }
         tcp: TCP {
             parameters:
                 @display("p=163,154");
-        };
+        }
         udpApp[numUdpApps]: <udpAppType> like UDPApp {
             parameters:
                 @display("p=272,67");
-        };
+        }
         udp: UDP {
             parameters:
                 @display("p=272,154");
-        };
+        }
         pingApp: PingApp {
             parameters:
                 @display("p=343,200");
-        };
+        }
         networkLayer: NetworkLayer {
             parameters:
                 proxyARP = false;
@@ -83,20 +98,20 @@ module MobileHost
             gates:
                 ifIn[1];
                 ifOut[1];
-        };
+        }
         wlan: Ieee80211NicAdhoc {
             parameters:
                 @display("p=248,349;q=queue");
-        };
+        }
         mobility: <mobilityType> like BasicMobility {
             parameters:
                 @display("p=149,307");
-        };
+        }
     connections allowunconnected:
         for i=0..numTcpApps-1 {
             tcpApp[i].tcpOut --> tcp.from_appl++;
             tcpApp[i].tcpIn <-- tcp.to_appl++;
-        };
+        }
 
         tcp.to_ip --> networkLayer.TCPIn;
         tcp.from_ip <-- networkLayer.TCPOut;
@@ -104,7 +119,7 @@ module MobileHost
         for i=0..numUdpApps-1 {
             udpApp[i].to_udp --> udp.from_app++;
             udpApp[i].from_udp <-- udp.to_app++;
-        };
+        }
 
         udp.to_ip --> networkLayer.UDPIn;
         udp.from_ip <-- networkLayer.UDPOut;

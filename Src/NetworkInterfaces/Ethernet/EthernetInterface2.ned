@@ -18,6 +18,11 @@
 
 
 
+package org.omnetpp.inet.NetworkInterfaces.Ethernet;
+
+import org.omnetpp.inet.Network.Queue.OutputQueue;
+
+
 //
 // Ethernet network interface, which supports full-duplex operation only.
 // Corresponds to the prototype NetworkInterface.
@@ -38,17 +43,17 @@ module EthernetInterface2
         queue: <queueType> like OutputQueue {
             parameters:
                 @display("p=92,71;q=l2queue");
-        };
+        }
         mac: EtherMAC2 {
             parameters:
                 queueModule = "queue";
                 txQueueLimit = 1; // queue sends one packet at a time
                 @display("p=116,231");
-        };
+        }
         encap: EtherEncap {
             parameters:
                 @display("p=116,151");
-        };
+        }
     connections:
         netwIn --> queue.in;
         queue.out --> encap.upperLayerIn;

@@ -18,6 +18,14 @@
 
 
 
+package org.omnetpp.inet.examples.Wireless.Throughput;
+
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Base.Sink;
+import org.omnetpp.inet.Mobility.NullMobility;
+import org.omnetpp.inet.NetworkInterfaces.Ieee80211.Ieee80211NicAPSimplified;
+
+
 //
 // Well, it Models a 802.11 Access Point with a Sink.
 //
@@ -31,19 +39,19 @@ module WirelessAPWithSink
         sink: Sink {
             parameters:
                 @display("p=169,124");
-        };
+        }
         wlan: Ieee80211NicAPSimplified {
             parameters:
                 @display("p=89,225;q=queue");
-        };
+        }
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=78,60");
-        };
+        }
         mobility: NullMobility {
             parameters:
                 @display("p=71,121");
-        };
+        }
     connections allowunconnected:
         radioIn --> { @display("m=s"); } --> wlan.radioIn;
         wlan.uppergateOut --> sink.pppg$i++;

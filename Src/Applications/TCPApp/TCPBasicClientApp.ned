@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.TCPApp;
+
 //
 // Client for a generic request-response style protocol over TCP.
 // May be used as a rough model of HTTP or FTP users.

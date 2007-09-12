@@ -14,6 +14,8 @@
 //
 
 
+package org.omnetpp.inet.Network.MPLS;
+
 //
 // Implements the \MPLS protocol.
 //

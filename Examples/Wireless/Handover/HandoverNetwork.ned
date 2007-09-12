@@ -19,6 +19,14 @@
 
 
 
+package org.omnetpp.inet.examples.Wireless.Handover;
+
+import org.omnetpp.inet.Network.AutoRouting.FlatNetworkConfigurator;
+import org.omnetpp.inet.Nodes.Wireless.WirelessAP;
+import org.omnetpp.inet.Nodes.Wireless.WirelessHost;
+import org.omnetpp.inet.World.ChannelControl;
+
+
 network HandoverNetwork
 {
     parameters:
@@ -28,21 +36,21 @@ network HandoverNetwork
         host: WirelessHost {
             parameters:
                 @display("p=50,130;r=,,#707070");
-        };
+        }
         ap1: WirelessAP {
             parameters:
                 @display("p=100,200;r=,,#707070");
-        };
+        }
         ap2: WirelessAP {
             parameters:
                 @display("p=500,200;r=,,#707070");
-        };
+        }
         channelcontrol: ChannelControl {
             parameters:
                 playgroundSizeX = playgroundSizeX;
                 playgroundSizeY = playgroundSizeY;
                 @display("p=60,50");
-        };
+        }
         configurator: FlatNetworkConfigurator {
             parameters:
                 moduleTypes = "WirelessHost WirelessHostSimplified";
@@ -50,7 +58,7 @@ network HandoverNetwork
                 networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
                 @display("p=140,50");
-        };
+        }
     connections allowunconnected:
 }
 

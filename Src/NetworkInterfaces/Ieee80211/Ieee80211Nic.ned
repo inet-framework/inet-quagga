@@ -17,6 +17,13 @@
 //
 
 
+package org.omnetpp.inet.NetworkInterfaces.Ieee80211;
+
+import org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mac.Ieee80211Mac;
+import org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mgmt.Ieee80211Mgmt;
+import org.omnetpp.inet.NetworkInterfaces.Radio.Ieee80211Radio;
+
+
 //
 // This NIC implements an 802.11 network interface card.
 // It can be configured via the mgmtType parameter to act
@@ -34,16 +41,16 @@ module Ieee80211Nic
         mgmt: <mgmtType> like Ieee80211Mgmt {
             parameters:
                 @display("p=96,69;q=wlanDataQueue");
-        };
+        }
         mac: Ieee80211Mac {
             parameters:
                 queueModule = "mgmt";
                 @display("p=96,155");
-        };
+        }
         radio: Ieee80211Radio {
             parameters:
                 @display("p=96,240");
-        };
+        }
     connections:
         radioIn --> radio.radioIn;
         radio.uppergateIn <-- mac.lowergateOut;

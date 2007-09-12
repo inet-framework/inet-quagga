@@ -22,6 +22,14 @@
 
 
 
+package org.omnetpp.inet.Nodes.IPv6;
+
+import org.omnetpp.inet.Network.ICMPv6.ICMPv6;
+import org.omnetpp.inet.Network.ICMPv6.IPv6NeighbourDiscovery;
+import org.omnetpp.inet.Network.IPv6.IPv6;
+import org.omnetpp.inet.Network.IPv6.IPv6ErrorHandling;
+
+
 //
 // Represents an IPv6 network layer (L3).
 //
@@ -56,19 +64,19 @@ module NetworkLayer6
                 transportOut[4];
                 queueIn[sizeof(ifIn)];
                 queueOut[sizeof(ifIn)];
-        };
+        }
         icmpv6: ICMPv6 {
             parameters:
                 @display("p=208,79");
-        };
+        }
         ipv6ErrorHandling: IPv6ErrorHandling {
             parameters:
                 @display("p=280,79");
-        };
+        }
         neighbourDiscovery: IPv6NeighbourDiscovery {
             parameters:
                 @display("p=208,171");
-        };
+        }
     connections allowunconnected:  // FIXME remove 'nocheck'!
         // IPv6 to transport Layer
         ipv6.transportOut[0] --> { @display("m=n"); } --> TCPOut;
@@ -102,6 +110,6 @@ module NetworkLayer6
         for i=0..sizeof(ifOut)-1 {
             ifIn[i] --> { @display("m=s"); } --> ipv6.queueIn[i];
             ifOut[i] <-- { @display("m=s"); } <-- ipv6.queueOut[i];
-        };
+        }
 }
 

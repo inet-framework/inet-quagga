@@ -17,6 +17,15 @@
 //
 
 
+package org.omnetpp.inet.examples.Wireless.Throughput;
+
+import org.omnetpp.inet.Applications.Ethernet.EtherAppCli;
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Mobility.NullMobility;
+import org.omnetpp.inet.NetworkInterfaces.Ieee80211.Ieee80211NicSTASimplified;
+import org.omnetpp.inet.World.ChannelControl;
+
+
 module ThroughputClient
 {
     parameters:
@@ -28,20 +37,20 @@ module ThroughputClient
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=52,70");
-        };
+        }
         cli: EtherAppCli {
             parameters:
                 registerSAP = false;
                 @display("b=40,24;p=180,60,col");
-        };
+        }
         wlan: Ieee80211NicSTASimplified {
             parameters:
                 @display("p=112,134;q=queue");
-        };
+        }
         mobility: NullMobility {
             parameters:
                 @display("p=50,141");
-        };
+        }
     connections allowunconnected:
         wlan.radioIn <-- radioIn;
         cli.out --> wlan.uppergateIn;
@@ -58,17 +67,17 @@ network Throughput
         cliHost[numCli]: ThroughputClient {
             parameters:
                 @display("r=,,#707070");
-        };
+        }
         ap: WirelessAPWithSink {
             parameters:
                 @display("p=200,200;r=,,#707070");
-        };
+        }
         channelcontrol: ChannelControl {
             parameters:
                 playgroundSizeX = playgroundSizeX;
                 playgroundSizeY = playgroundSizeY;
                 @display("p=61,46");
-        };
+        }
     connections allowunconnected:
 }
 

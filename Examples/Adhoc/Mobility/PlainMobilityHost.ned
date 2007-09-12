@@ -19,6 +19,12 @@
 
 
 
+package org.omnetpp.inet.examples.Adhoc.Mobility;
+
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Mobility.BasicMobility;
+
+
 //
 // A host for demonstrating mobility models only -- it contains
 // no protocol layers at all.
@@ -32,11 +38,11 @@ module PlainMobilityHost
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=70,67");
-        };
+        }
         mobility: <mobilityType> like BasicMobility {
             parameters:
                 @display("p=132,141");
-        };
+        }
     connections allowunconnected:
 }
 

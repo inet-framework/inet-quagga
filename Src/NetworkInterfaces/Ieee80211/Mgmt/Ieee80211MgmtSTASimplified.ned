@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mgmt;
+
 //
 // Used in 802.11 infrastructure mode: handles management frames for a station (STA).
 // Relies on the MAC layer (Ieee80211Mac) for reception and transmission of frames.

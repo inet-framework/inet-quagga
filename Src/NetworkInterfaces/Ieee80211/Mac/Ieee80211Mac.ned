@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2006 Andras Varga and Levente M√©sz√°ros
+// Copyright (C) 2006 Andras Varga and Levente MÈsz·ros
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -16,6 +16,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
+
+package org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mac;
 
 //
 // Implementation of the 802.11b MAC protocol. This module is intended

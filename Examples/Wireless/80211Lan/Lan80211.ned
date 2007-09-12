@@ -19,36 +19,5 @@
 
 
 
-network Lan80211
-{
-    parameters:
-        int numHosts;
-        double playgroundSizeX;
-        double playgroundSizeY;
-    submodules:
-        host[numHosts]: WirelessHostSimplified {
-            parameters:
-                @display("r=,,#707070");
-        };
-        ap: WirelessAPSimplified {
-            parameters:
-                @display("p=213,174;r=,,#707070");
-        };
-        channelcontrol: ChannelControl {
-            parameters:
-                playgroundSizeX = playgroundSizeX;
-                playgroundSizeY = playgroundSizeY;
-                numChannels = 2;
-                @display("p=61,46");
-        };
-        configurator: FlatNetworkConfigurator {
-            parameters:
-                moduleTypes = "WirelessHost WirelessHostSimplified";
-                nonIPModuleTypes = "WirelessAP WirelessAPSimplified";
-                networkAddress = "145.236.0.0";
-                netmask = "255.255.0.0";
-                @display("p=140,50");
-        };
-    connections allowunconnected:
-}
+package org.omnetpp.inet.examples.Wireless.80211Lan;
 

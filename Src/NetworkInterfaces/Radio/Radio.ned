@@ -18,6 +18,8 @@
 //
 
 
+package org.omnetpp.inet.NetworkInterfaces.Radio;
+
 //
 // Prototype for radio modules. Radio modules deal with the transmission
 // of frames over a wireless medium (the radio channel).

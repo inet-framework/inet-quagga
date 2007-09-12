@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mgmt;
+
 //
 // Used in 802.11 infrastructure mode: in a station (STA), this module
 // controls channel scanning, association and handovers, by sending commands

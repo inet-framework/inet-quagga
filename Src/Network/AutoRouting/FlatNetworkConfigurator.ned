@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Network.AutoRouting;
+
 //
 // Configures \IP addresses and routing tables for a "flat" network,
 // "flat" meaning that all hosts and routers will have the same

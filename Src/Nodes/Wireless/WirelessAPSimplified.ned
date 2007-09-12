@@ -19,6 +19,13 @@
 
 
 
+package org.omnetpp.inet.Nodes.Wireless;
+
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Mobility.NullMobility;
+import org.omnetpp.inet.NetworkInterfaces.Ieee80211.Ieee80211NicAPSimplified;
+
+
 //
 // Models a 802.11 Access Point, but using a simplified NIC that does not
 // support handovers. It should be used in conjunction with WirelessHostSimplified,
@@ -38,15 +45,15 @@ module WirelessAPSimplified
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=79,74");
-        };
+        }
         wlan: Ieee80211NicAPSimplified {
             parameters:
                 @display("p=110,179;q=queue");
-        };
+        }
         mobility: NullMobility {
             parameters:
                 @display("p=144,70");
-        };
+        }
     connections allowunconnected:
         radioIn --> { @display("m=s"); } --> wlan.radioIn;
 }

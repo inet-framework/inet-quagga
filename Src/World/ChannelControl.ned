@@ -18,6 +18,8 @@
 // **************************************************************************/
 
 
+package org.omnetpp.inet.World;
+
 //
 // ChannelControl has exactly one instance in every network model that 
 // contains mobile or wireless nodes. This module gets informed about the 

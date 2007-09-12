@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mgmt;
+
 //
 // 802.11 management module used for ad-hoc mode.
 // Relies on the MAC layer (Ieee80211Mac) for reception and transmission of frames.

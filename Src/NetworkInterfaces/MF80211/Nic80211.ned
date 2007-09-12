@@ -18,6 +18,13 @@
 // **************************************************************************/
 
 
+package org.omnetpp.inet.NetworkInterfaces.MF80211;
+
+import org.omnetpp.inet.NetworkInterfaces.MF80211.macLayer.Mac80211;
+import org.omnetpp.inet.NetworkInterfaces.MF80211.phyLayer.decider.Decider80211;
+import org.omnetpp.inet.NetworkInterfaces.MF80211.phyLayer.snrEval.SnrEval80211;
+
+
 //
 // This NIC implements an 802.11 network interface card.
 //
@@ -38,15 +45,15 @@ module Nic80211
         mac: Mac80211 {
             parameters:
                 @display("p=96,87");
-        };
+        }
         decider: Decider80211 {
             parameters:
                 @display("p=106,157");
-        };
+        }
         snrEval: SnrEval80211 {
             parameters:
                 @display("p=96,236");
-        };
+        }
     connections:
         radioIn --> snrEval.radioIn;
         decider.uppergateOut --> { @display("m=m,50,50,75,0"); } --> mac.lowergateIn;

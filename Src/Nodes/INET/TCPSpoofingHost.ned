@@ -20,6 +20,17 @@
 
 
 
+package org.omnetpp.inet.Nodes.INET;
+
+import org.omnetpp.inet.Applications.TCPApp.TCPSpoof;
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Network.Contract.InterfaceTable;
+import org.omnetpp.inet.Network.IPv4.RoutingTable;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EthernetInterface;
+import org.omnetpp.inet.NetworkInterfaces.PPP.PPPInterface;
+import org.omnetpp.inet.Util.NAMTraceWriter;
+
+
 //
 // \IP host with TCPSpoof in the application layer.
 //
@@ -41,26 +52,26 @@ module TCPSpoofingHost
             parameters:
                 namid = namid;
                 @display("p=71,294");
-        };
+        }
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=71,54");
-        };
+        }
         interfaceTable: InterfaceTable {
             parameters:
                 @display("p=71,134");
-        };
+        }
         routingTable: RoutingTable {
             parameters:
                 IPForward = IPForward;
                 routerId = "";
                 routingFile = routingFile;
                 @display("p=71,214");
-        };
+        }
         tcpSpoof: TCPSpoof {
             parameters:
                 @display("p=168,122");
-        };
+        }
         networkLayer: NetworkLayer {
             parameters:
                 proxyARP = false;
@@ -68,15 +79,15 @@ module TCPSpoofingHost
             gates:
                 ifIn[sizeof(pppg)+sizeof(ethg)];
                 ifOut[sizeof(pppg)+sizeof(ethg)];
-        };
+        }
         ppp[sizeof(pppg)]: PPPInterface {
             parameters:
                 @display("p=205,350,row,90;q=txQueue");
-        };
+        }
         eth[sizeof(ethg)]: EthernetInterface {
             parameters:
                 @display("p=240,350,row,90;q=txQueue");
-        };
+        }
     connections allowunconnected:
         tcpSpoof.ipv4Out --> networkLayer.TCPIn;
 
@@ -85,12 +96,12 @@ module TCPSpoofingHost
             pppg[i] <--> ppp[i].phys;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
-        };
+        }
 
         for i=0..sizeof(ethg)-1 {
             ethg[i] <--> eth[i].phys;
             eth[i].netwOut --> networkLayer.ifIn[sizeof(pppg)+i];
             eth[i].netwIn <-- networkLayer.ifOut[sizeof(pppg)+i];
-        };
+        }
 }
 

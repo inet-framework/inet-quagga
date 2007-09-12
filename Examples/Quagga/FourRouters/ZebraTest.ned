@@ -21,16 +21,30 @@
 
 
 
+package org.omnetpp.inet.examples.Quagga.FourRouters;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.Network.Extras.FailureManager;
+import org.omnetpp.inet.Nodes.INET.QuaggaRouter;
+import org.omnetpp.inet.Nodes.INET.StandardHost;
+import org.omnetpp.inet.World.ChannelInstaller;
+import org.omnetpp.inet.World.NAMTrace;
+import org.omnetpp.inet.World.ScenarioManager;
+import org.omnetpp.inet.examples.Ethernet.LANs.ethernetline;
+
+
 network ZebraTest
 {
     parameters:
         int n;
     types:
-        channel fiberline extends cBasicChannel {
+        channel fiberline extends cBasicChannel
+        {
             delay = 1ms;
             datarate = 1Mbps;
         }
-        channel ethernetline extends cBasicChannel {
+        channel ethernetline extends cBasicChannel
+        {
             delay = 10ms;
             datarate = 100Kbps;
         }
@@ -38,55 +52,55 @@ network ZebraTest
         scenarioManager: ScenarioManager {
             parameters:
                 @display("p=68,50");
-        };
+        }
         failureManager: FailureManager {
             parameters:
                 @display("p=152,50");
-        };
+        }
         nam: NAMTrace {
             parameters:
                 @display("p=219,50");
-        };
+        }
         channelInstaller: ChannelInstaller {
             parameters:
                 channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=u #N";
                 @display("p=284,50");
-        };
+        }
         cli[n]: StandardHost {
             parameters:
                 namid = index;
                 @display("p=62,146,c;i=device/laptop");
-        };
+        }
         srv: StandardHost {
             parameters:
                 namid = n;
                 @display("p=512,242;i=device/server_l");
-        };
+        }
         r1: QuaggaRouter {
             parameters:
                 namid = n + 1;
                 @display("p=173,250");
-        };
+        }
         r2: QuaggaRouter {
             parameters:
                 namid = n + 2;
                 @display("p=284,130");
-        };
+        }
         r3: QuaggaRouter {
             parameters:
                 namid = n + 3;
                 @display("p=405,242");
-        };
+        }
         r4: QuaggaRouter {
             parameters:
                 namid = n + 4;
                 @display("p=294,370");
-        };
+        }
     connections allowunconnected:
         for i=0..n-1 {
             cli[i].pppg++ <--> ethernetline <--> r1.pppg++;
-        };
+        }
         r1.pppg++ <--> ethernetline <--> r2.pppg++;
         r2.pppg++ <--> ethernetline <--> r3.pppg++;
         r3.pppg++ <--> ethernetline <--> srv.pppg++;

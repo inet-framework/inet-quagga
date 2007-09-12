@@ -18,6 +18,8 @@
 
 
 
+package org.omnetpp.inet.NetworkInterfaces.PPP;
+
 //
 // \PPP implementation.
 //

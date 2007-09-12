@@ -19,6 +19,19 @@
 
 
 
+package org.omnetpp.inet.Nodes.INET;
+
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Network.Contract.InterfaceTable;
+import org.omnetpp.inet.Network.IPv4.RoutingTable;
+import org.omnetpp.inet.Network.Quagga.Zebra;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EthernetInterface;
+import org.omnetpp.inet.NetworkInterfaces.PPP.PPPInterface;
+import org.omnetpp.inet.Transport.TCP.TCP;
+import org.omnetpp.inet.Transport.UDP.UDP;
+import org.omnetpp.inet.Util.NAMTraceWriter;
+
+
 //
 // Quagga-based \IP router.
 //
@@ -37,60 +50,60 @@ module QuaggaRouter
             parameters:
                 namid = namid;
                 @display("p=330,60");
-        };
+        }
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=60,60");
-        };
+        }
         interfaceTable: InterfaceTable {
             parameters:
                 @display("p=150,60");
-        };
+        }
         routingTable: RoutingTable {
             parameters:
                 IPForward = true;
                 routerId = "auto";
                 routingFile = routingFile;
                 @display("p=240,60");
-        };
+        }
         networkLayer: NetworkLayer {
             parameters:
                 @display("p=200,341;q=queue");
             gates:
                 ifIn[sizeof(pppg)+sizeof(ethg)];
                 ifOut[sizeof(pppg)+sizeof(ethg)];
-        };
+        }
         ppp[sizeof(pppg)]: PPPInterface {
             parameters:
                 @display("p=90,457,row,110;q=l2queue");
-        };
+        }
         eth[sizeof(ethg)]: EthernetInterface {
             parameters:
                 @display("p=145,457,row,110;q=l2queue");
-        };
+        }
         tcp: TCP {
             parameters:
                 @display("p=200,250");
-        };
+        }
         udp: UDP {
             parameters:
                 @display("p=300,250");
-        };
+        }
         zebra: Zebra {
             parameters:
                 @display("p=150, 150");
-        };
+        }
         router: <routingDaemon> like Zebra {
             parameters:
                 @display("p=250, 150");
-        };
+        }
     connections allowunconnected:
         // connections to network outside
         for i=0..sizeof(pppg)-1 {
             pppg[i] <--> ppp[i].phys;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
-        };
+        }
 
         tcp.to_ip --> networkLayer.TCPIn;
         tcp.from_ip <-- networkLayer.TCPOut;
@@ -114,6 +127,6 @@ module QuaggaRouter
             ethg[i] <--> eth[i].phys;
             eth[i].netwOut --> networkLayer.ifIn[sizeof(pppg)+i];
             eth[i].netwIn <-- networkLayer.ifOut[sizeof(pppg)+i];
-        };
+        }
 }
 

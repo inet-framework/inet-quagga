@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.TCPApp;
+
 //
 // This module hosts TCP-based server applications. It dynamically creates
 // and launches a new "thread" object for each incoming connection.

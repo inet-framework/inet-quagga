@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.TCPApp;
+
 //
 // Single-connection TCP application: it opens a connection, sends
 // the given number of bytes, and closes. Sending may be one-off,

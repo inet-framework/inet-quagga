@@ -19,6 +19,15 @@
 
 
 
+package org.omnetpp.inet.Nodes.INET;
+
+import org.omnetpp.inet.Network.ARP.ARP;
+import org.omnetpp.inet.Network.IPv4.ErrorHandling;
+import org.omnetpp.inet.Network.IPv4.ICMP;
+import org.omnetpp.inet.Network.IPv4.IGMP;
+import org.omnetpp.inet.Network.IPv4.IP;
+
+
 //
 // Network layer of an \IP node.
 //
@@ -55,26 +64,26 @@ module NetworkLayer
                 transportIn[6];
                 transportOut[6];
                 queueIn[sizeof(ifIn)];
-        };
+        }
         arp: ARP {
             parameters:
                 proxyARP = proxyARP;
                 @display("p=163,206;q=pendingQueue");
             gates:
                 nicOut[sizeof(ifOut)];
-        };
+        }
         icmp: ICMP {
             parameters:
                 @display("p=160,63");
-        };
+        }
         igmp: IGMP {
             parameters:
                 @display("p=160,122");
-        };
+        }
         errorHandling: ErrorHandling {
             parameters:
                 @display("p=239,63");
-        };
+        }
     connections allowunconnected:
         // transport Layer
         ip.transportOut[0] --> TCPOut;
@@ -106,6 +115,6 @@ module NetworkLayer
         for i=0..sizeof(ifOut)-1 {
             ifIn[i] --> { @display("m=s"); } --> ip.queueIn[i];
             ifOut[i] <-- { @display("m=s"); } <-- arp.nicOut[i];
-        };
+        }
 }
 

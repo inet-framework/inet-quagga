@@ -1,11 +1,18 @@
 
 
+package org.omnetpp.inet.examples.RTP.Unicast;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.Transport.RTP.RTPHost;
+
+
 network RTPNetwork
 {
     parameters:
         bool debug = default(false);
     types:
-        channel ErrorChannel extends cBasicChannel {
+        channel ErrorChannel extends cBasicChannel
+        {
             //delay normal (0.004, 0.0041)
             error = 0.0;
         }
@@ -21,7 +28,7 @@ network RTPNetwork
                 payloadType = 32;
                 numOfProcessors = 1;
                 routingFile = "server1.irt";
-        };
+        }
         receiver: RTPHost {
             parameters:
                 debug = debug;
@@ -34,7 +41,7 @@ network RTPNetwork
                 numOfProcessors = 1;
                 routingFile = "client2.irt";
 
-        };
+        }
     connections:
         sender.pppg[0] <--> ErrorChannel <--> receiver.pppg[0];
 }

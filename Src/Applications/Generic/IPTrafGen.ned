@@ -18,6 +18,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.Generic;
+
 //
 // Consumes and prints packets received from the IP module.
 // Compatible with both IPv4 and IPv6.

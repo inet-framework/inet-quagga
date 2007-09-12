@@ -18,6 +18,8 @@
 
 
 
+package org.omnetpp.inet.Util;
+
 //
 // When placed inside a host or router, it writes a NAM trace, based on
 // notifications it receives via the NotificationBoard. Expects to find

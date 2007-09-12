@@ -19,6 +19,15 @@
 
 
 
+package org.omnetpp.inet.Nodes.IPv6;
+
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Network.Contract.InterfaceTable;
+import org.omnetpp.inet.Network.IPv6.RoutingTable6;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EthernetInterface;
+import org.omnetpp.inet.NetworkInterfaces.PPP.PPPInterface;
+
+
 //
 // \IPv6 router.
 //
@@ -33,43 +42,43 @@ module Router6
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=60,60");
-        };
+        }
         interfaceTable: InterfaceTable {
             parameters:
                 @display("p=150,60");
-        };
+        }
         routingTable6: RoutingTable6 {
             parameters:
                 isRouter = true;
                 @display("p=240,60");
-        };
+        }
         networkLayer: NetworkLayer6 {
             parameters:
                 @display("p=200,141;q=queue");
             gates:
                 ifIn[sizeof(pppg)+sizeof(ethg)];
                 ifOut[sizeof(pppg)+sizeof(ethg)];
-        };
+        }
         ppp[sizeof(pppg)]: PPPInterface {
             parameters:
                 @display("p=90,257,row,110;q=l2queue");
-        };
+        }
         eth[sizeof(ethg)]: EthernetInterface {
             parameters:
                 @display("p=145,257,row,110;q=l2queue");
-        };
+        }
     connections allowunconnected:
         // connections to network outside
         for i=0..sizeof(pppg)-1 {
             pppg[i] <--> ppp[i].phys;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
-        };
+        }
 
         for i=0..sizeof(ethg)-1 {
             ethg[i] <--> eth[i].phys;
             eth[i].netwOut --> networkLayer.ifIn[sizeof(pppg)+i];
             eth[i].netwIn <-- networkLayer.ifOut[sizeof(pppg)+i];
-        };
+        }
 }
 

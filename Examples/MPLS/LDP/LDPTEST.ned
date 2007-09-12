@@ -12,18 +12,31 @@
 
 
 
+package org.omnetpp.inet.examples.MPLS.LDP;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.Network.Extras.FailureManager;
+import org.omnetpp.inet.Nodes.INET.StandardHost;
+import org.omnetpp.inet.Nodes.MPLS.LDP_LSR;
+import org.omnetpp.inet.World.NAMTrace;
+import org.omnetpp.inet.World.ScenarioManager;
+
+
 network LDPTEST
 {
     types:
-        channel C5 extends cBasicChannel {
+        channel C5 extends cBasicChannel
+        {
             datarate = 600Kbps;
             delay = 15us;
         }
-        channel C10 extends cBasicChannel {
+        channel C10 extends cBasicChannel
+        {
             datarate = 600Kbps;
             delay = 15us;
         }
-        channel C15 extends cBasicChannel {
+        channel C15 extends cBasicChannel
+        {
             datarate = 600Kbps;
             delay = 15us;
         }
@@ -31,66 +44,66 @@ network LDPTEST
         nam: NAMTrace {
             parameters:
                 @display("p=152,280");
-        };
+        }
         LSR1: LDP_LSR {
             parameters:
                 peers = "ppp0 ppp1 ppp2";
                 @display("p=150,200");
             gates:
                 pppg[4];
-        };
+        }
         LSR2: LDP_LSR {
             parameters:
                 peers = "ppp0 ppp1 ppp2 ppp3";
                 @display("p=250,200");
             gates:
                 pppg[4];
-        };
+        }
         LSR3: LDP_LSR {
             parameters:
                 peers = "ppp0 ppp1 ppp2";
                 @display("p=350,200");
             gates:
                 pppg[4];
-        };
+        }
         LSR4: LDP_LSR {
             parameters:
                 peers = "ppp0 ppp1 ppp2";
                 @display("p=250,100");
             gates:
                 pppg[4];
-        };
+        }
         LSR5: LDP_LSR {
             parameters:
                 peers = "ppp0 ppp1 ppp2";
                 @display("p=250,300");
             gates:
                 pppg[4];
-        };
+        }
         host1: StandardHost { // client
             parameters:
                 @display("p=40,200;i=device/pc2");
-        };
+        }
         host2: StandardHost { // client
             parameters:
                 @display("p=440,200;i=device/pc2");
-        };
+        }
         host3: StandardHost { // client
             parameters:
                 @display("p=250,10;i=device/pc2");
-        };
+        }
         host4: StandardHost { // client
             parameters:
                 @display("p=250,390;i=device/pc2");
-        };
+        }
         scenarioManager: ScenarioManager {
             parameters:
                 @display("p=150,50");
-        };
+        }
         failureManager: FailureManager {
             parameters:
                 @display("p=350,50");
-        };
+        }
     connections allowunconnected:
         LSR1.pppg[0] <--> C15 <--> LSR2.pppg[0];
         LSR1.pppg[1] <--> C5 <--> LSR4.pppg[0];

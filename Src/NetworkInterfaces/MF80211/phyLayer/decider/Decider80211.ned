@@ -18,6 +18,8 @@
 // **************************************************************************/
 
 
+package org.omnetpp.inet.NetworkInterfaces.MF80211.phyLayer.decider;
+
 //
 // Decider module of the 802.11 modules
 //

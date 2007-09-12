@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.NetworkInterfaces.Ethernet;
+
 //
 // Ethernet MAC which supports full duplex operation ONLY.
 //

@@ -17,6 +17,14 @@
 //
 
 
+package org.omnetpp.inet.NetworkInterfaces.Ieee80211;
+
+import org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mac.Ieee80211Mac;
+import org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mgmt.Ieee80211AgentSTA;
+import org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mgmt.Ieee80211MgmtSTA;
+import org.omnetpp.inet.NetworkInterfaces.Radio.Ieee80211Radio;
+
+
 //
 // This NIC implements an 802.11 network interface card,
 // in a STA, using infrastructure mode.
@@ -33,20 +41,20 @@ module Ieee80211NicSTA
         agent: Ieee80211AgentSTA {
             parameters:
                 @display("p=202,69");
-        };
+        }
         mgmt: Ieee80211MgmtSTA {
             parameters:
                 @display("p=96,69;q=wlanDataQueue");
-        };
+        }
         mac: Ieee80211Mac {
             parameters:
                 queueModule = "mgmt";
                 @display("p=96,155");
-        };
+        }
         radio: Ieee80211Radio {
             parameters:
                 @display("p=96,240");
-        };
+        }
     connections:
         radioIn --> radio.radioIn;
         radio.uppergateIn <-- mac.lowergateOut;

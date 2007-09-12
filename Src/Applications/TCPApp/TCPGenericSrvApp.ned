@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.TCPApp;
+
 //
 // Generic server application for modelling TCP-based request-reply style
 // protocols or applications.

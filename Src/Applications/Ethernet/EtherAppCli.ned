@@ -16,6 +16,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
+package org.omnetpp.inet.Applications.Ethernet;
+
 //
 // Simple traffic generator for the Ethernet model and the 802.11 model;
 // generally any L2 model that accepts Ieee80211Ctrl control info

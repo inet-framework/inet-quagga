@@ -12,6 +12,8 @@
 // See the GNU Lesser General Public License for more details.
 //
 
+package org.omnetpp.inet.Network.TED;
+
 //
 // Traffic Engineering Database. Stores network topology with detailed
 // link information, including total and reserved bandwidths.

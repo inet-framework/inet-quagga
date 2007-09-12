@@ -19,16 +19,28 @@
 
 
 
+package org.omnetpp.inet.examples.IPv6.NClients;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.Network.AutoRouting.FlatNetworkConfigurator6;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherHub;
+import org.omnetpp.inet.Nodes.IPv6.Router6;
+import org.omnetpp.inet.Nodes.IPv6.StandardHost6;
+import org.omnetpp.inet.examples.Ethernet.LANs.ethernetline;
+
+
 network NClientsEth
 {
     parameters:
         int n;
     types:
-        channel fiberline extends cBasicChannel {
+        channel fiberline extends cBasicChannel
+        {
             delay = 1us;
             datarate = 512Mbps;
         }
-        channel ethernetline extends cBasicChannel {
+        channel ethernetline extends cBasicChannel
+        {
             delay = 0.1us;
         }
     submodules:
@@ -36,7 +48,7 @@ network NClientsEth
             parameters:
                 moduleTypes = "Router6 StandardHost6 EtherHub";
                 nonIPModuleTypes = "EtherHub";
-        };
+        }
         r1: Router6;
         r2: Router6;
         r3: Router6;
@@ -46,7 +58,7 @@ network NClientsEth
     connections allowunconnected:
         for i=0..n-1 {
             cli[i].ethg++ <--> ethernetline <--> hub.pppg++;
-        };
+        }
         hub.pppg++ <--> ethernetline <--> r1.ethg++;
         r1.ethg++ <--> ethernetline <--> r2.ethg++;
         r2.ethg++ <--> ethernetline <--> r3.ethg++;

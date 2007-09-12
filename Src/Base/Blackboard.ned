@@ -18,6 +18,8 @@
 
 
 
+package org.omnetpp.inet.Base;
+
 //
 // Blackboard for sharing information among modules in a host or router.
 // Accessed via direct method calls.

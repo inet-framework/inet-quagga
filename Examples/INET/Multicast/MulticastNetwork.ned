@@ -21,18 +21,28 @@
 
 
 
+package org.omnetpp.inet.examples.INET.Multicast;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.Nodes.INET.Router;
+import org.omnetpp.inet.Nodes.INET.StandardHost;
+
+
 network MulticastNetwork
 {
     types:
-        channel ethernet extends cBasicChannel {
+        channel ethernet extends cBasicChannel
+        {
             delay = normal(0.00015,0.00005);
             datarate = 10Mbps;
         }
-        channel dialup extends cBasicChannel {
+        channel dialup extends cBasicChannel
+        {
             delay = normal(0.004,0.0018);
             datarate = 64Kbps;
         }
-        channel fiberrouter extends cBasicChannel {
+        channel fiberrouter extends cBasicChannel
+        {
             delay = normal(0.000001,0.0000001);
             datarate = 512Mbps;
         }
@@ -44,7 +54,7 @@ network MulticastNetwork
                 @display("p=125,52;i=device/pc2");
             gates:
                 pppg[1];
-        };
+        }
         host2: StandardHost {
             parameters:
                 IPForward = true;
@@ -52,7 +62,7 @@ network MulticastNetwork
                 @display("p=60,244;i=device/pc2");
             gates:
                 pppg[2];
-        };
+        }
         host3: StandardHost {
             parameters:
                 IPForward = true;
@@ -60,7 +70,7 @@ network MulticastNetwork
                 @display("p=196,244;i=device/pc2");
             gates:
                 pppg[2];
-        };
+        }
         host4: StandardHost {
             parameters:
                 IPForward = false;
@@ -68,7 +78,7 @@ network MulticastNetwork
                 @display("p=406,305;i=device/pc2");
             gates:
                 pppg[1];
-        };
+        }
         host5: StandardHost {
             parameters:
                 IPForward = false;
@@ -76,7 +86,7 @@ network MulticastNetwork
                 @display("p=492,59;i=device/pc2");
             gates:
                 pppg[1];
-        };
+        }
         host6: StandardHost {
             parameters:
                 IPForward = false;
@@ -84,35 +94,35 @@ network MulticastNetwork
                 @display("p=492,204;i=device/pc2");
             gates:
                 pppg[1];
-        };
+        }
         router1: Router {
             parameters:
                 routingFile = "mcrouter1.mrt";
                 @display("p=124,135");
             gates:
                 pppg[4];
-        };
+        }
         router2: Router {
             parameters:
                 routingFile = "mcrouter2.mrt";
                 @display("p=292,135");
             gates:
                 pppg[3];
-        };
+        }
         router3: Router {
             parameters:
                 routingFile = "mcrouter3.mrt";
                 @display("p=292,238");
             gates:
                 pppg[2];
-        };
+        }
         router4: Router {
             parameters:
                 routingFile = "mcrouter4.mrt";
                 @display("p=408,135");
             gates:
                 pppg[3];
-        };
+        }
     connections:
         // * Domain 1 * (172.0.0.x)
         host1.pppg[0] <--> ethernet <--> router1.pppg[0];

@@ -18,6 +18,8 @@
 
 
 
+package org.omnetpp.inet.NetworkInterfaces.PPP;
+
 //
 // \PPP interface. Assumes inifinite queue.
 //
@@ -35,7 +37,7 @@ module PPPInterfaceNoQueue
                 queueModule = "";
                 txQueueLimit = 100000; // prevents overflow in bogus simulations
                 @display("p=80,80;q=txQueue");
-        };
+        }
     connections:
         netwIn --> { @display("m=n"); } --> ppp.netwIn;
         netwOut <-- { @display("m=n"); } <-- ppp.netwOut;

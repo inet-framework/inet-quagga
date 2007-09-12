@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Mobility;
+
 //
 // Uses the native file format of BonnMotion (http://www.cs.uni-bonn.de/IV/BonnMotion/).
 //

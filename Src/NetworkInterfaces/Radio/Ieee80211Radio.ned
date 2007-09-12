@@ -18,6 +18,8 @@
 //
 
 
+package org.omnetpp.inet.NetworkInterfaces.Radio;
+
 //
 // Physical layer for the IEEE 802.11 models. Its external interface
 // (including gates and how it communicates with other modules)

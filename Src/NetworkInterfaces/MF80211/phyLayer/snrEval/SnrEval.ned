@@ -18,6 +18,8 @@
 // **************************************************************************/
 
 
+package org.omnetpp.inet.NetworkInterfaces.MF80211.phyLayer.snrEval;
+
 //
 // Represents the radio. Frames received from higher layers (typically the
 // MAC protocol) are transmitted on the radio channel, using the global

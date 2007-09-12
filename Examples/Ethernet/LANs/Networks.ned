@@ -18,6 +18,16 @@
 
 
 
+package org.omnetpp.inet.examples.Ethernet.LANs;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.NetworkInterfaces.EtherSwitch.EtherSwitch;
+import org.omnetpp.inet.NetworkInterfaces.EtherSwitch.EtherSwitch2;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherBus;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherHub;
+import org.omnetpp.inet.World.ChannelInstaller;
+
+
 //
 // Sample Ethernet LAN containing eight hosts, a switch and a bus.
 //
@@ -29,7 +39,7 @@ network MixedLAN
                 channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=#N";
                 @display("p=75,52");
-        };
+        }
         bus: EtherBus {
             parameters:
                 positions = "10 20 24 35 40 48";
@@ -37,63 +47,63 @@ network MixedLAN
                 @display("p=277,182;b=424,6;o=#408060");
             gates:
                 ethg[6];
-        };
+        }
         busHostA: EtherHost {
             parameters:
                 @display("p=122,118");
-        };
+        }
         busHostB: EtherHost {
             parameters:
                 @display("p=210,118");
-        };
+        }
         busHostC: EtherHost {
             parameters:
                 @display("p=338,238");
-        };
+        }
         busHostD: EtherHost {
             parameters:
                 @display("p=426,238");
-        };
+        }
         switchHostA: EtherHost {
             parameters:
                 @display("p=82,300");
-        };
+        }
         switchHostB: EtherHost {
             parameters:
                 @display("p=162,300");
-        };
+        }
         switchHostC: EtherHost {
             parameters:
                 @display("p=234,300");
-        };
+        }
         switchHostD: EtherHost {
             parameters:
                 @display("p=306,300");
-        };
+        }
         switch: EtherSwitch {
             parameters:
                 @display("p=194,236");
             gates:
                 ethg[5];
-        };
+        }
         hubHostA: EtherHost {
             parameters:
                 @display("p=297,55");
-        };
+        }
         hubHostB: EtherHost {
             parameters:
                 @display("p=365,55");
-        };
+        }
         hubHostC: EtherHost {
             parameters:
                 @display("p=430,55");
-        };
+        }
         hub: EtherHub {
             parameters:
                 @display("p=362,132");
             gates:
                 ethg[4];
-        };
+        }
     connections:
         bus.ethg[0] <--> busHostA.ethg;
         bus.ethg[1] <--> busHostB.ethg;
@@ -102,14 +112,14 @@ network MixedLAN
         bus.ethg[4] <--> hub.ethg[3];
         bus.ethg[5] <--> busHostD.ethg;
 
-        switch.ethg[0] <--> {delay = 0.1us;} <--> switchHostA.ethg;
-        switch.ethg[1] <--> {delay = 0.1us;} <--> switchHostB.ethg;
-        switch.ethg[2] <--> {delay = 0.1us;} <--> switchHostC.ethg;
-        switch.ethg[3] <--> {delay = 0.1us;} <--> switchHostD.ethg;
+        switch.ethg[0] <--> {  delay = 0.1us; } <--> switchHostA.ethg;
+        switch.ethg[1] <--> {  delay = 0.1us; } <--> switchHostB.ethg;
+        switch.ethg[2] <--> {  delay = 0.1us; } <--> switchHostC.ethg;
+        switch.ethg[3] <--> {  delay = 0.1us; } <--> switchHostD.ethg;
 
-        hub.ethg[0] <--> {delay = 0.1us;} <--> hubHostA.ethg;
-        hub.ethg[1] <--> {delay = 0.3us;} <--> hubHostB.ethg;
-        hub.ethg[2] <--> {delay = 0.2us;} <--> hubHostC.ethg;
+        hub.ethg[0] <--> {  delay = 0.1us; } <--> hubHostA.ethg;
+        hub.ethg[1] <--> {  delay = 0.3us; } <--> hubHostB.ethg;
+        hub.ethg[2] <--> {  delay = 0.2us; } <--> hubHostC.ethg;
 }
 
 
@@ -123,11 +133,11 @@ network TwoHosts
         hostA: EtherHost {
             parameters:
                 @display("p=60,160");
-        };
+        }
         hostB: EtherHost {
             parameters:
                 @display("p=200,140");
-        };
+        }
     connections:
         hostA.ethg <--> {  delay = 0.5us; } <--> hostB.ethg;
 }
@@ -139,32 +149,33 @@ network TwoHosts
 network SwitchedLAN
 {
     types:
-        channel C extends cBasicChannel {
+        channel C extends cBasicChannel
+        {
             delay = 0.1us;
         }
     submodules:
         hostA: EtherHost {
             parameters:
                 @display("p=161,55");
-        };
+        }
         hostB: EtherHost {
             parameters:
                 @display("p=253,125");
-        };
+        }
         hostC: EtherHost {
             parameters:
                 @display("p=158,199");
-        };
+        }
         hostD: EtherHost {
             parameters:
                 @display("p=59,127");
-        };
+        }
         switch: EtherSwitch {
             parameters:
                 @display("p=162,124");
             gates:
                 ethg[4];
-        };
+        }
     connections:
         switch.ethg[0] <--> C <--> hostA.ethg;
         switch.ethg[1] <--> C <--> hostB.ethg;
@@ -182,25 +193,25 @@ network HubLAN
         hostA: EtherHost {
             parameters:
                 @display("p=161,55");
-        };
+        }
         hostB: EtherHost {
             parameters:
                 @display("p=253,125");
-        };
+        }
         hostC: EtherHost {
             parameters:
                 @display("p=158,199");
-        };
+        }
         hostD: EtherHost {
             parameters:
                 @display("p=59,127");
-        };
+        }
         hub: EtherHub {
             parameters:
                 @display("p=162,124");
             gates:
                 ethg[4];
-        };
+        }
     connections:
         hub.ethg[0] <--> {  delay = 0.1us; } <--> hostA.ethg;
         hub.ethg[1] <--> {  delay = 0.3us; } <--> hostB.ethg;
@@ -218,19 +229,19 @@ network BusLAN
         hostA: EtherHost {
             parameters:
                 @display("p=100,150");
-        };
+        }
         hostB: EtherHost {
             parameters:
                 @display("p=200,150");
-        };
+        }
         hostC: EtherHost {
             parameters:
                 @display("p=300,150");
-        };
+        }
         hostD: EtherHost {
             parameters:
                 @display("p=400,150");
-        };
+        }
         bus: EtherBus {
             parameters:
                 positions = "0 10 20 30";
@@ -238,7 +249,7 @@ network BusLAN
                 @display("p=250,100;b=400,6;o=#408060");
             gates:
                 ethg[4];
-        };
+        }
     connections:
         bus.ethg[0] <--> hostA.ethg;
         bus.ethg[1] <--> hostB.ethg;
@@ -259,25 +270,25 @@ network SwitchedDuplexLAN
         hostA: EtherHost2 {
             parameters:
                 @display("p=161,55");
-        };
+        }
         hostB: EtherHost2 {
             parameters:
                 @display("p=253,125");
-        };
+        }
         hostC: EtherHost2 {
             parameters:
                 @display("p=158,199");
-        };
+        }
         hostD: EtherHost2 {
             parameters:
                 @display("p=59,127");
-        };
+        }
         switch: EtherSwitch2 {
             parameters:
                 @display("p=162,124");
             gates:
                 ethg[4];
-        };
+        }
     connections:
         switch.ethg[0] <--> ethernetline <--> hostA.ethg;
         switch.ethg[1] <--> ethernetline <--> hostB.ethg;

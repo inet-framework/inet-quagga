@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Network.Extras;
+
 //
 // Module for managing node failure and recovery in the network. If used,
 // it should have exactly one instance in the whole network.

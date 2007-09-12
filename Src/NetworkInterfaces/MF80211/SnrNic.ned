@@ -21,6 +21,13 @@
 
 
 
+package org.omnetpp.inet.NetworkInterfaces.MF80211;
+
+import org.omnetpp.inet.NetworkInterfaces.MF80211.macLayer.CSMAMacLayer;
+import org.omnetpp.inet.NetworkInterfaces.MF80211.phyLayer.decider.SnrDecider;
+import org.omnetpp.inet.NetworkInterfaces.MF80211.phyLayer.snrEval.SnrEval;
+
+
 // This is the easiest nic to implement "real" network behaviour. It uses
 // the CsmaMacLayer and the SnrDecider and SnrEval modules.
 //
@@ -49,15 +56,15 @@ module SnrNic
         mac: CSMAMacLayer {
             parameters:
                 @display("p=60,50;b=32,30");
-        };
+        }
         decider: SnrDecider {
             parameters:
                 @display("p=68,100;b=16,16;o=white");
-        };
+        }
         snrEval: SnrEval {
             parameters:
                 @display("p=60,150;b=32,30");
-        };
+        }
     connections:
         decider.uppergateOut --> { @display("m=m,50,50,75,0"); } --> mac.lowergateIn;
         snrEval.uppergateIn <-- { @display("m=m,25,0,25,0"); } <-- mac.lowergateOut;

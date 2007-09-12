@@ -19,6 +19,8 @@
 //
 
 
+package org.omnetpp.inet.Mobility;
+
 //
 // This is a random mobility model for a mobile host with a mass. It is the
 // one used in "Optimized Smooth Handoffs in Mobile IP" by Perkins &Wang.

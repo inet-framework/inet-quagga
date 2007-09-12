@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Mobility;
+
 //
 // Uses the <position_change> elements of the ANSim tool's
 // trace file.

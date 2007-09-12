@@ -18,6 +18,8 @@
 
 
 
+package org.omnetpp.inet.NetworkInterfaces.EtherSwitch;
+
 //
 // A MACRelayUnit implementation which models one or more CPUs
 // with shared memory, working from a single shared queue.

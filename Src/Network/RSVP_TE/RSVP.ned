@@ -13,6 +13,8 @@
 //
 
 
+package org.omnetpp.inet.Network.RSVP_TE;
+
 //
 // Implements \RSVP-TE, a signalling protocol for MPLS. The module
 // processes \RSVP-TE messages, installs labels and does the reservation

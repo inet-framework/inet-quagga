@@ -19,14 +19,23 @@
 
 
 
+package org.omnetpp.inet.examples.INET.KIDSNw1;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.Nodes.INET.Router;
+import org.omnetpp.inet.Nodes.INET.StandardHost;
+
+
 network KIDSNw1
 {
     types:
-        channel ethernet extends cBasicChannel {
+        channel ethernet extends cBasicChannel
+        {
             delay = normal(0.00015,0.00005);
             datarate = 10Mbps;
         }
-        channel fiberrouterline extends cBasicChannel {
+        channel fiberrouterline extends cBasicChannel
+        {
             delay = normal(0.000001,0.0000001);
             datarate = 512Mbps;
         }
@@ -41,7 +50,7 @@ network KIDSNw1
 
             gates:
                 pppg[1];
-        };
+        }
         // First Hop Router
         fhrouter[2]: Router {
             parameters:
@@ -51,7 +60,7 @@ network KIDSNw1
 
             gates:
                 pppg[index==0 ? 3 : 2];
-        };
+        }
         // InteriorRouter
         irouter: Router {
             parameters:
@@ -59,7 +68,7 @@ network KIDSNw1
                 @display("p=115,144");
             gates:
                 pppg[2];
-        };
+        }
         // Border Gatgeway Router
         bgrouter[2]: Router {
             parameters:
@@ -69,7 +78,7 @@ network KIDSNw1
                 @display("p=135,64,row");
             gates:
                 pppg[2];
-        };
+        }
     connections allowunconnected:
         // host connections
         host[0].pppg[0] <--> ethernet <--> fhrouter[0].pppg[0];

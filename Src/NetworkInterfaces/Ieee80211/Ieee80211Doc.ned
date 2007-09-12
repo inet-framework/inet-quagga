@@ -96,3 +96,5 @@
 // before the IEEE standard can help.
 //
 
+package org.omnetpp.inet.NetworkInterfaces.Ieee80211;
+

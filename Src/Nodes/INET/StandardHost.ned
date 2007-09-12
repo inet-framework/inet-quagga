@@ -21,6 +21,21 @@
 
 
 
+package org.omnetpp.inet.Nodes.INET;
+
+import org.omnetpp.inet.Applications.PingApp.PingApp;
+import org.omnetpp.inet.Applications.TCPApp.TCPApp;
+import org.omnetpp.inet.Applications.UDPApp.UDPApp;
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Network.Contract.InterfaceTable;
+import org.omnetpp.inet.Network.IPv4.RoutingTable;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EthernetInterface;
+import org.omnetpp.inet.NetworkInterfaces.PPP.PPPInterface;
+import org.omnetpp.inet.Transport.TCP.TCP;
+import org.omnetpp.inet.Transport.UDP.UDP;
+import org.omnetpp.inet.Util.NAMTraceWriter;
+
+
 //
 // \IP host with TCP, UDP layers and applications.
 //
@@ -43,42 +58,42 @@ module StandardHost
             parameters:
                 namid = namid;
                 @display("p=60,310");
-        };
+        }
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=60,70");
-        };
+        }
         interfaceTable: InterfaceTable {
             parameters:
                 @display("p=60,150");
-        };
+        }
         routingTable: RoutingTable {
             parameters:
                 IPForward = IPForward;
                 routerId = "";
                 routingFile = routingFile;
                 @display("p=60,230");
-        };
+        }
         tcpApp[numTcpApps]: <tcpAppType> like TCPApp {
             parameters:
                 @display("p=163,67");
-        };
+        }
         tcp: TCP {
             parameters:
                 @display("p=163,154");
-        };
+        }
         udpApp[numUdpApps]: <udpAppType> like UDPApp {
             parameters:
                 @display("p=272,67");
-        };
+        }
         udp: UDP {
             parameters:
                 @display("p=272,154");
-        };
+        }
         pingApp: PingApp {
             parameters:
                 @display("p=343,200");
-        };
+        }
         networkLayer: NetworkLayer {
             parameters:
                 proxyARP = false;
@@ -86,20 +101,20 @@ module StandardHost
             gates:
                 ifIn[sizeof(pppg)+sizeof(ethg)];
                 ifOut[sizeof(pppg)+sizeof(ethg)];
-        };
+        }
         ppp[sizeof(pppg)]: PPPInterface {
             parameters:
                 @display("p=205,350,row,90;q=txQueue");
-        };
+        }
         eth[sizeof(ethg)]: EthernetInterface {
             parameters:
                 @display("p=240,350,row,90;q=txQueue");
-        };
+        }
     connections allowunconnected:
         for i=0..numTcpApps-1 {
             tcpApp[i].tcpOut --> tcp.from_appl++;
             tcpApp[i].tcpIn <-- tcp.to_appl++;
-        };
+        }
 
         tcp.to_ip --> networkLayer.TCPIn;
         tcp.from_ip <-- networkLayer.TCPOut;
@@ -107,7 +122,7 @@ module StandardHost
         for i=0..numUdpApps-1 {
             udpApp[i].to_udp --> udp.from_app++;
             udpApp[i].from_udp <-- udp.to_app++;
-        };
+        }
 
         udp.to_ip --> networkLayer.UDPIn;
         udp.from_ip <-- networkLayer.UDPOut;
@@ -120,12 +135,12 @@ module StandardHost
             pppg[i] <--> ppp[i].phys;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
-        };
+        }
 
         for i=0..sizeof(ethg)-1 {
             ethg[i] <--> eth[i].phys;
             eth[i].netwOut --> networkLayer.ifIn[sizeof(pppg)+i];
             eth[i].netwIn <-- networkLayer.ifOut[sizeof(pppg)+i];
-        };
+        }
 }
 

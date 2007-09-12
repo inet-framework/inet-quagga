@@ -19,12 +19,21 @@
 
 
 
+package org.omnetpp.inet.examples.IPv6.NClients;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.Network.AutoRouting.FlatNetworkConfigurator6;
+import org.omnetpp.inet.Nodes.IPv6.Router6;
+import org.omnetpp.inet.Nodes.IPv6.StandardHost6;
+
+
 network NClientsPPP
 {
     parameters:
         int n;
     types:
-        channel fiberline extends cBasicChannel {
+        channel fiberline extends cBasicChannel
+        {
             delay = 1us;
             datarate = 512Mbps;
         }
@@ -33,7 +42,7 @@ network NClientsPPP
             parameters:
                 moduleTypes = "Router6 StandardHost6";
                 nonIPModuleTypes = "";
-        };
+        }
         r1: Router6;
         r2: Router6;
         r3: Router6;
@@ -42,7 +51,7 @@ network NClientsPPP
     connections allowunconnected:
         for i=0..n-1 {
             cli[i].pppg++ <--> fiberline <--> r1.pppg++;
-        };
+        }
         r1.pppg++ <--> fiberline <--> r2.pppg++;
         r2.pppg++ <--> fiberline <--> r3.pppg++;
         r3.pppg++ <--> fiberline <--> srv.pppg++;

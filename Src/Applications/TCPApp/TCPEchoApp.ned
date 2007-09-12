@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.TCPApp;
+
 //
 // Accepts any number of incoming TCP connections, and sends back the
 // messages that arrive on them, The lengths of the messages are

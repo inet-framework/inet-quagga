@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.Ethernet;
+
 //
 // Server side of the EtherCli model -- generates EtherAppResp packets
 // with the number of bytes requested by the client in EtherAppReq.

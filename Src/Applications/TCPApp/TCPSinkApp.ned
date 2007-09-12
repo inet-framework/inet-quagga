@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.TCPApp;
+
 //
 // Accepts any number of incoming TCP connections, and discards whatever
 // arrives on them.

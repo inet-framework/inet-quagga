@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Network.Queue;
+
 //
 // Prototype for per-NIC output queues. Concrete queues can implement
 // drop-tail, RED etc. policy.

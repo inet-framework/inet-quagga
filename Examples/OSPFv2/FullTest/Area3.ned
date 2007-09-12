@@ -1,4 +1,12 @@
 
+package org.omnetpp.inet.examples.OSPFv2.FullTest;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherHub;
+import org.omnetpp.inet.Nodes.INET.OSPFRouter;
+import org.omnetpp.inet.Nodes.INET.StandardHost;
+
+
 module OSPF_Area3
 {
     parameters:
@@ -6,7 +14,8 @@ module OSPF_Area3
     gates:
         inout ethg[];
     types:
-        channel C extends cBasicChannel {
+        channel C extends cBasicChannel
+        {
             delay = 0.1us;
         }
     submodules:
@@ -15,67 +24,67 @@ module OSPF_Area3
                 @display("p=148,200");
             gates:
                 ethg[2];
-        };
+        }
         RT12: OSPFRouter {
             parameters:
                 @display("p=148,360");
             gates:
                 ethg[3];
-        };
+        }
         N9: EtherHub {
             parameters:
                 @display("p=148,284");
             gates:
                 ethg[4];
-        };
+        }
         N10: EtherHub {
             parameters:
                 @display("p=148,452");
             gates:
                 ethg[3];
-        };
+        }
         N11: EtherHub {
             parameters:
                 @display("p=144,112");
             gates:
                 ethg[3];
-        };
+        }
         H12: StandardHost {
             parameters:
                 @display("p=92,52;i=device/pc_s");
             gates:
                 ethg[1];
-        };
+        }
         H13: StandardHost {
             parameters:
                 @display("p=196,52;i=device/pc_s");
             gates:
                 ethg[1];
-        };
+        }
         H14: StandardHost {
             parameters:
                 @display("p=60,284;i=device/pc_s");
             gates:
                 ethg[1];
-        };
+        }
         H15: StandardHost {
             parameters:
                 @display("p=60,360;i=device/pc_s");
             gates:
                 ethg[1];
-        };
+        }
         H16: StandardHost {
             parameters:
                 @display("p=92,492;i=device/pc_s");
             gates:
                 ethg[1];
-        };
+        }
         H17: StandardHost {
             parameters:
                 @display("p=196,492;i=device/pc_s");
             gates:
                 ethg[1];
-        };
+        }
     connections:
         H12.ethg[0] <--> C <--> N11.ethg[0];
         N11.ethg[1] <--> C <--> RT9.ethg[0];

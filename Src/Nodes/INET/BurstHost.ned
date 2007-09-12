@@ -20,6 +20,15 @@
 
 
 
+package org.omnetpp.inet.Nodes.INET;
+
+import org.omnetpp.inet.Applications.Generic.IPTrafficGenerator;
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Network.Contract.InterfaceTable;
+import org.omnetpp.inet.Network.IPv4.RoutingTable;
+import org.omnetpp.inet.NetworkInterfaces.PPP.PPPInterface;
+
+
 //
 // Definition of an IP node with a transport generator that connects
 // to IP directly, without TCP or UDP.
@@ -37,33 +46,33 @@ module BurstHost
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=83,66");
-        };
+        }
         interfaceTable: InterfaceTable {
             parameters:
                 @display("p=83,136");
-        };
+        }
         routingTable: RoutingTable {
             parameters:
                 IPForward = IPForward;
                 routerId = "";
                 routingFile = routingFile;
                 @display("p=83,206");
-        };
+        }
         trafGen: <trafGenType> like IPTrafficGenerator {
             parameters:
                 @display("p=198,86");
-        };
+        }
         networkLayer: NetworkLayer {
             parameters:
                 @display("p=198,173;q=queue");
             gates:
                 ifIn[1];
                 ifOut[1];
-        };
+        }
         pppg[1]: PPPInterface {
             parameters:
                 @display("p=198,262,row,90;q=txQueue");
-        };
+        }
     connections allowunconnected:
         // transport connections
         networkLayer.UDPOut --> trafGen.from_ip;
@@ -74,7 +83,7 @@ module BurstHost
             pppg[i] <--> ppp[i].phys;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
-        };
+        }
 
 }
 

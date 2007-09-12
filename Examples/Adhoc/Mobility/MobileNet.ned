@@ -19,6 +19,12 @@
 
 
 
+package org.omnetpp.inet.examples.Adhoc.Mobility;
+
+import org.omnetpp.inet.World.ChannelControl;
+import org.omnetpp.inet.World.ScenarioManager;
+
+
 network MobileNet
 {
     parameters:
@@ -29,16 +35,16 @@ network MobileNet
         host[numHosts]: PlainMobilityHost {
             parameters:
                 @display("r=,,#707070");
-        };
+        }
         channelcontrol: ChannelControl {
             parameters:
                 playgroundSizeX = playgroundSizeX;
                 playgroundSizeY = playgroundSizeY;
                 @display("p=60,50");
-        };
+        }
         scenarioManager: ScenarioManager {
             parameters:
                 @display("p=150,50");
-        };
+        }
 }
 

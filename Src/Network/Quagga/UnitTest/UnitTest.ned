@@ -10,6 +10,8 @@
 // See the GNU Lesser General Public License for more details.
 //
 
+package org.omnetpp.inet.Network.Quagga.UnitTest;
+
 simple UnitTest
 {
     parameters:

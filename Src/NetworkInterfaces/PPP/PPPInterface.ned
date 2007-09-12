@@ -18,6 +18,11 @@
 
 
 
+package org.omnetpp.inet.NetworkInterfaces.PPP;
+
+import org.omnetpp.inet.Network.Queue.OutputQueue;
+
+
 //
 // \PPP interface. Complements the PPP module with an output queue
 // for QoS and RED support.
@@ -37,13 +42,13 @@ module PPPInterface
         queue: <queueType> like OutputQueue {
             parameters:
                 @display("p=60,85;q=l2queue");
-        };
+        }
         ppp: PPP {
             parameters:
                 queueModule = "queue";
                 txQueueLimit = 1; // queue sends one packet at a time
                 @display("p=88,165");
-        };
+        }
     connections:
         netwIn --> { @display("m=n"); } --> queue.in;
         queue.out --> ppp.netwIn;

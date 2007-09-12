@@ -17,6 +17,14 @@
 //
 
 
+package org.omnetpp.inet.examples.Ethernet.LANs;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.NetworkInterfaces.EtherSwitch.EtherSwitch;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherBus;
+import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherHub;
+
+
 channel cable extends cBasicChannel
 {
     parameters:
@@ -37,14 +45,14 @@ module SmallLAN
     submodules:
         hub: EtherHub {
             @display("is=s");
-        };
+        }
         host[h]: EtherHost {
             @display("is=s");
-        };
+        }
     connections:
         for i=0..h-1 {
             hub.ethg++ <--> cable <--> host[i].ethg;
-        };
+        }
         hub.ethg++ <--> ethg;
 }
 
@@ -63,26 +71,26 @@ module MediumLAN
     submodules:
         switch: EtherSwitch {
             @display("is=s");
-        };
+        }
         host[n]: EtherHost {
             @display("is=s");
-        };
+        }
         hub: EtherHub {
             @display("is=s");
-        };
+        }
         hhost[h]: EtherHost {
             @display("is=s");
-        };
+        }
     connections:
         for i=0..n-1 {
             switch.ethg++ <--> cable <--> host[i].ethg;
-        };
+        }
 
         switch.ethg++ <--> ethg;
 
         for i=0..h-1 {
             hub.ethg++ <--> cable <--> hhost[i].ethg;
-        };
+        }
 
         switch.ethg++ <--> cable <--> hub.ethg++;
 
@@ -105,42 +113,42 @@ module LargeLAN
     submodules:
         switch: EtherSwitch {
             @display("is=s");
-        };
+        }
         host[n]: EtherHost {
             @display("is=s");
-        };
+        }
         hub: EtherHub {
             @display("is=s");
-        };
+        }
         hhost[h]: EtherHost {
             @display("is=s");
-        };
+        }
         bus: EtherBus {
             parameters:
                 positions = "5 10 15"; // every 5 meters
                 propagationSpeed = 200000000;  // 1us = 200m
                 @display("b=424,6;o=#408060");
-        };
+        }
         bhost[b]: EtherHost {
             parameters:
                 @display("is=s;p=,,r");
-        };
+        }
     connections:
         for i=0..n-1 {
             switch.ethg++ <--> cable <--> host[i].ethg;
-        };
+        }
 
         switch.ethg++ <--> ethg;
 
         for i=0..h-1 {
             hub.ethg++ <--> cable <--> hhost[i].ethg;
-        };
+        }
 
         switch.ethg++ <--> cable <--> hub.ethg++;
 
         for i=0..b-1 {
             bus.ethg++ <--> bhost[i].ethg;
-        };
+        }
 
         bus.ethg++ <--> hub.ethg++;
 
@@ -172,7 +180,7 @@ network LargeNet
     submodules:
         switchBB[n]: EtherSwitch {
             @display("is=s");
-        };
+        }
         slanBB[n*bbs]: SmallLAN;
         mlanBB[n*bbm]: MediumLAN;
         llanBB[n*bbl]: LargeLAN;
@@ -200,63 +208,63 @@ network LargeNet
         // "backbone" switches
         for k=0..n-1, for i=0..bbs-1 {
             switchBB[k].ethg++ <--> cable <--> slanBB[k*bbs+i].ethg;
-        };
+        }
         for k=0..n-1, for i=0..bbm-1 {
             switchBB[k].ethg++ <--> cable <--> mlanBB[k*bbm+i].ethg;
-        };
+        }
         for k=0..n-1, for i=0..bbl-1 {
             switchBB[k].ethg++ <--> cable <--> llanBB[k*bbl+i].ethg;
-        };
+        }
         for k=0..n-2 {
             switchBB[k].ethg++ <--> cable <--> switchBB[k+1].ethg++;
-        };
+        }
 
         // switch A
         for i=0..as-1 {
             switchA.ethg++ <--> cable <--> slanA[i].ethg;
-        };
+        }
         for i=0..am-1 {
             switchA.ethg++ <--> cable <--> mlanA[i].ethg;
-        };
+        }
         for i=0..al-1 {
             switchA.ethg++ <--> cable <--> llanA[i].ethg;
-        };
+        }
         switchA.ethg++ <--> cable <--> serverA.ethg;
 
         // switch B
         for i=0..bs-1 {
             switchB.ethg++ <--> cable <--> slanB[i].ethg;
-        };
+        }
         for i=0..bm-1 {
             switchB.ethg++ <--> cable <--> mlanB[i].ethg;
-        };
+        }
         for i=0..bl-1 {
             switchB.ethg++ <--> cable <--> llanB[i].ethg;
-        };
+        }
         switchB.ethg++ <--> cable <--> serverB.ethg;
 
         // switch C
         for i=0..cs-1 {
             switchC.ethg++ <--> cable <--> slanC[i].ethg;
-        };
+        }
         for i=0..cm-1 {
             switchC.ethg++ <--> cable <--> mlanC[i].ethg;
-        };
+        }
         for i=0..cl-1 {
             switchC.ethg++ <--> cable <--> llanC[i].ethg;
-        };
+        }
         switchC.ethg++ <--> cable <--> serverC.ethg;
 
         // switch D
         for i=0..ds-1 {
             switchD.ethg++ <--> cable <--> slanD[i].ethg;
-        };
+        }
         for i=0..dm-1 {
             switchD.ethg++ <--> cable <--> mlanD[i].ethg;
-        };
+        }
         for i=0..dl-1 {
             switchD.ethg++ <--> cable <--> llanD[i].ethg;
-        };
+        }
         switchD.ethg++ <--> cable <--> serverD.ethg;
 
         // connect switches

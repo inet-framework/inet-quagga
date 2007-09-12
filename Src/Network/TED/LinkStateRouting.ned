@@ -12,6 +12,8 @@
 // See the GNU Lesser General Public License for more details.
 //
 
+package org.omnetpp.inet.Network.TED;
+
 //
 // This module implements a very minimalistic link state routing protcol.
 // Apart from the basic topology information, the current link usage

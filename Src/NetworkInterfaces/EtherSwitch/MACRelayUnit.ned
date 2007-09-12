@@ -18,6 +18,8 @@
 
 
 
+package org.omnetpp.inet.NetworkInterfaces.EtherSwitch;
+
 //
 // Prototype for modules providing Ethernet switch functionality.
 // These modules handle the mapping between ports and MAC addresses,

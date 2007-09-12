@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Transport.TCP;
+
 //
 // \TCP protocol implementation. Supports RFC 793, RFC 1122, RFC 2001.
 // Compatible with both IPv4 and IPv6.

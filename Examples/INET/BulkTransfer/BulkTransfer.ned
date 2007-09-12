@@ -19,10 +19,19 @@
 
 
 
+package org.omnetpp.inet.examples.INET.BulkTransfer;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.Network.AutoRouting.FlatNetworkConfigurator;
+import org.omnetpp.inet.Nodes.INET.Router;
+import org.omnetpp.inet.Nodes.INET.StandardHost;
+
+
 network BulkTransfer
 {
     types:
-        channel C extends cBasicChannel {
+        channel C extends cBasicChannel
+        {
             datarate = 1Mbps;
             delay = 0.1us;
         }
@@ -30,23 +39,23 @@ network BulkTransfer
         client1: StandardHost {
             parameters:
                 @display("p=131,67;i=device/pc3");
-        };
+        }
         client2: StandardHost {
             parameters:
                 @display("p=337,67;i=device/pc3");
-        };
+        }
         client3: StandardHost {
             parameters:
                 @display("p=337,247;i=device/pc3");
-        };
+        }
         server: StandardHost {
             parameters:
                 @display("p=131,247;i=device/pc2");
-        };
+        }
         router: Router {
             parameters:
                 @display("p=239,156");
-        };
+        }
         configurator: FlatNetworkConfigurator {
             parameters:
                 moduleTypes = "Router StandardHost";
@@ -54,7 +63,7 @@ network BulkTransfer
                 networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
                 @display("p=62,119");
-        };
+        }
     connections:
         client1.pppg++ <--> C <--> router.pppg++;
         client2.pppg++ <--> C <--> router.pppg++;

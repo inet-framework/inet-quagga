@@ -21,6 +21,14 @@
 
 
 
+package org.omnetpp.inet.examples.INET.RouterPerf;
+
+import org.omnetpp.inet.Network.AutoRouting.FlatNetworkConfigurator;
+import org.omnetpp.inet.Nodes.INET.BurstHost;
+import org.omnetpp.inet.Nodes.INET.Router;
+import org.omnetpp.inet.World.ChannelInstaller;
+
+
 network RouterPerfNetwork
 {
     parameters:
@@ -31,7 +39,7 @@ network RouterPerfNetwork
                 channelClass = "ThruputMeteringChannel";
                 channelAttrs = "format=u";
                 @display("p=59,211");
-        };
+        }
         configurator: FlatNetworkConfigurator {
             parameters:
                 moduleTypes = "Router BurstHost";
@@ -39,23 +47,23 @@ network RouterPerfNetwork
                 networkAddress = "145.236.0.0";
                 netmask = "255.255.0.0";
                 @display("p=61,163");
-        };
+        }
         sender[nodeNo]: BurstHost {
             parameters:
                 @display("p=100,300,row,100");
-        };
+        }
         recip[nodeNo]: BurstHost {
             parameters:
                 @display("p=100,80,row,100");
-        };
+        }
         router: Router {
             parameters:
                 @display("p=210,190");
-        };
+        }
     connections allowunconnected:
         for i=0..nodeNo-1 {
-            sender[i].pppg++ <--> {datarate = 1Mbps;} <--> router.pppg++;
-            recip[i].pppg++ <--> {datarate = 1Mbps;} <--> router.pppg++;
-        };
+            sender[i].pppg++ <--> {  datarate = 1Mbps; } <--> router.pppg++;
+            recip[i].pppg++ <--> {  datarate = 1Mbps; } <--> router.pppg++;
+        }
 }
 

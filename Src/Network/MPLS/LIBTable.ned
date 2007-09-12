@@ -14,6 +14,8 @@
 //
 
 
+package org.omnetpp.inet.Network.MPLS;
+
 //
 // Stores the LIB (Label Information Base), accessed by MPLS and its 
 // associated control protocols (RSVP, LDP) via direct C++ method calls.

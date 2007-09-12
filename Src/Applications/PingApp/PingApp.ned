@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.PingApp;
+
 //
 // Generates ping requests and calculates the packet loss and round trip
 // parameters of the replies. 

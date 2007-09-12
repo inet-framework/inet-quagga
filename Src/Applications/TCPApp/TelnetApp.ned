@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.TCPApp;
+
 //
 // Models Telnet sessions with a specific user behaviour.
 // The server app should be TCPGenericSrvApp.

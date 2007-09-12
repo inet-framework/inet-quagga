@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Mobility;
+
 //
 // This is not an actual mobility model, but a prototype for other mobility models.
 //

@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Network.IPv4;
+
 //
 // Implements the \IP protocol. The protocol header is represented
 // by the IPDatagram message class.

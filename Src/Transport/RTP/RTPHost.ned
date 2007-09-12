@@ -2,6 +2,12 @@
 
 
 
+package org.omnetpp.inet.Transport.RTP;
+
+import org.omnetpp.inet.NetworkInterfaces.PPP.PPPInterface;
+import org.omnetpp.inet.Nodes.INET.NetworkLayer;
+
+
 module RTPHost
 
 {
@@ -32,13 +38,13 @@ module RTPHost
                 fileName = fileName;
                 payloadType = payloadType;
                 @display("p=77,52;b=40,24");
-        };
+        }
         rtpLayer: RTPLayer {
             parameters:
                 rtpModuleType = "RTPEndsystemModule";
                 rtcpModuleType = "RTCPEndsystemModule";
                 @display("p=178,54;b=40,24");
-        };
+        }
         socketLayer: SocketLayer {
             parameters:
                 debug = false;
@@ -46,12 +52,12 @@ module RTPHost
             gates:
                 from_appl[2];
                 to_appl[2];
-        };
+        }
         udpModule: UDPModule {
             parameters:
                 debug = false;
                 @display("p=87,166");
-        };
+        }
         networkLayer: NetworkLayer {
             parameters:
                 IPForward = false;
@@ -60,11 +66,11 @@ module RTPHost
             gates:
                 ifIn[sizeof(out)];
                 ifOut[sizeof(out)];
-        };
+        }
         ppp[sizeof(out)]: PPPInterface {
             parameters:
                 @display("p=80,300,row;q=queue");
-        };
+        }
     connections allowunconnected:
         // transport connections
         application.toRTP --> rtpLayer.fromApp;
@@ -84,6 +90,6 @@ module RTPHost
             out[i] <-- ppp[i].physOut;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
-        };
+        }
 }
 

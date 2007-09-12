@@ -22,6 +22,8 @@
 //*              subclass to create your own MAC layer
 //***************************************************************************
 
+package org.omnetpp.inet.NetworkInterfaces.MFCore;
+
 //
 // This is not an actual MAC implementation, just a prototype for wireless MAC's
 // that use a MF (Mobility Framework)-based physical layer.

@@ -18,6 +18,13 @@
 // **************************************************************************/
 
 
+package org.omnetpp.inet.NetworkInterfaces.MF80211;
+
+import org.omnetpp.inet.NetworkInterfaces.MF80211.macLayer.CSMAMacLayer;
+import org.omnetpp.inet.NetworkInterfaces.MF80211.phyLayer.snrEval.SnrEval;
+import org.omnetpp.inet.NetworkInterfaces.MFCore.BasicDecider;
+
+
 //
 // The CsmaNic contains a csma-like MAC layer.
 // The SnrEval module is used as the mac needs a RadioState to be published.
@@ -45,15 +52,15 @@ module NicCsma
         mac: CSMAMacLayer {
             parameters:
                 @display("p=96,87");
-        };
+        }
         decider: BasicDecider {
             parameters:
                 @display("p=106,157");
-        };
+        }
         snrEval: SnrEval {
             parameters:
                 @display("p=96,236");
-        };
+        }
     connections:
         radioIn --> snrEval.radioIn;
         decider.uppergateOut --> { @display("m=m,50,50,75,0"); } --> mac.lowergateIn;

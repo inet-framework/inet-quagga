@@ -18,6 +18,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.UDPApp;
+
 //
 // Sends \UDP packets to the given \IP address at the given interval.
 // Compatible with both IPv4 and IPv6.

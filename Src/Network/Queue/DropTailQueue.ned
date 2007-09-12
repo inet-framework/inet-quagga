@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Network.Queue;
+
 //
 // Drop-tail queue, to be used in network interfaces.
 // Conforms to the OutputQueue interface.

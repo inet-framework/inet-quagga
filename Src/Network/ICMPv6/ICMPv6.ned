@@ -18,6 +18,8 @@
 
 
 
+package org.omnetpp.inet.Network.ICMPv6;
+
 //
 // ICMPv6 implementation.
 //

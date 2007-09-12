@@ -19,6 +19,11 @@
 
 
 
+package org.omnetpp.inet.Nodes.INET;
+
+import org.omnetpp.inet.Network.Extras.Dummy;
+
+
 //
 // A failed \IP router. Simply discards all packets it receives, and that's all.
 //
@@ -39,15 +44,15 @@ module FailedRouter
                 out[sizeof(pppg)];
                 ethIn[sizeof(ethg)];
                 ethOut[sizeof(ethg)];
-        };
+        }
     connections allowunconnected:
         for i=0..sizeof(pppg)-1 {
             pppg$i[i] --> dummy.in[i];
             dummy.out[i] --> pppg$o[i];
-        };
+        }
         for i=0..sizeof(ethg)-1 {
             ethg$i[i] --> dummy.ethIn[i];
             dummy.ethOut[i] --> ethg$o[i];
-        };
+        }
 }
 

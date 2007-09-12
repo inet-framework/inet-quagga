@@ -18,6 +18,8 @@
 // **************************************************************************/
 
 
+package org.omnetpp.inet.NetworkInterfaces.MFCore;
+
 //
 // Module to decide whether a frame is received correctly or is
 // lost due to bit errors, interference...
@@ -42,7 +44,7 @@
 //
 // This component has been taken over from Mobility Framework 1.0a5.
 //
-// @author Marc LÃ¶bbers, Daniel Willkomm
+// @author Marc Löbbers, Daniel Willkomm
 //
 simple BasicDecider
 {

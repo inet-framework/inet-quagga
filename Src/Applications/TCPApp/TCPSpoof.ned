@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.TCPApp;
+
 //
 // Sends fabricated TCP packets. This is a base implementation,
 // you'll probably have to customize it in C++ according to

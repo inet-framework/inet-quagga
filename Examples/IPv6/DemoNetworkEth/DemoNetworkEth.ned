@@ -17,13 +17,20 @@
 //
 
 
+package org.omnetpp.inet.examples.IPv6.DemoNetworkEth;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.Network.AutoRouting.FlatNetworkConfigurator6;
+import org.omnetpp.inet.Nodes.IPv6.Router6;
+
 
 network DemoNetworkEth
 {
     parameters:
         int n;
     types:
-        channel ethernetline extends cBasicChannel {
+        channel ethernetline extends cBasicChannel
+        {
             delay = 0.1us;
         }
     submodules:
@@ -31,17 +38,7 @@ network DemoNetworkEth
             parameters:
                 moduleTypes = "Router6 StandardHost6 TCPDump";
                 nonIPModuleTypes = "EtherHub TCPDump";
-        };
+        }
         r1: Router6;
-        r2: Router6
-        cli[n]: StandardHost6;
-        srv[n]: StandardHost6;
-        linemonitor[n]: TCPDump;
-    connections allowunconnected:
-        for i=0..n-1 {
-            cli[i].ethg++ <--> ethernetline <--> linemonitor[i].a;
-            linemonitor[i].b <--> ethernetline <--> r1.ethg++;
-        };
-        r1.ethg++ <--> ethernetline <--> r2.ethg++;
+        r2: Router6;
 }
-

@@ -1,4 +1,6 @@
 
+package org.omnetpp.inet.Transport.RTP;
+
 module RTPLayer
 
 {
@@ -15,8 +17,8 @@ module RTPLayer
         output toSocketLayerRTCP;
 
     submodules:
-        rtpModule: <rtpModuleType> like RTPModule {};
-        rtcpModule: <rtcpModuleType> like RTCPModule {};
+        rtpModule: <rtpModuleType> like RTPModule;
+        rtcpModule: <rtcpModuleType> like RTCPModule;
     connections allowunconnected:
         fromApp --> rtpModule.fromApp;
         toApp <-- rtpModule.toApp;

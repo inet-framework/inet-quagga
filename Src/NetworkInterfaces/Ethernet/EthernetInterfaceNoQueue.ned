@@ -18,6 +18,8 @@
 
 
 
+package org.omnetpp.inet.NetworkInterfaces.Ethernet;
+
 //
 // Ethernet network interface. Assumes inifinite queue.
 //
@@ -35,11 +37,11 @@ module EthernetInterfaceNoQueue
                 queueModule = "";
                 txQueueLimit = 100000; // prevents overflow in bogus simulations
                 @display("p=100,160;q=txQueue");
-        };
+        }
         encap: EtherEncap {
             parameters:
                 @display("p=100,80");
-        };
+        }
     connections:
         netwIn --> encap.upperLayerIn;
         netwOut <-- encap.upperLayerOut;

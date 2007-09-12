@@ -17,6 +17,8 @@
 //
 
 
+package org.omnetpp.inet.Applications.UDPApp;
+
 //
 // Template for UDP applications.
 //

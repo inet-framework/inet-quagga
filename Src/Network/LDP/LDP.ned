@@ -14,6 +14,8 @@
 //
 
 
+package org.omnetpp.inet.Network.LDP;
+
 //
 // Handles and processes LDP messages.
 //

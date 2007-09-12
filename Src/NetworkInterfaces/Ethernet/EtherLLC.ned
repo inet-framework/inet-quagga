@@ -16,6 +16,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
+package org.omnetpp.inet.NetworkInterfaces.Ethernet;
+
 //
 // Provides Ethernet 802.3 encapsulation/decapsulation and dispatching
 // to the appropriate higher layer by DSAP values.

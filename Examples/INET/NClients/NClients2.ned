@@ -19,17 +19,27 @@
 
 
 
+package org.omnetpp.inet.examples.INET.NClients;
+
+import ned.cBasicChannel;
+import org.omnetpp.inet.Network.AutoRouting.FlatNetworkConfigurator;
+import org.omnetpp.inet.Nodes.INET.Router;
+import org.omnetpp.inet.Nodes.INET.StandardHost;
+
+
 network NClients2
 {
     parameters:
         int numrouters;
         double hostsperrouter;
     types:
-        channel ethernetline2 extends cBasicChannel {
+        channel ethernetline2 extends cBasicChannel
+        {
             delay = 0.1us;
             datarate = 100Mbps;
         }
-        channel gigabitline2 extends cBasicChannel {
+        channel gigabitline2 extends cBasicChannel
+        {
             delay = 0.1us;
             datarate = 1Gbps;
         }
@@ -38,23 +48,23 @@ network NClients2
             parameters:
                 moduleTypes = "Router StandardHost";
                 nonIPModuleTypes = "";
-        };
+        }
         r[numrouters]: Router;
         cli[numrouters*hostsperrouter]: StandardHost {
             parameters:
                 @display("i=device/laptop_vs");
-        };
+        }
         srv: StandardHost {
             parameters:
                 @display("i=device/server_l");
-        };
+        }
     connections allowunconnected:
         for i=0..numrouters-1, for j=0..hostsperrouter-1 {
             cli[i*hostsperrouter+j].pppg++ <--> ethernetline2 <--> r[i].pppg++;
-        };
+        }
         for i=0..numrouters-2 {
             r[i].pppg++ <--> gigabitline2 <--> r[i+1].pppg++;
-        };
+        }
         r[numrouters-1].pppg++ <--> ethernetline2 <--> srv.pppg++;
 }
 

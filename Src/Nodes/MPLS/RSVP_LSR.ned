@@ -12,6 +12,22 @@
 
 
 
+package org.omnetpp.inet.Nodes.MPLS;
+
+import org.omnetpp.inet.Base.NotificationBoard;
+import org.omnetpp.inet.Network.Contract.InterfaceTable;
+import org.omnetpp.inet.Network.IPv4.RoutingTable;
+import org.omnetpp.inet.Network.MPLS.LIBTable;
+import org.omnetpp.inet.Network.MPLS.MPLS;
+import org.omnetpp.inet.Network.RSVP_TE.RSVP;
+import org.omnetpp.inet.Network.RSVP_TE.SimpleClassifier;
+import org.omnetpp.inet.Network.TED.LinkStateRouting;
+import org.omnetpp.inet.Network.TED.TED;
+import org.omnetpp.inet.NetworkInterfaces.PPP.PPPInterface;
+import org.omnetpp.inet.Nodes.INET.NetworkLayer;
+import org.omnetpp.inet.Util.NAMTraceWriter;
+
+
 //
 // An \RSVP-TE capable router.
 //
@@ -33,47 +49,47 @@ module RSVP_LSR
         notificationBoard: NotificationBoard {
             parameters:
                 @display("p=74,57");
-        };
+        }
         routingTable: RoutingTable {
             parameters:
                 IPForward = true;
                 routerId = routerId;
                 routingFile = routingFile;
                 @display("p=68,138");
-        };
+        }
         interfaceTable: InterfaceTable {
             parameters:
                 @display("p=68,208");
-        };
+        }
         ted: TED {
             parameters:
                 @display("p=312,203");
-        };
+        }
         linkStateRouting: LinkStateRouting {
             parameters:
                 peers = peers;
                 @display("p=254,115");
-        };
+        }
         rsvp: RSVP {
             parameters:
                 peers = peers;
                 @display("p=156,67");
-        };
+        }
         classifier: SimpleClassifier {
             parameters:
                 @display("p=330,67");
-        };
+        }
         networkLayer: NetworkLayer {
             parameters:
                 @display("p=192,195");
             gates:
                 ifIn[sizeof(pppg)];
                 ifOut[sizeof(pppg)];
-        };
+        }
         ppp[sizeof(pppg)]: PPPInterface {
             parameters:
                 @display("p=88,329,row,90;q=l2queue");
-        };
+        }
         mpls: MPLS {
             parameters:
                 //peers = peers;
@@ -84,17 +100,17 @@ module RSVP_LSR
                 netwOut[sizeof(pppg)];
                 ifIn[sizeof(pppg)];
                 ifOut[sizeof(pppg)];
-        };
+        }
         libTable: LIBTable {
             parameters:
                 @display("p=312,268");
-        };
+        }
         namTrace: NAMTraceWriter {
             parameters:
                 namid = namid;
                 @display("p=70,270");
 
-        };
+        }
     connections allowunconnected:
         linkStateRouting.to_ip --> networkLayer.OSPFIn;
         linkStateRouting.from_ip <-- networkLayer.OSPFOut;
@@ -110,6 +126,6 @@ module RSVP_LSR
 
             mpls.netwOut[i] --> networkLayer.ifIn[i];
             mpls.netwIn[i] <-- networkLayer.ifOut[i];
-        };
+        }
 }
 
