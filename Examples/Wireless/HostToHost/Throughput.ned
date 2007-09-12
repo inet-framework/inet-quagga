@@ -73,7 +73,7 @@ module ThroughputServer
         }
         sink: Sink {
             parameters:
-                @display("b=40,24;p=210,68,col");
+                @display("p=210,68,col");
         }
         wlan: Ieee80211NicSTASimplified {
             parameters:

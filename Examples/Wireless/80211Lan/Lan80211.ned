@@ -16,8 +16,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
+//# FIXME what happened to this file??
 
-
-
-package org.omnetpp.inet.examples.Wireless.80211Lan;
 

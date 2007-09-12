@@ -56,10 +56,10 @@ network NClientsEth
         srv: StandardHost6;
         hub: EtherHub;
     connections allowunconnected:
-        for i=0..n-1 {
-            cli[i].ethg++ <--> ethernetline <--> hub.pppg++;
+        for i=0..n-1 do {
+            cli[i].ethg++ <--> ethernetline <--> hub.ethg++;
         }
-        hub.pppg++ <--> ethernetline <--> r1.ethg++;
+        hub.ethg++ <--> ethernetline <--> r1.ethg++;
         r1.ethg++ <--> ethernetline <--> r2.ethg++;
         r2.ethg++ <--> ethernetline <--> r3.ethg++;
         r3.ethg++ <--> ethernetline <--> srv.ethg++;
