@@ -34,7 +34,7 @@ package org.omnetpp.inet.NetworkInterfaces.EtherSwitch;
 // The watermark and the pause time is configurable; use zero
 // values to disable the PAUSE feature.
 //
-simple MACRelayUnitNP
+simple MACRelayUnitNP like MACRelayUnit
 {
     parameters:
         string addressTableFile = default("");  // see MACRelayUnit

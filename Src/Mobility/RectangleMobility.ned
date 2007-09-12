@@ -24,7 +24,7 @@ package org.omnetpp.inet.Mobility;
 // @see ChannelControl
 // @author Andras Varga
 //
-simple RectangleMobility
+simple RectangleMobility like BasicMobility
 {
     parameters:
         bool debug = default(false); // debug switch

@@ -33,7 +33,7 @@ package org.omnetpp.inet.Mobility;
 //
 // @author Andras Varga
 //
-simple BonnMotionMobility
+simple BonnMotionMobility like BasicMobility
 {
     parameters:
         bool debug = default(false); // debug switch

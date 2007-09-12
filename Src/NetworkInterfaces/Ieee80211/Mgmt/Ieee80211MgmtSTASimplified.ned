@@ -32,7 +32,7 @@ package org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mgmt;
 //
 // @author Andras Varga
 //
-simple Ieee80211MgmtSTASimplified
+simple Ieee80211MgmtSTASimplified like Ieee80211Mgmt
 {
     parameters:
         string accessPointAddress; // MAC address of associate AP

@@ -110,7 +110,7 @@ package org.omnetpp.inet.Mobility;
 // @see ChannelControl
 // @author Andras Varga
 //
-simple TurtleMobility
+simple TurtleMobility like BasicMobility
 {
     parameters:
         bool debug = default(false); // debug switch

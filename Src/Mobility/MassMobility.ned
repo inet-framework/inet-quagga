@@ -50,7 +50,7 @@ package org.omnetpp.inet.Mobility;
 // @see ChannelControl
 // @author Emin Ilker Cetinbas, Andras Varga
 //
-simple MassMobility
+simple MassMobility like BasicMobility
 {
     parameters:
         bool debug = default(false); // debug switch

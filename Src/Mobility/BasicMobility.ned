@@ -24,7 +24,7 @@ package org.omnetpp.inet.Mobility;
 //
 // @author Andras Varga
 //
-module BasicMobility
+moduleinterface BasicMobility
 {
 }
 

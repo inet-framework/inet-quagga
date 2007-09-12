@@ -38,7 +38,7 @@ package org.omnetpp.inet.Mobility;
 //
 // @author Georg Lutz
 //
-simple RandomWPMobility
+simple RandomWPMobility like BasicMobility
 {
     parameters:
         bool debug = default(false); // debug switch

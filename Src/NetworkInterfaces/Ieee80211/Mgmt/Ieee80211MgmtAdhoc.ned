@@ -32,7 +32,7 @@ package org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mgmt;
 //
 // @author Andras Varga
 //
-simple Ieee80211MgmtAdhoc
+simple Ieee80211MgmtAdhoc like Ieee80211Mgmt
 {
     parameters:
         int frameCapacity = default(100);

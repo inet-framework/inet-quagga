@@ -24,7 +24,7 @@ package org.omnetpp.inet.Network.Queue;
 // Performs priority queueing.
 // Conforms to the OutputQueue interface.
 //
-simple DropTailQoSQueue
+simple DropTailQoSQueue like OutputQueue
 {
     parameters:
         int frameCapacity = default(100);  // per-subqueue capacity

@@ -26,7 +26,7 @@ package org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mgmt;
 //
 // @author Andras Varga
 //
-simple Ieee80211MgmtSTA
+simple Ieee80211MgmtSTA like Ieee80211Mgmt
 {
     parameters:
         int frameCapacity = default(100); // maximum queue length

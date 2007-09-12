@@ -24,7 +24,7 @@ package org.omnetpp.inet.Mobility;
 //
 // @author Andras Varga
 //
-simple NullMobility
+simple NullMobility like BasicMobility
 {
     parameters:
         double x = default(-1); // start x coordinate (-1 = display string position, or random if it's missing)

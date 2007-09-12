@@ -25,7 +25,7 @@ package org.omnetpp.inet.Mobility;
 //
 // @author Andras Varga
 //
-simple ANSimMobility
+simple ANSimMobility like BasicMobility
 {
     parameters:
         bool debug = default(false); // debug switch

@@ -23,7 +23,7 @@ package org.omnetpp.inet.Network.Queue;
 // Drop-tail queue, to be used in network interfaces.
 // Conforms to the OutputQueue interface.
 //
-simple DropTailQueue
+simple DropTailQueue like OutputQueue
 {
     parameters:
         int frameCapacity = default(100);

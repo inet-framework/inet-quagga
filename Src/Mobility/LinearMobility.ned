@@ -27,7 +27,7 @@ package org.omnetpp.inet.Mobility;
 // @see ChannelControl
 // @author Emin Ilker Cetinbas
 //
-simple LinearMobility
+simple LinearMobility like BasicMobility
 {
     parameters:
         bool debug = default(false); // debug switch

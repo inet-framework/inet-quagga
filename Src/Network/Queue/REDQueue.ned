@@ -82,7 +82,7 @@ package org.omnetpp.inet.Network.Queue;
 // Example parameter values: wq = 0.002, minth = 5 packets, maxth = 15 packets,
 // maxp = 1/50 = 0.02 and pkrate = 12000 (~1K packets on 100Mbps link).
 //
-simple REDQueue
+simple REDQueue like OutputQueue
 {
     parameters:
         double wq = default(0.002);    // queue weight

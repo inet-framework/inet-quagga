@@ -45,7 +45,7 @@ package org.omnetpp.inet.NetworkInterfaces.EtherSwitch;
 //
 // Known implementations are MACRelayUnitNP and MACRelayUnitPP.
 //
-simple MACRelayUnit
+moduleinterface MACRelayUnit
 {
     parameters:
         string addressTableFile = default("");  // set to empty string if not used

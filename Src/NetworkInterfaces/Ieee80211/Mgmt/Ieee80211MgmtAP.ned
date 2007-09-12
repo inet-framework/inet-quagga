@@ -34,7 +34,7 @@ package org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mgmt;
 //
 // @author Andras Varga
 //
-simple Ieee80211MgmtAP
+simple Ieee80211MgmtAP like Ieee80211Mgmt
 {
     parameters:
         string ssid = default("SSID");

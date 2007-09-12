@@ -24,7 +24,7 @@ package org.omnetpp.inet.NetworkInterfaces.Ieee80211.Mgmt;
 // management module types. It exists to specify what gates a management
 // module should have in order to be usable within Ieee80211Nic.
 //
-simple Ieee80211Mgmt
+moduleinterface Ieee80211Mgmt
 {
     gates:
         input uppergateIn;

@@ -38,7 +38,7 @@ package org.omnetpp.inet.Mobility;
 // @see ChannelControl
 // @author Steffen Sroka, Marc Loebbers, Daniel Willkomm
 //
-simple ConstSpeedMobility
+simple ConstSpeedMobility like BasicMobility
 {
     parameters:
         bool debug = default(false); // debug switch

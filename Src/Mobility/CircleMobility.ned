@@ -24,7 +24,7 @@ package org.omnetpp.inet.Mobility;
 // @see ChannelControl
 // @author Andras Varga
 //
-simple CircleMobility
+simple CircleMobility like BasicMobility
 {
     parameters:
         bool debug = default(false); // debug switch

@@ -30,7 +30,7 @@ package org.omnetpp.inet.Network.Queue;
 //
 // @see DropTailQueue, DropTailQoSQueue, REDQueue
 //
-simple OutputQueue
+moduleinterface OutputQueue
 {
     gates:
         input in;
