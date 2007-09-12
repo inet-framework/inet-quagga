@@ -25,7 +25,7 @@ package org.omnetpp.inet.Applications.Generic;
 //
 // @see IPTrafGen, IPTrafSink
 //
-simple IPTrafficGenerator
+moduleinterface IPTrafficGenerator
 {
     gates:
         input from_ip;

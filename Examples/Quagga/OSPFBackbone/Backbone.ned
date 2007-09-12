@@ -115,22 +115,22 @@ network QuaggaOSPFBackbone
                 ethg[1];
         }
     connections:
-        R1.ethg[0] <--> C <--> N1.pppg[1];
-        R1.ethg[1] <--> C <--> N2.pppg[2];
-        N1.pppg[0] <--> C <--> R2.ethg[1];
-        R2.ethg[0] <--> C <--> N4.pppg[2];
-        N4.pppg[1] <--> C <--> R5.ethg[1];
-        R5.ethg[0] <--> C <--> N5.pppg[2];
-        N2.pppg[0] <--> C <--> R3.ethg[1];
-        R3.ethg[0] <--> C <--> N5.pppg[1];
-        N5.pppg[0] <--> C <--> R6.ethg[0];
-        N6.pppg[2] <--> C <--> R6.ethg[1];
-        R1.ethg[2] <--> C <--> N3.pppg[0];
-        N3.pppg[1] <--> C <--> R4.ethg[0];
-        R4.ethg[1] <--> C <--> N6.pppg[1];
-        N4.pppg[3] <--> C <--> R7.ethg[0];
-        R7.ethg[1] <--> C <--> N6.pppg[0];
-        N4.pppg[0] <--> C <--> H2.ethg[0];
-        N2.pppg[1] <--> C <--> H1.ethg[0];
+        R1.ethg[0] <--> C <--> N1.ethg[1];
+        R1.ethg[1] <--> C <--> N2.ethg[2];
+        N1.ethg[0] <--> C <--> R2.ethg[1];
+        R2.ethg[0] <--> C <--> N4.ethg[2];
+        N4.ethg[1] <--> C <--> R5.ethg[1];
+        R5.ethg[0] <--> C <--> N5.ethg[2];
+        N2.ethg[0] <--> C <--> R3.ethg[1];
+        R3.ethg[0] <--> C <--> N5.ethg[1];
+        N5.ethg[0] <--> C <--> R6.ethg[0];
+        N6.ethg[2] <--> C <--> R6.ethg[1];
+        R1.ethg[2] <--> C <--> N3.ethg[0];
+        N3.ethg[1] <--> C <--> R4.ethg[0];
+        R4.ethg[1] <--> C <--> N6.ethg[1];
+        N4.ethg[3] <--> C <--> R7.ethg[0];
+        R7.ethg[1] <--> C <--> N6.ethg[0];
+        N4.ethg[0] <--> C <--> H2.ethg[0];
+        N2.ethg[1] <--> C <--> H1.ethg[0];
 }
 

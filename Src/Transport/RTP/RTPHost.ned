@@ -9,7 +9,6 @@ import org.omnetpp.inet.Nodes.INET.NetworkLayer;
 
 
 module RTPHost
-
 {
     parameters:
         bool debug = default(false);
@@ -24,8 +23,7 @@ module RTPHost
         string routingFile = default("");
         @display("i=device/pc2");
     gates:
-        input in[];
-        output out[];
+        inout pppg[];
 
     submodules:
         application: RTPApplication {
@@ -86,8 +84,7 @@ module RTPHost
 
         // connections to network outside
         for i=0..sizeof(out)-1 {
-            in[i] --> ppp[i].physIn;
-            out[i] <-- ppp[i].physOut;
+            pppg[i] <--> ppp[i].phys;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];
         }

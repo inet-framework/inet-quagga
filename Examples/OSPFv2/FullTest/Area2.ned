@@ -72,7 +72,7 @@ module OSPF_Area2
         // towards other areas
         ethg[0] <--> N8.ethg[0];
         N8.ethg[2] <--> { @display("m=m,52,64,40,0"); } <--> ethg[1];
-        N6.ethg[1] <--> { @display("m=m,28,36,48,0"); } <--> ethg$o[2];
+        N6.ethg[1] <--> { @display("m=m,28,36,48,0"); } <--> ethg[2];
         ethg[3] <--> N6.ethg[0];
 }
 

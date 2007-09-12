@@ -37,8 +37,6 @@ module FailedRouter
         inout ethg[];
     submodules:
         dummy: Dummy {
-            parameters:
-                namid = namid;
             gates:
                 in[sizeof(pppg)];
                 out[sizeof(pppg)];

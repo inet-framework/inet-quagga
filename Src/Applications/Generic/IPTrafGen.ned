@@ -24,7 +24,7 @@ package org.omnetpp.inet.Applications.Generic;
 // Consumes and prints packets received from the IP module.
 // Compatible with both IPv4 and IPv6.
 //
-simple IPTrafSink
+simple IPTrafSink like IPTrafficGenerator
 {
     gates:
         input from_ip;
@@ -46,7 +46,7 @@ simple IPTrafSink
 // The peer can be IPTrafSink or another IPTrafGen (it handles received packets
 // exactly like IPTrafSink).
 //
-simple IPTrafGen
+simple IPTrafGenlike like IPTrafficGenerator
 {
     parameters:
         double startTime = default(1) @unit("s"); // the time application generates first packet
