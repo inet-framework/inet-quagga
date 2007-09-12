@@ -41,7 +41,7 @@ package org.omnetpp.inet.Applications.TCPApp;
 //
 // Compatible with both IPv4 and IPv6.
 //
-simple TCPSrvHostApp
+simple TCPSrvHostApp like TCPApp
 {
     parameters:
         string address = default(""); // may be left empty ("")

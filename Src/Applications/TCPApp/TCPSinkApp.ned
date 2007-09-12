@@ -24,7 +24,7 @@ package org.omnetpp.inet.Applications.TCPApp;
 // arrives on them.
 // Compatible with both IPv4 and IPv6.
 //
-simple TCPSinkApp
+simple TCPSinkApp like TCPApp
 {
     parameters:
         string address = default(""); // may be left empty ("")

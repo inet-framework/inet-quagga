@@ -23,7 +23,7 @@ package org.omnetpp.inet.Applications.UDPApp;
 //
 // Consumes and prints packets received from the UDP module.
 //
-simple UDPSink
+simple UDPSink like UDPApp
 {
     parameters:
         int local_port; // if -1, app doesn't bind in UDP

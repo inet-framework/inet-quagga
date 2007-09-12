@@ -37,7 +37,7 @@ package org.omnetpp.inet.Applications.TCPApp;
 //
 // Compatible with both IPv4 and IPv6.
 //
-simple TCPEchoApp
+simple TCPEchoApp like TCPApp
 {
     parameters:
         string address = default(""); // local address; may be left empty ("")

@@ -62,7 +62,7 @@ package org.omnetpp.inet.Applications.TCPApp;
 //
 // @see TCPGenericSrvApp, GenericAppMsg, TelnetApp
 //
-simple TCPBasicClientApp
+simple TCPBasicClientApp like TCPApp
 {
     parameters:
         string address = default(""); // may be left empty ("")

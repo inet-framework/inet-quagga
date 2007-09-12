@@ -35,7 +35,7 @@ package org.omnetpp.inet.Applications.UDPApp;
 //
 // @see UDPVideoStreamCli
 //
-simple UDPVideoStreamSvr
+simple UDPVideoStreamSvr like UDPApp
 {
     parameters:
         int serverPort; // port to listen on

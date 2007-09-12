@@ -21,7 +21,7 @@
 //
 // A copy of UDPBasicApp, just for testing.
 //
-simple SomeUDPApp
+simple SomeUDPApp like UDPApp
 {
     parameters:
         int local_port; // if -1, app doesn't bind in UDP

@@ -20,12 +20,10 @@
 package org.omnetpp.inet.Applications.UDPApp;
 
 //
-// Template for UDP applications.
-//
-// This is not an actual module type. It only shows which gates an UDP app 
+// Template for UDP applications. It shows what gates a UDP app 
 // needs, to be able to be used in StandardHost etc.
 //
-simple UDPApp
+moduleinterface UDPApp
 {
     gates:
         input from_udp;

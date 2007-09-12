@@ -1,5 +1,3 @@
-// XXX FIXME: file shouldn't be needed according to manual 
-//
 //
 // This library is free software, you can redistribute it
 // and/or modify

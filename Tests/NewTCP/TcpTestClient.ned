@@ -20,7 +20,7 @@
 //
 // \TCP client application for testing the TCP model.
 //
-simple TcpTestClient
+simple TcpTestClient like TCPApp
 {
     parameters:
         string address;

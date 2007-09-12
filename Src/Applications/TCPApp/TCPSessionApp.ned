@@ -56,7 +56,7 @@ package org.omnetpp.inet.Applications.TCPApp;
 // The application will issue a \TCP CLOSE at time tClose. If tClose=-1, no
 // CLOSE will be issued.
 //
-simple TCPSessionApp
+simple TCPSessionApp like TCPApp
 {
     parameters:
         string address = default("");

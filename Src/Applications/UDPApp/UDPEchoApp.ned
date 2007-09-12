@@ -22,7 +22,7 @@ package org.omnetpp.inet.Applications.UDPApp;
 //
 // Similar to UDPBasicApp, but it sends back the packet after reception.
 //
-simple UDPEchoApp
+simple UDPEchoApp like UDPApp
 {
     parameters:
         int local_port;

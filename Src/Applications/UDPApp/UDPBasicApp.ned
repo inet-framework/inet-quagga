@@ -36,7 +36,7 @@ package org.omnetpp.inet.Applications.UDPApp;
 //
 //#FIXME change message length to BYTES
 //
-simple UDPBasicApp
+simple UDPBasicApp like UDPApp
 {
     parameters:
         int local_port; // if -1, app doesn't bind in UDP

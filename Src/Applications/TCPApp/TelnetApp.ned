@@ -30,7 +30,7 @@ package org.omnetpp.inet.Applications.TCPApp;
 // to gather statistics from packet traces on a real network, and
 // write your model accordingly.
 //
-simple TelnetApp
+simple TelnetApp like TCPApp
 {
     parameters:
         string address = default(""); // may be left empty ("")

@@ -20,12 +20,10 @@
 package org.omnetpp.inet.Applications.TCPApp;
 
 //
-// Template for TCP applications.
-//
-// This is not an actual module type. It only shows which gates an TCP app 
+// Template for TCP applications. It shows what gates a TCP app 
 // needs, to be able to be used in StandardHost etc.
 //
-simple TCPApp
+moduleinterface TCPApp
 {
     gates:
         input tcpIn;
