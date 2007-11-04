@@ -28,12 +28,12 @@ network LDPTEST
         channel C5 extends cBasicChannel
         {
             datarate = 600Kbps;
-            delay = 15us;
+            delay = 5us;
         }
         channel C10 extends cBasicChannel
         {
             datarate = 600Kbps;
-            delay = 15us;
+            delay = 10us;
         }
         channel C15 extends cBasicChannel
         {

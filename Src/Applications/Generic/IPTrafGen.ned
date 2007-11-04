@@ -46,7 +46,7 @@ simple IPTrafSink like IPTrafficGenerator
 // The peer can be IPTrafSink or another IPTrafGen (it handles received packets
 // exactly like IPTrafSink).
 //
-simple IPTrafGenlike like IPTrafficGenerator
+simple IPTrafGen like IPTrafficGenerator
 {
     parameters:
         double startTime = default(1) @unit("s"); // the time application generates first packet
