@@ -25,12 +25,7 @@ checkdirs:
 subdirs $(OBJS) : generateheaders
 
 # add dependencies across directories
-bin: Applications Transport Network NetworkInterfaces PHY Mobility World Base Util Nodes
-Network Transport NetworkInterfaces PHY Applications : Base Util
-Transport NetworkInterfaces Applications : Network
-Nodes : Network Transport NetworkInterfaces PHY Mobility Applications World
-Examples Tests : Nodes
-Examples : Tests  # this is just for convenience, can be removed
+bin Examples Tests : Src
 
 # documentation targets
 DOC_DIR=Documentation

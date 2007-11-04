@@ -6,16 +6,8 @@ all: checkenv $(TARGET)
 # all _m.h files must exist before we build anything, so run opp_msgc first
 subdirs $(OBJS) : generateheaders
 
-# XXX this is just temporary:
-#Transport_dir Applications_dir Network_dir : NetworkInterfaces_dir
-Applications_dir NetworkInterfaces_dir : Network_dir
-
 # add dependencies across directories
-bin_dir: Applications_dir Transport_dir Network_dir NetworkInterfaces_dir PHY_dir Mobility_dir World_dir Base_dir Util_dir Nodes_dir
-Network_dir Transport_dir NetworkInterfaces_dir PHY_dir Applications_dir : Util_dir Base_dir
-Nodes_dir : Network_dir Transport_dir NetworkInterfaces_dir PHY_dir Mobility_dir Applications_dir World_dir
-Examples_dir Tests_dir : Nodes_dir
-Examples_dir : Tests_dir  # this is just for convenience, can be removed
+bin_dir Examples_dir Tests_dir : Src_dir
 
 # documentation targets
 DOC_DIR=Documentation

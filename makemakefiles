@@ -13,15 +13,15 @@
 # with omnetpp-3.2 or newer, if you want to build windows dlls, add this to OPTS below: -PINET_API
 OPTS=-f -N -b $(ROOT) -c $(ROOT)/inetconfig$(EXT) -I.
 
-CONTRACT_INCLUDES=-I$(ROOT)/Transport/Contract -I$(ROOT)/Network/Contract -I$(ROOT)/NetworkInterfaces/Contract -I$(ROOT)/Base -I$(ROOT)/Util
+CONTRACT_INCLUDES=-I$(ROOT)/Src/Transport/Contract -I$(ROOT)/Src/Network/Contract -I$(ROOT)/Src/NetworkInterfaces/Contract -I$(ROOT)/Src/Base -I$(ROOT)/Src/Util
 
-ALL_INET_INCLUDES=$(CONTRACT_INCLUDES) -I$(ROOT)/Network/IPv4 -I$(ROOT)/Network/AutoRouting -I$(ROOT)/Network/Queue -I$(ROOT)/Network/OSPFv2 -I$(ROOT)/Network/OSPFv2/Interface -I$(ROOT)/Network/OSPFv2/MessageHandler -I$(ROOT)/Network/OSPFv2/Neighbor -I$(ROOT)/Network/OSPFv2/Router -I$(ROOT)/Transport/TCP -I$(ROOT)/Transport/TCP/flavours -I$(ROOT)/Transport/TCP/queues -I$(ROOT)/Transport/UDP -I$(ROOT)/NetworkInterfaces -I$(ROOT)/Network/ARP -I$(ROOT)/NetworkInterfaces/Ethernet -I$(ROOT)/NetworkInterfaces/EtherSwitch -I$(ROOT)/NetworkInterfaces/PPP -I$(ROOT)/Applications/Generic -I$(ROOT)/Applications/Ethernet -I$(ROOT)/Applications/TCPApp -I$(ROOT)/Applications/UDPApp -I$(ROOT)/Applications/PingApp -I$(ROOT)/Util/HeaderSerializers -I$(ROOT)/Nodes/INET -I$(ROOT)/Nodes/Wireless -I$(ROOT)/Nodes/Adhoc
+ALL_INET_INCLUDES=$(CONTRACT_INCLUDES) -I$(ROOT)/Src/Network/IPv4 -I$(ROOT)/Src/Network/AutoRouting -I$(ROOT)/Src/Network/Queue -I$(ROOT)/Src/Network/OSPFv2 -I$(ROOT)/Src/Network/OSPFv2/Interface -I$(ROOT)/Src/Network/OSPFv2/MessageHandler -I$(ROOT)/Src/Network/OSPFv2/Neighbor -I$(ROOT)/Src/Network/OSPFv2/Router -I$(ROOT)/Src/Transport/TCP -I$(ROOT)/Src/Transport/TCP/flavours -I$(ROOT)/Src/Transport/TCP/queues -I$(ROOT)/Src/Transport/UDP -I$(ROOT)/Src/NetworkInterfaces -I$(ROOT)/Src/Network/ARP -I$(ROOT)/Src/NetworkInterfaces/Ethernet -I$(ROOT)/Src/NetworkInterfaces/EtherSwitch -I$(ROOT)/Src/NetworkInterfaces/PPP -I$(ROOT)/Src/Applications/Generic -I$(ROOT)/Src/Applications/Ethernet -I$(ROOT)/Src/Applications/TCPApp -I$(ROOT)/Src/Applications/UDPApp -I$(ROOT)/Src/Applications/PingApp -I$(ROOT)/Src/Util/HeaderSerializers -I$(ROOT)/Src/Nodes/INET -I$(ROOT)/Src/Nodes/Wireless -I$(ROOT)/Src/Nodes/Adhoc
 
-# -I$(ROOT)/Applications/BRModel
-ALL_MPLS_INCLUDES=-I$(ROOT)/Network/MPLS -I$(ROOT)/Network/LDP -I$(ROOT)/Network/RSVP_TE -I$(ROOT)/Network/TED -I$(ROOT)/Network/Extras -I$(ROOT)/Nodes/MPLS
-ALL_IPv6_INCLUDES=-I$(ROOT)/Network/IPv6 -I$(ROOT)/Network/ICMPv6 -I$(ROOT)/Nodes/IPv6
-ALL_MF_INCLUDES=-I$(ROOT)/World -I$(ROOT)/Mobility -I$(ROOT)/NetworkInterfaces/MFCore -I$(ROOT)/NetworkInterfaces/MF80211 -I$(ROOT)/NetworkInterfaces/MF80211/macLayer -I$(ROOT)/NetworkInterfaces/MF80211/phyLayer -I$(ROOT)/NetworkInterfaces/MF80211/phyLayer/decider -I$(ROOT)/NetworkInterfaces/MF80211/phyLayer/snrEval -I$(ROOT)/NetworkInterfaces/Ieee80211 -I$(ROOT)/NetworkInterfaces/Ieee80211/Mac -I$(ROOT)/NetworkInterfaces/Ieee80211/Mgmt -I$(ROOT)/NetworkInterfaces/Radio
-QUAGGA_INCLUDES=-I$(ROOT)/Network/Quagga -I$(ROOT)/Network/Quagga/UnitTest
+# -I$(ROOT)/Src/Applications/BRModel
+ALL_MPLS_INCLUDES=-I$(ROOT)/Src/Network/MPLS -I$(ROOT)/Src/Network/LDP -I$(ROOT)/Src/Network/RSVP_TE -I$(ROOT)/Src/Network/TED -I$(ROOT)/Src/Network/Extras -I$(ROOT)/Src/Nodes/MPLS
+ALL_IPv6_INCLUDES=-I$(ROOT)/Src/Network/IPv6 -I$(ROOT)/Src/Network/ICMPv6 -I$(ROOT)/Src/Nodes/IPv6
+ALL_MF_INCLUDES=-I$(ROOT)/Src/World -I$(ROOT)/Src/Mobility -I$(ROOT)/Src/NetworkInterfaces/MFCore -I$(ROOT)/Src/NetworkInterfaces/MF80211 -I$(ROOT)/Src/NetworkInterfaces/MF80211/macLayer -I$(ROOT)/Src/NetworkInterfaces/MF80211/phyLayer -I$(ROOT)/Src/NetworkInterfaces/MF80211/phyLayer/decider -I$(ROOT)/Src/NetworkInterfaces/MF80211/phyLayer/snrEval -I$(ROOT)/Src/NetworkInterfaces/Ieee80211 -I$(ROOT)/Src/NetworkInterfaces/Ieee80211/Mac -I$(ROOT)/Src/NetworkInterfaces/Ieee80211/Mgmt -I$(ROOT)/Src/NetworkInterfaces/Radio
+QUAGGA_INCLUDES=-I$(ROOT)/Src/Network/Quagga -I$(ROOT)/Src/Network/Quagga/UnitTest
 
 #ALL_MODEL_OPTS=$(OPTS) -w $(ALL_INET_INCLUDES) $(ALL_MPLS_INCLUDES) $(ALL_IPv6_INCLUDES)
 ALL_MODEL_OPTS=$(OPTS) -n
@@ -39,78 +39,79 @@ inetbase:
 	cd bin && $(MAKEMAKE) $(OPTS) -w -o INET $(ALL_INET_INCLUDES) $(ALL_IPv6_INCLUDES) $(ALL_MPLS_INCLUDES) $(ALL_MF_INCLUDES)
 	: # $(QUAGGA_INCLUDES)
 
-	cd Applications && $(MAKEMAKE) $(OPTS) -n -r
-	cd Network && $(MAKEMAKE) $(OPTS) -n -r -X Quagga
-	cd NetworkInterfaces && $(MAKEMAKE) $(OPTS) -n -r
-	cd Nodes && $(MAKEMAKE) $(OPTS) -n -r
-	cd Transport && $(MAKEMAKE) $(OPTS) -n -r -X RTP
-	cd Base && $(MAKEMAKE) $(OPTS) -n -r -I../Util
-	cd Util && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES) $(ALL_IPv6_INCLUDES) $(ALL_MPLS_INCLUDES) $(ALL_MF_INCLUDES)
+	cd Src && $(MAKEMAKE) $(OPTS) -n -r
+	cd Src/Applications && $(MAKEMAKE) $(OPTS) -n -r
+	cd Src/Network && $(MAKEMAKE) $(OPTS) -n -r -X Quagga
+	cd Src/NetworkInterfaces && $(MAKEMAKE) $(OPTS) -n -r
+	cd Src/Nodes && $(MAKEMAKE) $(OPTS) -n -r
+	cd Src/Transport && $(MAKEMAKE) $(OPTS) -n -r -X RTP
+	cd Src/Base && $(MAKEMAKE) $(OPTS) -n -r -I../Util
+	cd Src/Util && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES) $(ALL_IPv6_INCLUDES) $(ALL_MPLS_INCLUDES) $(ALL_MF_INCLUDES)
 
 	: # MF stuff follows
-	cd World && $(MAKEMAKE) $(OPTS) -n -r -I../Util -I../Base
-	cd Mobility && $(MAKEMAKE) $(OPTS) -n -r -I../Util -I../Base -I../World
-	cd NetworkInterfaces/MFCore && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../../World
-	cd NetworkInterfaces/MF80211 && $(MAKEMAKE) $(OPTS) -n -r
-	cd NetworkInterfaces/MF80211/macLayer && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../../MFCore -I../phyLayer/snrEval
-	cd NetworkInterfaces/MF80211/phyLayer && $(MAKEMAKE) $(OPTS) -n -r
-	cd NetworkInterfaces/MF80211/phyLayer/decider && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../../../MFCore -I../../macLayer
-	cd NetworkInterfaces/MF80211/phyLayer/snrEval && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../../../MFCore -I../../macLayer -I../../../../World
-	cd NetworkInterfaces/Ieee80211 && $(MAKEMAKE) $(OPTS) -n -r
-	cd NetworkInterfaces/Ieee80211/Mac && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../../MFCore
-	cd NetworkInterfaces/Ieee80211/Mgmt && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../Mac -I../../Ethernet
-	cd NetworkInterfaces/Radio && $(MAKEMAKE) $(OPTS) -n -n $(CONTRACT_INCLUDES) -I../MFCore -I../Ieee80211/Mac -I../../World
+	cd Src/World && $(MAKEMAKE) $(OPTS) -n -r -I../Util -I../Base
+	cd Src/Mobility && $(MAKEMAKE) $(OPTS) -n -r -I../Util -I../Base -I../World
+	cd Src/NetworkInterfaces/MFCore && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../../World
+	cd Src/NetworkInterfaces/MF80211 && $(MAKEMAKE) $(OPTS) -n -r
+	cd Src/NetworkInterfaces/MF80211/macLayer && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../../MFCore -I../phyLayer/snrEval
+	cd Src/NetworkInterfaces/MF80211/phyLayer && $(MAKEMAKE) $(OPTS) -n -r
+	cd Src/NetworkInterfaces/MF80211/phyLayer/decider && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../../../MFCore -I../../macLayer
+	cd Src/NetworkInterfaces/MF80211/phyLayer/snrEval && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../../../MFCore -I../../macLayer -I../../../../World
+	cd Src/NetworkInterfaces/Ieee80211 && $(MAKEMAKE) $(OPTS) -n -r
+	cd Src/NetworkInterfaces/Ieee80211/Mac && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../../MFCore
+	cd Src/NetworkInterfaces/Ieee80211/Mgmt && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../Mac -I../../Ethernet
+	cd Src/NetworkInterfaces/Radio && $(MAKEMAKE) $(OPTS) -n -n $(CONTRACT_INCLUDES) -I../MFCore -I../Ieee80211/Mac -I../../World
 
-	cd Nodes/IPv6 && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES) $(ALL_IPv6_INCLUDES)
+	cd Src/Nodes/IPv6 && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES) $(ALL_IPv6_INCLUDES)
 
-	cd Applications/Generic && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES)
-	cd Applications/Ethernet && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../../NetworkInterfaces/Ethernet
-	cd Applications/PingApp && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES)
-	cd Applications/TCPApp && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../../Transport/TCP
-	cd Applications/UDPApp && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES)
+	cd Src/Applications/Generic && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES)
+	cd Src/Applications/Ethernet && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../../NetworkInterfaces/Ethernet
+	cd Src/Applications/PingApp && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES)
+	cd Src/Applications/TCPApp && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../../Transport/TCP
+	cd Src/Applications/UDPApp && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES)
 
-	cd Network/Contract && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../IPv4 -I../IPv6 -I../ICMPv6
-	cd Network/IPv4 && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../ARP
-	cd Network/Queue && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../IPv4 -I../IPv6
-	cd Network/ARP && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../IPv4
-	cd Network/AutoRouting && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../IPv4 -I../IPv6 -I../ICMPv6
-	cd Network/IPv6 && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../ICMPv6
-	cd Network/ICMPv6 && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../IPv6
+	cd Src/Network/Contract && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../IPv4 -I../IPv6 -I../ICMPv6
+	cd Src/Network/IPv4 && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../ARP
+	cd Src/Network/Queue && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../IPv4 -I../IPv6
+	cd Src/Network/ARP && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../IPv4
+	cd Src/Network/AutoRouting && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../IPv4 -I../IPv6 -I../ICMPv6
+	cd Src/Network/IPv6 && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../ICMPv6
+	cd Src/Network/ICMPv6 && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../IPv6
 
 	: # FIXME reduce cross-dependency among MPLS, LDP, TED and RSVP_TE!
-	cd Network/MPLS && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../IPv4 -I../RSVP_TE -I../LDP -I../../Transport/TCP
-	cd Network/LDP && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../MPLS -I../IPv4 -I../TED -I../RSVP_TE -I../../Transport/UDP -I../../Transport/TCP
-	cd Network/RSVP_TE && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../MPLS -I../IPv4 -I../TED
-	cd Network/TED && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../MPLS -I../IPv4 -I../RSVP_TE
-	cd Network/Extras && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES)
-	cd Network/Quagga && $(MAKEMAKE) $(OPTS) -n -r $(ALL_MPLS_INCLUDES) $(ALL_INET_INCLUDES) $(ALL_MF_INCLUDES)
-	cd Network/Quagga/UnitTest && $(MAKEMAKE) $(OPTS) -n -r $(ALL_MPLS_INCLUDES) $(ALL_INET_INCLUDES) $(ALL_MF_INCLUDES)
+	cd Src/Network/MPLS && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../IPv4 -I../RSVP_TE -I../LDP -I../../Transport/TCP
+	cd Src/Network/LDP && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../MPLS -I../IPv4 -I../TED -I../RSVP_TE -I../../Transport/UDP -I../../Transport/TCP
+	cd Src/Network/RSVP_TE && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../MPLS -I../IPv4 -I../TED
+	cd Src/Network/TED && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../MPLS -I../IPv4 -I../RSVP_TE
+	cd Src/Network/Extras && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES)
+	cd Src/Network/Quagga && $(MAKEMAKE) $(OPTS) -n -r $(ALL_MPLS_INCLUDES) $(ALL_INET_INCLUDES) $(ALL_MF_INCLUDES)
+	cd Src/Network/Quagga/UnitTest && $(MAKEMAKE) $(OPTS) -n -r $(ALL_MPLS_INCLUDES) $(ALL_INET_INCLUDES) $(ALL_MF_INCLUDES)
 
-	cd Network/OSPFv2 && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I. -I../IPv4 -IRouter -IInterface -IMessageHandler -INeighbor
-	cd Network/OSPFv2/Interface && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I. -I.. -I../../IPv4 -I../Neighbor -I../Router -I../MessageHandler
-	cd Network/OSPFv2/MessageHandler && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I. -I.. -I../../IPv4 -I../Interface -I../Neighbor -I../Router
-	cd Network/OSPFv2/Neighbor && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I. -I.. -I../../IPv4 -I../MessageHandler -I../Interface -I../Router
-	cd Network/OSPFv2/Router && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I. -I.. -I../../IPv4 -I../MessageHandler -I../Interface -I../Neighbor
+	cd Src/Network/OSPFv2 && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I. -I../IPv4 -IRouter -IInterface -IMessageHandler -INeighbor
+	cd Src/Network/OSPFv2/Interface && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I. -I.. -I../../IPv4 -I../Neighbor -I../Router -I../MessageHandler
+	cd Src/Network/OSPFv2/MessageHandler && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I. -I.. -I../../IPv4 -I../Interface -I../Neighbor -I../Router
+	cd Src/Network/OSPFv2/Neighbor && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I. -I.. -I../../IPv4 -I../MessageHandler -I../Interface -I../Router
+	cd Src/Network/OSPFv2/Router && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I. -I.. -I../../IPv4 -I../MessageHandler -I../Interface -I../Neighbor
 
-	cd NetworkInterfaces/Contract && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES)
-	cd NetworkInterfaces/PPP && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../../Network/Queue
-	cd NetworkInterfaces/Ethernet && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../../Network/Queue
-	cd NetworkInterfaces/EtherSwitch && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../Ethernet
+	cd Src/NetworkInterfaces/Contract && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES)
+	cd Src/NetworkInterfaces/PPP && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../../Network/Queue
+	cd Src/NetworkInterfaces/Ethernet && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../../Network/Queue
+	cd Src/NetworkInterfaces/EtherSwitch && $(MAKEMAKE) $(OPTS) -n $(CONTRACT_INCLUDES) -I../Ethernet
 
-	cd Nodes/INET && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES)
-	cd Nodes/IPv6 && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES)
-	cd Nodes/Wireless && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES)
-	cd Nodes/Adhoc && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES)
-	cd Nodes/MPLS && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES) $(ALL_MPLS_INCLUDES)
+	cd Src/Nodes/INET && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES)
+	cd Src/Nodes/IPv6 && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES)
+	cd Src/Nodes/Wireless && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES)
+	cd Src/Nodes/Adhoc && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES)
+	cd Src/Nodes/MPLS && $(MAKEMAKE) $(OPTS) -n -r $(ALL_INET_INCLUDES) $(ALL_MPLS_INCLUDES)
 
-	cd Transport/Contract && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES)
-	cd Transport/UDP && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../../Network/IPv4 -I../../Network/ICMPv6 -I../../Network/IPv6
-	cd Transport/RTP && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -X Profiles -X tmp
-	cd Transport/TCP && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../../Network/IPv4 -I../../Network/ICMPv6 -I../../Network/IPv6
-	cd Transport/TCP/flavours && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I..
-	cd Transport/TCP/queues && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I..
+	cd Src/Transport/Contract && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES)
+	cd Src/Transport/UDP && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../../Network/IPv4 -I../../Network/ICMPv6 -I../../Network/IPv6
+	cd Src/Transport/RTP && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -X Profiles -X tmp
+	cd Src/Transport/TCP && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I../../Network/IPv4 -I../../Network/ICMPv6 -I../../Network/IPv6
+	cd Src/Transport/TCP/flavours && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I..
+	cd Src/Transport/TCP/queues && $(MAKEMAKE) $(OPTS) -n -r $(CONTRACT_INCLUDES) -I..
 
-	cd Util/HeaderSerializers && $(MAKEMAKE) $(OPTS) -n $(ALL_INET_INCLUDES) $(ALL_IPv6_INCLUDES) $(ALL_MPLS_INCLUDES) $(ALL_MF_INCLUDES)
+	cd Src/Util/HeaderSerializers && $(MAKEMAKE) $(OPTS) -n $(ALL_INET_INCLUDES) $(ALL_IPv6_INCLUDES) $(ALL_MPLS_INCLUDES) $(ALL_MF_INCLUDES)
 
 # UNUSED TARGET. It might only be needed with fully compiled-in NED files, or when
 # an example simulation contains C++ parts too (currently none have).
