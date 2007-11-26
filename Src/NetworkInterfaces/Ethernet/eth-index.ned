@@ -317,5 +317,5 @@
 // can easily reach gigabyte sizes.
 //
 //
-package org.omnetpp.inet.NetworkInterfaces.Ethernet;
 
+package org.omnetpp.inet.NetworkInterfaces.Ethernet;
