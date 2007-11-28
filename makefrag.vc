@@ -3,9 +3,6 @@
 # preserve default target
 all: checkenv $(TARGET)
 
-# all _m.h files must exist before we build anything, so run opp_msgc first
-subdirs $(OBJS) : generateheaders
-
 # add dependencies across directories
 bin_dir Examples_dir Tests_dir : Src_dir
 

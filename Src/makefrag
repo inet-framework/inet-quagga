@@ -3,6 +3,9 @@
 # preserve default target
 all: $(TARGET)
 
+# all _m.h files must exist before we build anything, so run opp_msgc first
+subdirs $(OBJS) : generateheaders
+
 # add dependencies across directories
 Network Transport NetworkInterfaces PHY Applications : Base Util
 Transport NetworkInterfaces Applications : Network
