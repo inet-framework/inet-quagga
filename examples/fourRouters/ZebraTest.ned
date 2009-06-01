@@ -21,16 +21,16 @@
 
 
 
-package org.omnetpp.inet.examples.Quagga.FourRouters;
+package fourRouters;
 
+import inet.examples.ethernet.lans.ethernetline;
+import inet.networklayer.extras.FailureManager;
+import inet.nodes.inet.StandardHost;
+import inet.world.ChannelInstaller;
+import inet.world.NAMTrace;
+import inet.world.ScenarioManager;
 import ned.DatarateChannel;
-import org.omnetpp.inet.Network.Extras.FailureManager;
-import org.omnetpp.inet.Nodes.INET.QuaggaRouter;
-import org.omnetpp.inet.Nodes.INET.StandardHost;
-import org.omnetpp.inet.World.ChannelInstaller;
-import org.omnetpp.inet.World.NAMTrace;
-import org.omnetpp.inet.World.ScenarioManager;
-import org.omnetpp.inet.examples.Ethernet.LANs.ethernetline;
+import org.omnetpp.inet.networklayer.quagga.QuaggaRouter;
 
 
 network ZebraTest

@@ -1,11 +1,11 @@
 
-package org.omnetpp.inet.examples.Quagga.SimpleTest;
+package simpleTest;
 
+import inet.linklayer.ethernet.EtherHub;
+import inet.nodes.inet.StandardHost;
+import inet.world.ChannelInstaller;
 import ned.DatarateChannel;
-import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherHub;
-import org.omnetpp.inet.Nodes.INET.QuaggaRouter;
-import org.omnetpp.inet.Nodes.INET.StandardHost;
-import org.omnetpp.inet.World.ChannelInstaller;
+import org.omnetpp.inet.networklayer.quagga.QuaggaRouter;
 
 
 network SimpleTest
@@ -61,12 +61,12 @@ network SimpleTest
                 ethg[1];
         }
     connections:
-        H1.ethg[0] <--> C <--> N1.pppg[0];
-        N1.pppg[1] <--> C <--> R1.ethg[0];
+        H1.ethg[0] <--> C <--> N1.ethg[0];
+        N1.ethg[1] <--> C <--> R1.ethg[0];
 
         R1.pppg++ <--> {  datarate = 10Mbps; delay = 0.1us; } <--> R2.pppg++;
 
-        R2.ethg[0] <--> C <--> N2.pppg[0];
-        N2.pppg[1] <--> C <--> H2.ethg[0];
+        R2.ethg[0] <--> C <--> N2.ethg[0];
+        N2.ethg[1] <--> C <--> H2.ethg[0];
 }
 

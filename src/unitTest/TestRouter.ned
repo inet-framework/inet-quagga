@@ -1,16 +1,17 @@
 
-package org.omnetpp.inet.Network.Quagga.UnitTest;
+package org.omnetpp.inet.networklayer.quagga.unitTest;
 
-import org.omnetpp.inet.Base.NotificationBoard;
-import org.omnetpp.inet.Network.Contract.InterfaceTable;
-import org.omnetpp.inet.Network.IPv4.RoutingTable;
-import org.omnetpp.inet.NetworkInterfaces.PPP.PPPInterface;
-import org.omnetpp.inet.Nodes.INET.NetworkLayer;
-import org.omnetpp.inet.Transport.TCP.TCP;
-import org.omnetpp.inet.Transport.UDP.UDP;
+import inet.base.NotificationBoard;
+import inet.linklayer.ppp.PPPInterface;
+import inet.networklayer.common.InterfaceTable;
+import inet.networklayer.ipv4.RoutingTable;
+import inet.nodes.inet.NetworkLayer;
+import inet.transport.tcp.TCP;
+import inet.transport.udp.UDP;
 
 
-moduleinterface TestNop {
+moduleinterface TestNop
+{
     gates:
         input tcpIn;
         output tcpOut;
@@ -75,19 +76,19 @@ module TestRouter
             ppp[i].netwIn <-- networkLayer.ifOut[i];
         }
 
-        tcp.to_ip --> networkLayer.TCPIn;
-        tcp.from_ip <-- networkLayer.TCPOut;
+        tcp.ipOut --> networkLayer.tcpIn;
+        tcp.ipIn <-- networkLayer.TCPOut;
 
-        udp.to_ip --> networkLayer.UDPIn;
-        udp.from_ip <-- networkLayer.UDPOut;
+        udp.ipOut --> networkLayer.udpIn;
+        udp.ipIn <-- networkLayer.udpOut;
 
-        unit.tcpIn <-- tcp.to_appl++;
-        unit.tcpOut --> tcp.from_appl++;
+        unit.tcpIn <-- tcp.appOut++;
+        unit.tcpOut --> tcp.appIn++;
 
-        unit.udpIn <-- udp.to_app++;
-        unit.udpOut --> udp.from_app++;
+        unit.udpIn <-- udp.appOut++;
+        unit.udpOut --> udp.appIn++;
 
-        unit.ipOut --> networkLayer.OSPFIn;
-        unit.ipIn <-- networkLayer.OSPFOut;
+        unit.ipOut --> networkLayer.ospfIn;
+        unit.ipIn <-- networkLayer.ospfOut;
 }
 
