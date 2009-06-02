@@ -3,10 +3,9 @@
 
 #include "Daemon.h"
 
-class Ripd : public Daemon 
+class Ripd : public Daemon
 {
 	public:
-		Module_Class_Members(Ripd, Daemon, 32768);
 		virtual void activity();
 };
 

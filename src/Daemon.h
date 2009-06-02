@@ -31,19 +31,19 @@
 class Daemon : public cSimpleModule, public TCPSocket::CallbackInterface, public UDPSocket::CallbackInterface
 {
     public:
-        Module_Class_Members(Daemon, cSimpleModule, 32768);
+        Daemon() : cSimpleModule(32768) {}
 
     public:
         struct passwd pwd_entry;
         struct group grp_entry;
 
         struct GlobalVars *varp;
-        
+
 	protected:
-		void init();        
+		void init();
 
     public:
-    
+
 		TCPSocket* getIfTcpSocket(int socket);
 		TCPSocket* getTcpSocket(int socket);
 		UDPSocket* getIfUdpSocket(int socket);
@@ -54,31 +54,31 @@ class Daemon : public cSimpleModule, public TCPSocket::CallbackInterface, public
 		Netlink* getNetlinkSocket(int socket);
 		FILE* getIfStream(int fildes);
 		FILE* getStream(int fildes);
-        
+
         bool isBlocking(int fildes);
         void setBlocking(int fildes, bool block);
-        
+
         int getSocketError(int fildes, bool clear);
 
 		int getEmptySlot();
-    
+
         int createTcpSocket(cMessage *msg = NULL);
         int createUdpSocket();
         int createRawSocket(int protocol);
         int createNetlinkSocket();
         int createStream(const char *path, char *mode);
-        
+
         void handleReceivedMessage(cMessage *msg);
         bool receiveAndHandleMessage(double timeout, const char *cmd);
         void sleep(double interval);
-        
+
         bool hasQueuedConnections(int socket);
         int acceptTcpSocket(int socket);
-		int connectTcpSocket(int socket, IPAddress destAddr, int destPort);        
+		int connectTcpSocket(int socket, IPAddress destAddr, int destPort);
         void enqueueConnection(int socket, int csocket);
         cMessage* getSocketMessage(int socket, bool remove=false);
         void enqueueSocketMessage(int socket, cMessage *msg);
-        
+
         void closeSocket(int socket);
         void closeStream(int fildes);
 
@@ -128,8 +128,8 @@ class Daemon : public cSimpleModule, public TCPSocket::CallbackInterface, public
         };
 
         std::vector<lib_descriptor_t> fd;
-        
-    private:        
+
+    private:
 
         std::vector<struct_sigaction> sig;
 
@@ -142,7 +142,7 @@ class Daemon : public cSimpleModule, public TCPSocket::CallbackInterface, public
     public:
 
         bool blocked;
-        
+
         int euid;
 };
 

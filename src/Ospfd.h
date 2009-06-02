@@ -3,11 +3,10 @@
 
 #include "Daemon.h"
 
-class Ospfd : public Daemon 
+class Ospfd : public Daemon
 {
 	public:
-		Module_Class_Members(Ospfd, Daemon, 32768);
 		virtual void activity();
-};	
+};
 
 #endif
