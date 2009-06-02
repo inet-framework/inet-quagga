@@ -98,12 +98,12 @@ NetlinkResult Netlink::listInterfaces()
     struct ret_t retvar;
     struct ret_t *ret = &retvar;
 
-    for(int i = 0; i < ift->numInterfaces(); i++)
+    for(int i = 0; i < ift->getNumInterfaces(); i++)
     {
-        InterfaceEntry *ie = ift->interfaceAt(i);
+        InterfaceEntry *ie = ift->getInterface(i);
 
-        const char *name = ie->name();
-        int mtu = ie->mtu();
+        const char *name = ie->getName();
+        int mtu = ie->getMTU();
 
         EV << "adding interface " << name << endl;
 
@@ -174,31 +174,31 @@ NetlinkResult Netlink::listInterfaces()
 
 //
 
-static IPAddress findPeerInRoutingTable(InterfaceEntry *localInf, RoutingTable *rt)
+static IPAddress findPeerInRoutingTable(InterfaceEntry *localInf, IRoutingTable *rt)
 {
     ASSERT(localInf);
     ASSERT(localInf->isPointToPoint());
     ASSERT(rt);
 
-    for(int k = 0; k < rt->numRoutingEntries(); k++)
+    for(int k = 0; k < rt->getNumRoutes(); k++)
     {
-        RoutingEntry *re = rt->routingEntry(k);
+        const IPRoute *re = rt->getRoute(k);
 
-        if(re->interfacePtr != localInf)
+        if(re->getInterface() != localInf)
             continue;
 
         //if(!re->gateway.isUnspecified())
         //  continue;
 
-        if(re->netmask.netmaskLength() != 32)
+        if(re->getNetmask().getNetmaskLength() != 32)
             continue;
 
-        if(re->type != RoutingEntry::DIRECT)
+        if(re->getType() != IPRoute::DIRECT)
             continue;
 
-        EV << "peer address=" << re->host << endl;
+        EV << "peer address=" << re->getHost() << endl;
 
-        return re->host;
+        return re->getHost();
     }
 
     return IPAddress();
@@ -211,11 +211,11 @@ NetlinkResult Netlink::listAddresses()
     struct ret_t retvar;
     struct ret_t *ret =  &retvar;
 
-    for(int i = 0; i < ift->numInterfaces(); i++)
+    for(int i = 0; i < ift->getNumInterfaces(); i++)
     {
-        InterfaceEntry *ie = ift->interfaceAt(i);
+        InterfaceEntry *ie = ift->getInterface(i);
 
-        const char *name = ie->name();
+        const char *name = ie->getName();
 
         EV << "adding address for interface " << name << endl;
 
@@ -224,13 +224,13 @@ NetlinkResult Netlink::listAddresses()
         ret->nlh.nlmsg_flags = NLM_F_MULTI;
         ret->ifa.ifa_family = AF_INET;
         ret->ifa.ifa_index = i;
-        ret->ifa.ifa_prefixlen = ie->ipv4()->netmask().netmaskLength();
+        ret->ifa.ifa_prefixlen = ie->ipv4Data()->getNetmask().getNetmaskLength();
         ret->ifa.ifa_flags = 0; // only secondary used
         ret->ifa.ifa_scope = 0; // not used in Quagga at all (?)
 
         struct rtattr *rta = IFA_RTA(NLMSG_DATA(ret));
 
-        uint32 local_addr = htonl(ie->ipv4()->inetAddress().getInt());
+        uint32 local_addr = htonl(ie->ipv4Data()->getIPAddress().getInt());
         rta_add_param(&rta, IFA_LOCAL, sizeof(local_addr), &local_addr, ret);
 
         if(ie->isPointToPoint())
@@ -249,8 +249,8 @@ NetlinkResult Netlink::listAddresses()
 
         if(ie->isBroadcast())
         {
-            uint32 inet_addr = ie->ipv4()->inetAddress().getInt();
-            uint32 mask_addr = ie->ipv4()->netmask().getInt();
+            uint32 inet_addr = ie->ipv4Data()->getIPAddress().getInt();
+            uint32 mask_addr = ie->ipv4Data()->getNetmask().getInt();
             uint32 bcast_addr = inet_addr | (mask_addr ^ 0xffff);
 
             inet_addr = htonl(inet_addr);
@@ -286,22 +286,22 @@ NetlinkResult Netlink::listAddresses()
     return ifs;
 }
 
-NetlinkResult Netlink::listRoutes(RoutingEntry *entry)
+NetlinkResult Netlink::listRoutes(IPRoute *entry)
 {
     struct ret_t retvar;
     struct ret_t *ret = &retvar;
 
-    for(int i = 0; i < rt->numRoutingEntries(); i++)
+    for(int i = 0; i < rt->getNumRoutes(); i++)
     {
-        RoutingEntry *re = rt->routingEntry(i);
+        const IPRoute *re = rt->getRoute(i);
 
         if(entry && entry != re)
             continue;
 
-        if(re->host.isMulticast())
+        if(re->getHost().isMulticast())
             continue;
 
-        EV << "listing route to " << re->host << endl;
+        EV << "listing route to " << re->getHost() << endl;
 
         ret->nlh.nlmsg_len = NLMSG_LENGTH(sizeof(ret->rtm));
         ret->nlh.nlmsg_type = RTM_NEWROUTE;
@@ -309,17 +309,17 @@ NetlinkResult Netlink::listRoutes(RoutingEntry *entry)
         ret->rtm.rtm_type = RTN_UNICAST;
         ret->rtm.rtm_flags = 0;
 
-        switch(re->source)
+        switch(re->getSource())
         {
-            case RoutingEntry::MANUAL:
+            case IPRoute::MANUAL:
                 ret->rtm.rtm_protocol = RTPROT_STATIC;
                 break;
 
-            case RoutingEntry::IFACENETMASK:
+            case IPRoute::IFACENETMASK:
                 ret->rtm.rtm_protocol = RTPROT_BOOT;
                 break;
 
-            case RoutingEntry::ZEBRA:
+            case IPRoute::ZEBRA:
                 ret->rtm.rtm_protocol = RTPROT_ZEBRA;
                 break;
 
@@ -330,9 +330,9 @@ NetlinkResult Netlink::listRoutes(RoutingEntry *entry)
         ret->rtm.rtm_src_len = 0; // dunno why, see rt_netlink.c
         ret->rtm.rtm_family = AF_INET;
 
-        int interfaceId = re->interfacePtr->interfaceId();
-        int metric = re->metric;
-        const char *dststr = re->host.str().data();
+        int interfaceId = re->getInterface()->getInterfaceId();
+        int metric = re->getMetric();
+        const char *dststr = re->getHost().str().data();
 
         struct rtattr *rta = RTM_RTA(NLMSG_DATA(ret));
 
@@ -368,7 +368,7 @@ NetlinkResult Netlink::listRoutes(RoutingEntry *entry)
 
 
 
-RoutingEntry* Netlink::route_command(int cmd_type, ret_t* rm)
+IPRoute* Netlink::route_command(int cmd_type, ret_t* rm)
 {
     ASSERT(rm->nlh.nlmsg_type == RTM_NEWROUTE || rm->nlh.nlmsg_type == RTM_DELROUTE);
 
@@ -455,48 +455,46 @@ void Netlink::route_del(IPAddress destAddr, IPAddress netmaskAddr, IPAddress gwA
 {
     Daemon *libm = DAEMON;
 
-    RoutingEntry *re = rt->findRoutingEntry(destAddr, netmaskAddr, gwAddr, metric);
+    const IPRoute *re = rt->findRoute(destAddr, netmaskAddr, gwAddr, metric);
     ASSERT(re);
-    ASSERT(index < 0 || rt->routingEntry(index) == re);
+    ASSERT(index < 0 || rt->getRoute(index) == re);
 
     EV << "removing routing entry:" << re->info() << endl;
 
-    bool done = rt->deleteRoutingEntry(re);
+    bool done = rt->deleteRoute(re);
     ASSERT(done);
 }
 
-RoutingEntry* Netlink::route_new(IPAddress destAddr, IPAddress netmaskAddr, IPAddress gwAddr, int index, int metric)
+IPRoute* Netlink::route_new(IPAddress destAddr, IPAddress netmaskAddr, IPAddress gwAddr, int index, int metric)
 {
     Daemon *libm = DAEMON;
 
-    RoutingEntry *re = new RoutingEntry();
-    re->host = destAddr;
-    re->netmask = netmaskAddr;
-    re->gateway = gwAddr;
+    IPRoute *re = new IPRoute();
+    re->setHost(destAddr);
+    re->setNetmask(netmaskAddr);
+    re->setGateway(gwAddr);
 
     if(index < 0)
     {
-        ASSERT(!re->gateway.isUnspecified());
-        ASSERT(rt->interfaceForDestAddr(re->gateway)!=NULL);
-        re->interfacePtr = rt->interfaceForDestAddr(re->gateway);
+        ASSERT(!re->getGateway().isUnspecified());
+        ASSERT(rt->getInterfaceForDestAddr(re->getGateway())!=NULL);
+        re->setInterface(rt->getInterfaceForDestAddr(re->getGateway()));
     }
     else
-        re->interfacePtr = ift->interfaceAt(index);
+        re->setInterface(ift->getInterface(index));
 
-    re->interfaceName = re->interfacePtr->name();
-
-    if(re->gateway.isUnspecified())
-        re->type = RoutingEntry::DIRECT;
+    if(re->getGateway().isUnspecified())
+        re->setType(IPRoute::DIRECT);
     else
-        re->type = RoutingEntry::REMOTE;
+        re->setType(IPRoute::REMOTE);
 
-    re->source = RoutingEntry::ZEBRA;
+    re->setSource(IPRoute::ZEBRA);
 
-    re->metric = metric;
+    re->setMetric(metric);
 
     EV << "adding routing entry:" << re->info() << endl;
 
-    rt->addRoutingEntry(re);
+    rt->addRoute(re);
 
     return re;
 }

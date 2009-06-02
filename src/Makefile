@@ -168,16 +168,11 @@ depend:
 $O/Bgpd.o: Bgpd.cc \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPv6Address.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPProtocolId_m.h \
-	$(INETMANET_PROJ)/src/base/NotificationBoard.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceTable.h \
 	Netlink.h \
-	$(INETMANET_PROJ)/src/networklayer/ipv4/RoutingTable.h \
 	$(INETMANET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPRoute.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPAddress.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram.h \
-	$(INETMANET_PROJ)/src/base/INotifiable.h \
-	$(INETMANET_PROJ)/src/base/ModuleAccess.h \
 	macosx_env.h \
 	zebra_env.h \
 	$(INETMANET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
@@ -217,22 +212,17 @@ $O/glue.o: glue.cc \
 $O/Ospfd.o: Ospfd.cc \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPv6Address.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPProtocolId_m.h \
-	$(INETMANET_PROJ)/src/base/NotificationBoard.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceTable.h \
 	Netlink.h \
-	$(INETMANET_PROJ)/src/networklayer/ipv4/RoutingTable.h \
 	$(INETMANET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPRoute.h \
-	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPAddress.h \
-	$(INETMANET_PROJ)/src/base/INotifiable.h \
-	$(INETMANET_PROJ)/src/base/ModuleAccess.h \
+	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram.h \
 	macosx_env.h \
 	zebra_env.h \
 	$(INETMANET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceToken.h \
 	$(INETMANET_PROJ)/src/transport/contract/TCPSocket.h \
 	Ospfd.h \
+	$(INETMANET_PROJ)/src/networklayer/common/InterfaceToken.h \
 	$(INETMANET_PROJ)/src/transport/contract/TCPSocketMap.h \
 	native_env.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPvXAddress.h \
@@ -275,16 +265,11 @@ $O/RawSocket.o: RawSocket.cc \
 $O/Ripd.o: Ripd.cc \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPv6Address.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPProtocolId_m.h \
-	$(INETMANET_PROJ)/src/base/NotificationBoard.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceTable.h \
 	Netlink.h \
-	$(INETMANET_PROJ)/src/networklayer/ipv4/RoutingTable.h \
 	$(INETMANET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPRoute.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPAddress.h \
-	$(INETMANET_PROJ)/src/base/ModuleAccess.h \
-	$(INETMANET_PROJ)/src/base/INotifiable.h \
 	macosx_env.h \
 	zebra_env.h \
 	$(INETMANET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
@@ -311,16 +296,12 @@ $O/Netlink.o: Netlink.cc \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPv6Address.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPProtocolId_m.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPv4InterfaceData.h \
-	$(INETMANET_PROJ)/src/base/NotificationBoard.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceTable.h \
 	Netlink.h \
-	$(INETMANET_PROJ)/src/networklayer/ipv4/RoutingTable.h \
 	$(INETMANET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPRoute.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/RoutingTableAccess.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPAddress.h \
-	$(INETMANET_PROJ)/src/base/INotifiable.h \
 	macosx_env.h \
 	$(INETMANET_PROJ)/src/base/ModuleAccess.h \
 	$(INETMANET_PROJ)/src/networklayer/common/InterfaceTableAccess.h \
@@ -328,17 +309,17 @@ $O/Netlink.o: Netlink.cc \
 	$(INETMANET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INETMANET_PROJ)/src/transport/contract/TCPSocket.h \
 	$(INETMANET_PROJ)/src/networklayer/common/InterfaceToken.h \
-	$(INETMANET_PROJ)/src/transport/contract/TCPSocketMap.h \
 	native_env.h \
+	$(INETMANET_PROJ)/src/transport/contract/TCPSocketMap.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPvXAddress.h \
 	$(INETMANET_PROJ)/src/base/INETDefs.h \
-	$(INETMANET_PROJ)/src/transport/contract/UDPSocket.h \
 	Daemon.h \
+	$(INETMANET_PROJ)/src/transport/contract/UDPSocket.h \
 	msvc_env.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram_m.h \
 	RawSocket.h \
-	oppsim_kernel.h \
 	generic_env.h \
+	oppsim_kernel.h \
 	$(INETMANET_PROJ)/src/transport/contract/TCPCommand_m.h \
 	$(INETMANET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IRoutingTable.h \
@@ -349,17 +330,12 @@ $O/Daemon.o: Daemon.cc \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPProtocolId_m.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPControlInfo_m.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPv4InterfaceData.h \
-	$(INETMANET_PROJ)/src/base/NotificationBoard.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceTable.h \
 	Netlink.h \
-	$(INETMANET_PROJ)/src/networklayer/ipv4/RoutingTable.h \
 	$(INETMANET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPControlInfo.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPRoute.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPAddress.h \
-	$(INETMANET_PROJ)/src/base/INotifiable.h \
-	$(INETMANET_PROJ)/src/base/ModuleAccess.h \
 	macosx_env.h \
 	zebra_env.h \
 	$(INETMANET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
@@ -386,21 +362,16 @@ $O/Daemon.o: Daemon.cc \
 $O/Zebra.o: Zebra.cc \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPv6Address.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPProtocolId_m.h \
-	$(INETMANET_PROJ)/src/base/NotificationBoard.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceTable.h \
 	Netlink.h \
-	$(INETMANET_PROJ)/src/networklayer/ipv4/RoutingTable.h \
 	$(INETMANET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPRoute.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPAddress.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram.h \
-	$(INETMANET_PROJ)/src/base/INotifiable.h \
-	$(INETMANET_PROJ)/src/base/ModuleAccess.h \
 	macosx_env.h \
 	zebra_env.h \
 	$(INETMANET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceToken.h \
 	$(INETMANET_PROJ)/src/transport/contract/TCPSocket.h \
+	$(INETMANET_PROJ)/src/networklayer/common/InterfaceToken.h \
 	$(INETMANET_PROJ)/src/transport/contract/TCPSocketMap.h \
 	native_env.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPvXAddress.h \
@@ -420,22 +391,18 @@ $O/Zebra.o: Zebra.cc \
 	$(INETMANET_PROJ)/src/linklayer/contract/MACAddress.h
 $O/oppsim_kernel.o: oppsim_kernel.cc \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPv6Address.h \
-	$(INETMANET_PROJ)/src/networklayer/contract/IPProtocolId_m.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPControlInfo_m.h \
+	$(INETMANET_PROJ)/src/networklayer/contract/IPProtocolId_m.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPv4InterfaceData.h \
-	$(INETMANET_PROJ)/src/base/NotificationBoard.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceTable.h \
 	Netlink.h \
-	$(INETMANET_PROJ)/src/networklayer/ipv4/RoutingTable.h \
 	$(INETMANET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPControlInfo.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPRoute.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/RoutingTableAccess.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPAddress.h \
-	macosx_env.h \
 	$(INETMANET_PROJ)/src/base/ModuleAccess.h \
-	$(INETMANET_PROJ)/src/base/INotifiable.h \
+	macosx_env.h \
 	zebra_env.h \
 	$(INETMANET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INETMANET_PROJ)/src/transport/contract/TCPSocket.h \
@@ -449,8 +416,8 @@ $O/oppsim_kernel.o: oppsim_kernel.cc \
 	msvc_env.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram_m.h \
 	RawSocket.h \
-	generic_env.h \
 	oppsim_kernel.h \
+	generic_env.h \
 	SocketMsg.h \
 	$(INETMANET_PROJ)/src/transport/contract/TCPCommand_m.h \
 	$(INETMANET_PROJ)/src/networklayer/common/IInterfaceTable.h \
@@ -462,21 +429,16 @@ $O/unitTest/TestSocket.o: unitTest/TestSocket.cc \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPv6Address.h \
 	$(INETMANET_PROJ)/src/util/XMLUtils.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPProtocolId_m.h \
-	$(INETMANET_PROJ)/src/base/NotificationBoard.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceTable.h \
 	Netlink.h \
-	$(INETMANET_PROJ)/src/networklayer/ipv4/RoutingTable.h \
 	$(INETMANET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPRoute.h \
-	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPAddress.h \
-	$(INETMANET_PROJ)/src/base/INotifiable.h \
-	$(INETMANET_PROJ)/src/base/ModuleAccess.h \
+	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram.h \
 	macosx_env.h \
 	zebra_env.h \
 	$(INETMANET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceToken.h \
 	$(INETMANET_PROJ)/src/transport/contract/TCPSocket.h \
+	$(INETMANET_PROJ)/src/networklayer/common/InterfaceToken.h \
 	$(INETMANET_PROJ)/src/transport/contract/TCPSocketMap.h \
 	native_env.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPvXAddress.h \
@@ -498,21 +460,16 @@ $O/unitTest/UnitTest.o: unitTest/UnitTest.cc \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPv6Address.h \
 	$(INETMANET_PROJ)/src/util/XMLUtils.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPProtocolId_m.h \
-	$(INETMANET_PROJ)/src/base/NotificationBoard.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceTable.h \
 	Netlink.h \
-	$(INETMANET_PROJ)/src/networklayer/ipv4/RoutingTable.h \
 	$(INETMANET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPRoute.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPAddress.h \
-	$(INETMANET_PROJ)/src/base/ModuleAccess.h \
-	$(INETMANET_PROJ)/src/base/INotifiable.h \
 	macosx_env.h \
 	zebra_env.h \
 	$(INETMANET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceToken.h \
 	$(INETMANET_PROJ)/src/transport/contract/TCPSocket.h \
+	$(INETMANET_PROJ)/src/networklayer/common/InterfaceToken.h \
 	native_env.h \
 	$(INETMANET_PROJ)/src/transport/contract/TCPSocketMap.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPvXAddress.h \
@@ -524,24 +481,19 @@ $O/unitTest/UnitTest.o: unitTest/UnitTest.cc \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram_m.h \
 	RawSocket.h \
 	generic_env.h \
-	$(INETMANET_PROJ)/src/transport/contract/TCPCommand_m.h \
 	$(INETMANET_PROJ)/src/networklayer/common/IInterfaceTable.h \
+	$(INETMANET_PROJ)/src/transport/contract/TCPCommand_m.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IRoutingTable.h \
 	$(INETMANET_PROJ)/src/base/NotifierConsts.h \
 	$(INETMANET_PROJ)/src/linklayer/contract/MACAddress.h
 $O/unitTest/Nothing.o: unitTest/Nothing.cc \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPv6Address.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPProtocolId_m.h \
-	$(INETMANET_PROJ)/src/base/NotificationBoard.h \
-	$(INETMANET_PROJ)/src/networklayer/common/InterfaceTable.h \
 	Netlink.h \
-	$(INETMANET_PROJ)/src/networklayer/ipv4/RoutingTable.h \
 	$(INETMANET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPRoute.h \
 	$(INETMANET_PROJ)/src/networklayer/ipv4/IPDatagram.h \
 	$(INETMANET_PROJ)/src/networklayer/contract/IPAddress.h \
-	$(INETMANET_PROJ)/src/base/ModuleAccess.h \
-	$(INETMANET_PROJ)/src/base/INotifiable.h \
 	macosx_env.h \
 	zebra_env.h \
 	$(INETMANET_PROJ)/src/transport/contract/UDPControlInfo_m.h \

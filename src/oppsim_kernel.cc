@@ -7,9 +7,9 @@
 
 #include "Daemon.h"
 
-#include "RoutingTable.h"
+#include "IRoutingTable.h"
 #include "RoutingTableAccess.h"
-#include "InterfaceTable.h"
+#include "IInterfaceTable.h"
 #include "IPv4InterfaceData.h"
 
 #include "SocketMsg.h"
@@ -130,7 +130,7 @@ long int oppsim_random(void)
 
 time_t oppsim_time(time_t *tloc)
 {
-    time_t val = zero_time + (int)simulation.simTime();
+    time_t val = zero_time + (time_t)SIMTIME_DBL(simTime());
     if(tloc)
     {
         *tloc = val;
@@ -188,7 +188,7 @@ void oppsim_exit(int status)
 
 pid_t oppsim_getpid(void)
 {
-    return DAEMON->id();
+    return DAEMON->getId();
 }
 
 int oppsim_daemon (int nochdir, int noclose)
@@ -205,8 +205,7 @@ int oppsim_gettimeofday(struct timeval *tp, struct timezone *tzp)
     ASSERT(tp);
     ASSERT(!tzp);
 
-    simtime_t ctime = simulation.simTime();
-
+    double ctime = SIMTIME_DBL(simTime());
     tp->tv_sec = zero_time + (int)ctime;
     tp->tv_usec = floor((ctime - floor(ctime)) * 1000000);
 
@@ -254,32 +253,32 @@ int oppsim_setsockopt(int socket, int level, int option_name, const void *option
         IPAddress addr = IPAddress(ntohl(iaddr->s_addr));
         EV << "IP_MULTICAST_IF: " << addr << endl;
 
-        RoutingTable *rt = RoutingTableAccess().get();
+        IRoutingTable *rt = RoutingTableAccess().get();
 
-        InterfaceEntry *ie = rt->interfaceByAddress(addr);
+        InterfaceEntry *ie = rt->getInterfaceByAddress(addr);
         if (!ie)
         {
             // don't panic, for point-to-point links destination address is used
 
-            for(int i = 0; i < rt->numRoutingEntries(); i++)
+            for(int i = 0; i < rt->getNumRoutes(); i++)
             {
-                RoutingEntry *re = rt->routingEntry(i);
+                const IPRoute *re = rt->getRoute(i);
 
-                if(!re->host.equals(addr))
+                if(!re->getHost().equals(addr))
                     continue;
 
-                if(!re->interfacePtr->isPointToPoint())
+                if(!re->getInterface()->isPointToPoint())
                     continue;
 
                 // interface found
 
-                ie = re->interfacePtr;
+                ie = re->getInterface();
                 break;
             }
         }
         if (!ie)
         {
-            // now it's offical, interface not found
+            // now it's official, interface not found
 
             opp_error("there is no interface with address %s", addr.str().c_str());
         }
@@ -287,7 +286,7 @@ int oppsim_setsockopt(int socket, int level, int option_name, const void *option
         UDPSocket *udp = dm->getIfUdpSocket(socket);
         if(udp)
         {
-            udp->setMulticastInterface(ie->interfaceId());
+            udp->setMulticastInterfaceId(ie->getInterfaceId());
 
             return 0;
         }
@@ -295,7 +294,7 @@ int oppsim_setsockopt(int socket, int level, int option_name, const void *option
         RawSocket *raw = dm->getIfRawSocket(socket);
         if(raw)
         {
-            raw->setMulticastInterface(ie->interfaceId());
+            raw->setMulticastInterfaceId(ie->getInterfaceId());
 
             return 0;
         }
@@ -316,37 +315,37 @@ int oppsim_setsockopt(int socket, int level, int option_name, const void *option
 
         EV << "interface=" << mcast_if << " multicast address=" << mcast_addr << endl;
 
-        RoutingTable *rt = RoutingTableAccess().get();
+        IRoutingTable *rt = RoutingTableAccess().get();
 
-        InterfaceEntry *ie = rt->interfaceByAddress(mcast_if);
+        InterfaceEntry *ie = rt->getInterfaceByAddress(mcast_if);
 
         ASSERT(ie);
 
         if(!ie->isMulticast())
         {
-            EV << "allowing multicast on " << ie->name() << endl;
+            EV << "allowing multicast on " << ie->getName() << endl;
             ie->setMulticast(true);
         }
 
-        std::vector<IPAddress> mcast_grps = ie->ipv4()->multicastGroups();
+        std::vector<IPAddress> mcast_grps = ie->ipv4Data()->getMulticastGroups();
 
         if(find(mcast_grps.begin(), mcast_grps.end(), mcast_addr) == mcast_grps.end())
         {
-            EV << "adding multicast membership for group " << mcast_addr << " on " << ie->name() << endl;
+            EV << "adding multicast membership for group " << mcast_addr << " on " << ie->getName() << endl;
             mcast_grps.push_back(mcast_addr);
-            ie->ipv4()->setMulticastGroups(mcast_grps);
+            ie->ipv4Data()->setMulticastGroups(mcast_grps);
         }
 
         bool found = false;
 
-        for(int i = 0; i < rt->numRoutingEntries(); i++)
+        for(int i = 0; i < rt->getNumRoutes(); i++)
         {
-            RoutingEntry *re = rt->routingEntry(i);
+            const IPRoute *re = rt->getRoute(i);
 
-            if(!re->host.equals(mcast_addr))
+            if(!re->getHost().equals(mcast_addr))
                 continue;
 
-            if(re->interfacePtr != ie)
+            if(re->getInterface() != ie)
                 continue;
 
             found = true;
@@ -354,18 +353,17 @@ int oppsim_setsockopt(int socket, int level, int option_name, const void *option
 
         if(!found)
         {
-            EV << "adding multicast route for group " << mcast_addr << " on " << ie->name() << endl;
+            EV << "adding multicast route for group " << mcast_addr << " on " << ie->getName() << endl;
 
-            RoutingEntry *re = new RoutingEntry();
-            re->host = mcast_addr;
-            re->gateway = IPAddress::UNSPECIFIED_ADDRESS;
-            re->netmask = IPAddress::ALLONES_ADDRESS;
-            re->type = RoutingEntry::DIRECT;
-            re->metric = 1;
-            re->interfacePtr = ie;
-            re->interfaceName = ie->name();
-            re->source = RoutingEntry::IFACENETMASK; // ???
-            rt->addRoutingEntry(re);
+            IPRoute *re = new IPRoute();
+            re->setHost(mcast_addr);
+            re->setGateway(IPAddress::UNSPECIFIED_ADDRESS);
+            re->setNetmask(IPAddress::ALLONES_ADDRESS);
+            re->setType(IPRoute::DIRECT);
+            re->setMetric(1);
+            re->setInterface(ie);
+            re->setSource(IPRoute::IFACENETMASK); // ???
+            rt->addRoute(re);
         }
 
         return 0;
@@ -514,8 +512,8 @@ int oppsim_getsockname(int socket, struct sockaddr *address, socklen_t *address_
     	ASSERT(*address_len >= sizeof(sockaddr_in));
 
         ((sockaddr_in*)address)->sin_family = AF_INET;
-        ((sockaddr_in*)address)->sin_port = htons(tcp->localPort());
-        ((sockaddr_in*)address)->sin_addr.s_addr = htonl(tcp->localAddress().get4().getInt());
+        ((sockaddr_in*)address)->sin_port = htons(tcp->getLocalPort());
+        ((sockaddr_in*)address)->sin_addr.s_addr = htonl(tcp->getLocalAddress().get4().getInt());
         *address_len = sizeof(struct sockaddr_in);
 
         return 0;
@@ -534,12 +532,12 @@ int getIpHeader(SocketMsg *srcMsg, IPControlInfo *srcInfo, void* &dstPtr, int &d
 
     iph->ip_v = 4;
     iph->ip_hl = header_length / sizeof(u_int32_t);
-    iph->ip_tos = srcInfo->diffServCodePoint();
-    iph->ip_len = htons(srcMsg->byteLength() + header_length);
-    iph->ip_ttl = srcInfo->timeToLive();
-    iph->ip_p = srcInfo->protocol();
-    iph->ip_src.s_addr = htonl(srcInfo->srcAddr().getInt());
-    iph->ip_dst.s_addr = htonl(srcInfo->destAddr().getInt());
+    iph->ip_tos = srcInfo->getDiffServCodePoint();
+    iph->ip_len = htons(srcMsg->getByteLength() + header_length);
+    iph->ip_ttl = srcInfo->getTimeToLive();
+    iph->ip_p = srcInfo->getProtocol();
+    iph->ip_src.s_addr = htonl(srcInfo->getSrcAddr().getInt());
+    iph->ip_dst.s_addr = htonl(srcInfo->getDestAddr().getInt());
 
     iph->ip_id = 0; // ???
     iph->ip_off = 0; // ???
@@ -574,10 +572,10 @@ ssize_t receive(int socket, void *buf, size_t nbyte, bool dgram, struct sockaddr
 
         	ASSERT(*len >= sizeof(struct sockaddr_in));
 
-        	UDPControlInfo *udpControlInfo = check_and_cast<UDPControlInfo*>(msg->controlInfo());
+        	UDPControlInfo *udpControlInfo = check_and_cast<UDPControlInfo*>(msg->getControlInfo());
         	((sockaddr_in*)addr)->sin_family = AF_INET;
-        	((sockaddr_in*)addr)->sin_port = htons(udpControlInfo->srcPort());
-        	((sockaddr_in*)addr)->sin_addr.s_addr = htonl(udpControlInfo->srcAddr().get4().getInt());
+        	((sockaddr_in*)addr)->sin_port = htons(udpControlInfo->getSrcPort());
+        	((sockaddr_in*)addr)->sin_addr.s_addr = htonl(udpControlInfo->getSrcAddr().get4().getInt());
         	*len = sizeof(struct sockaddr_in);
         }
 
@@ -635,7 +633,7 @@ ssize_t receive_raw(int socket, struct msghdr *message, int flags)
     ASSERT(!flags || flags == MSG_PEEK);
 
     SocketMsg *msg = check_and_cast<SocketMsg*>(dm->getSocketMessage(socket, !peek));
-    IPControlInfo *ipControlInfo = check_and_cast<IPControlInfo*>(msg->controlInfo());
+    IPControlInfo *ipControlInfo = check_and_cast<IPControlInfo*>(msg->getControlInfo());
 
     if(message->msg_name)
     {
@@ -643,7 +641,7 @@ ssize_t receive_raw(int socket, struct msghdr *message, int flags)
         struct sockaddr_in *inaddr = (sockaddr_in*)message->msg_name;
         inaddr->sin_family = AF_INET;
         inaddr->sin_port = htons(0);
-        inaddr->sin_addr.s_addr = htonl(ipControlInfo->srcAddr().getInt());
+        inaddr->sin_addr.s_addr = htonl(ipControlInfo->getSrcAddr().getInt());
     }
 
     message->msg_flags = 0;
@@ -682,7 +680,7 @@ ssize_t receive_raw(int socket, struct msghdr *message, int flags)
         cmsg->cmsg_type = IP_PKTINFO;
         cmsg->cmsg_len = sizeof(int) + sizeof(struct cmsghdr);
 
-        int interfaceId = ipControlInfo->interfaceId();
+        int interfaceId = ipControlInfo->getInterfaceId();
         ASSERT(interfaceId >= 0);
         *(int*)CMSG_DATA(cmsg) = interfaceId;
 
@@ -806,7 +804,7 @@ ssize_t nl_request(int socket, const void *message, size_t length, int flags)
         {
             EV << "RTM_DELROUTE create request" << endl;
 
-            RoutingEntry* re = nl->route_command(req->nlh.nlmsg_type, (ret_t*)message);
+            IPRoute* re = nl->route_command(req->nlh.nlmsg_type, (ret_t*)message);
 
             nl->appendResult(nl->listRoutes(re));
 
@@ -821,7 +819,7 @@ ssize_t nl_request(int socket, const void *message, size_t length, int flags)
         {
             EV << "RTM_NEWROUTE create request" << endl;
 
-            RoutingEntry* re = nl->route_command(req->nlh.nlmsg_type, (ret_t*)message);
+            IPRoute* re = nl->route_command(req->nlh.nlmsg_type, (ret_t*)message);
 
             nl->appendResult(nl->listRoutes(re));
 
@@ -1011,11 +1009,11 @@ int oppsim_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds,
 
     int success = 0;
 
-    double limit;
+    simtime_t limit;
     if(timeout)
     {
-        limit = simulation.simTime() + (double)timeout->tv_sec + (double)timeout->tv_usec/1000000;
-        ASSERT(limit > simulation.simTime());
+        limit = simTime() + (double)timeout->tv_sec + (double)timeout->tv_usec/1000000;
+        ASSERT(limit > simTime());
     }
 
     while(!success)
@@ -1051,7 +1049,7 @@ int oppsim_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds,
             {
             	if((tcp = current_module->getIfTcpSocket(i)) != NULL)
             	{
-            		if(tcp->state() == TCPSocket::CONNECTED)
+            		if(tcp->getState() == TCPSocket::CONNECTED)
             		{
             			EV << "write " << i << "(TCP socket connected)" << endl;
             			++success;
@@ -1086,7 +1084,7 @@ int oppsim_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds,
 
         if(timeout)
         {
-            simtime_t d = limit - simulation.simTime();
+            simtime_t d = limit - simTime();
             if(!dm->receiveAndHandleMessage(d, "select"))
                return 0; // timeout received before any event arrived
         }
@@ -1133,7 +1131,7 @@ int oppsim_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds,
 
             if((tcp = current_module->getIfTcpSocket(i)) != NULL)
             {
-            	if(tcp->state() == TCPSocket::CONNECTED)
+            	if(tcp->getState() == TCPSocket::CONNECTED)
             	{
             		EV << " active (connected TCP socket)" << endl;
             		active = true;
@@ -1348,8 +1346,8 @@ int oppsim_accept(int socket, struct sockaddr *address, socklen_t *address_len)
 
         TCPSocket *tcp = current_module->getTcpSocket(csocket);
         inaddr->sin_family = AF_INET;
-        inaddr->sin_port = htons(tcp->remotePort());
-        inaddr->sin_addr.s_addr = htonl(tcp->remoteAddress().get4().getInt());
+        inaddr->sin_port = htons(tcp->getRemotePort());
+        inaddr->sin_addr.s_addr = htonl(tcp->getRemoteAddress().get4().getInt());
     }
 
     return csocket;
@@ -1496,8 +1494,8 @@ int oppsim_getpeername(int socket, struct sockaddr *address, socklen_t *address_
     struct sockaddr_in *inaddr = (struct sockaddr_in*)address;
 
     inaddr->sin_family = AF_INET;
-    inaddr->sin_port = htons(tcp->remotePort());
-    inaddr->sin_addr.s_addr = htonl(tcp->remoteAddress().get4().getInt());
+    inaddr->sin_port = htons(tcp->getRemotePort());
+    inaddr->sin_addr.s_addr = htonl(tcp->getRemoteAddress().get4().getInt());
 
     *address_len = sizeof(struct sockaddr_in);
 

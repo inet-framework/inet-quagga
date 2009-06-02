@@ -26,7 +26,7 @@ class UnitTest : public Daemon
 		virtual void execute();\
 };\
 \
-Define_Module_Like(unit, UnitTest);\
+Define_Module(unit);\
 \
 void unit::execute()
 

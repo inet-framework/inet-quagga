@@ -69,14 +69,14 @@ class Daemon : public cSimpleModule, public TCPSocket::CallbackInterface, public
         int createStream(const char *path, char *mode);
 
         void handleReceivedMessage(cMessage *msg);
-        bool receiveAndHandleMessage(double timeout, const char *cmd);
-        void sleep(double interval);
+        bool receiveAndHandleMessage(simtime_t timeout, const char *cmd);
+        void sleep(simtime_t interval);
 
         bool hasQueuedConnections(int socket);
         int acceptTcpSocket(int socket);
 		int connectTcpSocket(int socket, IPAddress destAddr, int destPort);
         void enqueueConnection(int socket, int csocket);
-        cMessage* getSocketMessage(int socket, bool remove=false);
+        cPacket* getSocketMessage(int socket, bool remove=false);
         void enqueueSocketMessage(int socket, cMessage *msg);
 
         void closeSocket(int socket);
@@ -88,13 +88,12 @@ class Daemon : public cSimpleModule, public TCPSocket::CallbackInterface, public
 
         void setBlocked(bool b);
 
-        virtual void socketDataArrived(int connId, void *yourPtr, cMessage *msg, bool urgent);
+        virtual void socketDataArrived(int connId, void *yourPtr, cPacket *msg, bool urgent);
         virtual void socketEstablished(int connId, void *yourPtr);
         virtual void socketClosed(int connId, void *yourPtr) { ASSERT(false); }
         virtual void socketPeerClosed(int connId, void *yourPtr);
         virtual void socketFailure(int connId, void *yourPtr, int code);
         virtual void socketDatagramArrived(int sockId, void *yourPtr, cMessage *msg, UDPControlInfo *ctrl);
-
 
         struct_sigaction* sigactionimpl(int signo);
         std::string getcwd();
@@ -148,7 +147,7 @@ class Daemon : public cSimpleModule, public TCPSocket::CallbackInterface, public
 
 extern Daemon *current_module;
 
-#define DAEMON          (check_and_cast<Daemon*>(simulation.activityModule()))
+#define DAEMON          (check_and_cast<Daemon*>(simulation.getActivityModule()))
 
 #ifdef __cplusplus
 extern "C" {

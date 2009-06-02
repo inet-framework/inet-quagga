@@ -13,7 +13,7 @@ Define_Module(Zebra);
 void Zebra::activity()
 {
 	Daemon::init();
-	
+
 	// randomize start
     wait(uniform(0, 0.001));
     current_module = this;
@@ -22,6 +22,6 @@ void Zebra::activity()
 
     EV << "ready for zebra_main_entry()" << endl;
 
-	char *cmdline[] = { "zebra", NULL };
+	char *cmdline[] = { (char*)"zebra", NULL };
     zebra_main_entry(1, cmdline);
 }
