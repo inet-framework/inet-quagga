@@ -1,4 +1,3 @@
-!include "../../../../../inetconfig.vc"
 
 SOURCES = \
 	zserv.c main.c interface.c connected.c zebra_rib.c \

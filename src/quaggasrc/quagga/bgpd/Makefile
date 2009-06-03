@@ -1,4 +1,3 @@
-include ../../../../../inetconfig
 
 SOURCES = \
 	bgpd.c bgp_fsm.c bgp_aspath.c bgp_community.c bgp_attr.c \
@@ -21,7 +20,7 @@ OBJECTS = \
 	bgp_dump.o bgp_snmp.o bgp_ecommunity.o bgp_mplsvpn.o bgp_nexthop.o \
 	bgp_damp.o bgp_table.o bgp_advertise.o bgp_vty.o bgp_main.o
 
-INCLUDES = -I./ -I../ -I../lib/ -I../../../
+INCLUDES = -I. -I.. -I../lib -I../../..
 
 DEFS = -DHAVE_CONFIG_H -DBGPD
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions

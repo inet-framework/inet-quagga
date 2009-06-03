@@ -1,4 +1,3 @@
-!include "../../../../../inetconfig.vc"
 
 SOURCES = \
 	ospf_abr.c ospf_flood.c ospf_neighbor.c ospf_snmp.c \

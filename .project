@@ -3,7 +3,7 @@
 	<name>inet-quagga</name>
 	<comment></comment>
 	<projects>
-		<project>inetmanet</project>
+		<project>inet</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
