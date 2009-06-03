@@ -1,4 +1,3 @@
-!include "../../../../../inetconfig.vc"
 
 SOURCES = \
         network.c pid_output.c getopt.c getopt1.c \

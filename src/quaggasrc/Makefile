@@ -1,4 +1,3 @@
-include ../../../inetconfig
 
 all:
 	cd quagga && $(MAKE)

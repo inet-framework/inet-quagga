@@ -1,8 +1,6 @@
 
-message SocketMsg
+packet SocketMsg
 {
-    properties:
-    	customize = true;
-    fields:
-    	char data[];
-};
+    @customize(true);
+    char data[];
+}

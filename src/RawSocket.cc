@@ -102,5 +102,5 @@ void RawSocket::sendToIP(cMessage *msg)
     if (!gateToIP)
         opp_error("RawSocket: setOutputGate() must be invoked before socket can be used");
 
-    check_and_cast<cSimpleModule *>(gateToIP->ownerModule())->send(msg, gateToIP);
+    check_and_cast<cSimpleModule *>(gateToIP->getOwnerModule())->send(msg, gateToIP);
 }

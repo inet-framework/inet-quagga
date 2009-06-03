@@ -1,9 +1,6 @@
-include ../../../../inetconfig
+INCLUDES = -I. -I./lib -I../..
 
-INCLUDES = -I./ -I./lib -I../../
-
-DEFS = -DHAVE_CONFIG_H
-CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
+CFLAGS += $(INCLUDES) -DHAVE_CONFIG_H -fPIC -Wimplicit -fexceptions
 
 all: libdir ripddir zebradir ospfdir bgpddir globalvars.o
 

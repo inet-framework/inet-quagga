@@ -16,16 +16,14 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-
-
-
-package inet.nodes.inet;
+package org.omnetpp.inet.networklayer.quagga;
 
 import inet.base.NotificationBoard;
-import inet.networkinterfaces.ethernet.EthernetInterface;
-import inet.networkinterfaces.ppp.PPPInterface;
-import inet.networklayer.contract.InterfaceTable;
+import inet.linklayer.ethernet.EthernetInterface;
+import inet.linklayer.ppp.PPPInterface;
+import inet.networklayer.common.InterfaceTable;
 import inet.networklayer.ipv4.RoutingTable;
+import inet.nodes.inet.NetworkLayer;
 import inet.transport.tcp.TCP;
 import inet.transport.udp.UDP;
 import inet.util.NAMTraceWriter;
@@ -104,23 +102,23 @@ module QuaggaRouter
             ppp[i].netwIn <-- networkLayer.ifOut[i];
         }
 
-        tcp.to_ip --> networkLayer.TCPIn;
-        tcp.from_ip <-- networkLayer.TCPOut;
+        tcp.ipOut --> networkLayer.tcpIn;
+        tcp.ipIn <-- networkLayer.TCPOut;
 
-        udp.to_ip --> networkLayer.UDPIn;
-        udp.from_ip <-- networkLayer.UDPOut;
+        udp.ipOut --> networkLayer.udpIn;
+        udp.ipIn <-- networkLayer.udpOut;
 
-        zebra.tcpIn <-- tcp.to_appl++;
-        zebra.tcpOut --> tcp.from_appl++;
+        zebra.tcpIn <-- tcp.appOut++;
+        zebra.tcpOut --> tcp.appIn++;
 
-        router.tcpIn <-- tcp.to_appl++;
-        router.tcpOut --> tcp.from_appl++;
+        router.tcpIn <-- tcp.appOut++;
+        router.tcpOut --> tcp.appIn++;
 
-        router.udpIn <-- udp.to_app++;
-        router.udpOut --> udp.from_app++;
+        router.udpIn <-- udp.appOut++;
+        router.udpOut --> udp.appIn++;
 
-        router.ipOut --> networkLayer.OSPFIn;
-        router.ipIn <-- networkLayer.OSPFOut;
+        router.ipOut --> networkLayer.ospfIn;
+        router.ipIn <-- networkLayer.ospfOut;
 
         for i=0..sizeof(ethg)-1 {
             ethg[i] <--> eth[i].phys;

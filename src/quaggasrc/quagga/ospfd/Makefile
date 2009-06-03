@@ -1,4 +1,3 @@
-include ../../../../../inetconfig
 
 SOURCES = \
 	ospf_abr.c ospf_flood.c ospf_neighbor.c ospf_snmp.c \
@@ -26,7 +25,7 @@ OBJECTS = \
 	ospfd.o ospf_lsdb.o ospf_route.o ospf_dump.o \
 	ospf_main.o ospf_routemap.o
 
-INCLUDES = -I./ -I../ -I../lib/ -I../../../
+INCLUDES = -I. -I.. -I../lib -I../../..
 
 DEFS = -DHAVE_CONFIG_H -DOSPFD
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions

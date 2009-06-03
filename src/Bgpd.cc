@@ -13,7 +13,7 @@ Define_Module(Bgpd);
 void Bgpd::activity()
 {
 	Daemon::init();
-	
+
 	// randomize start
     wait(uniform(0.001, 0.002));
     current_module = this;
@@ -22,6 +22,6 @@ void Bgpd::activity()
 
     EV << "ready for bgpd_main_entry()" << endl;
 
-	char *cmdline[] = { "bgpd", NULL };
+	char *cmdline[] = { (char*)"bgpd", NULL };
     bgpd_main_entry(1, cmdline);
 }

@@ -22,6 +22,6 @@ void Ospfd::activity()
 
     EV << "ready for ospfd_main_entry()" << endl;
 
-	char *cmdline[] = { "ospfd", NULL };
+	char *cmdline[] = { (char*)"ospfd", NULL };
     ospfd_main_entry(1, cmdline);
 }

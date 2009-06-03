@@ -1,11 +1,11 @@
 
-package org.omnetpp.inet.examples.Quagga.OSPFBackbone;
+package ospfBackbone;
 
+import inet.linklayer.ethernet.EtherHub;
+import inet.nodes.inet.StandardHost;
+import inet.world.ChannelInstaller;
 import ned.DatarateChannel;
-import org.omnetpp.inet.NetworkInterfaces.Ethernet.EtherHub;
-import org.omnetpp.inet.Nodes.INET.QuaggaRouter;
-import org.omnetpp.inet.Nodes.INET.StandardHost;
-import org.omnetpp.inet.World.ChannelInstaller;
+import org.omnetpp.inet.networklayer.quagga.QuaggaRouter;
 
 
 network QuaggaOSPFBackbone

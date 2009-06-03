@@ -21,7 +21,7 @@ class SocketMsg : public SocketMsg_Base
 {
   public:
     SocketMsg(const char *name=NULL, int kind=0) : SocketMsg_Base(name,kind) {}
-    SocketMsg(const SocketMsg& other) : SocketMsg_Base(other.name()) {operator=(other);}
+    SocketMsg(const SocketMsg& other) : SocketMsg_Base(other.getName()) {operator=(other);}
     SocketMsg& operator=(const SocketMsg& other) {SocketMsg_Base::operator=(other); return *this;}
     virtual SocketMsg *dup() const {return new SocketMsg(*this);}
 

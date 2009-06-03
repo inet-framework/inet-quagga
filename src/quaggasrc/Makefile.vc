@@ -1,4 +1,3 @@
-!include "../../../inetconfig.vc"
 
 all:
 	cd quagga && nmake /nologo /f Makefile.vc

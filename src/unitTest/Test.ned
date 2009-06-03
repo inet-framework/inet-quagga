@@ -1,9 +1,8 @@
 
-package org.omnetpp.inet.Network.Quagga.UnitTest;
+package org.omnetpp.inet.networklayer.quagga.unitTest;
 
+import inet.world.ChannelInstaller;
 import ned.DatarateChannel;
-import org.omnetpp.inet.World.ChannelInstaller;
-
 
 
 network Test

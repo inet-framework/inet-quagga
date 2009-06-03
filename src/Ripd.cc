@@ -13,7 +13,7 @@ Define_Module(Ripd);
 void Ripd::activity()
 {
 	Daemon::init();
-	
+
 	// randomize start
     wait(uniform(0.001, 0.002));
     current_module = this;
@@ -22,7 +22,7 @@ void Ripd::activity()
 
     EV << "ready for ripd_main_entry()" << endl;
 
-	char *cmdline[] = { "ripd", NULL };
-	
-    ripd_main_entry(1, cmdline);	
+	char *cmdline[] = { (char*)"ripd", NULL };
+
+    ripd_main_entry(1, cmdline);
 }

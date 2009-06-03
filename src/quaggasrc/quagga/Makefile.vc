@@ -1,6 +1,5 @@
-!include "../../../../inetconfig.vc"
-
 INCLUDES= -I. -I./lib -I../..
+
 CFLAGS= /nologo $(INCLUDES) $(CFLAGS) -DHAVE_CONFIG_H
 
 all: libdir ripddir zebradir ospfdir bgpddir globalvars.obj

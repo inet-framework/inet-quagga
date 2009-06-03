@@ -6,10 +6,8 @@
 class UnitTest : public Daemon
 {
 	public:
-		Module_Class_Members(UnitTest, Daemon, 32768);
-		
 		virtual void activity();
-		
+
 	protected:
 		cXMLElement *config;
 		cXMLElement *outp;
@@ -17,19 +15,18 @@ class UnitTest : public Daemon
 		void output(std::stringstream& s);
 		virtual void execute() = 0;
 		virtual void finish();
-		
+
 	private:
-		std::vector<std::string> outMessage;					
+		std::vector<std::string> outMessage;
 };
 
 #define	UNIT_TEST(unit)	class unit : public UnitTest\
 {\
 	public:\
-		Module_Class_Members(unit, UnitTest, 32768);\
 		virtual void execute();\
 };\
 \
-Define_Module_Like(unit, UnitTest);\
+Define_Module(unit);\
 \
 void unit::execute()
 

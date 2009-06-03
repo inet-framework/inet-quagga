@@ -1,4 +1,3 @@
-include ../../../../../inetconfig
 
 SOURCES = \
         network.c pid_output.c getopt.c getopt1.c \
@@ -23,7 +22,7 @@ OBJECTS = \
         zclient.o sockopt.o smux.o md5.o if_rmap.o keychain.o privs.o \
         sigevent.o pqueue.o jhash.o
 
-INCLUDES = -I./ -I../ -I../../../
+INCLUDES = -I. -I.. -I../../..
 
 DEFS = -DHAVE_CONFIG_H
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions

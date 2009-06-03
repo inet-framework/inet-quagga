@@ -20,8 +20,8 @@
 
 #include "zebra_env.h"
 
-#include "InterfaceTable.h"
-#include "RoutingTable.h"
+#include "IInterfaceTable.h"
+#include "IRoutingTable.h"
 
 // netlink attribute manipulation ********************************************
 
@@ -81,19 +81,19 @@ class Netlink
 
         NetlinkResult listInterfaces();
         NetlinkResult listAddresses();
-        NetlinkResult listRoutes(RoutingEntry *entry = NULL);
-        RoutingEntry* route_command(int cmd_type, ret_t* rm);
+        NetlinkResult listRoutes(IPRoute *entry = NULL);
+        IPRoute* route_command(int cmd_type, ret_t* rm);
 
         void bind(int pid);
 
     private:
         std::list<NetlinkResult> results;
 
-        InterfaceTable *ift;
-        RoutingTable *rt;
+        IInterfaceTable *ift;
+        IRoutingTable *rt;
 
         void route_del(IPAddress destAddr, IPAddress netmaskAddr, IPAddress gwAddr, int index, int metric);
-        RoutingEntry* route_new(IPAddress destAddr, IPAddress netmaskAddr, IPAddress gwAddr, int index, int metric);
+        IPRoute* route_new(IPAddress destAddr, IPAddress netmaskAddr, IPAddress gwAddr, int index, int metric);
 };
 
 #endif

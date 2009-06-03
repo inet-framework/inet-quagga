@@ -3,10 +3,9 @@
 
 #include "Daemon.h"
 
-class Bgpd : public Daemon 
+class Bgpd : public Daemon
 {
 	public:
-		Module_Class_Members(Bgpd, Daemon, 32768);
 		virtual void activity();
 };
 

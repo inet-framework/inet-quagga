@@ -1,4 +1,3 @@
-!include "../../../../../inetconfig.vc"
 
 SOURCES = \
 	ripd.c rip_zebra.c rip_interface.c rip_debug.c rip_snmp.c \

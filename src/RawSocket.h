@@ -24,7 +24,7 @@ class RawSocket
         void setPktinfo(bool b) { pktinfo = b; }
         void setMulticastLoop(bool b) { multicastLoop = b; }
         void setMulticastTtl(bool b) { multicastTtl = b; }
-        void setMulticastInterface(int n) { multicastOutputInterfaceId = n; }
+        void setMulticastInterfaceId(int n) { multicastOutputInterfaceId = n; }
 
     private:
 

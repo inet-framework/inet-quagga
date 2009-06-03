@@ -1,4 +1,3 @@
-include ../../../../../inetconfig
 
 SOURCES = \
 	zserv.c main.c interface.c connected.c zebra_rib.c \
@@ -24,7 +23,7 @@ OBJECTS = \
 	if_proc.o if_netlink.o \
 	ioctl.o
 
-INCLUDES = -I./ -I../ -I../lib/ -I../../../
+INCLUDES = -I. -I.. -I../lib -I../../..
 
 DEFS = -DHAVE_CONFIG_H -DZEBRA
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
