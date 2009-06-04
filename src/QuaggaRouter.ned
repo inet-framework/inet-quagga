@@ -90,7 +90,7 @@ module QuaggaRouter
             parameters:
                 @display("p=150, 150");
         }
-        router: <routingDaemon> like Zebra {
+        router: <routingDaemon> like IQuaggaDaemon {
             parameters:
                 @display("p=250, 150");
         }
