@@ -12,10 +12,11 @@
 
 package org.omnetpp.inet.networklayer.quagga;
 
-simple Bgpd
+simple Bgpd like IQuaggaDaemon
 {
     parameters:
         string fsroot;
+        @display("i=block/network2");
     gates:
         input tcpIn;
         output tcpOut;

@@ -12,11 +12,10 @@
 
 package org.omnetpp.inet.networklayer.quagga;
 
-simple Ripd like IQuaggaDaemon
+moduleinterface IQuaggaDaemon
 {
     parameters:
         string fsroot;
-        @display("i=block/network2");
     gates:
         input tcpIn;
         output tcpOut;

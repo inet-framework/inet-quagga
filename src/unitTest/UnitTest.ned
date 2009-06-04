@@ -12,12 +12,57 @@
 
 package org.omnetpp.inet.networklayer.quagga.unitTest;
 
-simple UnitTest
+moduleinterface IUnitTest
 {
     parameters:
         string fsroot;
         xml config;
-        xml output1;
+        xml expectedOutput;
+    gates:
+        input tcpIn;
+        output tcpOut;
+        input udpIn;
+        output udpOut;
+        input ipIn;
+        output ipOut;
+}
+
+simple Nothing like IUnitTest
+{
+    parameters:
+        string fsroot;
+        xml config;
+        xml expectedOutput;
+    gates:
+        input tcpIn;
+        output tcpOut;
+        input udpIn;
+        output udpOut;
+        input ipIn;
+        output ipOut;
+}
+
+simple TestSocket_writer like IUnitTest
+{
+    parameters:
+        string fsroot;
+        xml config;
+        xml expectedOutput;
+    gates:
+        input tcpIn;
+        output tcpOut;
+        input udpIn;
+        output udpOut;
+        input ipIn;
+        output ipOut;
+}
+
+simple TestSocket_reader like IUnitTest
+{
+    parameters:
+        string fsroot;
+        xml config;
+        xml expectedOutput;
     gates:
         input tcpIn;
         output tcpOut;

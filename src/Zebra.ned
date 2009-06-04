@@ -12,11 +12,11 @@
 
 package org.omnetpp.inet.networklayer.quagga;
 
-simple Zebra
+simple Zebra like IQuaggaDaemon
 {
     parameters:
         string fsroot;
-        @display("i=block/cogwheel");
+        @display("i=block/network2");
     gates:
         input tcpIn;
         output tcpOut;

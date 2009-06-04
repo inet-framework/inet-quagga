@@ -5,7 +5,7 @@ SOURCES = \
         sockunion.c prefix.c thread.c if.c memory.c buffer.c table.c hash.c \
         filter.c routemap.c distribute.c stream.c str.c log.c plist.c \
         zclient.c sockopt.c smux.c md5.c if_rmap.c keychain.c privs.c \
-        sigevent.c pqueue.c jhash.c
+        sigevent.c pqueue.c jhash.c regex.c
 
 HEADERS = \
 	buffer.h command.h filter.h getopt.h hash.h if.h linklist.h log.h \
@@ -20,7 +20,7 @@ OBJECTS = \
         sockunion.o prefix.o thread.o if.o memory.o buffer.o table.o hash.o \
         filter.o routemap.o distribute.o stream.o str.o log.o plist.o \
         zclient.o sockopt.o smux.o md5.o if_rmap.o keychain.o privs.o \
-        sigevent.o pqueue.o jhash.o
+        sigevent.o pqueue.o jhash.o regex.o
 
 INCLUDES = -I. -I.. -I../../..
 
