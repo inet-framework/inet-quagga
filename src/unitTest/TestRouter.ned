@@ -16,6 +16,8 @@ module TestRouter
         string routingFile;
         string routerId;
         string testUnit;
+
+        @display("i=abstract/router");
     gates:
         inout pppg[];
     submodules:
@@ -38,10 +40,10 @@ module TestRouter
             parameters:
                 @display("p=200,341;q=queue");
             gates:
-                ifIn[sizeof(out)];
-                ifOut[sizeof(out)];
+                ifIn[sizeof(pppg)];
+                ifOut[sizeof(pppg)];
         }
-        ppp[sizeof(out)]: PPPInterface {
+        ppp[sizeof(pppg)]: PPPInterface {
             parameters:
                 @display("p=90,457,row,110;q=l2queue");
         }
@@ -59,7 +61,7 @@ module TestRouter
         }
     connections allowunconnected:
         // connections to network outside
-        for i=0..sizeof(out)-1 {
+        for i=0..sizeof(pppg)-1 {
             pppg[i] <--> ppp[i].phys;
             ppp[i].netwOut --> networkLayer.ifIn[i];
             ppp[i].netwIn <-- networkLayer.ifOut[i];

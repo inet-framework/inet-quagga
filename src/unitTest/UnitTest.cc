@@ -35,7 +35,9 @@ void UnitTest::finish()
 		if(strcmp(outMessage[i].c_str(), list[i]->getNodeValue()))
 			match = false;
 
-	if(!match)
+	EV << getFullPath() << ": " << (match ? "PASS" : "FAIL") << endl;
+
+	if (!match)
 	{
 		EV << "Expected:" << endl;
 		for(int i = 0; i < (int)list.size(); i++)

@@ -12,7 +12,7 @@ network Test
         {
             parameters:
                 delay = 10ms;
-                datarate = 100000;
+                datarate = 100Kbps;
         }
     submodules:
         channelInstaller: ChannelInstaller {
@@ -37,7 +37,7 @@ network Test
             parameters:
                 @display("p=150,100");
             gates:
-                pppg[4];
+                pppg[3];
         }
         r4: TestRouter {
             parameters:
