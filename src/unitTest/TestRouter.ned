@@ -10,17 +10,6 @@ import inet.transport.tcp.TCP;
 import inet.transport.udp.UDP;
 
 
-moduleinterface TestNop
-{
-    gates:
-        input tcpIn;
-        output tcpOut;
-        input udpIn;
-        output udpOut;
-        input ipIn;
-        output ipOut;
-}
-
 module TestRouter
 {
     parameters:
@@ -64,7 +53,7 @@ module TestRouter
             parameters:
                 @display("p=300,250");
         }
-        unit: <testUnit> like TestNop {
+        unit: <testUnit> like IUnitTest {
             parameters:
                 @display("p=250, 150");
         }

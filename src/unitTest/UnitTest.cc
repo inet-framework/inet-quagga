@@ -7,12 +7,11 @@ void UnitTest::activity()
 {
 	Daemon::init();
 	config = par("config").xmlValue();
-	outp = par("output").xmlValue();
+	outp = par("expectedOutput").xmlValue();
 	execute();
-	
-	// XXX FIXME: oppsim_exit???
+
 	cQueue queue;
-	while(true)	waitAndEnqueue(100000, &queue);  
+	while(true)	waitAndEnqueue(100000, &queue);
 }
 
 void UnitTest::output(std::string s)
@@ -30,25 +29,24 @@ void UnitTest::output(std::stringstream& s)
 void UnitTest::finish()
 {
 	cXMLElementList list = outp->getChildrenByTagName("line");
-	
+
 	bool match = (list.size() == outMessage.size());
-	for(int i = 0; match && i < list.size(); i++)
-	{
-		if(strcmp(outMessage[i].c_str(), list[i]->getNodeValue())) match = false;
-	}
+	for(int i = 0; match && i < (int)list.size(); i++)
+		if(strcmp(outMessage[i].c_str(), list[i]->getNodeValue()))
+			match = false;
 
 	if(!match)
 	{
 		EV << "Expected:" << endl;
-		for(int i = 0; i < list.size(); i++)
+		for(int i = 0; i < (int)list.size(); i++)
 			EV << list[i]->getNodeValue() << endl;
 
 		EV << "Got:" << endl;
-		for(int i = 0; i < outMessage.size(); i++)
+		for(int i = 0; i < (int)outMessage.size(); i++)
 			EV << outMessage[i] << endl;
-		
+
 		opp_error("Test failed");
-	}	
+	}
 }
 
 inline char nextChar(char c)
