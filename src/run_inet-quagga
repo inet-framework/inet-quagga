@@ -1,0 +1,8 @@
+#! /bin/sh 
+DIR=`dirname $0`
+
+if [ -x $DIR/inet-quagga -o -x $DIR/inet-quagga.exe ]; then
+  $DIR/inet-quagga -n $DIR/../examples:$DIR/../../inet/src:$DIR $*
+else
+  opp_run -l $DIR/inet-quagga -n $DIR/../examples:$DIR/../../inet/src:$DIR $*
+fi
