@@ -15,6 +15,8 @@ INCLUDES = -I. -I.. -I../lib -I../../..
 DEFS = -DHAVE_CONFIG_H -DRIPD
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
 
+include ../../../../Makefile.inc
+
 all: ripd.a
 
 ripd.a: $(OBJECTS) $(HEADERS) $(SOURCES)

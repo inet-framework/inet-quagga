@@ -25,6 +25,8 @@ INCLUDES = -I. -I.. -I../lib -I../../..
 DEFS = -DHAVE_CONFIG_H -DBGPD
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
 
+include ../../../../Makefile.inc
+
 all: bgpd.a
 
 bgpd.a: $(OBJECTS) $(HEADERS) $(SOURCES)

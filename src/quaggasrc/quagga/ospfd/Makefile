@@ -30,6 +30,8 @@ INCLUDES = -I. -I.. -I../lib -I../../..
 DEFS = -DHAVE_CONFIG_H -DOSPFD
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
 
+include ../../../../Makefile.inc
+
 all: ospfd.a
 
 ospfd.a: $(OBJECTS) $(HEADERS) $(SOURCES)

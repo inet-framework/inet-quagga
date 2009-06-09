@@ -27,6 +27,8 @@ INCLUDES = -I. -I.. -I../../..
 DEFS = -DHAVE_CONFIG_H
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
 
+include ../../../../Makefile.inc
+
 all: libzebra.a
 
 libzebra.a: $(OBJECTS) $(HEADERS) $(SOURCES)
