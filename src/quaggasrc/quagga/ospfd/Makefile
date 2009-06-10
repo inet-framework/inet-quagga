@@ -1,3 +1,9 @@
+include ../../../../Makefile.inc
+ifeq ($(MODE),debug)
+CFLAGS=-g -Wall
+else
+CFLAGS=-O2
+endif
 
 SOURCES = \
 	ospf_abr.c ospf_flood.c ospf_neighbor.c ospf_snmp.c \
@@ -29,8 +35,6 @@ INCLUDES = -I. -I.. -I../lib -I../../..
 
 DEFS = -DHAVE_CONFIG_H -DOSPFD
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
-
-include ../../../../Makefile.inc
 
 all: ospfd.a
 

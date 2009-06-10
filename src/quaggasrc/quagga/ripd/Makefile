@@ -1,3 +1,9 @@
+include ../../../../Makefile.inc
+ifeq ($(MODE),debug)
+CFLAGS=-g -Wall
+else
+CFLAGS=-O2
+endif
 
 SOURCES = \
 	ripd.c rip_zebra.c rip_interface.c rip_debug.c rip_snmp.c \
@@ -14,8 +20,6 @@ INCLUDES = -I. -I.. -I../lib -I../../..
 
 DEFS = -DHAVE_CONFIG_H -DRIPD
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
-
-include ../../../../Makefile.inc
 
 all: ripd.a
 

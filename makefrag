@@ -1,9 +1,5 @@
-preAll:>Makefile.inc all
+submakedirs: Makefile.inc
 
 .PHONY: Makefile.inc
 Makefile.inc:
-ifeq ($(MODE),debug)
-	echo "CFLAGS+=$(CFLAGS_DEBUG)" >Makefile.inc
-else
-	echo "CFLAGS+=$(CFLAGS_RELEASE)" >Makefile.inc
-endif
+	@echo "MODE=$(MODE)" >Makefile.inc

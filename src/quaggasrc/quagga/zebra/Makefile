@@ -1,3 +1,9 @@
+include ../../../../Makefile.inc
+ifeq ($(MODE),debug)
+CFLAGS=-g -Wall
+else
+CFLAGS=-O2
+endif
 
 SOURCES = \
 	zserv.c main.c interface.c connected.c zebra_rib.c \
@@ -27,8 +33,6 @@ INCLUDES = -I. -I.. -I../lib -I../../..
 
 DEFS = -DHAVE_CONFIG_H -DZEBRA
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
-
-include ../../../../Makefile.inc
 
 all: zebra.a
 

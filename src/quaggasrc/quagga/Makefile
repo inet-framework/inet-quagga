@@ -1,3 +1,10 @@
+include ../../../Makefile.inc
+ifeq ($(MODE),debug)
+CFLAGS=-g -Wall
+else
+CFLAGS=-O2
+endif
+
 INCLUDES = -I. -I./lib -I../..
 
 CFLAGS += $(INCLUDES) -DHAVE_CONFIG_H -fPIC -Wimplicit -fexceptions

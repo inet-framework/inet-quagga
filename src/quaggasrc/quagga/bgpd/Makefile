@@ -1,3 +1,9 @@
+include ../../../../Makefile.inc
+ifeq ($(MODE),debug)
+CFLAGS=-g -Wall
+else
+CFLAGS=-O2
+endif
 
 SOURCES = \
 	bgpd.c bgp_fsm.c bgp_aspath.c bgp_community.c bgp_attr.c \
@@ -24,8 +30,6 @@ INCLUDES = -I. -I.. -I../lib -I../../..
 
 DEFS = -DHAVE_CONFIG_H -DBGPD
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
-
-include ../../../../Makefile.inc
 
 all: bgpd.a
 

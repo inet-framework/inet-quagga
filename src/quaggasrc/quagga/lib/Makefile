@@ -1,3 +1,9 @@
+include ../../../../Makefile.inc
+ifeq ($(MODE),debug)
+CFLAGS=-g -Wall
+else
+CFLAGS=-O2
+endif
 
 SOURCES = \
         network.c pid_output.c getopt.c getopt1.c \
@@ -26,8 +32,6 @@ INCLUDES = -I. -I.. -I../../..
 
 DEFS = -DHAVE_CONFIG_H
 CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
-
-include ../../../../Makefile.inc
 
 all: libzebra.a
 
