@@ -1,5 +1,0 @@
-submakedirs: Makefile.inc
-
-.PHONY: Makefile.inc
-Makefile.inc:
-	@echo "MODE=$(MODE)" >Makefile.inc

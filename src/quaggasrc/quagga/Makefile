@@ -32,5 +32,5 @@ clean:
 	(cd zebra; make clean)
 	(cd ospfd; make clean)
 	(cd bgpd; make clean)
-	rm globalvars.o
+	rm -f globalvars.o
 
