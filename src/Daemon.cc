@@ -468,7 +468,9 @@ void Daemon::handleReceivedMessage(cMessage *msg)
     {
         // IP Packet
 
+    	ASSERT(dynamic_cast<SocketMsg *>(msg));
         ASSERT(!strcmp(msg->getName(), "data"));
+
 
         socket = findRawSocket(ipControlInfo->getProtocol());
 
@@ -654,6 +656,8 @@ void Daemon::setBlocked(bool b)
 
 void Daemon::socketDataArrived(int connId, void *yourPtr, cPacket *msg, bool urgent)
 {
+	ASSERT(dynamic_cast<SocketMsg *>(msg));
+
     int socket = (long)yourPtr;
 
     EV << "data arrived on socket=" << socket << endl;
@@ -682,6 +686,8 @@ void Daemon::socketFailure(int connId, void *yourPtr, int code)
 
 void Daemon::socketDatagramArrived(int sockId, void *yourPtr, cMessage *msg, UDPControlInfo *ctrl)
 {
+	ASSERT(dynamic_cast<SocketMsg *>(msg));
+
 	int socket = (long)yourPtr;
 
 	ASSERT(FD_EXIST(socket) && fd[socket].type == FD_UDP);
