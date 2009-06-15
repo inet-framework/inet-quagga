@@ -332,7 +332,8 @@ NetlinkResult Netlink::listRoutes(IPRoute *entry)
 
         int interfaceId = re->getInterface()->getInterfaceId();
         int metric = re->getMetric();
-        const char *dststr = re->getHost().str().data();
+        std::string dst_string = re->getHost().str();
+        const char *dststr = dst_string.data();
 
         struct rtattr *rta = RTM_RTA(NLMSG_DATA(ret));
 
