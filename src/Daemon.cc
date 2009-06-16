@@ -168,6 +168,8 @@ int Daemon::createTcpSocket(cMessage *msg)
     ASSERT(g);
     tcp->setOutputGate(g);
     tcp->setCallbackObject(this, (void*)socket);
+    tcp->setSendQueueClass("TCPMsgBasedSendQueue");
+    tcp->setReceiveQueueClass("TCPMsgBasedRcvQueue");
 
     lib_descriptor_t newItem;
     newItem.type = FD_TCP;
@@ -341,6 +343,8 @@ int Daemon::connectTcpSocket(int socket, IPAddress destAddr, int destPort)
     EV << "connect socket=" << socket << " to " << destAddr << ":" << destPort << endl;
 
     TCPSocket *tcp = getTcpSocket(socket);
+    tcp->setSendQueueClass("TCPMsgBasedSendQueue");
+    tcp->setReceiveQueueClass("TCPMsgBasedRcvQueue");
 
     tcp->connect(destAddr, destPort);
 
