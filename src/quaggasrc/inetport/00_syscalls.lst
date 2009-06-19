@@ -72,4 +72,6 @@ K;inet_addr
 K;inet_aton
 K;inet_pton
 K;inet_ntop
+K;shutdown
+K;sysconf
 w;K;#endif

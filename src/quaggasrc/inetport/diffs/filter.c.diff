@@ -1,6 +1,6 @@
---- lib/filter.c.orig	2005-11-16 00:10:35.000000000 +0100
-+++ lib/filter.c	2005-11-16 00:10:59.000000000 +0100
-@@ -67,28 +67,7 @@
+--- lib/filter.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ lib/filter.c	2009-06-18 14:06:18.000000000 +0200
+@@ -68,28 +68,7 @@
      } u;
  };
  
@@ -21,10 +21,10 @@
 -  struct access_list_list str;
 -
 -  /* Hook function which is executed when new access_list is added. */
--  void (*add_hook) ();
+-  void (*add_hook) (struct access_list *);
 -
 -  /* Hook function which is executed when access_list is deleted. */
--  void (*delete_hook) ();
+-  void (*delete_hook) (struct access_list *);
 -};
 +// struct definitions moved to header
  

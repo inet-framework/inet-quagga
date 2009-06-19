@@ -1,0 +1,63 @@
+--- bgpd/bgp_filter.h.orig	2009-05-08 17:46:43.000000000 +0200
++++ bgpd/bgp_filter.h	2009-06-19 15:47:36.000000000 +0200
+@@ -35,4 +35,60 @@
+ extern void as_list_add_hook (void (*func) ());
+ extern void as_list_delete_hook (void (*func) ());
+ 
++/* Element of AS path filter. */
++struct as_filter
++{
++  struct as_filter *next;
++  struct as_filter *prev;
++
++  enum as_filter_type type;
++
++  regex_t *reg;
++  char *reg_str;
++};
++
++enum as_list_type
++{
++  ACCESS_TYPE_BGPD_STRING,
++  ACCESS_TYPE_BGPD_NUMBER
++};
++
++/* AS path filter list. */
++struct as_list
++{
++  char *name;
++
++  enum as_list_type type;
++
++  struct as_list *next;
++  struct as_list *prev;
++
++  struct as_filter *head;
++  struct as_filter *tail;
++};
++
++
++/* List of AS filter list. */
++struct as_list_list
++{
++  struct as_list *head;
++  struct as_list *tail;
++};
++
++/* AS path filter master. */
++struct as_list_master
++{
++  /* List of access_list which name is number. */
++  struct as_list_list num;
++
++  /* List of access_list which name is string. */
++  struct as_list_list str;
++
++  /* Hook function which is executed when new access_list is added. */
++  void (*add_hook) ();
++
++  /* Hook function which is executed when access_list is deleted. */
++  void (*delete_hook) ();
++};
++
+ #endif /* _QUAGGA_BGP_FILTER_H */

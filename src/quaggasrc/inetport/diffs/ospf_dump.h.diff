@@ -1,5 +1,5 @@
---- ospfd/ospf_dump.h.orig	2005-11-13 16:40:10.000000000 +0100
-+++ ospfd/ospf_dump.h	2005-11-13 16:41:04.000000000 +0100
+--- ospfd/ospf_dump.h.orig	2009-05-08 17:46:43.000000000 +0200
++++ ospfd/ospf_dump.h	2009-06-18 12:32:33.000000000 +0200
 @@ -112,7 +112,7 @@
  #define IF_NAME(I)      ospf_if_name_string ((I))
  
@@ -17,4 +17,4 @@
 +// ospf_lsa_type_str not defined
  
  /* Prototypes. */
- const char *ospf_area_name_string (struct ospf_area *);
+ extern const char *ospf_area_name_string (struct ospf_area *);

@@ -1,0 +1,40 @@
+--- bgpd/bgpd.c.orig	2009-05-09 00:03:49.000000000 +0200
++++ bgpd/bgpd.c	2009-06-19 15:22:20.000000000 +0200
+@@ -2175,15 +2175,6 @@
+   return 0;
+ }
+ 
+-/* peer_flag_change_type. */
+-enum peer_change_type
+-{
+-  peer_change_none,
+-  peer_change_reset,
+-  peer_change_reset_in,
+-  peer_change_reset_out,
+-};
+-
+ static void
+ peer_change_action (struct peer *peer, afi_t afi, safi_t safi,
+ 		    enum peer_change_type type)
+@@ -2207,21 +2198,6 @@
+     bgp_announce_route (peer, afi, safi);
+ }
+ 
+-struct peer_flag_action
+-{
+-  /* Peer's flag.  */
+-  u_int32_t flag;
+-
+-  /* This flag can be set for peer-group member.  */
+-  u_char not_for_member;
+-
+-  /* Action when the flag is changed.  */
+-  enum peer_change_type type;
+-
+-  /* Peer down cause */
+-  u_char peer_down;
+-};
+-
+ struct peer_flag_action peer_flag_action_list[] = 
+   {
+     { PEER_FLAG_PASSIVE,                  0, peer_change_reset },

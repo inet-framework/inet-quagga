@@ -1,5 +1,5 @@
---- lib/routemap.c.orig	2005-11-15 21:21:31.000000000 +0100
-+++ lib/routemap.c	2005-11-15 21:22:12.000000000 +0100
+--- lib/routemap.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ lib/routemap.c	2009-06-18 12:32:33.000000000 +0200
 @@ -35,33 +35,7 @@
  /* Vector for route set rules. */
  static vector route_set_vec;

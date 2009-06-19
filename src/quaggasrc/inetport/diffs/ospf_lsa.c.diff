@@ -1,6 +1,6 @@
---- ospfd/ospf_lsa.c.orig	2005-11-21 17:19:44.000000000 +0100
-+++ ospfd/ospf_lsa.c	2005-11-21 17:34:14.000000000 +0100
-@@ -1849,12 +1849,10 @@
+--- ospfd/ospf_lsa.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ ospfd/ospf_lsa.c	2009-06-18 12:32:33.000000000 +0200
+@@ -1978,12 +1978,10 @@
      {
        /* find the translated Type-5 for this Type-7 */
        struct as_external_lsa *ext = (struct as_external_lsa *)(type7->data);

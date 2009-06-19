@@ -1,0 +1,14 @@
+--- lib/log.h.orig	2009-05-08 17:46:43.000000000 +0200
++++ lib/log.h	2009-06-19 15:21:47.000000000 +0200
+@@ -224,4 +224,11 @@
+        "Local use\n" \
+        "Local use\n"
+ 
++struct zebra_desc_table
++{
++  unsigned int type;
++  const char *string;
++  char chr;
++};
++
+ #endif /* _ZEBRA_LOG_H */

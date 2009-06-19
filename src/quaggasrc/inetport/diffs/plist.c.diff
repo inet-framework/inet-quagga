@@ -1,6 +1,6 @@
---- lib/plist.c.orig	2005-11-15 21:27:21.000000000 +0100
-+++ lib/plist.c	2005-11-15 21:27:36.000000000 +0100
-@@ -49,34 +49,7 @@
+--- lib/plist.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ lib/plist.c	2009-06-18 14:38:45.000000000 +0200
+@@ -50,34 +50,7 @@
    struct prefix_list_entry *prev;
  };
  
@@ -27,10 +27,10 @@
 -  struct prefix_list *recent;
 -
 -  /* Hook function which is executed when new prefix_list is added. */
--  void (*add_hook) ();
+-  void (*add_hook) (struct prefix_list *);
 -
 -  /* Hook function which is executed when prefix_list is deleted. */
--  void (*delete_hook) ();
+-  void (*delete_hook) (struct prefix_list *);
 -};
 +// struct definitions moved to header
  

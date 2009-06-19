@@ -1,9 +1,9 @@
---- lib/log.c.orig	2005-11-21 15:20:34.000000000 +0100
-+++ lib/log.c	2005-11-21 15:21:48.000000000 +0100
-@@ -233,13 +233,19 @@
- static void
+--- lib/log.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ lib/log.c	2009-06-19 15:21:30.000000000 +0200
+@@ -296,13 +296,19 @@
  syslog_sigsafe(int priority, const char *msg, size_t msglen)
  {
+   static int syslog_fd = -1;
 -  char buf[sizeof("<1234567890>ripngd[1234567890]: ")+msglen+50];
 +  char *buf;
 +  int bufl;
@@ -22,7 +22,7 @@
    s = buf;
    s = str_append(LOC,"<");
    s = num_append(LOC,priority);
-@@ -255,6 +261,7 @@
+@@ -318,6 +324,7 @@
    s = str_append(LOC,": ");
    s = str_append(LOC,msg);
    write(syslog_fd,buf,s-buf);
@@ -30,3 +30,17 @@
  #undef LOC
  }
  
+@@ -804,13 +811,6 @@
+   return (s != NULL) ? s : "Unknown error";
+ }
+ 
+-struct zebra_desc_table
+-{
+-  unsigned int type;
+-  const char *string;
+-  char chr;
+-};
+-
+ #define DESC_ENTRY(T,S,C) [(T)] = { (T), (S), (C) }
+ static const struct zebra_desc_table route_types[] = {
+   DESC_ENTRY	(ZEBRA_ROUTE_SYSTEM,	"system",	'X' ),

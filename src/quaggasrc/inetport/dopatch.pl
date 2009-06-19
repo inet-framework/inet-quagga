@@ -76,18 +76,31 @@ if($predoxy)
 	{
 	  ($i < @lines) or die "end of ALIAS not found";
  
-	  $b += ($lines[$i] =~ s/\(/\(/g);
-	  $b -= ($lines[$i] =~ s/\)/\)/g);
+          $b += countParentheses($lines[$i], "(", ")");
+
+#	  $b += ($lines[$i] =~ s/\(/\(/g);
+#	  $b -= ($lines[$i] =~ s/\)/\)/g);
 
 	  ++$i;
 	}
 	while($b > 0);
 
 	($b == 0) or die "too many right parentheses in ALIAS";
-	($lines[$i-1] =~ /\)\s*$/) or die "trailing characters after ALIAS";
+        if ($lines[$i-1] =~ /\)\s*$/) {
+          # add trailing semicolon
+          $lines[$i-1] =~ s/^(.*\))/$1;/;
+        }
+        elsif ($lines[$i-1] =~ /\)\s*;\s*$/) {
+          # do nothing
+        }
+        else {
+          die "trailing characters after ALIAS";
+        }
+
+	#($lines[$i-1] =~ /\)\s*$/) or die "trailing characters after ALIAS";
 
 	# add trailing semicolon
-	$lines[$i-1] =~ s/^(.*\))/$1;/;
+	#$lines[$i-1] =~ s/^(.*\))/$1;/;
 
 	print STDERR "$key: line ".($i-1)." <-- XXX CHECK THIS\n";
 	
@@ -220,7 +233,7 @@ if($predoxy)
 	if($lines[$i] =~ /^$f\s*\(/)
 	{
 	  # prepend static
-	  $lines[$i-1] = "static ".$lines[$i-1];
+	  $lines[$i-1] = "static ".$lines[$i-1] unless ($lines[$i-1] =~ /^static /);
 
 	  print STDERR "$key: line ".($i-1)." <-- XXX CHECK THIS\n";
 	  print STDERR "$key: method $f marked as static\n";
@@ -451,7 +464,7 @@ while(my $line = <STDIN>)
 
     # rename variable on given position
     my @lines = split(/\n/, $files{$fn});
-    ($lines[$fl-1] =~ s/\b$v\b/${v}__item/g) == 1 or die "patching failed: file=$fn var=$v line=".$lines[$fl-1];
+    ($lines[$fl-1] =~ s/\b$v\b/${v}__item/) == 1 or die "patching failed: file=$fn var=$v line=".$lines[$fl-1]; # subst the first occurence!
     $files{$fn} = join("\n", @lines)."\n";
     $modified{$fn} = 1;
 
@@ -526,7 +539,8 @@ while(my $line = <STDIN>)
     # commenting the variable out is more difficult -> only rename it, that is easier
     # we also need to preserve its initializer if it is subject to memcpy later
     my @lines = split(/\n/, $files{$fn});
-    ($lines[$fl-1] =~ s/\b$v\b/${v}_$dir/g) == 1 or die "patching failed: file=$fn var=$v line=".$lines[$fl-1];
+    # TODO do not subst in strings, comments, ...
+    ($lines[$fl-1] =~ s/\b$v\b/${v}_$dir/g) >= 1 or die "patching failed: file=$fn var=$v line=".$lines[$fl-1];
     if($vars_init{$dir}{$v} ne "memcpy" && $vars_init{$dir}{$v} !~ /^{/) {
       $lines[$fl-1] =~ s/=\s*$init;/;/;
     }
@@ -878,5 +892,27 @@ sub readinputfiles()
     {
       readfile($file_src);
     }
+}
+
+
+sub countParentheses()
+{
+  my $str = shift;
+  my $op = shift;
+  my $cp = shift;
+
+  my $withinString = 0;
+  my @chars = split(//,$str);
+  my $count = 0;
+  for my $ch (@chars) {
+    if ($ch =~ /"/) {
+      $withinString = !$withinString;
+    } elsif ($ch eq $op) {
+      ++$count unless ($withinString);
+    } elsif ($ch eq $cp) {
+      --$count unless ($withinString);
+    }
+  }
+  return $count;
 }
 

@@ -1,6 +1,6 @@
---- ripd/rip_main.c.orig	2005-11-21 14:49:10.000000000 +0100
-+++ ripd/rip_main.c	2005-11-21 14:53:52.000000000 +0100
-@@ -60,18 +60,27 @@
+--- ripd/rip_main.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ ripd/rip_main.c	2009-06-18 12:32:33.000000000 +0200
+@@ -61,18 +61,27 @@
  
  struct zebra_privs_t ripd_privs =
  {
@@ -34,8 +34,8 @@
  };
  
  /* Configuration file and directory. */
-@@ -162,26 +171,30 @@
- struct quagga_signal_t ripd_signals[] =
+@@ -164,26 +173,30 @@
+ static struct quagga_signal_t ripd_signals[] =
  {
    { 
 -    .signal = SIGHUP,

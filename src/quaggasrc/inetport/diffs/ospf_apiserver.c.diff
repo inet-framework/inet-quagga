@@ -1,6 +1,6 @@
---- ospfd/ospf_apiserver.c.orig	2005-11-13 14:53:07.000000000 +0100
-+++ ospfd/ospf_apiserver.c	2005-11-13 14:53:58.000000000 +0100
-@@ -301,7 +301,7 @@
+--- ospfd/ospf_apiserver.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ ospfd/ospf_apiserver.c	2009-06-18 12:32:33.000000000 +0200
+@@ -296,7 +296,7 @@
  }
  
  void
@@ -9,7 +9,7 @@
  		      struct ospf_apiserver *apiserv)
  {
    struct thread *apiserver_serv_thread;
-@@ -417,7 +417,7 @@
+@@ -411,7 +411,7 @@
    struct msg *msg;
    int fd;
    int rc = -1;
@@ -18,7 +18,7 @@
  
    apiserv = THREAD_ARG (thread);
    fd = THREAD_FD (thread);
-@@ -780,7 +780,7 @@
+@@ -774,7 +774,7 @@
  {
    struct msg_fifo *fifo;
    struct msg *msg2;

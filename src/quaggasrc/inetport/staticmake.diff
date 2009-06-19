@@ -1,6 +1,6 @@
 diff -u -N -r quagga-0.98.5/allheaders.h quagga-0.98.5-inet/allheaders.h
 --- quagga-0.98.5/allheaders.h	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/allheaders.h	2005-11-21 16:11:06.000000000 +0100
++++ quagga-0.98.5-inet/allheaders.h	2009-06-18 10:43:00.000000000 +0200
 @@ -0,0 +1,96 @@
 +#include "lib/zebra.h"
 +#include "lib/buffer.h"
@@ -18,7 +18,7 @@ diff -u -N -r quagga-0.98.5/allheaders.h quagga-0.98.5-inet/allheaders.h
 +#include "lib/keychain.h"
 +#include "lib/linklist.h"
 +#include "lib/log.h"
-+#include "lib/md5-gnu.h"
++#include "lib/md5.h"
 +#include "lib/memory.h"
 +#include "lib/network.h"
 +#include "lib/plist.h"
@@ -100,7 +100,7 @@ diff -u -N -r quagga-0.98.5/allheaders.h quagga-0.98.5-inet/allheaders.h
 +#include "bgpd/bgp_vty.h"
 diff -u -N -r quagga-0.98.5/config.h quagga-0.98.5-inet/config.h
 --- quagga-0.98.5/config.h	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/config.h	2005-11-21 16:11:06.000000000 +0100
++++ quagga-0.98.5-inet/config.h	2009-06-18 10:43:00.000000000 +0200
 @@ -0,0 +1,431 @@
 +
 +#define	MULTIPATH_NUM	1
@@ -169,7 +169,7 @@ diff -u -N -r quagga-0.98.5/config.h quagga-0.98.5-inet/config.h
 +
 +//
 +
-+/* #undef DISABLE_BGP_ANNOUNCE */
++#define DISABLE_BGP_ANNOUNCE 0
 +
 +// #define GNU_LINUX 
 +
@@ -535,9 +535,14 @@ diff -u -N -r quagga-0.98.5/config.h quagga-0.98.5-inet/config.h
 +#include "oppsim_kernel.h"
 diff -u -N -r quagga-0.98.5/lib/Makefile quagga-0.98.5-inet/lib/Makefile
 --- quagga-0.98.5/lib/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/lib/Makefile	2005-11-21 16:11:06.000000000 +0100
-@@ -0,0 +1,37 @@
-+include ../../../../../inetconfig
++++ quagga-0.98.5-inet/lib/Makefile	2009-06-18 10:43:00.000000000 +0200
+@@ -0,0 +1,42 @@
++include ../../../../Makefile.inc
++ifeq ($(MODE),debug)
++CFLAGS=-g -Wall
++else
++CFLAGS=-O2
++endif
 +
 +SOURCES = \
 +        network.c pid_output.c getopt.c getopt1.c \
@@ -545,7 +550,7 @@ diff -u -N -r quagga-0.98.5/lib/Makefile quagga-0.98.5-inet/lib/Makefile
 +        sockunion.c prefix.c thread.c if.c memory.c buffer.c table.c hash.c \
 +        filter.c routemap.c distribute.c stream.c str.c log.c plist.c \
 +        zclient.c sockopt.c smux.c md5.c if_rmap.c keychain.c privs.c \
-+        sigevent.c pqueue.c jhash.c
++        sigevent.c pqueue.c jhash.c regex.c
 +
 +HEADERS = \
 +	buffer.h command.h filter.h getopt.h hash.h if.h linklist.h log.h \
@@ -560,9 +565,9 @@ diff -u -N -r quagga-0.98.5/lib/Makefile quagga-0.98.5-inet/lib/Makefile
 +        sockunion.o prefix.o thread.o if.o memory.o buffer.o table.o hash.o \
 +        filter.o routemap.o distribute.o stream.o str.o log.o plist.o \
 +        zclient.o sockopt.o smux.o md5.o if_rmap.o keychain.o privs.o \
-+        sigevent.o pqueue.o jhash.o
++        sigevent.o pqueue.o jhash.o regex.o
 +
-+INCLUDES = -I./ -I../ -I../../../
++INCLUDES = -I. -I.. -I../../..
 +
 +DEFS = -DHAVE_CONFIG_H
 +CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
@@ -576,9 +581,8 @@ diff -u -N -r quagga-0.98.5/lib/Makefile quagga-0.98.5-inet/lib/Makefile
 +	rm -f *.o *.a
 diff -u -N -r quagga-0.98.5/lib/Makefile.vc quagga-0.98.5-inet/lib/Makefile.vc
 --- quagga-0.98.5/lib/Makefile.vc	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/lib/Makefile.vc	2005-11-21 14:16:17.000000000 +0100
-@@ -0,0 +1,36 @@
-+!include "../../../../../inetconfig.vc"
++++ quagga-0.98.5-inet/lib/Makefile.vc	2009-06-18 10:43:00.000000000 +0200
+@@ -0,0 +1,35 @@
 +
 +SOURCES = \
 +        network.c pid_output.c getopt.c getopt1.c \
@@ -616,14 +620,18 @@ diff -u -N -r quagga-0.98.5/lib/Makefile.vc quagga-0.98.5-inet/lib/Makefile.vc
 +	-del *.obj libzebra.lib vc70.pdb vc70.idb
 diff -u -N -r quagga-0.98.5/Makefile quagga-0.98.5-inet/Makefile
 --- quagga-0.98.5/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/Makefile	2005-11-21 16:11:06.000000000 +0100
-@@ -0,0 +1,32 @@
-+include ../../../../inetconfig
++++ quagga-0.98.5-inet/Makefile	2009-06-18 10:43:00.000000000 +0200
+@@ -0,0 +1,36 @@
++include ../../../Makefile.inc
++ifeq ($(MODE),debug)
++CFLAGS=-g -Wall
++else
++CFLAGS=-O2
++endif
 +
-+INCLUDES = -I./ -I./lib -I../../
++INCLUDES = -I. -I./lib -I../..
 +
-+DEFS = -DHAVE_CONFIG_H
-+CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
++CFLAGS += $(INCLUDES) -DHAVE_CONFIG_H -fPIC -Wimplicit -fexceptions
 +
 +all: libdir ripddir zebradir ospfdir bgpddir globalvars.o
 +
@@ -648,15 +656,14 @@ diff -u -N -r quagga-0.98.5/Makefile quagga-0.98.5-inet/Makefile
 +	(cd zebra; make clean)
 +	(cd ospfd; make clean)
 +	(cd bgpd; make clean)
-+	rm globalvars.o
++	rm -f globalvars.o
 +
 diff -u -N -r quagga-0.98.5/Makefile.vc quagga-0.98.5-inet/Makefile.vc
 --- quagga-0.98.5/Makefile.vc	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/Makefile.vc	2005-11-21 16:01:47.000000000 +0100
-@@ -0,0 +1,34 @@
-+!include "../../../../inetconfig.vc"
-+
++++ quagga-0.98.5-inet/Makefile.vc	2009-06-18 10:43:00.000000000 +0200
+@@ -0,0 +1,33 @@
 +INCLUDES= -I. -I./lib -I../..
++
 +CFLAGS= /nologo $(INCLUDES) $(CFLAGS) -DHAVE_CONFIG_H
 +
 +all: libdir ripddir zebradir ospfdir bgpddir globalvars.obj
@@ -690,9 +697,14 @@ diff -u -N -r quagga-0.98.5/Makefile.vc quagga-0.98.5-inet/Makefile.vc
 +
 diff -u -N -r quagga-0.98.5/ospfd/Makefile quagga-0.98.5-inet/ospfd/Makefile
 --- quagga-0.98.5/ospfd/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/ospfd/Makefile	2005-11-21 16:11:06.000000000 +0100
-@@ -0,0 +1,40 @@
-+include ../../../../../inetconfig
++++ quagga-0.98.5-inet/ospfd/Makefile	2009-06-18 10:43:00.000000000 +0200
+@@ -0,0 +1,45 @@
++include ../../../../Makefile.inc
++ifeq ($(MODE),debug)
++CFLAGS=-g -Wall
++else
++CFLAGS=-O2
++endif
 +
 +SOURCES = \
 +	ospf_abr.c ospf_flood.c ospf_neighbor.c ospf_snmp.c \
@@ -720,7 +732,7 @@ diff -u -N -r quagga-0.98.5/ospfd/Makefile quagga-0.98.5-inet/ospfd/Makefile
 +	ospfd.o ospf_lsdb.o ospf_route.o ospf_dump.o \
 +	ospf_main.o ospf_routemap.o
 +
-+INCLUDES = -I./ -I../ -I../lib/ -I../../../
++INCLUDES = -I. -I.. -I../lib -I../../..
 +
 +DEFS = -DHAVE_CONFIG_H -DOSPFD
 +CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
@@ -734,9 +746,8 @@ diff -u -N -r quagga-0.98.5/ospfd/Makefile quagga-0.98.5-inet/ospfd/Makefile
 +	rm -f *.o ospfd.a
 diff -u -N -r quagga-0.98.5/ospfd/Makefile.vc quagga-0.98.5-inet/ospfd/Makefile.vc
 --- quagga-0.98.5/ospfd/Makefile.vc	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/ospfd/Makefile.vc	2005-11-21 15:18:09.000000000 +0100
-@@ -0,0 +1,39 @@
-+!include "../../../../../inetconfig.vc"
++++ quagga-0.98.5-inet/ospfd/Makefile.vc	2009-06-18 10:43:00.000000000 +0200
+@@ -0,0 +1,38 @@
 +
 +SOURCES = \
 +	ospf_abr.c ospf_flood.c ospf_neighbor.c ospf_snmp.c \
@@ -777,9 +788,14 @@ diff -u -N -r quagga-0.98.5/ospfd/Makefile.vc quagga-0.98.5-inet/ospfd/Makefile.
 +	-del *.obj ospfd.lib vc70.pdb vc70.idb
 diff -u -N -r quagga-0.98.5/ripd/Makefile quagga-0.98.5-inet/ripd/Makefile
 --- quagga-0.98.5/ripd/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/ripd/Makefile	2005-11-21 16:11:06.000000000 +0100
-@@ -0,0 +1,25 @@
-+include ../../../../../inetconfig
++++ quagga-0.98.5-inet/ripd/Makefile	2009-06-18 10:43:00.000000000 +0200
+@@ -0,0 +1,30 @@
++include ../../../../Makefile.inc
++ifeq ($(MODE),debug)
++CFLAGS=-g -Wall
++else
++CFLAGS=-O2
++endif
 +
 +SOURCES = \
 +	ripd.c rip_zebra.c rip_interface.c rip_debug.c rip_snmp.c \
@@ -792,7 +808,7 @@ diff -u -N -r quagga-0.98.5/ripd/Makefile quagga-0.98.5-inet/ripd/Makefile
 +	ripd.o rip_zebra.o rip_interface.o rip_debug.o rip_snmp.o \
 +	rip_routemap.o rip_peer.o rip_offset.o rip_main.o
 +
-+INCLUDES = -I./ -I../ -I../lib/ -I../../../
++INCLUDES = -I. -I.. -I../lib -I../../..
 +
 +DEFS = -DHAVE_CONFIG_H -DRIPD
 +CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
@@ -806,9 +822,8 @@ diff -u -N -r quagga-0.98.5/ripd/Makefile quagga-0.98.5-inet/ripd/Makefile
 +	rm -f *.o ripd.a
 diff -u -N -r quagga-0.98.5/ripd/Makefile.vc quagga-0.98.5-inet/ripd/Makefile.vc
 --- quagga-0.98.5/ripd/Makefile.vc	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/ripd/Makefile.vc	2005-11-21 14:16:28.000000000 +0100
-@@ -0,0 +1,24 @@
-+!include "../../../../../inetconfig.vc"
++++ quagga-0.98.5-inet/ripd/Makefile.vc	2009-06-18 10:43:00.000000000 +0200
+@@ -0,0 +1,23 @@
 +
 +SOURCES = \
 +	ripd.c rip_zebra.c rip_interface.c rip_debug.c rip_snmp.c \
@@ -834,9 +849,14 @@ diff -u -N -r quagga-0.98.5/ripd/Makefile.vc quagga-0.98.5-inet/ripd/Makefile.vc
 +	-del *.obj ripd.lib vc70.pdb vc70.idb
 diff -u -N -r quagga-0.98.5/zebra/Makefile quagga-0.98.5-inet/zebra/Makefile
 --- quagga-0.98.5/zebra/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/zebra/Makefile	2005-11-21 16:11:06.000000000 +0100
-@@ -0,0 +1,38 @@
-+include ../../../../../inetconfig
++++ quagga-0.98.5-inet/zebra/Makefile	2009-06-18 10:43:00.000000000 +0200
+@@ -0,0 +1,43 @@
++include ../../../../Makefile.inc
++ifeq ($(MODE),debug)
++CFLAGS=-g -Wall
++else
++CFLAGS=-O2
++endif
 +
 +SOURCES = \
 +	zserv.c main.c interface.c connected.c zebra_rib.c \
@@ -862,7 +882,7 @@ diff -u -N -r quagga-0.98.5/zebra/Makefile quagga-0.98.5-inet/zebra/Makefile
 +	if_proc.o if_netlink.o \
 +	ioctl.o
 +
-+INCLUDES = -I./ -I../ -I../lib/ -I../../../
++INCLUDES = -I. -I.. -I../lib -I../../..
 +
 +DEFS = -DHAVE_CONFIG_H -DZEBRA
 +CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
@@ -876,9 +896,8 @@ diff -u -N -r quagga-0.98.5/zebra/Makefile quagga-0.98.5-inet/zebra/Makefile
 +	rm -f *.o *.a
 diff -u -N -r quagga-0.98.5/zebra/Makefile.vc quagga-0.98.5-inet/zebra/Makefile.vc
 --- quagga-0.98.5/zebra/Makefile.vc	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/zebra/Makefile.vc	2005-11-21 14:38:50.000000000 +0100
-@@ -0,0 +1,37 @@
-+!include "../../../../../inetconfig.vc"
++++ quagga-0.98.5-inet/zebra/Makefile.vc	2009-06-18 10:43:00.000000000 +0200
+@@ -0,0 +1,36 @@
 +
 +SOURCES = \
 +	zserv.c main.c interface.c connected.c zebra_rib.c \
@@ -917,9 +936,14 @@ diff -u -N -r quagga-0.98.5/zebra/Makefile.vc quagga-0.98.5-inet/zebra/Makefile.
 +	-del *.obj zebra.lib vc70.pdb vc70.idb
 diff -u -N -r quagga-0.98.5/bgpd/Makefile quagga-0.98.5-inet/bgpd/Makefile
 --- quagga-0.98.5/bgpd/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/bgpd/Makefile	2005-11-21 14:38:50.000000000 +0100
-@@ -0,0 +1,35 @@
-+include ../../../../../inetconfig
++++ quagga-0.98.5-inet/bgpd/Makefile	2009-06-18 10:43:00.000000000 +0200
+@@ -0,0 +1,40 @@
++include ../../../../Makefile.inc
++ifeq ($(MODE),debug)
++CFLAGS=-g -Wall
++else
++CFLAGS=-O2
++endif
 +
 +SOURCES = \
 +	bgpd.c bgp_fsm.c bgp_aspath.c bgp_community.c bgp_attr.c \
@@ -942,7 +966,7 @@ diff -u -N -r quagga-0.98.5/bgpd/Makefile quagga-0.98.5-inet/bgpd/Makefile
 +	bgp_dump.o bgp_snmp.o bgp_ecommunity.o bgp_mplsvpn.o bgp_nexthop.o \
 +	bgp_damp.o bgp_table.o bgp_advertise.o bgp_vty.o bgp_main.o
 +
-+INCLUDES = -I./ -I../ -I../lib/ -I../../../
++INCLUDES = -I. -I.. -I../lib -I../../..
 +
 +DEFS = -DHAVE_CONFIG_H -DBGPD
 +CFLAGS += $(INCLUDES) $(DEFS) -fPIC -Wimplicit -fexceptions
@@ -956,9 +980,8 @@ diff -u -N -r quagga-0.98.5/bgpd/Makefile quagga-0.98.5-inet/bgpd/Makefile
 +	rm -f *.o bgpd.a
 diff -u -N -r quagga-0.98.5/bgpd/Makefile.vc quagga-0.98.5-inet/bgpd/Makefile.vc
 --- quagga-0.98.5/bgpd/Makefile.vc	1970-01-01 01:00:00.000000000 +0100
-+++ quagga-0.98.5-inet/bgpd/Makefile.vc	2005-11-21 14:38:50.000000000 +0100
-@@ -0,0 +1,34 @@
-+!include "../../../../../inetconfig.vc"
++++ quagga-0.98.5-inet/bgpd/Makefile.vc	2009-06-18 10:43:00.000000000 +0200
+@@ -0,0 +1,33 @@
 +
 +SOURCES = \
 +	bgpd.c bgp_fsm.c bgp_aspath.c bgp_community.c bgp_attr.c \

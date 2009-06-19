@@ -1,18 +1,16 @@
---- lib/privs.c.orig	2005-11-11 18:26:02.000000000 +0100
-+++ lib/privs.c	2005-11-11 18:27:20.000000000 +0100
-@@ -27,20 +27,8 @@
- #include "memory.h"
+--- lib/privs.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ lib/privs.c	2009-06-18 14:41:45.000000000 +0200
+@@ -63,18 +63,8 @@
+ static zebra_privs_current_t zprivs_null_state = ZPRIVS_RAISED;
  
  /* internal privileges state */
 -static struct _zprivs_t
 -{
--#ifdef HAVE_LCAPS
--  cap_t caps;                 /* caps storage             */
--  cap_value_t *syscaps_p;     /* system permitted caps    */
--  cap_value_t *syscaps_i;     /* system inheritable caps  */
--  int sys_num_p;              /* number of syscaps_p      */
--  int sys_num_i;              /* number of syscaps_i      */
--#endif /* HAVE_LCAPS */
+-#ifdef HAVE_CAPABILITIES
+-  pstorage_t caps;		/* working storage        */
+-  pset_t *syscaps_p;		/* system-type requested permitted caps    */
+-  pset_t *syscaps_i;     	/* system-type requested inheritable caps  */
+-#endif /* HAVE_CAPABILITIES */
 -  uid_t zuid,                 /* uid to run as            */
 -        zsuid;                /* saved uid                */
 -  gid_t zgid;                 /* gid to run as            */
@@ -22,4 +20,4 @@
 +struct _zprivs_t zprivs_state;
  
  /* externally exported but not directly accessed functions */
- #ifdef HAVE_LCAPS
+ #ifdef HAVE_CAPABILITIES

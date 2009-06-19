@@ -1,0 +1,91 @@
+--- bgpd/bgp_filter.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ bgpd/bgp_filter.c	2009-06-19 15:48:35.000000000 +0200
+@@ -30,61 +30,6 @@
+ #include "bgpd/bgp_regex.h"
+ #include "bgpd/bgp_filter.h"
+ 
+-/* List of AS filter list. */
+-struct as_list_list
+-{
+-  struct as_list *head;
+-  struct as_list *tail;
+-};
+-
+-/* AS path filter master. */
+-struct as_list_master
+-{
+-  /* List of access_list which name is number. */
+-  struct as_list_list num;
+-
+-  /* List of access_list which name is string. */
+-  struct as_list_list str;
+-
+-  /* Hook function which is executed when new access_list is added. */
+-  void (*add_hook) ();
+-
+-  /* Hook function which is executed when access_list is deleted. */
+-  void (*delete_hook) ();
+-};
+-
+-/* Element of AS path filter. */
+-struct as_filter
+-{
+-  struct as_filter *next;
+-  struct as_filter *prev;
+-
+-  enum as_filter_type type;
+-
+-  regex_t *reg;
+-  char *reg_str;
+-};
+-
+-enum as_list_type
+-{
+-  ACCESS_TYPE_STRING,
+-  ACCESS_TYPE_NUMBER
+-};
+-
+-/* AS path filter list. */
+-struct as_list
+-{
+-  char *name;
+-
+-  enum as_list_type type;
+-
+-  struct as_list *next;
+-  struct as_list *prev;
+-
+-  struct as_filter *head;
+-  struct as_filter *tail;
+-};
+-
+ /* ip as-path access-list 10 permit AS1. */
+ 
+ static struct as_list_master as_list_master =
+@@ -220,7 +165,7 @@
+   /* In case of name is all digit character */
+   if (i == strlen (name))
+     {
+-      aslist->type = ACCESS_TYPE_NUMBER;
++      aslist->type = ACCESS_TYPE_BGPD_NUMBER;
+ 
+       /* Set access_list to number list. */
+       list = &as_list_master.num;
+@@ -231,7 +176,7 @@
+     }
+   else
+     {
+-      aslist->type = ACCESS_TYPE_STRING;
++      aslist->type = ACCESS_TYPE_BGPD_STRING;
+ 
+       /* Set access_list to string list. */
+       list = &as_list_master.str;
+@@ -322,7 +267,7 @@
+       as_filter_free (filter);
+     }
+ 
+-  if (aslist->type == ACCESS_TYPE_NUMBER)
++  if (aslist->type == ACCESS_TYPE_BGPD_NUMBER)
+     list = &as_list_master.num;
+   else
+     list = &as_list_master.str;

@@ -1,8 +1,8 @@
---- lib/routemap.h.orig	2005-11-13 13:13:59.000000000 +0100
-+++ lib/routemap.h	2005-11-13 13:15:39.000000000 +0100
-@@ -196,5 +196,32 @@
- void route_map_delete_hook (void (*func) (const char *));
- void route_map_event_hook (void (*func) (route_map_event_t, const char *));
+--- lib/routemap.h.orig	2009-05-08 17:46:43.000000000 +0200
++++ lib/routemap.h	2009-06-18 14:49:13.000000000 +0200
+@@ -193,4 +193,32 @@
+ extern void route_map_delete_hook (void (*func) (const char *));
+ extern void route_map_event_hook (void (*func) (route_map_event_t, const char *));
  
 +/* Route map rule. This rule has both `match' rule and `set' rule. */
 +struct route_map_rule
@@ -29,7 +29,7 @@
 +
 +  void (*add_hook) (const char *);
 +  void (*delete_hook) (const char *);
-+  void (*event_hook) (route_map_event_t, const char *); 
++  void (*event_hook) (route_map_event_t, const char *);
 +};
- 
++
  #endif /* _ZEBRA_ROUTEMAP_H */

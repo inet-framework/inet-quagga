@@ -1,0 +1,38 @@
+--- bgpd/bgp_dump.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ bgpd/bgp_dump.c	2009-06-19 12:41:42.000000000 +0200
+@@ -34,13 +34,6 @@
+ #include "bgpd/bgp_attr.h"
+ #include "bgpd/bgp_dump.h"
+ 
+-enum bgp_dump_type
+-{
+-  BGP_DUMP_ALL,
+-  BGP_DUMP_UPDATES,
+-  BGP_DUMP_ROUTES
+-};
+-
+ enum MRT_MSG_TYPES {
+    MSG_NULL,
+    MSG_START,                   /* sender is starting up */
+@@ -60,21 +53,6 @@
+ 
+ static int bgp_dump_interval_func (struct thread *);
+ 
+-struct bgp_dump
+-{
+-  enum bgp_dump_type type;
+-
+-  char *filename;
+-
+-  FILE *fp;
+-
+-  unsigned int interval;
+-
+-  char *interval_str;
+-
+-  struct thread *t_interval;
+-};
+-
+ /* BGP packet dump output buffer. */
+ struct stream *bgp_dump_obuf;
+ 

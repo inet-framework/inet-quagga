@@ -1,0 +1,29 @@
+--- bgpd/bgp_dump.h.orig	2009-05-08 17:46:43.000000000 +0200
++++ bgpd/bgp_dump.h	2009-06-19 12:41:49.000000000 +0200
+@@ -51,4 +51,26 @@
+ extern void bgp_dump_state (struct peer *, int, int);
+ extern void bgp_dump_packet (struct peer *, int, struct stream *);
+ 
++enum bgp_dump_type
++{
++  BGP_DUMP_ALL,
++  BGP_DUMP_UPDATES,
++  BGP_DUMP_ROUTES
++};
++
++struct bgp_dump
++{
++  enum bgp_dump_type type;
++
++  char *filename;
++
++  FILE *fp;
++
++  unsigned int interval;
++
++  char *interval_str;
++
++  struct thread *t_interval;
++};
++
+ #endif /* _QUAGGA_BGP_DUMP_H */

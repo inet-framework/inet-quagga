@@ -1,5 +1,5 @@
---- ospfd/ospf_apiserver.h.orig	2005-11-13 14:53:11.000000000 +0100
-+++ ospfd/ospf_apiserver.h	2005-11-13 14:54:27.000000000 +0100
+--- ospfd/ospf_apiserver.h.orig	2009-05-08 17:46:43.000000000 +0200
++++ ospfd/ospf_apiserver.h	2009-06-18 14:24:30.000000000 +0200
 @@ -71,7 +71,7 @@
    struct thread *t_async_write;
  };
@@ -10,11 +10,11 @@
    OSPF_APISERVER_ACCEPT,
    OSPF_APISERVER_SYNC_READ,
 @@ -92,7 +92,7 @@
- void ospf_apiserver_term (void);
- struct ospf_apiserver *ospf_apiserver_new (int fd_sync, int fd_async);
- void ospf_apiserver_free (struct ospf_apiserver *apiserv);
--void ospf_apiserver_event (enum event event, int fd,
-+void ospf_apiserver_event (enum ospfd_event event, int fd,
+ extern void ospf_apiserver_term (void);
+ extern struct ospf_apiserver *ospf_apiserver_new (int fd_sync, int fd_async);
+ extern void ospf_apiserver_free (struct ospf_apiserver *apiserv);
+-extern void ospf_apiserver_event (enum event event, int fd,
++extern void ospf_apiserver_event (enum ospfd_event event, int fd,
  			   struct ospf_apiserver *apiserv);
- int ospf_apiserver_serv_sock_family (unsigned short port, int family);
- int ospf_apiserver_accept (struct thread *thread);
+ extern int ospf_apiserver_serv_sock_family (unsigned short port, int family);
+ extern int ospf_apiserver_accept (struct thread *thread);
