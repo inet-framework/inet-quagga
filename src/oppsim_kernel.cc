@@ -1635,3 +1635,10 @@ const char *oppsim_inet_ntop(int af, const void *src, char *dst, size_t size)
         opp_error("oppsim_inet_ntop: address family not supported");
     }
 }
+
+int oppsim_shutdown (int socket, int how)
+{
+    ASSERT(false); // TODO not yet implemented
+    return 0;
+}
+

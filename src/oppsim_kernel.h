@@ -112,6 +112,18 @@ unsigned int oppsim_sleep(unsigned int seconds);
 
 extern time_t zero_time;
 
+/* The following constants should be used for the second parameter of
+   `shutdown'.  */
+enum
+{
+  SHUT_RD = 0,		/* No more receptions.  */
+  SHUT_WR,		/* No more transmissions.  */
+  SHUT_RDWR		/* No more receptions or transmissions.  */
+};
+
+int oppsim_shutdown (int socket, int how);
+
+
 #ifdef __cplusplus
 };
 #endif
