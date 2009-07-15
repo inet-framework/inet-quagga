@@ -6,7 +6,7 @@
 <xsl:output method="text" indent="yes" encoding="iso-8859-1"/>
 
 <xsl:variable name="vars" select="//compounddef[@kind='file']/sectiondef[@kind='var']/memberdef[@kind='variable']"/>
-<xsl:variable name="defuns" select="//compounddef[@kind='file']/sectiondef[@kind='func']/memberdef[@kind='function']/name[text()='DEFUN' or text()='DEFUN_HIDDEN' or text()='DEFUN_DEPRECATED' or text()='DEFUN_NOSH' or text()='ALIAS']"/>
+<xsl:variable name="defuns" select="//compounddef[@kind='file']/sectiondef[@kind='func']/memberdef[@kind='function']/name[text()='DEFUN' or text()='DEFUN_HIDDEN' or text()='DEFUN_DEPRECATED' or text()='DEFUN_NOSH' or text()='ALIAS' or text()='ALIAS_DEPRECATED']"/>
 
 <xsl:template match="/sources">
   <xsl:message>Processing global variables...</xsl:message>

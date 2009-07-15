@@ -240,6 +240,7 @@ zclient_failed(struct_zclient *zclient)
 static int
 zclient_flush_data(struct thread *thread)
 {
+#undef	zclient
   struct_zclient *zclient = THREAD_ARG(thread);
 
   zclient->t_write = NULL;
@@ -261,6 +262,7 @@ zclient_flush_data(struct thread *thread)
     }
   return 0;
 }
+#define	zclient	zclient__VAR
 
 int
 #undef	zclient
@@ -496,7 +498,7 @@ zapi_ipv4_route (u_char cmd, struct_zclient *zclient, struct prefix_ipv4 *p,
     }
 
   if (CHECK_FLAG (api->message, ZAPI_MESSAGE_DISTANCE))
-    stream_putc (s, api->distance__item);
+    stream_putc (s, api->distance);
   if (CHECK_FLAG (api->message, ZAPI_MESSAGE_METRIC))
     stream_putl (s, api->metric);
 
@@ -550,7 +552,7 @@ zapi_ipv6_route (u_char cmd, struct_zclient *zclient, struct prefix_ipv6 *p,
     }
 
   if (CHECK_FLAG (api->message, ZAPI_MESSAGE_DISTANCE))
-    stream_putc (s, api->distance__item);
+    stream_putc (s, api->distance);
   if (CHECK_FLAG (api->message, ZAPI_MESSAGE_METRIC))
     stream_putl (s, api->metric);
 

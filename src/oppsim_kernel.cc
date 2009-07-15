@@ -409,6 +409,12 @@ int oppsim_setsockopt(int socket, int level, int option_name, const void *option
         return 0;
     }
 
+    if (level == SOL_SOCKET && option_name == SO_ATTACH_FILTER)
+    {
+    	// not implemented
+    	return -1;
+    }
+
     ASSERT(false);
 }
 
@@ -1641,4 +1647,11 @@ int oppsim_shutdown (int socket, int how)
     ASSERT(false); // TODO not yet implemented
     return 0;
 }
+
+long oppsim_sysconf(int name)
+{
+    // TODO windows?
+    return sysconf(name);
+}
+
 

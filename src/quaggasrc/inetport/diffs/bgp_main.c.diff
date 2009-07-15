@@ -1,0 +1,11 @@
+--- bgpd/bgp_main.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ bgpd/bgp_main.c	2009-07-15 15:24:38.000000000 +0200
+@@ -195,7 +195,7 @@
+ /* Main routine of bgpd. Treatment of argument and start bgp finite
+    state machine is handled at here. */
+ int
+-main (int argc, char **argv)
++bgpd_main_entry (int argc, char **argv)
+ {
+   char *p;
+   int opt;

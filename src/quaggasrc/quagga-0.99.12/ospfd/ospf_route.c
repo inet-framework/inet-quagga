@@ -320,7 +320,7 @@ ospf_intra_route_add (struct route_table *rt, struct vertex *v,
   or->u.std.area_id = area->area_id;
   or->u.std.external_routing= area->external_routing;
   or->path_type = OSPF_PATH_INTRA_AREA;
-  or->cost = v->distance__item;
+  or->cost = v->distance;
 
   rn->info = or;
 }
@@ -376,7 +376,7 @@ ospf_intra_add_router (struct route_table *rt, struct vertex *v,
   or->u.std.area_id = area->area_id;
   or->u.std.external_routing = area->external_routing;
   or->path_type = OSPF_PATH_INTRA_AREA;
-  or->cost = v->distance__item;
+  or->cost = v->distance;
   or->type = OSPF_DESTINATION_ROUTER;
   or->u.std.origin = (struct lsa_header *) lsa;
   or->u.std.options = lsa->header.options;
@@ -456,7 +456,7 @@ ospf_intra_add_transit (struct route_table *rt, struct vertex *v,
       route_unlock_node (rn);
       cur_or = rn->info;
 
-      if (v->distance__item > cur_or->cost ||
+      if (v->distance > cur_or->cost ||
           IPV4_ADDR_CMP (&cur_or->u.std.origin->id, &lsa->header.id) > 0)
 	return;
       
@@ -469,7 +469,7 @@ ospf_intra_add_transit (struct route_table *rt, struct vertex *v,
   or->u.std.area_id = area->area_id;
   or->u.std.external_routing = area->external_routing;
   or->path_type = OSPF_PATH_INTRA_AREA;
-  or->cost = v->distance__item;
+  or->cost = v->distance;
   or->type = OSPF_DESTINATION_NETWORK;
   or->u.std.origin = (struct lsa_header *) lsa;
 
@@ -510,11 +510,11 @@ ospf_intra_add_stub (struct route_table *rt, struct router_lsa_link *link,
      equal to the distance from the root to the router vertex
      (calculated in stage 1), plus the stub network link's advertised
      cost. */
-  cost = v->distance__item + ntohs (link->m[0].metric);
+  cost = v->distance + ntohs (link->m[0].metric);
 
   if (IS_DEBUG_OSPF_EVENT)
     zlog_debug ("ospf_intra_add_stub(): calculated cost is %d + %d = %d", 
-	       v->distance__item, ntohs(link->m[0].metric), cost);
+	       v->distance, ntohs(link->m[0].metric), cost);
   
   /* PtP links with /32 masks adds host routes to remote, directly
    * connected hosts, see RFC 2328, 12.4.1.1, Option 1.

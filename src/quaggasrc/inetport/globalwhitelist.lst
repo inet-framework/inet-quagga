@@ -3,6 +3,7 @@ bgpd_privs
 bgp_status_msg
 bgp_type_str
 attr_str
+attr_str_max
 bgp_notify_head_msg
 bgp_notify_cease_msg
 bgp_notify_open_msg
@@ -26,12 +27,14 @@ ordering
 Power2
 rip_msg
 memory_list_lib
+memory_list_zebra
 memory_list_bgp
 memory_list_rip
 memory_list_ripng
 memory_list_ospf
 memory_list_ospf6
 memory_list_isis
+memory_list_vtysh
 memory_list_separator
 show_function
 ri_version_msg
@@ -91,3 +94,9 @@ ospfd_privs
 zserv_privs
 ripd_privs
 default_motd
+telnet_space_char
+restricted_mode_default
+telnet_backward_char
+route_types
+command_types
+unknown

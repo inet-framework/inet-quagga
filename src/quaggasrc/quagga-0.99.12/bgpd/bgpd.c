@@ -2198,7 +2198,7 @@ peer_change_action (struct peer *peer, afi_t afi, safi_t safi,
     bgp_announce_route (peer, afi, safi);
 }
 
-struct peer_flag_action peer_flag_action_list_bgpd[] = 
+struct peer_flag_action peer_flag_action_list_bgpd[8] = 
   {
     { PEER_FLAG_PASSIVE,                  0, peer_change_reset },
     { PEER_FLAG_SHUTDOWN,                 0, peer_change_reset },
@@ -2210,7 +2210,7 @@ struct peer_flag_action peer_flag_action_list_bgpd[] =
     { 0, 0, 0 }
   };
 
-struct peer_flag_action peer_af_flag_action_list_bgpd[] = 
+struct peer_flag_action peer_af_flag_action_list_bgpd[15] = 
   {
     { PEER_FLAG_NEXTHOP_SELF,             1, peer_change_reset_out },
     { PEER_FLAG_SEND_COMMUNITY,           1, peer_change_reset_out },

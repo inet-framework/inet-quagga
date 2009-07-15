@@ -2478,13 +2478,16 @@ DEFUN (no_ospf_timers_throttle_spf,
 }
 #define	no_ospf_timers_throttle_spf_cmd	no_ospf_timers_throttle_spf_cmd__VAR
 
+#undef	no_ospf_timers_spf_cmd
 ALIAS_DEPRECATED (no_ospf_timers_throttle_spf,
                   no_ospf_timers_spf_cmd,
                   "no timers spf",
                   NO_STR
                   "Adjust routing timers\n"
-                  "OSPF SPF timers\n")
+                  "OSPF SPF timers\n");
+#define	no_ospf_timers_spf_cmd	no_ospf_timers_spf_cmd__VAR
 
+#undef	ospf_neighbor_cmd
 DEFUN (ospf_neighbor,
        ospf_neighbor_cmd,
        "neighbor A.B.C.D",
@@ -2512,6 +2515,7 @@ DEFUN (ospf_neighbor,
 
   return CMD_SUCCESS;
 }
+#define	ospf_neighbor_cmd	ospf_neighbor_cmd__VAR
 
 #undef	ospf_neighbor_priority_poll_interval_cmd
 ALIAS (ospf_neighbor,
@@ -8371,7 +8375,7 @@ config_write_ospf_distance (struct vty *vty, struct ospf *ospf)
   for (rn = route_top (ospf->distance_table); rn; rn = route_next (rn))
     if ((odistance = rn->info) != NULL)
       {
-	vty_out (vty, " distance %d %s/%d %s%s", odistance->distance__item,
+	vty_out (vty, " distance %d %s/%d %s%s", odistance->distance,
 		 inet_ntoa (rn->p.u.prefix4), rn->p.prefixlen,
 		 odistance->access_list ? odistance->access_list : "",
 		 VTY_NEWLINE);

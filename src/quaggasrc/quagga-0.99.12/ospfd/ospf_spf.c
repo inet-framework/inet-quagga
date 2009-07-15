@@ -46,7 +46,6 @@ Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 #include "ospfd/ospf_abr.h"
 #include "ospfd/ospf_dump.h"
 
-static void ospf_vertex_free (void *);
 /* List of allocated vertices, to simplify cleanup of SPF.
  * Not thread-safe obviously. If it ever needs to be, it'd have to be
  * dynamically allocated at begin of ospf_spf_calculate
@@ -65,7 +64,7 @@ cmp (void * node1 , void * node2)
       /* network vertices must be chosen before router vertices of same
        * cost in order to find all shortest paths
        */
-      if ( ((v1->distance__item - v2->distance__item) == 0)
+      if ( ((v1->distance - v2->distance) == 0)
           && (v1->type != v2->type))
         {
           switch (v1->type)
@@ -77,7 +76,7 @@ cmp (void * node1 , void * node2)
             }
         }
       else
-        return (v1->distance__item - v2->distance__item);
+        return (v1->distance - v2->distance);
     }
   return 0;
 }
@@ -185,7 +184,7 @@ ospf_vertex_new (struct ospf_lsa *lsa)
   return new;
 }
 
-static void
+void
 ospf_vertex_free (void *data)
 {
   struct vertex *v = data;
@@ -225,7 +224,7 @@ ospf_vertex_dump(const char *msg, struct vertex *v,
             msg,
 	    v->type == OSPF_VERTEX_ROUTER ? "Router" : "Network",
 	    inet_ntoa(v->lsa->id),
-	    v->distance__item,
+	    v->distance,
 	    (unsigned int)v->flags);
 
   if (print_parents)
@@ -423,7 +422,6 @@ ospf_spf_flush_parents (struct vertex *w)
  * equal-cost next-hops, adjust list as neccessary.  
  */
 static void
-#undef	distance
 ospf_spf_add_parent (struct vertex *v, struct vertex *w,
                      struct vertex_nexthop *newhop,
                      unsigned int distance)
@@ -438,10 +436,10 @@ ospf_spf_add_parent (struct vertex *v, struct vertex *w,
    * unless callers have determined V(l)->W is shortest / equal-shortest
    * path (0 is a special case distance (no distance yet assigned)).
    */
-  if (w->distance__item)
-    assert (distance <= w->distance__item);
+  if (w->distance)
+    assert (distance <= w->distance);
   else
-    w->distance__item = distance;
+    w->distance = distance;
   
   if (IS_DEBUG_OSPF_EVENT)
     {
@@ -453,13 +451,13 @@ ospf_spf_add_parent (struct vertex *v, struct vertex *w,
     }           
 
   /* Adding parent for a new, better path: flush existing parents from W. */
-  if (distance < w->distance__item)
+  if (distance < w->distance)
     {
       if (IS_DEBUG_OSPF_EVENT)
         zlog_debug ("%s: distance %d better than %d, flushing existing parents",
-                    __func__, distance, w->distance__item);
+                    __func__, distance, w->distance);
       ospf_spf_flush_parents (w);
-      w->distance__item = distance;
+      w->distance = distance;
     }
   
   /* new parent is <= existing parents, add it to parent list */  
@@ -468,7 +466,6 @@ ospf_spf_add_parent (struct vertex *v, struct vertex *w,
 
   return;
 }
-#define	distance	distance__VAR
 
 /* 16.1.1.  Calculate nexthop from root through V (parent) to
  * vertex W (destination), with given distance from root->W.
@@ -482,7 +479,6 @@ ospf_spf_add_parent (struct vertex *v, struct vertex *w,
  * provided distance as appropriate.
  */
 static unsigned int
-#undef	distance
 ospf_nexthop_calculation (struct ospf_area *area, struct vertex *v,
                           struct vertex *w, struct router_lsa_link *l,
                           unsigned int distance)
@@ -703,7 +699,6 @@ ospf_nexthop_calculation (struct ospf_area *area, struct vertex *v,
   
   return added;
 }
-#define	distance	distance__VAR
 
 /* RFC2328 Section 16.1 (2).
  * v is on the SPF tree.  Examine the links in v's LSA.  Update the list
@@ -858,9 +853,9 @@ ospf_spf_next (struct vertex *v, struct ospf_area *area,
 
       /* calculate link cost D. */
       if (v->lsa->type == OSPF_ROUTER_LSA)
-	distance = v->distance__item + ntohs (l->m[0].metric);
+	distance = v->distance + ntohs (l->m[0].metric);
       else /* v is not a Router-LSA */
-	distance = v->distance__item;
+	distance = v->distance;
 
       /* Is there already vertex W in candidate list? */
       if (w_lsa->stat == LSA_SPF_NOT_EXPLORED)
@@ -880,12 +875,12 @@ ospf_spf_next (struct vertex *v, struct ospf_area *area,
 	  w = candidate->array[w_lsa->stat];
 
 	  /* if D is greater than. */  
-	  if (w->distance__item < distance)
+	  if (w->distance < distance)
             {
               continue;
             }
           /* equal to. */
-	  else if (w->distance__item == distance)
+	  else if (w->distance == distance)
             {
 	      /* Found an equal-cost path to W.  
                * Calculate nexthop of to W from V. */

@@ -1,0 +1,11 @@
+--- zebra/zebra_rib.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ zebra/zebra_rib.c	2009-07-15 15:26:16.000000000 +0200
+@@ -805,7 +805,7 @@
+ {
+   struct interface *ifp;
+   route_map_result_t ret = RMAP_MATCH;
+-  extern char *proto_rm[AFI_MAX][ZEBRA_ROUTE_MAX+1];
++  //extern char *proto_rm[AFI_MAX][ZEBRA_ROUTE_MAX+1];
+   struct route_map *rmap;
+   int family;
+ 

@@ -140,7 +140,7 @@ struct_rip
   char *default_information_route_map;
 
   /* RIP default distance. */
-  u_char distance__item;
+  u_char distance;
   struct route_table *distance_table;
 
   /* For redistribute route map. */
@@ -225,7 +225,7 @@ struct rip_info
 
   struct route_node *rp;
 
-  u_char distance__item;
+  u_char distance;
 
 #ifdef NEW_RIP_TABLE
   struct rip_info *next;

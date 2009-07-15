@@ -300,7 +300,6 @@
 #undef recent_time
 #undef show_ip_access_list_cmd
 #undef exit_address_family_cmd
-#undef memory_list_vtysh
 #undef no_neighbor_attr_unchanged2_cmd
 #undef no_match_metric_cmd
 #undef rmap_continue_cmd
@@ -364,7 +363,6 @@
 #undef neighbor_transparent_nexthop_cmd
 #undef no_ospf_refresh_timer_cmd
 #undef undebug_bgp_filter_cmd
-#undef restricted_mode_default
 #undef no_ospf_router_id_cmd
 #undef accept_lifetime_duration_month_day_cmd
 #undef banner_motd_default_cmd
@@ -492,7 +490,6 @@
 #undef distribute_list_all_cmd
 #undef ip_ospf_dead_interval_minimal_addr_cmd
 #undef no_neighbor_nexthop_self_cmd
-#undef attr_str_max
 #undef no_ospf_area_authentication_cmd
 #undef debug_bgp_as4_segment_cmd
 #undef no_ospf_redistribute_source_cmd
@@ -642,7 +639,6 @@
 #undef vtyvec
 #undef no_neighbor_description_val_cmd
 #undef match_ip_address_cmd
-#undef key
 #undef conf_bgp_debug_events
 #undef dump_keepalive
 #undef no_aggregate_address_summary_as_set_cmd
@@ -812,7 +808,6 @@
 #undef ospf_cost_u32_cmd
 #undef no_ip_ospf_authentication_addr_cmd
 #undef no_access_list_extended_host_mask_cmd
-#undef command_types
 #undef no_set_aspath_prepend_cmd
 #undef show_ip_bgp_community4_exact_cmd
 #undef ip_extcommunity_list_name_standard2_cmd
@@ -820,7 +815,6 @@
 #undef ip_community_list_standard_cmd
 #undef no_ospf_area_shortcut_cmd
 #undef clear_bgp_all_soft_out_cmd
-#undef telnet_backward_char
 #undef no_neighbor_advertise_interval_val_cmd
 #undef no_match_aspath_cmd
 #undef ip_route_mask_flags2_cmd
@@ -849,7 +843,6 @@
 #undef no_rmap_onmatch_next_cmd
 #undef ip_route_flags_distance2_cmd
 #undef show_history_cmd
-#undef memory_list_zebra
 #undef config_terminal_length_cmd
 #undef bgp_default_local_preference_cmd
 #undef bgp_network_mask_natural_backdoor_cmd
@@ -1013,9 +1006,9 @@
 #undef show_ip_ospf_database_type_self_cmd
 #undef show_ip_ospf_database_type_cmd
 #undef vlink_count
-#undef config_write_memory_cmd
 #undef T
 #undef address_family_vpnv4_unicast_cmd
+#undef config_write_memory_cmd
 #undef show_ip_as_path_access_list_all_cmd
 #undef relative_time
 #undef config_list_cmd
@@ -1034,7 +1027,6 @@
 #undef clear_ip_bgp_external_soft_cmd
 #undef show_debugging_rip_cmd
 #undef config_node
-#undef unknown
 #undef no_ospf_area_vlink_authtype_cmd
 #undef rmap_onmatch_next_cmd
 #undef clear_ip_bgp_as_soft_out_cmd
@@ -1055,8 +1047,8 @@
 #undef neighbor_default_originate_cmd
 #undef no_rip_redistribute_type_cmd
 #undef ospf_network_area_cmd
-#undef route_match_metric_cmd
 #undef vty_node
+#undef route_match_metric_cmd
 #undef ip_ospf_cost_u32_inet4_cmd
 #undef retain_mode
 #undef no_ip_route_mask_distance_cmd
@@ -1165,7 +1157,6 @@
 #undef no_bgp_distance_cmd
 #undef match_community_cmd
 #undef no_bgp_bestpath_compare_router_id_cmd
-#undef distance
 #undef no_bandwidth_if_cmd
 #undef show_ip_bgp_vpnv4_all_prefix_cmd
 #undef no_set_originator_id_cmd
@@ -1181,6 +1172,7 @@
 #undef clear_ip_bgp_instance_all_in_prefix_filter_cmd
 #undef no_debug_zebra_packet_direct_cmd
 #undef debug_ospf_packet_all_cmd
+#undef no_ospf_timers_spf_cmd
 #undef aggregate_address_as_set_summary_cmd
 #undef show_ip_route_supernets_cmd
 #undef router_rip_cmd
@@ -1344,7 +1336,6 @@
 #undef no_debug_bgp_update_cmd
 #undef no_ip_protocol_cmd
 #undef no_bgp_confederation_identifier_arg_cmd
-#undef telnet_space_char
 #undef clear_ip_bgp_as_cmd
 #undef neighbor_attr_unchanged_cmd
 #undef send_lifetime_infinite_day_month_cmd
@@ -1365,7 +1356,6 @@
 #undef clear_bgp_ipv6_external_soft_in_cmd
 #undef debug_ospf_nssa_cmd
 #undef bgp_graceful_restart_stalepath_time_cmd
-#undef route_types
 #undef set_aspath_exclude_cmd
 #undef route_match_ip_address_prefix_list_cmd
 #undef neighbor_passive_cmd
@@ -1460,8 +1450,8 @@
 #undef zebra_debug_kernel
 #undef dump_bgp_routes_cmd
 #undef route_match_community_cmd
-#undef access_master_ipv4
 #undef no_match_aspath_val_cmd
+#undef access_master_ipv4
 #undef no_synchronization_cmd
 #undef zebra_debug_rib
 #undef neighbor_capability_dynamic_cmd
@@ -1506,6 +1496,7 @@
 #undef neighbor_allowas_in_cmd
 #undef no_neighbor_capability_dynamic_cmd
 #undef no_ip_ospf_network_cmd
+#undef ospf_neighbor_cmd
 #undef bgp_bestpath_aspath_ignore_cmd
 #undef show_ip_extcommunity_list_arg_cmd
 #undef no_ospf_area_vlink_param3_cmd
@@ -1576,8 +1567,8 @@
 #undef bgp_damp_set_cmd
 #undef keychain_key_node
 #undef no_dump_bgp_routes_cmd
-#undef last_recent_time
 #undef orf_mode_str
+#undef last_recent_time
 #undef no_aggregate_address_mask_as_set_cmd
 #undef no_rmap_continue_seq
 #undef show_ip_bgp_ipv4_community4_cmd

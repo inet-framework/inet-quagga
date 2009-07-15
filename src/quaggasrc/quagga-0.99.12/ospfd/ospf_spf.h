@@ -40,7 +40,7 @@ struct vertex
   struct in_addr id;	/* copied from LSA header */
   struct lsa_header *lsa; /* Router or Network LSA */
   int *stat;		/* Link to LSA status. */
-  u_int32_t distance__item;	/* from root to this vertex */  
+  u_int32_t distance;	/* from root to this vertex */  
   struct list *parents;		/* list of parents in SPF tree */
   struct list *children;	/* list of children in SPF tree*/
 };
@@ -63,5 +63,6 @@ extern void ospf_spf_calculate_schedule (struct ospf *);
 extern void ospf_rtrs_free (struct route_table *);
 
 /* void ospf_spf_calculate_timer_add (); */
+void ospf_vertex_free (void *);
 
 #endif /* _QUAGGA_OSPF_SPF_H */

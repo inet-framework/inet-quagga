@@ -1,5 +1,14 @@
 --- lib/thread.c.orig	2009-05-09 00:14:54.000000000 +0200
-+++ lib/thread.c	2009-06-18 12:32:33.000000000 +0200
++++ lib/thread.c	2009-07-15 15:25:23.000000000 +0200
+@@ -219,7 +219,7 @@
+ static unsigned int
+ cpu_record_hash_key (struct cpu_thread_history *a)
+ {
+-  return (uintptr_t) a->func;
++  return (unsigned int) a->func;
+ }
+ 
+ static int 
 @@ -239,7 +239,7 @@
    return new;
  }

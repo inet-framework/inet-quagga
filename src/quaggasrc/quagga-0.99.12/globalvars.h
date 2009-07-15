@@ -94,7 +94,7 @@ struct GlobalVars
 	struct cmd_element no_rip_offset_list_cmd__X;
 	int opterr__X;
 	unsigned long conf_debug_ospf_ism__X;
-	size_t cap_minsizes__X[8];
+	size_t cap_minsizes__X[CAPABILITY_CODE_ORF_OLD+1];
 	struct cmd_element ospf_redistribute_source_type_routemap_cmd__X;
 	struct cmd_element no_ip_route_flags_distance_cmd__X;
 	struct thread * t_bgp_dump_routes__X;
@@ -311,7 +311,6 @@ struct GlobalVars
 	struct timeval recent_time__X;
 	struct cmd_element show_ip_access_list_cmd__X;
 	struct cmd_element exit_address_family_cmd__X;
-	struct memory_list memory_list_vtysh__X[3];
 	struct cmd_element no_neighbor_attr_unchanged2_cmd__X;
 	struct cmd_element no_match_metric_cmd__X;
 	struct cmd_element rmap_continue_cmd__X;
@@ -375,7 +374,6 @@ struct GlobalVars
 	struct cmd_element neighbor_transparent_nexthop_cmd__X;
 	struct cmd_element no_ospf_refresh_timer_cmd__X;
 	struct cmd_element undebug_bgp_filter_cmd__X;
-	const u_char restricted_mode_default__X;
 	struct cmd_element no_ospf_router_id_cmd__X;
 	struct cmd_element accept_lifetime_duration_month_day_cmd__X;
 	struct cmd_element banner_motd_default_cmd__X;
@@ -503,7 +501,6 @@ struct GlobalVars
 	struct cmd_element distribute_list_all_cmd__X;
 	struct cmd_element ip_ospf_dead_interval_minimal_addr_cmd__X;
 	struct cmd_element no_neighbor_nexthop_self_cmd__X;
-	int attr_str_max__X;
 	struct cmd_element no_ospf_area_authentication_cmd__X;
 	struct cmd_element debug_bgp_as4_segment_cmd__X;
 	struct cmd_element no_ospf_redistribute_source_cmd__X;
@@ -653,7 +650,6 @@ struct GlobalVars
 	vector vtyvec__X;
 	struct cmd_element no_neighbor_description_val_cmd__X;
 	struct cmd_element match_ip_address_cmd__X;
-	int key__X;
 	unsigned long conf_bgp_debug_events__X;
 	int dump_keepalive__X;
 	struct cmd_element no_aggregate_address_summary_as_set_cmd__X;
@@ -823,7 +819,6 @@ struct GlobalVars
 	struct cmd_element ospf_cost_u32_cmd__X;
 	struct cmd_element no_ip_ospf_authentication_addr_cmd__X;
 	struct cmd_element no_access_list_extended_host_mask_cmd__X;
-	struct zebra_desc_table command_types__X[22];
 	struct cmd_element no_set_aspath_prepend_cmd__X;
 	struct cmd_element show_ip_bgp_community4_exact_cmd__X;
 	struct cmd_element ip_extcommunity_list_name_standard2_cmd__X;
@@ -831,7 +826,6 @@ struct GlobalVars
 	struct cmd_element ip_community_list_standard_cmd__X;
 	struct cmd_element no_ospf_area_shortcut_cmd__X;
 	struct cmd_element clear_bgp_all_soft_out_cmd__X;
-	const char telnet_backward_char__X;
 	struct cmd_element no_neighbor_advertise_interval_val_cmd__X;
 	struct cmd_element no_match_aspath_cmd__X;
 	struct cmd_element ip_route_mask_flags2_cmd__X;
@@ -860,7 +854,6 @@ struct GlobalVars
 	struct cmd_element no_rmap_onmatch_next_cmd__X;
 	struct cmd_element ip_route_flags_distance2_cmd__X;
 	struct cmd_element show_history_cmd__X;
-	struct memory_list memory_list_zebra__X[9];
 	struct cmd_element config_terminal_length_cmd__X;
 	struct cmd_element bgp_default_local_preference_cmd__X;
 	struct cmd_element bgp_network_mask_natural_backdoor_cmd__X;
@@ -1024,9 +1017,9 @@ struct GlobalVars
 	struct cmd_element show_ip_ospf_database_type_self_cmd__X;
 	struct cmd_element show_ip_ospf_database_type_cmd__X;
 	u_int vlink_count__X;
-	struct cmd_element config_write_memory_cmd__X;
 	const uint32_t T__X[65];
 	struct cmd_element address_family_vpnv4_unicast_cmd__X;
+	struct cmd_element config_write_memory_cmd__X;
 	struct cmd_element show_ip_as_path_access_list_all_cmd__X;
 	struct timeval relative_time__X;
 	struct cmd_element config_list_cmd__X;
@@ -1045,7 +1038,6 @@ struct GlobalVars
 	struct cmd_element clear_ip_bgp_external_soft_cmd__X;
 	struct cmd_element show_debugging_rip_cmd__X;
 	struct cmd_node config_node__X;
-	struct zebra_desc_table unknown__X;
 	struct cmd_element no_ospf_area_vlink_authtype_cmd__X;
 	struct cmd_element rmap_onmatch_next_cmd__X;
 	struct cmd_element clear_ip_bgp_as_soft_out_cmd__X;
@@ -1066,8 +1058,8 @@ struct GlobalVars
 	struct cmd_element neighbor_default_originate_cmd__X;
 	struct cmd_element no_rip_redistribute_type_cmd__X;
 	struct cmd_element ospf_network_area_cmd__X;
-	struct route_map_rule_cmd route_match_metric_cmd__X;
 	struct cmd_node vty_node__X;
+	struct route_map_rule_cmd route_match_metric_cmd__X;
 	struct cmd_element ip_ospf_cost_u32_inet4_cmd__X;
 	int retain_mode__X;
 	struct cmd_element no_ip_route_mask_distance_cmd__X;
@@ -1176,7 +1168,6 @@ struct GlobalVars
 	struct cmd_element no_bgp_distance_cmd__X;
 	struct cmd_element match_community_cmd__X;
 	struct cmd_element no_bgp_bestpath_compare_router_id_cmd__X;
-	int distance__X;
 	struct cmd_element no_bandwidth_if_cmd__X;
 	struct cmd_element show_ip_bgp_vpnv4_all_prefix_cmd__X;
 	struct cmd_element no_set_originator_id_cmd__X;
@@ -1192,6 +1183,7 @@ struct GlobalVars
 	struct cmd_element clear_ip_bgp_instance_all_in_prefix_filter_cmd__X;
 	struct cmd_element no_debug_zebra_packet_direct_cmd__X;
 	struct cmd_element debug_ospf_packet_all_cmd__X;
+	struct cmd_element no_ospf_timers_spf_cmd__X;
 	struct cmd_element aggregate_address_as_set_summary_cmd__X;
 	struct cmd_element show_ip_route_supernets_cmd__X;
 	struct cmd_element router_rip_cmd__X;
@@ -1355,7 +1347,6 @@ struct GlobalVars
 	struct cmd_element no_debug_bgp_update_cmd__X;
 	struct cmd_element no_ip_protocol_cmd__X;
 	struct cmd_element no_bgp_confederation_identifier_arg_cmd__X;
-	const char telnet_space_char__X;
 	struct cmd_element clear_ip_bgp_as_cmd__X;
 	struct cmd_element neighbor_attr_unchanged_cmd__X;
 	struct cmd_element send_lifetime_infinite_day_month_cmd__X;
@@ -1376,7 +1367,6 @@ struct GlobalVars
 	struct cmd_element clear_bgp_ipv6_external_soft_in_cmd__X;
 	struct cmd_element debug_ospf_nssa_cmd__X;
 	struct cmd_element bgp_graceful_restart_stalepath_time_cmd__X;
-	struct zebra_desc_table route_types__X[11];
 	struct cmd_element set_aspath_exclude_cmd__X;
 	struct route_map_rule_cmd route_match_ip_address_prefix_list_cmd__X;
 	struct cmd_element neighbor_passive_cmd__X;
@@ -1471,8 +1461,8 @@ struct GlobalVars
 	unsigned long zebra_debug_kernel__X;
 	struct cmd_element dump_bgp_routes_cmd__X;
 	struct route_map_rule_cmd route_match_community_cmd__X;
-	struct access_master access_master_ipv4__X;
 	struct cmd_element no_match_aspath_val_cmd__X;
+	struct access_master access_master_ipv4__X;
 	struct cmd_element no_synchronization_cmd__X;
 	unsigned long zebra_debug_rib__X;
 	struct cmd_element neighbor_capability_dynamic_cmd__X;
@@ -1517,6 +1507,7 @@ struct GlobalVars
 	struct cmd_element neighbor_allowas_in_cmd__X;
 	struct cmd_element no_neighbor_capability_dynamic_cmd__X;
 	struct cmd_element no_ip_ospf_network_cmd__X;
+	struct cmd_element ospf_neighbor_cmd__X;
 	struct cmd_element bgp_bestpath_aspath_ignore_cmd__X;
 	struct cmd_element show_ip_extcommunity_list_arg_cmd__X;
 	struct cmd_element no_ospf_area_vlink_param3_cmd__X;
@@ -1587,8 +1578,8 @@ struct GlobalVars
 	struct cmd_element bgp_damp_set_cmd__X;
 	struct cmd_node keychain_key_node__X;
 	struct cmd_element no_dump_bgp_routes_cmd__X;
-	struct timeval last_recent_time__X;
 	struct message orf_mode_str__X[3];
+	struct timeval last_recent_time__X;
 	struct cmd_element no_aggregate_address_mask_as_set_cmd__X;
 	struct cmd_element no_rmap_continue_seq__X;
 	struct cmd_element show_ip_bgp_ipv4_community4_cmd__X;
@@ -1666,7 +1657,7 @@ struct GlobalVars
 	struct cmd_element clear_bgp_ipv6_all_in_cmd__X;
 	struct cmd_element show_ip_route_addr_cmd__X;
 	struct cmd_element ipv6_distribute_list_cmd__X;
-	const char * table_stats_strs__X[14];
+	const char * table_stats_strs__X[BGP_STATS_MAX+1];
 	struct cmd_element no_ip_ospf_mtu_ignore_cmd__X;
 	struct cmd_element no_ospf_area_import_list_cmd__X;
 	struct cmd_element match_peer_cmd__X;
@@ -2323,8 +2314,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	show_ip_access_list_cmd  show_ip_access_list_cmd__VAR
 #define	exit_address_family_cmd__VAR  (__activeVars->exit_address_family_cmd__X)
 #define	exit_address_family_cmd  exit_address_family_cmd__VAR
-#define	memory_list_vtysh__VAR  (__activeVars->memory_list_vtysh__X)
-#define	memory_list_vtysh  memory_list_vtysh__VAR
 #define	no_neighbor_attr_unchanged2_cmd__VAR  (__activeVars->no_neighbor_attr_unchanged2_cmd__X)
 #define	no_neighbor_attr_unchanged2_cmd  no_neighbor_attr_unchanged2_cmd__VAR
 #define	no_match_metric_cmd__VAR  (__activeVars->no_match_metric_cmd__X)
@@ -2451,8 +2440,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	no_ospf_refresh_timer_cmd  no_ospf_refresh_timer_cmd__VAR
 #define	undebug_bgp_filter_cmd__VAR  (__activeVars->undebug_bgp_filter_cmd__X)
 #define	undebug_bgp_filter_cmd  undebug_bgp_filter_cmd__VAR
-#define	restricted_mode_default__VAR  (__activeVars->restricted_mode_default__X)
-#define	restricted_mode_default  restricted_mode_default__VAR
 #define	no_ospf_router_id_cmd__VAR  (__activeVars->no_ospf_router_id_cmd__X)
 #define	no_ospf_router_id_cmd  no_ospf_router_id_cmd__VAR
 #define	accept_lifetime_duration_month_day_cmd__VAR  (__activeVars->accept_lifetime_duration_month_day_cmd__X)
@@ -2707,8 +2694,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	ip_ospf_dead_interval_minimal_addr_cmd  ip_ospf_dead_interval_minimal_addr_cmd__VAR
 #define	no_neighbor_nexthop_self_cmd__VAR  (__activeVars->no_neighbor_nexthop_self_cmd__X)
 #define	no_neighbor_nexthop_self_cmd  no_neighbor_nexthop_self_cmd__VAR
-#define	attr_str_max__VAR  (__activeVars->attr_str_max__X)
-#define	attr_str_max  attr_str_max__VAR
 #define	no_ospf_area_authentication_cmd__VAR  (__activeVars->no_ospf_area_authentication_cmd__X)
 #define	no_ospf_area_authentication_cmd  no_ospf_area_authentication_cmd__VAR
 #define	debug_bgp_as4_segment_cmd__VAR  (__activeVars->debug_bgp_as4_segment_cmd__X)
@@ -3007,8 +2992,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	no_neighbor_description_val_cmd  no_neighbor_description_val_cmd__VAR
 #define	match_ip_address_cmd__VAR  (__activeVars->match_ip_address_cmd__X)
 #define	match_ip_address_cmd  match_ip_address_cmd__VAR
-#define	key__VAR  (__activeVars->key__X)
-#define	key  key__VAR
 #define	conf_bgp_debug_events__VAR  (__activeVars->conf_bgp_debug_events__X)
 #define	conf_bgp_debug_events  conf_bgp_debug_events__VAR
 #define	dump_keepalive__VAR  (__activeVars->dump_keepalive__X)
@@ -3347,8 +3330,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	no_ip_ospf_authentication_addr_cmd  no_ip_ospf_authentication_addr_cmd__VAR
 #define	no_access_list_extended_host_mask_cmd__VAR  (__activeVars->no_access_list_extended_host_mask_cmd__X)
 #define	no_access_list_extended_host_mask_cmd  no_access_list_extended_host_mask_cmd__VAR
-#define	command_types__VAR  (__activeVars->command_types__X)
-#define	command_types  command_types__VAR
 #define	no_set_aspath_prepend_cmd__VAR  (__activeVars->no_set_aspath_prepend_cmd__X)
 #define	no_set_aspath_prepend_cmd  no_set_aspath_prepend_cmd__VAR
 #define	show_ip_bgp_community4_exact_cmd__VAR  (__activeVars->show_ip_bgp_community4_exact_cmd__X)
@@ -3363,8 +3344,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	no_ospf_area_shortcut_cmd  no_ospf_area_shortcut_cmd__VAR
 #define	clear_bgp_all_soft_out_cmd__VAR  (__activeVars->clear_bgp_all_soft_out_cmd__X)
 #define	clear_bgp_all_soft_out_cmd  clear_bgp_all_soft_out_cmd__VAR
-#define	telnet_backward_char__VAR  (__activeVars->telnet_backward_char__X)
-#define	telnet_backward_char  telnet_backward_char__VAR
 #define	no_neighbor_advertise_interval_val_cmd__VAR  (__activeVars->no_neighbor_advertise_interval_val_cmd__X)
 #define	no_neighbor_advertise_interval_val_cmd  no_neighbor_advertise_interval_val_cmd__VAR
 #define	no_match_aspath_cmd__VAR  (__activeVars->no_match_aspath_cmd__X)
@@ -3421,8 +3400,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	ip_route_flags_distance2_cmd  ip_route_flags_distance2_cmd__VAR
 #define	show_history_cmd__VAR  (__activeVars->show_history_cmd__X)
 #define	show_history_cmd  show_history_cmd__VAR
-#define	memory_list_zebra__VAR  (__activeVars->memory_list_zebra__X)
-#define	memory_list_zebra  memory_list_zebra__VAR
 #define	config_terminal_length_cmd__VAR  (__activeVars->config_terminal_length_cmd__X)
 #define	config_terminal_length_cmd  config_terminal_length_cmd__VAR
 #define	bgp_default_local_preference_cmd__VAR  (__activeVars->bgp_default_local_preference_cmd__X)
@@ -3749,12 +3726,12 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	show_ip_ospf_database_type_cmd  show_ip_ospf_database_type_cmd__VAR
 #define	vlink_count__VAR  (__activeVars->vlink_count__X)
 #define	vlink_count  vlink_count__VAR
-#define	config_write_memory_cmd__VAR  (__activeVars->config_write_memory_cmd__X)
-#define	config_write_memory_cmd  config_write_memory_cmd__VAR
 #define	T__VAR  (__activeVars->T__X)
 #define	T  T__VAR
 #define	address_family_vpnv4_unicast_cmd__VAR  (__activeVars->address_family_vpnv4_unicast_cmd__X)
 #define	address_family_vpnv4_unicast_cmd  address_family_vpnv4_unicast_cmd__VAR
+#define	config_write_memory_cmd__VAR  (__activeVars->config_write_memory_cmd__X)
+#define	config_write_memory_cmd  config_write_memory_cmd__VAR
 #define	show_ip_as_path_access_list_all_cmd__VAR  (__activeVars->show_ip_as_path_access_list_all_cmd__X)
 #define	show_ip_as_path_access_list_all_cmd  show_ip_as_path_access_list_all_cmd__VAR
 #define	relative_time__VAR  (__activeVars->relative_time__X)
@@ -3791,8 +3768,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	show_debugging_rip_cmd  show_debugging_rip_cmd__VAR
 #define	config_node__VAR  (__activeVars->config_node__X)
 #define	config_node  config_node__VAR
-#define	unknown__VAR  (__activeVars->unknown__X)
-#define	unknown  unknown__VAR
 #define	no_ospf_area_vlink_authtype_cmd__VAR  (__activeVars->no_ospf_area_vlink_authtype_cmd__X)
 #define	no_ospf_area_vlink_authtype_cmd  no_ospf_area_vlink_authtype_cmd__VAR
 #define	rmap_onmatch_next_cmd__VAR  (__activeVars->rmap_onmatch_next_cmd__X)
@@ -3833,10 +3808,10 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	no_rip_redistribute_type_cmd  no_rip_redistribute_type_cmd__VAR
 #define	ospf_network_area_cmd__VAR  (__activeVars->ospf_network_area_cmd__X)
 #define	ospf_network_area_cmd  ospf_network_area_cmd__VAR
-#define	route_match_metric_cmd__VAR  (__activeVars->route_match_metric_cmd__X)
-#define	route_match_metric_cmd  route_match_metric_cmd__VAR
 #define	vty_node__VAR  (__activeVars->vty_node__X)
 #define	vty_node  vty_node__VAR
+#define	route_match_metric_cmd__VAR  (__activeVars->route_match_metric_cmd__X)
+#define	route_match_metric_cmd  route_match_metric_cmd__VAR
 #define	ip_ospf_cost_u32_inet4_cmd__VAR  (__activeVars->ip_ospf_cost_u32_inet4_cmd__X)
 #define	ip_ospf_cost_u32_inet4_cmd  ip_ospf_cost_u32_inet4_cmd__VAR
 #define	retain_mode__VAR  (__activeVars->retain_mode__X)
@@ -4053,8 +4028,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	match_community_cmd  match_community_cmd__VAR
 #define	no_bgp_bestpath_compare_router_id_cmd__VAR  (__activeVars->no_bgp_bestpath_compare_router_id_cmd__X)
 #define	no_bgp_bestpath_compare_router_id_cmd  no_bgp_bestpath_compare_router_id_cmd__VAR
-#define	distance__VAR  (__activeVars->distance__X)
-#define	distance  distance__VAR
 #define	no_bandwidth_if_cmd__VAR  (__activeVars->no_bandwidth_if_cmd__X)
 #define	no_bandwidth_if_cmd  no_bandwidth_if_cmd__VAR
 #define	show_ip_bgp_vpnv4_all_prefix_cmd__VAR  (__activeVars->show_ip_bgp_vpnv4_all_prefix_cmd__X)
@@ -4085,6 +4058,8 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	no_debug_zebra_packet_direct_cmd  no_debug_zebra_packet_direct_cmd__VAR
 #define	debug_ospf_packet_all_cmd__VAR  (__activeVars->debug_ospf_packet_all_cmd__X)
 #define	debug_ospf_packet_all_cmd  debug_ospf_packet_all_cmd__VAR
+#define	no_ospf_timers_spf_cmd__VAR  (__activeVars->no_ospf_timers_spf_cmd__X)
+#define	no_ospf_timers_spf_cmd  no_ospf_timers_spf_cmd__VAR
 #define	aggregate_address_as_set_summary_cmd__VAR  (__activeVars->aggregate_address_as_set_summary_cmd__X)
 #define	aggregate_address_as_set_summary_cmd  aggregate_address_as_set_summary_cmd__VAR
 #define	show_ip_route_supernets_cmd__VAR  (__activeVars->show_ip_route_supernets_cmd__X)
@@ -4411,8 +4386,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	no_ip_protocol_cmd  no_ip_protocol_cmd__VAR
 #define	no_bgp_confederation_identifier_arg_cmd__VAR  (__activeVars->no_bgp_confederation_identifier_arg_cmd__X)
 #define	no_bgp_confederation_identifier_arg_cmd  no_bgp_confederation_identifier_arg_cmd__VAR
-#define	telnet_space_char__VAR  (__activeVars->telnet_space_char__X)
-#define	telnet_space_char  telnet_space_char__VAR
 #define	clear_ip_bgp_as_cmd__VAR  (__activeVars->clear_ip_bgp_as_cmd__X)
 #define	clear_ip_bgp_as_cmd  clear_ip_bgp_as_cmd__VAR
 #define	neighbor_attr_unchanged_cmd__VAR  (__activeVars->neighbor_attr_unchanged_cmd__X)
@@ -4453,8 +4426,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	debug_ospf_nssa_cmd  debug_ospf_nssa_cmd__VAR
 #define	bgp_graceful_restart_stalepath_time_cmd__VAR  (__activeVars->bgp_graceful_restart_stalepath_time_cmd__X)
 #define	bgp_graceful_restart_stalepath_time_cmd  bgp_graceful_restart_stalepath_time_cmd__VAR
-#define	route_types__VAR  (__activeVars->route_types__X)
-#define	route_types  route_types__VAR
 #define	set_aspath_exclude_cmd__VAR  (__activeVars->set_aspath_exclude_cmd__X)
 #define	set_aspath_exclude_cmd  set_aspath_exclude_cmd__VAR
 #define	route_match_ip_address_prefix_list_cmd__VAR  (__activeVars->route_match_ip_address_prefix_list_cmd__X)
@@ -4643,10 +4614,10 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	dump_bgp_routes_cmd  dump_bgp_routes_cmd__VAR
 #define	route_match_community_cmd__VAR  (__activeVars->route_match_community_cmd__X)
 #define	route_match_community_cmd  route_match_community_cmd__VAR
-#define	access_master_ipv4__VAR  (__activeVars->access_master_ipv4__X)
-#define	access_master_ipv4  access_master_ipv4__VAR
 #define	no_match_aspath_val_cmd__VAR  (__activeVars->no_match_aspath_val_cmd__X)
 #define	no_match_aspath_val_cmd  no_match_aspath_val_cmd__VAR
+#define	access_master_ipv4__VAR  (__activeVars->access_master_ipv4__X)
+#define	access_master_ipv4  access_master_ipv4__VAR
 #define	no_synchronization_cmd__VAR  (__activeVars->no_synchronization_cmd__X)
 #define	no_synchronization_cmd  no_synchronization_cmd__VAR
 #define	zebra_debug_rib__VAR  (__activeVars->zebra_debug_rib__X)
@@ -4735,6 +4706,8 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	no_neighbor_capability_dynamic_cmd  no_neighbor_capability_dynamic_cmd__VAR
 #define	no_ip_ospf_network_cmd__VAR  (__activeVars->no_ip_ospf_network_cmd__X)
 #define	no_ip_ospf_network_cmd  no_ip_ospf_network_cmd__VAR
+#define	ospf_neighbor_cmd__VAR  (__activeVars->ospf_neighbor_cmd__X)
+#define	ospf_neighbor_cmd  ospf_neighbor_cmd__VAR
 #define	bgp_bestpath_aspath_ignore_cmd__VAR  (__activeVars->bgp_bestpath_aspath_ignore_cmd__X)
 #define	bgp_bestpath_aspath_ignore_cmd  bgp_bestpath_aspath_ignore_cmd__VAR
 #define	show_ip_extcommunity_list_arg_cmd__VAR  (__activeVars->show_ip_extcommunity_list_arg_cmd__X)
@@ -4875,10 +4848,10 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	keychain_key_node  keychain_key_node__VAR
 #define	no_dump_bgp_routes_cmd__VAR  (__activeVars->no_dump_bgp_routes_cmd__X)
 #define	no_dump_bgp_routes_cmd  no_dump_bgp_routes_cmd__VAR
-#define	last_recent_time__VAR  (__activeVars->last_recent_time__X)
-#define	last_recent_time  last_recent_time__VAR
 #define	orf_mode_str__VAR  (__activeVars->orf_mode_str__X)
 #define	orf_mode_str  orf_mode_str__VAR
+#define	last_recent_time__VAR  (__activeVars->last_recent_time__X)
+#define	last_recent_time  last_recent_time__VAR
 #define	no_aggregate_address_mask_as_set_cmd__VAR  (__activeVars->no_aggregate_address_mask_as_set_cmd__X)
 #define	no_aggregate_address_mask_as_set_cmd  no_aggregate_address_mask_as_set_cmd__VAR
 #define	no_rmap_continue_seq__VAR  (__activeVars->no_rmap_continue_seq__X)

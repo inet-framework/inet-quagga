@@ -1,0 +1,47 @@
+--- zebra/zebra_routemap.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ zebra/zebra_routemap.c	2009-07-15 15:27:28.000000000 +0200
+@@ -464,7 +464,7 @@
+ }
+ 
+ /* Route map commands for ip next-hop matching. */
+-static struct route_map_rule_cmd route_match_ip_next_hop_cmd =
++struct route_map_rule_cmd route_match_ip_next_hop_cmd =
+ {
+   "ip next-hop",
+   route_match_ip_next_hop,
+@@ -526,7 +526,7 @@
+   XFREE (MTYPE_ROUTE_MAP_COMPILED, rule);
+ }
+ 
+-static struct route_map_rule_cmd route_match_ip_next_hop_prefix_list_cmd =
++struct route_map_rule_cmd route_match_ip_next_hop_prefix_list_cmd =
+ {
+   "ip next-hop prefix-list",
+   route_match_ip_next_hop_prefix_list,
+@@ -572,7 +572,7 @@
+ }
+ 
+ /* Route map commands for ip address matching. */
+-static struct route_map_rule_cmd route_match_ip_address_cmd =
++struct route_map_rule_cmd route_match_ip_address_cmd =
+ {
+   "ip address",
+   route_match_ip_address,
+@@ -612,7 +612,7 @@
+   XFREE (MTYPE_ROUTE_MAP_COMPILED, rule);
+ }
+ 
+-static struct route_map_rule_cmd route_match_ip_address_prefix_list_cmd =
++struct route_map_rule_cmd route_match_ip_address_prefix_list_cmd =
+ {
+   "ip address prefix-list",
+   route_match_ip_address_prefix_list,
+@@ -668,7 +668,7 @@
+ }
+ 
+ /* Set src rule structure. */
+-static struct route_map_rule_cmd route_set_src_cmd = 
++struct route_map_rule_cmd route_set_src_cmd = 
+ {
+   "src",
+   route_set_src,

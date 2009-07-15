@@ -500,7 +500,7 @@ route_match_ip_next_hop_free (void *rule)
 }
 
 /* Route map commands for ip next-hop matching. */
-static struct route_map_rule_cmd route_match_ip_next_hop_cmd_zebra =
+struct route_map_rule_cmd route_match_ip_next_hop_cmd_zebra =
 {
   "ip next-hop",
   route_match_ip_next_hop,
@@ -562,7 +562,7 @@ route_match_ip_next_hop_prefix_list_free (void *rule)
   XFREE (MTYPE_ROUTE_MAP_COMPILED, rule);
 }
 
-static struct route_map_rule_cmd route_match_ip_next_hop_prefix_list_cmd_zebra =
+struct route_map_rule_cmd route_match_ip_next_hop_prefix_list_cmd_zebra =
 {
   "ip next-hop prefix-list",
   route_match_ip_next_hop_prefix_list,
@@ -608,7 +608,7 @@ route_match_ip_address_free (void *rule)
 }
 
 /* Route map commands for ip address matching. */
-static struct route_map_rule_cmd route_match_ip_address_cmd_zebra =
+struct route_map_rule_cmd route_match_ip_address_cmd_zebra =
 {
   "ip address",
   route_match_ip_address,
@@ -648,7 +648,7 @@ route_match_ip_address_prefix_list_free (void *rule)
   XFREE (MTYPE_ROUTE_MAP_COMPILED, rule);
 }
 
-static struct route_map_rule_cmd route_match_ip_address_prefix_list_cmd_zebra =
+struct route_map_rule_cmd route_match_ip_address_prefix_list_cmd_zebra =
 {
   "ip address prefix-list",
   route_match_ip_address_prefix_list,
@@ -704,7 +704,7 @@ route_set_src_free (void *rule)
 }
 
 /* Set src rule structure. */
-static struct route_map_rule_cmd route_set_src_cmd_zebra = 
+struct route_map_rule_cmd route_set_src_cmd_zebra = 
 {
   "src",
   route_set_src,

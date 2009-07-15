@@ -26,7 +26,7 @@ struct keychain
 {
   char *name;
 
-  struct list *key__item;
+  struct list *key;
 };
 
 struct key_range
@@ -37,7 +37,7 @@ struct key_range
   u_char duration;
 };
 
-struct_key
+struct key
 {
   u_int32_t index;
 
@@ -49,8 +49,8 @@ struct_key
 
 extern void keychain_init (void);
 extern struct keychain *keychain_lookup (const char *);
-extern struct_key *key_lookup_for_accept (const struct keychain *, u_int32_t);
-extern struct_key *key_match_for_accept (const struct keychain *, const char *);
-extern struct_key *key_lookup_for_send (const struct keychain *);
+extern struct key *key_lookup_for_accept (const struct keychain *, u_int32_t);
+extern struct key *key_match_for_accept (const struct keychain *, const char *);
+extern struct key *key_lookup_for_send (const struct keychain *);
 
 #endif /* _ZEBRA_KEYCHAIN_H */

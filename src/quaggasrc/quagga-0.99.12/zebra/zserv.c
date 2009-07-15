@@ -454,7 +454,7 @@ zsend_route_multipath (int cmd, struct zserv *client, struct prefix *p,
   if (cmd == ZEBRA_IPV4_ROUTE_ADD || ZEBRA_IPV6_ROUTE_ADD)
     {
       SET_FLAG (zapi_flags, ZAPI_MESSAGE_DISTANCE);
-      stream_putc (s, rib->distance__item);
+      stream_putc (s, rib->distance);
       SET_FLAG (zapi_flags, ZAPI_MESSAGE_METRIC);
       stream_putl (s, rib->metric);
     }
@@ -795,7 +795,7 @@ zread_ipv4_add (struct zserv *client, u_short length)
 
   /* Distance. */
   if (CHECK_FLAG (message, ZAPI_MESSAGE_DISTANCE))
-    rib->distance__item = stream_getc (s);
+    rib->distance = stream_getc (s);
 
   /* Metric. */
   if (CHECK_FLAG (message, ZAPI_MESSAGE_METRIC))
@@ -866,9 +866,9 @@ zread_ipv4_delete (struct zserv *client, u_short length)
 
   /* Distance. */
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_DISTANCE))
-    api.distance__item = stream_getc (s);
+    api.distance = stream_getc (s);
   else
-    api.distance__item = 0;
+    api.distance = 0;
 
   /* Metric. */
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_METRIC))
@@ -954,9 +954,9 @@ zread_ipv6_add (struct zserv *client, u_short length)
     }
 
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_DISTANCE))
-    api.distance__item = stream_getc (s);
+    api.distance = stream_getc (s);
   else
-    api.distance__item = 0;
+    api.distance = 0;
 
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_METRIC))
     api.metric = stream_getl (s);
@@ -965,10 +965,10 @@ zread_ipv6_add (struct zserv *client, u_short length)
     
   if (IN6_IS_ADDR_UNSPECIFIED (&nexthop))
     rib_add_ipv6 (api.type, api.flags, &p, NULL, ifindex, 0, api.metric,
-		  api.distance__item);
+		  api.distance);
   else
     rib_add_ipv6 (api.type, api.flags, &p, &nexthop, ifindex, 0, api.metric,
-		  api.distance__item);
+		  api.distance);
   return 0;
 }
 
@@ -1021,9 +1021,9 @@ zread_ipv6_delete (struct zserv *client, u_short length)
     }
 
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_DISTANCE))
-    api.distance__item = stream_getc (s);
+    api.distance = stream_getc (s);
   else
-    api.distance__item = 0;
+    api.distance = 0;
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_METRIC))
     api.metric = stream_getl (s);
   else

@@ -757,18 +757,16 @@ zlog_rotate (struct zlog *zl)
 
 /* Message lookup function. */
 const char *
-#undef	key
 lookup (const struct message *mes, int key)
 {
   const struct message *pnt;
 
-  for (pnt = mes; pnt->key__item != 0; pnt++) 
-    if (pnt->key__item == key) 
+  for (pnt = mes; pnt->key != 0; pnt++) 
+    if (pnt->key == key) 
       return pnt->str;
 
   return "";
 }
-#define	key	key__VAR
 
 /* Older/faster version of message lookup function, but requires caller to pass
  * in the array size (instead of relying on a 0 key to terminate the search). 
@@ -779,7 +777,7 @@ lookup (const struct message *mes, int key)
 const char *
 mes_lookup (struct message *meslist, int max, int index, const char *none)
 {
-  int pos = index - meslist[0].key__item;
+  int pos = index - meslist[0].key;
   
   /* first check for best case: index is in range and matches the key
    * value in that slot.
@@ -787,7 +785,7 @@ mes_lookup (struct message *meslist, int max, int index, const char *none)
    * often start at 1.
    */
   if ((pos >= 0) && (pos < max)
-      && (meslist[pos].key__item == index))
+      && (meslist[pos].key == index))
     return meslist[pos].str;
 
   /* fall back to linear search */
@@ -796,7 +794,7 @@ mes_lookup (struct message *meslist, int max, int index, const char *none)
 
     for (i = 0; i < max; i++, meslist++)
       {
-	if (meslist->key__item == index)
+	if (meslist->key == index)
 	  {
 	    const char *str = (meslist->str ? meslist->str : none);
 	    
@@ -820,7 +818,7 @@ safe_strerror(int errnum)
 }
 
 #define DESC_ENTRY(T,S,C) [(T)] = { (T), (S), (C) }
-static const struct zebra_desc_table route_types_lib[] = {
+static const struct zebra_desc_table route_types[] = {
   DESC_ENTRY	(ZEBRA_ROUTE_SYSTEM,	"system",	'X' ),
   DESC_ENTRY	(ZEBRA_ROUTE_KERNEL,	"kernel",	'K' ),
   DESC_ENTRY	(ZEBRA_ROUTE_CONNECT,	"connected",	'C' ),
@@ -836,7 +834,7 @@ static const struct zebra_desc_table route_types_lib[] = {
 #undef DESC_ENTRY
 
 #define DESC_ENTRY(T) [(T)] = { (T), (#T), '\0' }
-static const struct zebra_desc_table command_types_lib[] = {
+static const struct zebra_desc_table command_types[] = {
   DESC_ENTRY	(ZEBRA_INTERFACE_ADD),
   DESC_ENTRY	(ZEBRA_INTERFACE_DELETE),
   DESC_ENTRY	(ZEBRA_INTERFACE_ADDRESS_ADD),
@@ -862,7 +860,7 @@ static const struct zebra_desc_table command_types_lib[] = {
 };
 #undef DESC_ENTRY
 
-static const struct zebra_desc_table unknown_lib = { 0, "unknown_lib", '?' };
+static const struct zebra_desc_table unknown = { 0, "unknown", '?' };
 
 static const struct zebra_desc_table *
 zroute_lookup(u_int zroute)

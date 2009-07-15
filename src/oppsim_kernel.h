@@ -123,6 +123,7 @@ enum
 
 int oppsim_shutdown (int socket, int how);
 
+long oppsim_sysconf(int name);
 
 #ifdef __cplusplus
 };

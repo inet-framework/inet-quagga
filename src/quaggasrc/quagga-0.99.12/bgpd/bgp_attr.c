@@ -61,7 +61,7 @@ static struct message attr_str [] =
   { BGP_ATTR_AS4_AGGREGATOR,   "AS4_AGGREGATOR" }, 
   { BGP_ATTR_AS_PATHLIMIT,     "AS_PATHLIMIT" },
 };
-int attr_str_max_bgpd = sizeof(attr_str)/sizeof(attr_str[0]);
+int attr_str_max = sizeof(attr_str)/sizeof(attr_str[0]);
 
 struct hash *cluster_hash_bgpd;
 

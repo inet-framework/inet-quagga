@@ -30,7 +30,7 @@ struct hash_backet
   struct hash_backet *next;
 
   /* Hash key. */
-  unsigned int key__item;
+  unsigned int key;
 
   /* Data.  */
   void *data;

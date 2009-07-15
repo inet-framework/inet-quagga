@@ -485,7 +485,7 @@ rip_rte_process (struct rte *rte, struct sockaddr_in *from,
           rinfotmp.rp = rinfo->rp;
           new_dist = rip_distance_apply (&rinfotmp);
           new_dist = new_dist ? new_dist : ZEBRA_RIP_DISTANCE_DEFAULT;
-          old_dist = rinfo->distance__item;
+          old_dist = rinfo->distance;
           /* Only connected routes may have a valid NULL distance */
           if (rinfo->type != ZEBRA_ROUTE_CONNECT)
             old_dist = old_dist ? old_dist : ZEBRA_RIP_DISTANCE_DEFAULT;
@@ -557,11 +557,11 @@ rip_rte_process (struct rte *rte, struct sockaddr_in *from,
           rinfo->sub_type = RIP_ROUTE_RTE;
 
           /* Set distance value. */
-          rinfo->distance__item = rip_distance_apply (rinfo);
+          rinfo->distance = rip_distance_apply (rinfo);
 
           rp->info = rinfo;
           rip_zebra_ipv4_add (&p, &rinfo->nexthop, rinfo->metric,
-                              rinfo->distance__item);
+                              rinfo->distance);
           rinfo->flags |= RIP_RTF_FIB;
         }
 
@@ -603,8 +603,8 @@ rip_rte_process (struct rte *rte, struct sockaddr_in *from,
           || ((same)
               && (rinfo->metric == rte->metric)
               && ntohs (rte->tag) != rinfo->tag)
-          || (rinfo->distance__item > rip_distance_apply (&rinfotmp))
-          || ((rinfo->distance__item != rip_distance_apply (rinfo)) && same))
+          || (rinfo->distance > rip_distance_apply (&rinfotmp))
+          || ((rinfo->distance != rip_distance_apply (rinfo)) && same))
         {
           /* - Adopt the route from the datagram.  That is, put the
              new metric in, and adjust the next hop address (if
@@ -614,7 +614,7 @@ rip_rte_process (struct rte *rte, struct sockaddr_in *from,
           rinfo->tag = ntohs (rte->tag);
           IPV4_ADDR_COPY (&rinfo->from, &from->sin_addr);
           rinfo->ifindex = ifp->ifindex;
-          rinfo->distance__item = rip_distance_apply (rinfo);
+          rinfo->distance = rip_distance_apply (rinfo);
 
           /* Should a new route to this network be established
              while the garbage-collection timer is running, the
@@ -634,7 +634,7 @@ rip_rte_process (struct rte *rte, struct sockaddr_in *from,
                 IPV4_ADDR_COPY (&rinfo->nexthop, nexthop);
 
               rip_zebra_ipv4_add (&p, nexthop, rinfo->metric,
-                                  rinfo->distance__item);
+                                  rinfo->distance);
               rinfo->flags |= RIP_RTF_FIB;
             }
 
@@ -643,7 +643,7 @@ rip_rte_process (struct rte *rte, struct sockaddr_in *from,
             {
               rip_zebra_ipv4_delete (&p, &rinfo->nexthop, oldmetric);
               rip_zebra_ipv4_add (&p, nexthop, rinfo->metric,
-                                  rinfo->distance__item);
+                                  rinfo->distance);
               rinfo->flags |= RIP_RTF_FIB;
 
               if (!IPV4_ADDR_SAME (&rinfo->nexthop, nexthop))
@@ -843,7 +843,7 @@ rip_auth_simple_password (struct rte *rte, struct sockaddr_in *from,
   if (ri->key_chain)
     {
       struct keychain *keychain;
-      struct_key *key;
+      struct key *key;
 
       keychain = keychain_lookup (ri->key_chain);
       if (keychain == NULL)
@@ -865,7 +865,7 @@ rip_auth_md5 (struct rip_packet *packet, struct sockaddr_in *from,
   struct rip_md5_info *md5;
   struct rip_md5_data *md5data;
   struct keychain *keychain;
-  struct_key *key;
+  struct key *key;
   MD5_CTX ctx;
   u_char digest[RIP_AUTH_MD5_SIZE];
   u_int16_t packet_len;
@@ -952,8 +952,7 @@ rip_auth_md5 (struct rip_packet *packet, struct sockaddr_in *from,
  *
  */
 static void
-#undef	key
-rip_auth_prepare_str_send (struct rip_interface *ri, struct_key *key, 
+rip_auth_prepare_str_send (struct rip_interface *ri, struct key *key, 
                            char *auth_str, int len)
 {
   assert (ri || key);
@@ -966,7 +965,6 @@ rip_auth_prepare_str_send (struct rip_interface *ri, struct_key *key,
 
   return;
 }
-#define	key	key__VAR
 
 /* Write RIPv2 simple password authentication information
  *
@@ -994,9 +992,8 @@ rip_auth_simple_write (struct stream *s, char *auth_str, int len)
  * length to the auth-data MD5 digest is known.
  */
 static size_t
-#undef	key
 rip_auth_md5_ah_write (struct stream *s, struct rip_interface *ri, 
-                       struct_key *key)
+                       struct key *key)
 {
   size_t doff = 0;
 
@@ -1038,16 +1035,14 @@ rip_auth_md5_ah_write (struct stream *s, struct rip_interface *ri,
 
   return doff;
 }
-#define	key	key__VAR
 
 /* If authentication is in used, write the appropriate header
  * returns stream offset to which length must later be written
  * or 0 if this is not required
  */
 static size_t
-#undef	key
 rip_auth_header_write (struct stream *s, struct rip_interface *ri, 
-                       struct_key *key, char *auth_str, int len)
+                       struct key *key, char *auth_str, int len)
 {
   assert (ri->auth_type != RIP_NO_AUTH);
   
@@ -1063,7 +1058,6 @@ rip_auth_header_write (struct stream *s, struct rip_interface *ri,
   assert (1);
   return 0;
 }
-#define	key	key__VAR
 
 /* Write RIPv2 MD5 authentication data trailer */
 static void
@@ -1520,7 +1514,6 @@ rip_send_packet (u_char * buf, int size, struct sockaddr_in *to,
 
 /* Add redistributed route to RIP table. */
 void
-#undef	distance
 rip_redistribute_add (int type, int sub_type, struct prefix_ipv4 *p, 
 		      unsigned int ifindex, struct in_addr *nexthop,
                       unsigned int metric, unsigned char distance)
@@ -1580,7 +1573,7 @@ rip_redistribute_add (int type, int sub_type, struct prefix_ipv4 *p,
   rinfo->ifindex = ifindex;
   rinfo->metric = 1;
   rinfo->external_metric = metric;
-  rinfo->distance__item = distance;
+  rinfo->distance = distance;
   rinfo->rp = rp;
 
   if (nexthop)
@@ -1605,7 +1598,6 @@ rip_redistribute_add (int type, int sub_type, struct prefix_ipv4 *p,
 
   rip_event (RIP_TRIGGERED_UPDATE, 0);
 }
-#define	distance	distance__VAR
 
 /* Delete redistributed route from RIP table. */
 void
@@ -2152,7 +2144,7 @@ rip_output_process (struct connected *ifc, struct sockaddr_in *to,
   struct prefix_ipv4 *p;
   struct prefix_ipv4 classfull;
   struct prefix_ipv4 ifaddrclass;
-  struct_key *key = NULL;
+  struct key *key = NULL;
   /* this might need to made dynamic if RIP ever supported auth methods
      with larger key string sizes */
   char auth_str[RIP_AUTH_SIMPLE_SIZE];
@@ -3142,7 +3134,7 @@ struct route_table *rip_distance_table_ripd;
 struct rip_distance
 {
   /* Distance value for the IP source prefix. */
-  u_char distance__item;
+  u_char distance;
 
   /* Name of the access-list to be matched. */
   char *access_list;
@@ -3196,7 +3188,7 @@ rip_distance_set (struct vty *vty, const char *distance_str, const char *ip_str,
     }
 
   /* Set distance value. */
-  rdistance->distance__item = distance;
+  rdistance->distance = distance;
 
   /* Reset access-list configuration. */
   if (rdistance->access_list)
@@ -3298,14 +3290,14 @@ rip_distance_apply (struct rip_info *rinfo)
 	  if (access_list_apply (alist, &rinfo->rp->p) == FILTER_DENY)
 	    return 0;
 
-	  return rdistance->distance__item;
+	  return rdistance->distance;
 	}
       else
-	return rdistance->distance__item;
+	return rdistance->distance;
     }
 
-  if (rip->distance__item)
-    return rip->distance__item;
+  if (rip->distance)
+    return rip->distance;
 
   return 0;
 }
@@ -3319,7 +3311,7 @@ rip_distance_show (struct vty *vty)
   char buf[BUFSIZ];
   
   vty_out (vty, "  Distance: (default is %d)%s",
-	   rip->distance__item ? rip->distance__item :ZEBRA_RIP_DISTANCE_DEFAULT,
+	   rip->distance ? rip->distance :ZEBRA_RIP_DISTANCE_DEFAULT,
 	   VTY_NEWLINE);
 
   for (rn = route_top (rip_distance_table); rn; rn = route_next (rn))
@@ -3333,7 +3325,7 @@ rip_distance_show (struct vty *vty)
 	  }
 	sprintf (buf, "%s/%d", inet_ntoa (rn->p.u.prefix4), rn->p.prefixlen);
 	vty_out (vty, "    %-20s  %4d  %s%s",
-		 buf, rdistance->distance__item,
+		 buf, rdistance->distance,
 		 rdistance->access_list ? rdistance->access_list : "",
 		 VTY_NEWLINE);
       }
@@ -3346,7 +3338,7 @@ DEFUN (rip_distance,
        "Administrative distance\n"
        "Distance value\n")
 {
-  rip->distance__item = atoi (argv[0]);
+  rip->distance = atoi (argv[0]);
   return CMD_SUCCESS;
 }
 #define	rip_distance_cmd	rip_distance_cmd__VAR
@@ -3359,7 +3351,7 @@ DEFUN (no_rip_distance,
        "Administrative distance\n"
        "Distance value\n")
 {
-  rip->distance__item = 0;
+  rip->distance = 0;
   return CMD_SUCCESS;
 }
 #define	no_rip_distance_cmd	no_rip_distance_cmd__VAR
@@ -3714,13 +3706,13 @@ config_write_rip (struct vty *vty)
       write += config_write_if_rmap (vty);
 
       /* Distance configuration. */
-      if (rip->distance__item)
-	vty_out (vty, " distance %d%s", rip->distance__item, VTY_NEWLINE);
+      if (rip->distance)
+	vty_out (vty, " distance %d%s", rip->distance, VTY_NEWLINE);
 
       /* RIP source IP prefix distance configuration. */
       for (rn = route_top (rip_distance_table); rn; rn = route_next (rn))
 	if ((rdistance = rn->info) != NULL)
-	  vty_out (vty, " distance %d %s/%d %s%s", rdistance->distance__item,
+	  vty_out (vty, " distance %d %s/%d %s%s", rdistance->distance,
 		   inet_ntoa (rn->p.u.prefix4), rn->p.prefixlen,
 		   rdistance->access_list ? rdistance->access_list : "",
 		   VTY_NEWLINE);

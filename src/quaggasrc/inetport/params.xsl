@@ -5,7 +5,7 @@
 <xsl:key name='findvar' match="//compounddef[@kind='file']/sectiondef[@kind='var']/memberdef[@kind='variable']" use="name/text()"/> 
 
 <xsl:variable name="defuns" select="//compounddef[@kind='file']/sectiondef[@kind='func']/memberdef[@kind='function']/name[text()='DEFUN' or text()='DEFUN_HIDDEN' or text()='DEFUN_DEPRECATED' or text()='DEFUN_NOSH']/../param[2]"/>
-<xsl:variable name="aliases" select="//compounddef[@kind='file']/sectiondef[@kind='func']/memberdef[@kind='function']/name[text()='ALIAS']/../param[2]"/>
+<xsl:variable name="aliases" select="//compounddef[@kind='file']/sectiondef[@kind='func']/memberdef[@kind='function']/name[text()='ALIAS' or text()='ALIAS_DEPRECATED']/../param[2]"/>
 
 <xsl:template match="/sources">
   <xsl:message>Processing problematic function arguments...</xsl:message>

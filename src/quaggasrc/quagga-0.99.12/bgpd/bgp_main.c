@@ -57,9 +57,9 @@ static struct option longopts[] =
 };
 
 /* signal definitions */
-void sighup (void);
-void sigint (void);
-void sigusr1 (void);
+static void sighup (void);
+static void sigint (void);
+static void sigusr1 (void);
 
 struct quagga_signal_t bgp_signals[] = 
 {
@@ -195,7 +195,7 @@ sigusr1 (void)
 /* Main routine of bgpd. Treatment of argument and start bgp finite
    state machine is handled at here. */
 int
-main (int argc, char **argv)
+bgpd_main_entry (int argc, char **argv)
 {
   char *p;
   int opt;

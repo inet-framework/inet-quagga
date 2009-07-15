@@ -35,7 +35,7 @@
 struct ospf_distance
 {
   /* Distance value for the IP source prefix. */
-  u_char distance__item;
+  u_char distance;
 
   /* Name of the access-list to be matched. */
   char *access_list;
@@ -77,3 +77,4 @@ extern int ospf_distance_unset (struct vty *, struct ospf *, const char *,
 extern void ospf_zebra_init (void);
 
 #endif /* _ZEBRA_OSPF_ZEBRA_H */
+

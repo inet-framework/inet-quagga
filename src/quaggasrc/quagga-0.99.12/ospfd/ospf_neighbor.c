@@ -49,7 +49,6 @@
  * indexed by router-ID instead.
  */
 static void
-#undef	key
 ospf_nbr_key (struct ospf_interface *oi, struct ospf_neighbor *nbr,
               struct prefix *key)
 {
@@ -63,7 +62,6 @@ ospf_nbr_key (struct ospf_interface *oi, struct ospf_neighbor *nbr,
     key->u.prefix4 = nbr->src;
   return;
 }
-#define	key	key__VAR
 
 struct ospf_neighbor *
 ospf_nbr_new (struct ospf_interface *oi)

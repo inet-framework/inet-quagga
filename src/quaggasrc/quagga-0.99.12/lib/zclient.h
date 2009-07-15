@@ -114,7 +114,7 @@ struct zapi_ipv4
   u_char ifindex_num;
   unsigned int *ifindex;
 
-  u_char distance__item;
+  u_char distance;
 
   u_int32_t metric;
 };

@@ -109,7 +109,7 @@ zebra_redistribute_default (struct zserv *client)
 	{
 	  for (newrib = rn->info; newrib; newrib = newrib->next)
 	    if (CHECK_FLAG (newrib->flags, ZEBRA_FLAG_SELECTED)
-		&& newrib->distance__item != DISTANCE_INFINITY)
+		&& newrib->distance != DISTANCE_INFINITY)
 	      zsend_route_multipath (ZEBRA_IPV4_ROUTE_ADD, client, &rn->p, newrib);
 	  route_unlock_node (rn);
 	}
@@ -129,7 +129,7 @@ zebra_redistribute_default (struct zserv *client)
 	{
 	  for (newrib = rn->info; newrib; newrib = newrib->next)
 	    if (CHECK_FLAG (newrib->flags, ZEBRA_FLAG_SELECTED)
-		&& newrib->distance__item != DISTANCE_INFINITY)
+		&& newrib->distance != DISTANCE_INFINITY)
 	      zsend_route_multipath (ZEBRA_IPV6_ROUTE_ADD, client, &rn->p, newrib);
 	  route_unlock_node (rn);
 	}
@@ -151,7 +151,7 @@ zebra_redistribute (struct zserv *client, int type)
       for (newrib = rn->info; newrib; newrib = newrib->next)
 	if (CHECK_FLAG (newrib->flags, ZEBRA_FLAG_SELECTED) 
 	    && newrib->type == type 
-	    && newrib->distance__item != DISTANCE_INFINITY
+	    && newrib->distance != DISTANCE_INFINITY
 	    && zebra_check_addr (&rn->p))
 	  zsend_route_multipath (ZEBRA_IPV4_ROUTE_ADD, client, &rn->p, newrib);
   
@@ -162,7 +162,7 @@ zebra_redistribute (struct zserv *client, int type)
       for (newrib = rn->info; newrib; newrib = newrib->next)
 	if (CHECK_FLAG (newrib->flags, ZEBRA_FLAG_SELECTED)
 	    && newrib->type == type 
-	    && newrib->distance__item != DISTANCE_INFINITY
+	    && newrib->distance != DISTANCE_INFINITY
 	    && zebra_check_addr (&rn->p))
 	  zsend_route_multipath (ZEBRA_IPV6_ROUTE_ADD, client, &rn->p, newrib);
 #endif /* HAVE_IPV6 */
@@ -207,7 +207,7 @@ redistribute_delete (struct prefix *p, struct rib *rib)
   struct zserv *client;
 
   /* Add DISTANCE_INFINITY check. */
-  if (rib->distance__item == DISTANCE_INFINITY)
+  if (rib->distance == DISTANCE_INFINITY)
     return;
 
   for (ALL_LIST_ELEMENTS (zebrad.client_list, node, nnode, client))

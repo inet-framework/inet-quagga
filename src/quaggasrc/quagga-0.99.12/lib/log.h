@@ -95,7 +95,7 @@ struct zlog
 /* Message structure. */
 struct message
 {
-  int key__item;
+  int key;
   const char *str;
 };
 

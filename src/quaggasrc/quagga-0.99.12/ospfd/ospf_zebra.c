@@ -836,7 +836,7 @@ ospf_zebra_read_ipv4 (int command, struct_zclient *zclient,
       ifindex = stream_getl (s);
     }
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_DISTANCE))
-    api.distance__item = stream_getc (s);
+    api.distance = stream_getc (s);
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_METRIC))
     api.metric = stream_getl (s);
 
@@ -1176,7 +1176,7 @@ ospf_distance_set (struct vty *vty, struct ospf *ospf,
     }
 
   /* Set distance value. */
-  odistance->distance__item = distance;
+  odistance->distance = distance;
 
   /* Reset access-list configuration. */
   if (odistance->access_list)

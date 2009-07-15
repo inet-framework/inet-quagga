@@ -51,11 +51,12 @@ extern struct zebra_t zebrad_zebra;
 int rib_process_hold_time_zebra ;
 
 /* Each route type's string and default distance value. */
-static const struct
+struct FOO7 
 {  
-  int key_zebra;
-  int distance_zebra;
-} route_info[] =
+  int key;
+  int distance;
+};
+static const struct FOO7  route_info[] =
 {
   {ZEBRA_ROUTE_SYSTEM,    0},
   {ZEBRA_ROUTE_KERNEL,    0},
@@ -805,7 +806,7 @@ nexthop_active_check (struct route_node *rn, struct rib *rib,
 {
   struct interface_FOO *ifp;
   route_map_result_t ret = RMAP_MATCH;
-  extern char *proto_rm[AFI_MAX][ZEBRA_ROUTE_MAX+1];
+  //extern char *proto_rm[AFI_MAX][ZEBRA_ROUTE_MAX+1];
   struct route_map *rmap;
   int family;
 
@@ -1054,7 +1055,7 @@ rib_process (struct route_node *rn)
         continue;
 
       /* Infinit distance. */
-      if (rib->distance__item == DISTANCE_INFINITY)
+      if (rib->distance == DISTANCE_INFINITY)
         continue;
 
       /* Newly selected rib, the common case. */
@@ -1085,11 +1086,11 @@ rib_process (struct route_node *rn)
         continue;
       
       /* higher distance loses */
-      if (rib->distance__item > select->distance__item)
+      if (rib->distance > select->distance)
         continue;
       
       /* lower wins */
-      if (rib->distance__item < select->distance__item)
+      if (rib->distance < select->distance)
         {
           select = rib;
           continue;
@@ -1539,7 +1540,6 @@ rib_delnode (struct route_node *rn, struct rib *rib)
 }
 
 int
-#undef	distance
 rib_add_ipv4 (int type, int flags, struct prefix_ipv4 *p, 
 	      struct in_addr *gate, struct in_addr *src,
 	      unsigned int ifindex, u_int32_t vrf_id,
@@ -1562,7 +1562,7 @@ rib_add_ipv4 (int type, int flags, struct prefix_ipv4 *p,
   /* Set default distance by route type. */
   if (distance == 0)
     {
-      distance = route_info[type].distance__item;
+      distance = route_info[type].distance;
 
       /* iBGP distance is 200. */
       if (type == ZEBRA_ROUTE_BGP && CHECK_FLAG (flags, ZEBRA_FLAG_IBGP))
@@ -1600,7 +1600,7 @@ rib_add_ipv4 (int type, int flags, struct prefix_ipv4 *p,
   /* Allocate new rib structure. */
   rib = XCALLOC (MTYPE_RIB, sizeof (struct rib));
   rib->type = type;
-  rib->distance__item = distance;
+  rib->distance = distance;
   rib->flags = flags;
   rib->metric = metric;
   rib->table = vrf_id;
@@ -1639,7 +1639,6 @@ rib_add_ipv4 (int type, int flags, struct prefix_ipv4 *p,
   route_unlock_node (rn);
   return 0;
 }
-#define	distance	distance__VAR
 
 /* This function dumps the contents of a given RIB entry into
  * standard debug log. Calling function name and IP prefix in
@@ -1667,7 +1666,7 @@ void rib_dump (const char * func, const struct prefix_ipv4 * p, const struct rib
     "%s: metric == %u, distance == %u, flags == %u, status == %u",
     func,
     rib->metric,
-    rib->distance__item,
+    rib->distance,
     rib->flags,
     rib->status
   );
@@ -1814,14 +1813,14 @@ rib_add_ipv4_multipath (struct prefix_ipv4 *p, struct rib *rib)
   apply_mask_ipv4 (p);
 
   /* Set default distance by route type. */
-  if (rib->distance__item == 0)
+  if (rib->distance == 0)
     {
-      rib->distance__item = route_info[rib->type].distance__item;
+      rib->distance = route_info[rib->type].distance;
 
       /* iBGP distance is 200. */
       if (rib->type == ZEBRA_ROUTE_BGP 
 	  && CHECK_FLAG (rib->flags, ZEBRA_FLAG_IBGP))
-	rib->distance__item = 200;
+	rib->distance = 200;
     }
 
   /* Lookup route node.*/
@@ -2016,7 +2015,7 @@ static_install_ipv4 (struct prefix *p, struct static_ipv4 *si)
        if (CHECK_FLAG (rib->status, RIB_ENTRY_REMOVED))
          continue;
         
-       if (rib->type == ZEBRA_ROUTE_STATIC && rib->distance__item == si->distance__item)
+       if (rib->type == ZEBRA_ROUTE_STATIC && rib->distance == si->distance)
          break;
     }
 
@@ -2045,7 +2044,7 @@ static_install_ipv4 (struct prefix *p, struct static_ipv4 *si)
       rib = XCALLOC (MTYPE_RIB, sizeof (struct rib));
       
       rib->type = ZEBRA_ROUTE_STATIC;
-      rib->distance__item = si->distance__item;
+      rib->distance = si->distance;
       rib->metric = 0;
       rib->nexthop_num = 0;
 
@@ -2111,7 +2110,7 @@ static_uninstall_ipv4 (struct prefix *p, struct static_ipv4 *si)
       if (CHECK_FLAG (rib->status, RIB_ENTRY_REMOVED))
         continue;
 
-      if (rib->type == ZEBRA_ROUTE_STATIC && rib->distance__item == si->distance__item)
+      if (rib->type == ZEBRA_ROUTE_STATIC && rib->distance == si->distance)
         break;
     }
 
@@ -2150,8 +2149,6 @@ static_uninstall_ipv4 (struct prefix *p, struct static_ipv4 *si)
 
 /* Add static route into static route configuration. */
 int
-#undef	distance
-#undef	distance
 static_add_ipv4 (struct prefix *p, struct in_addr *gate, const char *ifname,
 		 u_char flags, u_char distance, u_int32_t vrf_id)
 {
@@ -2186,7 +2183,7 @@ static_add_ipv4 (struct prefix *p, struct in_addr *gate, const char *ifname,
 	  && (! gate || IPV4_ADDR_SAME (gate, &si->gate.ipv4))
 	  && (! ifname || strcmp (ifname, si->gate.ifname) == 0))
 	{
-	  if (distance == si->distance__item)
+	  if (distance == si->distance)
 	    {
 	      route_unlock_node (rn);
 	      return 0;
@@ -2198,14 +2195,14 @@ static_add_ipv4 (struct prefix *p, struct in_addr *gate, const char *ifname,
 
   /* Distance changed.  */
   if (update)
-    static_delete_ipv4 (p, gate, ifname, update->distance__item, vrf_id);
+    static_delete_ipv4 (p, gate, ifname, update->distance, vrf_id);
 
   /* Make new static route structure. */
   si = XMALLOC (MTYPE_STATIC_IPV4, sizeof (struct static_ipv4));
   memset (si, 0, sizeof (struct static_ipv4));
 
   si->type = type;
-  si->distance__item = distance;
+  si->distance = distance;
   si->flags = flags;
 
   if (gate)
@@ -2217,9 +2214,9 @@ static_add_ipv4 (struct prefix *p, struct in_addr *gate, const char *ifname,
      distance value and gateway address. */
   for (pp = NULL, cp = rn->info; cp; pp = cp, cp = cp->next)
     {
-      if (si->distance__item < cp->distance__item)
+      if (si->distance < cp->distance)
 	break;
-      if (si->distance__item > cp->distance__item)
+      if (si->distance > cp->distance)
 	continue;
       if (si->type == STATIC_IPV4_GATEWAY && cp->type == STATIC_IPV4_GATEWAY)
 	{
@@ -2245,13 +2242,9 @@ static_add_ipv4 (struct prefix *p, struct in_addr *gate, const char *ifname,
 
   return 1;
 }
-#define	distance	distance__VAR
-#define	distance	distance__VAR
 
 /* Delete static route from static route configuration. */
 int
-#undef	distance
-#undef	distance
 static_delete_ipv4 (struct prefix *p, struct in_addr *gate, const char *ifname,
 		    u_char distance, u_int32_t vrf_id)
 {
@@ -2313,8 +2306,6 @@ static_delete_ipv4 (struct prefix *p, struct in_addr *gate, const char *ifname,
 
   return 1;
 }
-#define	distance	distance__VAR
-#define	distance	distance__VAR
 
 
 #ifdef HAVE_IPV6
@@ -2360,7 +2351,7 @@ rib_add_ipv6 (int type, int flags, struct prefix_ipv6 *p,
 
   /* Set default distance by route type. */
   if (!distance)
-    distance = route_info[type].distance__item;
+    distance = route_info[type].distance;
   
   if (type == ZEBRA_ROUTE_BGP && CHECK_FLAG (flags, ZEBRA_FLAG_IBGP))
     distance = 200;
@@ -2399,7 +2390,7 @@ rib_add_ipv6 (int type, int flags, struct prefix_ipv6 *p,
   rib = XCALLOC (MTYPE_RIB, sizeof (struct rib));
   
   rib->type = type;
-  rib->distance__item = distance;
+  rib->distance = distance;
   rib->flags = flags;
   rib->metric = metric;
   rib->table = vrf_id;
@@ -2573,7 +2564,7 @@ static_install_ipv6 (struct prefix *p, struct static_ipv6 *si)
       if (CHECK_FLAG(rib->status, RIB_ENTRY_REMOVED))
         continue;
 
-      if (rib->type == ZEBRA_ROUTE_STATIC && rib->distance__item == si->distance__item)
+      if (rib->type == ZEBRA_ROUTE_STATIC && rib->distance == si->distance)
         break;
     }
 
@@ -2603,7 +2594,7 @@ static_install_ipv6 (struct prefix *p, struct static_ipv6 *si)
       rib = XCALLOC (MTYPE_RIB, sizeof (struct rib));
       
       rib->type = ZEBRA_ROUTE_STATIC;
-      rib->distance__item = si->distance__item;
+      rib->distance = si->distance;
       rib->metric = 0;
       rib->nexthop_num = 0;
 
@@ -2670,7 +2661,7 @@ static_uninstall_ipv6 (struct prefix *p, struct static_ipv6 *si)
       if (CHECK_FLAG (rib->status, RIB_ENTRY_REMOVED))
         continue;
     
-      if (rib->type == ZEBRA_ROUTE_STATIC && rib->distance__item == si->distance__item)
+      if (rib->type == ZEBRA_ROUTE_STATIC && rib->distance == si->distance)
         break;
     }
 
@@ -2740,7 +2731,7 @@ static_add_ipv6 (struct prefix *p, u_char type, struct in6_addr *gate,
   /* Do nothing if there is a same static route.  */
   for (si = rn->info; si; si = si->next)
     {
-      if (distance == si->distance__item 
+      if (distance == si->distance 
 	  && type == si->type
 	  && (! gate || IPV6_ADDR_SAME (gate, &si->ipv6))
 	  && (! ifname || strcmp (ifname, si->ifname) == 0))
@@ -2755,7 +2746,7 @@ static_add_ipv6 (struct prefix *p, u_char type, struct in6_addr *gate,
   memset (si, 0, sizeof (struct static_ipv6));
 
   si->type = type;
-  si->distance__item = distance;
+  si->distance = distance;
   si->flags = flags;
 
   switch (type)
@@ -2776,9 +2767,9 @@ static_add_ipv6 (struct prefix *p, u_char type, struct in6_addr *gate,
      distance value and gateway address. */
   for (pp = NULL, cp = rn->info; cp; pp = cp, cp = cp->next)
     {
-      if (si->distance__item < cp->distance__item)
+      if (si->distance < cp->distance)
 	break;
-      if (si->distance__item > cp->distance__item)
+      if (si->distance > cp->distance)
 	continue;
     }
 
@@ -2819,7 +2810,7 @@ static_delete_ipv6 (struct prefix *p, u_char type, struct in6_addr *gate,
 
   /* Find same static route is the tree */
   for (si = rn->info; si; si = si->next)
-    if (distance == si->distance__item 
+    if (distance == si->distance 
 	&& type == si->type
 	&& (! gate || IPV6_ADDR_SAME (gate, &si->ipv6))
 	&& (! ifname || strcmp (ifname, si->ifname) == 0))

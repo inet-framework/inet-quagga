@@ -1,0 +1,53 @@
+--- bgpd/bgp_route.c.orig	2009-05-09 00:03:49.000000000 +0200
++++ bgpd/bgp_route.c	2009-07-15 16:02:37.000000000 +0200
+@@ -8956,26 +8956,7 @@
+   return peer;
+ }
+ 
+-enum bgp_stats
+-{
+-  BGP_STATS_MAXBITLEN = 0,
+-  BGP_STATS_RIB,
+-  BGP_STATS_PREFIXES,
+-  BGP_STATS_TOTPLEN,
+-  BGP_STATS_UNAGGREGATEABLE,
+-  BGP_STATS_MAX_AGGREGATEABLE,
+-  BGP_STATS_AGGREGATES,
+-  BGP_STATS_SPACE,
+-  BGP_STATS_ASPATH_COUNT,
+-  BGP_STATS_ASPATH_MAXHOPS,
+-  BGP_STATS_ASPATH_TOTHOPS,
+-  BGP_STATS_ASPATH_MAXSIZE,
+-  BGP_STATS_ASPATH_TOTSIZE,
+-  BGP_STATS_ASN_HIGHEST,
+-  BGP_STATS_MAX,
+-};
+-
+-static const char *table_stats_strs[] =
++static const char *table_stats_strs[BGP_STATS_MAX+1] =
+ {
+   [BGP_STATS_PREFIXES]            = "Total Prefixes",
+   [BGP_STATS_TOTPLEN]             = "Average prefix length",
+@@ -9313,21 +9294,7 @@
+        "Address Family modifier\n"
+        "BGP RIB advertisement statistics\n")
+ 
+-enum bgp_pcounts
+-{
+-  PCOUNT_ADJ_IN = 0,
+-  PCOUNT_DAMPED,
+-  PCOUNT_REMOVED,
+-  PCOUNT_HISTORY,
+-  PCOUNT_STALE,
+-  PCOUNT_VALID,
+-  PCOUNT_ALL,
+-  PCOUNT_COUNTED,
+-  PCOUNT_PFCNT, /* the figure we display to users */
+-  PCOUNT_MAX,
+-};
+-
+-static const char *pcount_strs[] =
++static const char *pcount_strs[10] =
+ {
+   [PCOUNT_ADJ_IN]  = "Adj-in",
+   [PCOUNT_DAMPED]  = "Damped",

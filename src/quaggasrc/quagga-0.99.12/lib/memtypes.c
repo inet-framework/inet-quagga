@@ -75,7 +75,7 @@ struct memory_list memory_list_lib[] =
   { -1, NULL },
 };
 
-struct memory_list memory_list_zebra_lib[] = 
+struct memory_list memory_list_zebra[] = 
 {
   { MTYPE_RTADV_PREFIX,		"Router Advertisement Prefix"	},
   { MTYPE_VRF,			"VRF"				},
@@ -243,7 +243,7 @@ struct memory_list memory_list_isis[] =
   { -1, NULL },
 };
 
-struct memory_list memory_list_vtysh_lib[] =
+struct memory_list memory_list_vtysh[] =
 {
   { MTYPE_VTYSH_CONFIG,		"Vtysh configuration",		},
   { MTYPE_VTYSH_CONFIG_LINE,	"Vtysh configuration line"	},

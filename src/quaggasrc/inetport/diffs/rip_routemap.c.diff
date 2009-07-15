@@ -1,0 +1,65 @@
+--- ripd/rip_routemap.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ ripd/rip_routemap.c	2009-07-15 15:26:55.000000000 +0200
+@@ -316,7 +316,7 @@
+ }
+ 
+ /* Route map commands for ip next-hop matching. */
+-static struct route_map_rule_cmd route_match_ip_next_hop_cmd =
++struct route_map_rule_cmd route_match_ip_next_hop_cmd =
+ {
+   "ip next-hop",
+   route_match_ip_next_hop,
+@@ -363,7 +363,7 @@
+   XFREE (MTYPE_ROUTE_MAP_COMPILED, rule);
+ }
+ 
+-static struct route_map_rule_cmd route_match_ip_next_hop_prefix_list_cmd =
++struct route_map_rule_cmd route_match_ip_next_hop_prefix_list_cmd =
+ {
+   "ip next-hop prefix-list",
+   route_match_ip_next_hop_prefix_list,
+@@ -409,7 +409,7 @@
+ }
+ 
+ /* Route map commands for ip address matching. */
+-static struct route_map_rule_cmd route_match_ip_address_cmd =
++struct route_map_rule_cmd route_match_ip_address_cmd =
+ {
+   "ip address",
+   route_match_ip_address,
+@@ -449,7 +449,7 @@
+   XFREE (MTYPE_ROUTE_MAP_COMPILED, rule);
+ }
+ 
+-static struct route_map_rule_cmd route_match_ip_address_prefix_list_cmd =
++struct route_map_rule_cmd route_match_ip_address_prefix_list_cmd =
+ {
+   "ip address prefix-list",
+   route_match_ip_address_prefix_list,
+@@ -599,7 +599,7 @@
+ }
+ 
+ /* Set metric rule structure. */
+-static struct route_map_rule_cmd route_set_metric_cmd = 
++struct route_map_rule_cmd route_set_metric_cmd = 
+ {
+   "metric",
+   route_set_metric,
+@@ -659,7 +659,7 @@
+ }
+ 
+ /* Route map commands for ip nexthop set. */
+-static struct route_map_rule_cmd route_set_ip_nexthop_cmd =
++struct route_map_rule_cmd route_set_ip_nexthop_cmd =
+ {
+   "ip next-hop",
+   route_set_ip_nexthop,
+@@ -711,7 +711,7 @@
+ }
+ 
+ /* Route map commands for tag set. */
+-static struct route_map_rule_cmd route_set_tag_cmd =
++struct route_map_rule_cmd route_set_tag_cmd =
+ {
+   "tag",
+   route_set_tag,

@@ -59,9 +59,46 @@ if($predoxy)
     
   foreach my $key (keys %files)
   {
+    my $path = $paths{$key};
+
     print STDERR "processing $key...\n";
 
     my @lines = split(/\n/, $files{$key});
+
+    # handle renames
+    if ($path =~ /\/bgpd\//)
+    {
+      my $mod = 0;
+
+      my %renames = (
+                    "CONF_DEBUG_ON" => "CONF_DEBUG_ON_BGPD",
+                    "CONF_DEBUG_OFF" => "CONF_DEBUG_OFF_BGPD",
+                    "TERM_DEBUG_ON" => "TERM_DEBUG_ON_BGPD",
+                    "TERM_DEBUG_OFF" => "TERM_DEBUG_OFF_BGPD",
+                    "DEBUG_ON" => "DEBUG_ON_BGPD",
+                    "DEBUG_OFF" => "DEBUG_OFF_BGPD",
+                    "PREFIX_LIST_IN_NAME" => "PREFIX_LIST_BGPD_IN_NAME",
+                    "PREFIX_LIST_IN" => "PREFIX_LIST_BGPD_IN",
+                    "PREFIX_LIST_OUT_NAME" => "PREFIX_LIST_BGPD_OUT_NAME",
+                    "PREFIX_LIST_OUT" => "PREFIX_LIST_BGPD_OUT"
+                    );
+
+      for(my $i = 0; $i < @lines; $i++)
+      {
+        foreach my $from (keys(%renames))
+        {
+          my $to = $renames{$from};
+          $mod += ($lines[$i] =~ s/\b$from\b/$to/g)
+        }
+      }
+
+      if($mod)
+      {
+	$modified{$key} = 1;
+        print STDERR "$key: number of renames: $mod\n";
+      }
+    }
+
 
     # handle aliases
 
@@ -69,7 +106,7 @@ if($predoxy)
 
     for(my $i = 0; $i < @lines; $i++)
     {
-      if($lines[$i] =~ /^\s*ALIAS\s*\(/)
+      if($lines[$i] =~ /^\s*(ALIAS|ALIAS_DEPRECATED)\s*\(/)
       {
 	my $b = 0;
 	do
@@ -121,14 +158,15 @@ if($predoxy)
 
     for(my $i = 0; $i < @lines; $i++)
     {
-      if($lines[$i] =~ /^(static\s+)?struct\s*(\{)?$/)
+      if($lines[$i] =~ /^(static\s+)?(const\s+)?struct\s*(\{)?$/)
       {
 	my $static = $1;
-	my $bracket = $2;
+	my $const = $2;
+	my $bracket = $3;
 
 	++$foo;
 	
-	$lines[$i] =~ s/^(static\s+)?(struct\s*)\s?(\{)?$/$2 FOO$foo $3/;
+	$lines[$i] =~ s/^(static\s+)?(const\s+)?(struct\s*)\s?(\{)?$/$3 FOO$foo $4/;
 
 	print STDERR "$key: line $i <-- XXX CHECK THIS\n";
 
@@ -138,7 +176,7 @@ if($predoxy)
 	}
 	while($lines[$i] !~ /^\s*\}/);
 
-	$lines[$i] =~ s/^((\s*)\})/$1;\n$2${static}struct FOO$foo /;
+	$lines[$i] =~ s/^((\s*)\})/$1;\n$2${static}${const}struct FOO$foo /;
 
 	print STDERR "$key: line $i <-- XXX CHECK THIS\n";
 
@@ -230,7 +268,21 @@ if($predoxy)
     {
       foreach my $f (@todo)
       {
-	if($lines[$i] =~ /^$f\s*\(/)
+  	if($lines[$i] =~ /^\s*\w+\s+$f\s*\(.*?\)\s*;/)
+        {
+	  # prepend static
+	  $lines[$i] = "static ".$lines[$i];
+
+	  print STDERR "$key: line ".($i)." <-- XXX CHECK THIS\n";
+	  print STDERR "$key: method $f marked as static\n";
+
+	  $modified{$key} = 1;
+
+	  ++$mod;
+
+	  last;
+        }
+	elsif($lines[$i] =~ /^$f\s*\(/)
 	{
 	  # prepend static
 	  $lines[$i-1] = "static ".$lines[$i-1] unless ($lines[$i-1] =~ /^static /);
@@ -383,7 +435,7 @@ while(my $line = <STDIN>)
       my $m = 0;
       for(my $i = 0; $i < @lines; $i++)
       {
-	if($lines[$i] =~ /^\s*$d;$/)
+	if($lines[$i] =~ /^\s*$d\s*[;=]/)
 	{
 	  # we believe this statement defines local variable, so we...
 	  ++$m;
@@ -566,10 +618,10 @@ while(my $line = <STDIN>)
     my $n = 0;
     my @lines = splitlines($files{$fn});
 
-    if($fs == $fe && $fm eq "ALIAS")
+    if($fs == $fe && ($fm eq "ALIAS" || $fm eq "ALIAS_DEPRECATED"))
     {
       # we have to find the beginning first
-      while($lines[$fs-1] !~ /^\s*ALIAS\s*\(/)
+      while($lines[$fs-1] !~ /^\s*(ALIAS|ALIAS_DEPRECATED)\s*\(/)
       {
 	--$fs;
       }

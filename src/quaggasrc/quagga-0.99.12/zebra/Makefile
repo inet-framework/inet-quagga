@@ -13,11 +13,12 @@ SOURCES = \
 	rt_netlink.c rtread_netlink.c \
 	ipforward_proc.c \
 	if_proc.c if_netlink.c \
-	ioctl.c
+	ioctl.c zebra_routemap.c \
+	ioctl_null.c kernel_null.c misc_null.c redistribute_null.c
 
 HEADERS = \
 	connected.h ioctl.h rib.h rt.h zserv.h redistribute.h debug.h rtadv.h \
-	interface.h ipforward.h irdp.h router-id.h
+	interface.h ipforward.h irdp.h router-id.h kernel_socket.h
 
 OBJECTS = \
 	zserv.o main.o interface.o connected.o zebra_rib.o \
@@ -27,7 +28,8 @@ OBJECTS = \
 	rt_netlink.o rtread_netlink.o \
 	ipforward_proc.o \
 	if_proc.o if_netlink.o \
-	ioctl.o
+	ioctl.o zebra_routemap.o \
+	ioctl_null.o kernel_null.o misc_null.o redistribute_null.o
 
 INCLUDES = -I. -I.. -I../lib -I../../..
 

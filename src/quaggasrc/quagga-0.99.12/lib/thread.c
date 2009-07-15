@@ -219,7 +219,7 @@ recent_relative_time (void)
 static unsigned int
 cpu_record_hash_key (struct cpu_thread_history *a)
 {
-  return (uintptr_t) a->func;
+  return (unsigned int) a->func;
 }
 
 static int 

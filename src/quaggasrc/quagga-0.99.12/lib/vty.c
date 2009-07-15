@@ -89,7 +89,7 @@ static int vty_config_lib;
 static int no_password_check_lib ;
 
 /* Restrict unauthenticated logins? */
-static const u_char restricted_mode_default_lib ;
+static const u_char restricted_mode_default = 0;
 static u_char restricted_mode_lib ;
 
 /* Integrated configuration file path */
@@ -462,8 +462,8 @@ vty_command (struct vty *vty, char *buf)
   return ret;
 }
 
-static const char telnet_backward_char_lib ;
-static const char telnet_space_char_lib ;
+static const char telnet_backward_char = 0x08;
+static const char telnet_space_char = ' ';
 
 /* Basic function to write buffer to vty. */
 static void

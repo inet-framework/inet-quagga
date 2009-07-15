@@ -539,8 +539,8 @@ bgp_input_filter (struct peer *peer, struct prefix *p, struct attr *attr,
     if (access_list_apply (DISTRIBUTE_IN (filter), p) == FILTER_DENY)
       return FILTER_DENY;
 
-  if (PREFIX_LIST_IN_NAME (filter))
-    if (prefix_list_apply (PREFIX_LIST_IN (filter), p) == PREFIX_DENY)
+  if (PREFIX_LIST_BGPD_IN_NAME (filter))
+    if (prefix_list_apply (PREFIX_LIST_BGPD_IN (filter), p) == PREFIX_DENY)
       return FILTER_DENY;
   
   if (FILTER_LIST_IN_NAME (filter))
@@ -562,8 +562,8 @@ bgp_output_filter (struct peer *peer, struct prefix *p, struct attr *attr,
     if (access_list_apply (DISTRIBUTE_OUT (filter), p) == FILTER_DENY)
       return FILTER_DENY;
 
-  if (PREFIX_LIST_OUT_NAME (filter))
-    if (prefix_list_apply (PREFIX_LIST_OUT (filter), p) == PREFIX_DENY)
+  if (PREFIX_LIST_BGPD_OUT_NAME (filter))
+    if (prefix_list_apply (PREFIX_LIST_BGPD_OUT (filter), p) == PREFIX_DENY)
       return FILTER_DENY;
 
   if (FILTER_LIST_OUT_NAME (filter))
@@ -9170,26 +9170,7 @@ peer_lookup_in_view (struct vty *vty, const char *view_name,
   return peer;
 }
 
-enum bgp_stats
-{
-  BGP_STATS_MAXBITLEN = 0,
-  BGP_STATS_RIB,
-  BGP_STATS_PREFIXES,
-  BGP_STATS_TOTPLEN,
-  BGP_STATS_UNAGGREGATEABLE,
-  BGP_STATS_MAX_AGGREGATEABLE,
-  BGP_STATS_AGGREGATES,
-  BGP_STATS_SPACE,
-  BGP_STATS_ASPATH_COUNT,
-  BGP_STATS_ASPATH_MAXHOPS,
-  BGP_STATS_ASPATH_TOTHOPS,
-  BGP_STATS_ASPATH_MAXSIZE,
-  BGP_STATS_ASPATH_TOTSIZE,
-  BGP_STATS_ASN_HIGHEST,
-  BGP_STATS_MAX,
-};
-
-static const char *table_stats_strs_bgpd[] =
+static const char *table_stats_strs_bgpd[BGP_STATS_MAX+1] =
 {
   [BGP_STATS_PREFIXES]            = "Total Prefixes",
   [BGP_STATS_TOTPLEN]             = "Average prefix length",
@@ -9535,21 +9516,7 @@ ALIAS (show_bgp_statistics_view,
        "BGP RIB advertisement statistics\n");
 #define	show_bgp_statistics_view_vpnv4_cmd	show_bgp_statistics_view_vpnv4_cmd__VAR
 
-enum bgp_pcounts
-{
-  PCOUNT_ADJ_IN = 0,
-  PCOUNT_DAMPED,
-  PCOUNT_REMOVED,
-  PCOUNT_HISTORY,
-  PCOUNT_STALE,
-  PCOUNT_VALID,
-  PCOUNT_ALL,
-  PCOUNT_COUNTED,
-  PCOUNT_PFCNT, /* the figure we display to users */
-  PCOUNT_MAX,
-};
-
-static const char *pcount_strs_bgpd[] =
+static const char *pcount_strs_bgpd[10] =
 {
   [PCOUNT_ADJ_IN]  = "Adj-in",
   [PCOUNT_DAMPED]  = "Damped",
@@ -11112,7 +11079,7 @@ struct bgp_table *bgp_distance_table_bgpd;
 struct bgp_distance
 {
   /* Distance value for the IP source prefix. */
-  u_char distance__item;
+  u_char distance;
 
   /* Name of the access-list to be matched. */
   char *access_list;
@@ -11166,7 +11133,7 @@ bgp_distance_set (struct vty *vty, const char *distance_str,
     }
 
   /* Set distance value. */
-  bdistance->distance__item = distance;
+  bdistance->distance = distance;
 
   /* Reset access-list configuration. */
   if (bdistance->access_list)
@@ -11274,10 +11241,10 @@ bgp_distance_apply (struct prefix *p, struct bgp_info *rinfo, struct bgp *bgp)
 	{
 	  alist = access_list_lookup (AFI_IP, bdistance->access_list);
 	  if (alist && access_list_apply (alist, p) == FILTER_PERMIT)
-	    return bdistance->distance__item;
+	    return bdistance->distance;
 	}
       else
-	return bdistance->distance__item;
+	return bdistance->distance;
     }
 
   /* Backdoor check. */
@@ -11852,7 +11819,7 @@ bgp_config_write_distance (struct vty *vty, struct bgp *bgp)
   for (rn = bgp_table_top (bgp_distance_table); rn; rn = bgp_route_next (rn))
     if ((bdistance = rn->info) != NULL)
       {
-	vty_out (vty, " distance %d %s/%d %s%s", bdistance->distance__item,
+	vty_out (vty, " distance %d %s/%d %s%s", bdistance->distance,
 		 inet_ntoa (rn->p.u.prefix4), rn->p.prefixlen,
 		 bdistance->access_list ? bdistance->access_list : "",
 		 VTY_NEWLINE);

@@ -36,7 +36,6 @@ struct_zclient *zclient_ripd ;
 
 /* RIPd to zebra command interface. */
 void
-#undef	distance
 rip_zebra_ipv4_add (struct prefix_ipv4 *p, struct in_addr *nexthop, 
 		    u_int32_t metric, u_char distance)
 {
@@ -57,7 +56,7 @@ rip_zebra_ipv4_add (struct prefix_ipv4 *p, struct in_addr *nexthop,
       if (distance && distance != ZEBRA_RIP_DISTANCE_DEFAULT)
 	{
 	  SET_FLAG (api.message, ZAPI_MESSAGE_DISTANCE);
-	  api.distance__item = distance;
+	  api.distance = distance;
 	}
 
       zapi_ipv4_route (ZEBRA_IPV4_ROUTE_ADD, zclient, p, &api);
@@ -65,7 +64,6 @@ rip_zebra_ipv4_add (struct prefix_ipv4 *p, struct in_addr *nexthop,
       rip_global_route_changes++;
     }
 }
-#define	distance	distance__VAR
 
 void
 rip_zebra_ipv4_delete (struct prefix_ipv4 *p, struct in_addr *nexthop, 
@@ -129,9 +127,9 @@ rip_zebra_read_ipv4 (int command, struct_zclient *zclient, zebra_size_t length)
       ifindex = stream_getl (s);
     }
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_DISTANCE))
-    api.distance__item = stream_getc (s);
+    api.distance = stream_getc (s);
   else
-    api.distance__item = 255;
+    api.distance = 255;
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_METRIC))
     api.metric = stream_getl (s);
   else
@@ -140,7 +138,7 @@ rip_zebra_read_ipv4 (int command, struct_zclient *zclient, zebra_size_t length)
   /* Then fetch IPv4 prefixes. */
   if (command == ZEBRA_IPV4_ROUTE_ADD)
     rip_redistribute_add (api.type, RIP_ROUTE_REDISTRIBUTE, &p, ifindex, 
-                          &nexthop, api.metric, api.distance__item);
+                          &nexthop, api.metric, api.distance);
   else 
     rip_redistribute_delete (api.type, RIP_ROUTE_REDISTRIBUTE, &p, ifindex);
 

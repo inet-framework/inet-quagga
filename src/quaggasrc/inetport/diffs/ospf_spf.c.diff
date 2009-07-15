@@ -1,0 +1,19 @@
+--- ospfd/ospf_spf.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ ospfd/ospf_spf.c	2009-07-15 11:46:23.000000000 +0200
+@@ -46,7 +46,6 @@
+ #include "ospfd/ospf_abr.h"
+ #include "ospfd/ospf_dump.h"
+ 
+-static void ospf_vertex_free (void *);
+ /* List of allocated vertices, to simplify cleanup of SPF.
+  * Not thread-safe obviously. If it ever needs to be, it'd have to be
+  * dynamically allocated at begin of ospf_spf_calculate
+@@ -185,7 +184,7 @@
+   return new;
+ }
+ 
+-static void
++void
+ ospf_vertex_free (void *data)
+ {
+   struct vertex *v = data;

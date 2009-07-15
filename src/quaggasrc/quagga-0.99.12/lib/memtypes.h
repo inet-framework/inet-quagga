@@ -194,13 +194,14 @@ enum
 };
 
 extern struct memory_list memory_list_lib[];
-extern struct memory_list memory_list_zebra_lib[];
+extern struct memory_list memory_list_zebra[];
 extern struct memory_list memory_list_bgp[];
 extern struct memory_list memory_list_rip[];
 extern struct memory_list memory_list_ripng[];
 extern struct memory_list memory_list_ospf[];
 extern struct memory_list memory_list_ospf6[];
 extern struct memory_list memory_list_isis[];
-extern struct memory_list memory_list_vtysh_lib[];
+extern struct memory_list memory_list_vtysh[];
 
 #endif /* _QUAGGA_MEMTYPES_H */
+

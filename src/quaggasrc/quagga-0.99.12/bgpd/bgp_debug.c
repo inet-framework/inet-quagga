@@ -301,10 +301,10 @@ DEFUN (debug_bgp_as4,
        "BGP AS4 actions\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_ON (as4, AS4);
+    DEBUG_ON_BGPD (as4, AS4);
   else
     {
-      TERM_DEBUG_ON (as4, AS4);
+      TERM_DEBUG_ON_BGPD (as4, AS4);
       vty_out (vty, "BGP as4 debugging is on%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -321,10 +321,10 @@ DEFUN (no_debug_bgp_as4,
        "BGP AS4 actions\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_OFF (as4, AS4);
+    DEBUG_OFF_BGPD (as4, AS4);
   else
     {
-      TERM_DEBUG_OFF (as4, AS4);
+      TERM_DEBUG_OFF_BGPD (as4, AS4);
       vty_out (vty, "BGP as4 debugging is off%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -350,10 +350,10 @@ DEFUN (debug_bgp_as4_segment,
        "BGP AS4 aspath segment handling\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_ON (as4, AS4_SEGMENT);
+    DEBUG_ON_BGPD (as4, AS4_SEGMENT);
   else
     {
-      TERM_DEBUG_ON (as4, AS4_SEGMENT);
+      TERM_DEBUG_ON_BGPD (as4, AS4_SEGMENT);
       vty_out (vty, "BGP as4 segment debugging is on%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -370,10 +370,10 @@ DEFUN (no_debug_bgp_as4_segment,
        "BGP AS4 aspath segment handling\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_OFF (as4, AS4_SEGMENT);
+    DEBUG_OFF_BGPD (as4, AS4_SEGMENT);
   else
     {
-      TERM_DEBUG_OFF (as4, AS4_SEGMENT);
+      TERM_DEBUG_OFF_BGPD (as4, AS4_SEGMENT);
       vty_out (vty, "BGP as4 segment debugging is off%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -399,10 +399,10 @@ DEFUN (debug_bgp_fsm,
        "BGP Finite State Machine\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_ON (fsm, FSM);
+    DEBUG_ON_BGPD (fsm, FSM);
   else
     {
-      TERM_DEBUG_ON (fsm, FSM);
+      TERM_DEBUG_ON_BGPD (fsm, FSM);
       vty_out (vty, "BGP fsm debugging is on%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -419,10 +419,10 @@ DEFUN (no_debug_bgp_fsm,
        "Finite State Machine\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_OFF (fsm, FSM);
+    DEBUG_OFF_BGPD (fsm, FSM);
   else
     {
-      TERM_DEBUG_OFF (fsm, FSM);
+      TERM_DEBUG_OFF_BGPD (fsm, FSM);
       vty_out (vty, "BGP fsm debugging is off%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -448,10 +448,10 @@ DEFUN (debug_bgp_events,
        "BGP events\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_ON (events, EVENTS);
+    DEBUG_ON_BGPD (events, EVENTS);
   else
     {
-      TERM_DEBUG_ON (events, EVENTS);
+      TERM_DEBUG_ON_BGPD (events, EVENTS);
       vty_out (vty, "BGP events debugging is on%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -468,10 +468,10 @@ DEFUN (no_debug_bgp_events,
        "BGP events\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_OFF (events, EVENTS);
+    DEBUG_OFF_BGPD (events, EVENTS);
   else
     {
-      TERM_DEBUG_OFF (events, EVENTS);
+      TERM_DEBUG_OFF_BGPD (events, EVENTS);
       vty_out (vty, "BGP events debugging is off%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -496,10 +496,10 @@ DEFUN (debug_bgp_filter,
        "BGP filters\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_ON (filter, FILTER);
+    DEBUG_ON_BGPD (filter, FILTER);
   else
     {
-      TERM_DEBUG_ON (filter, FILTER);
+      TERM_DEBUG_ON_BGPD (filter, FILTER);
       vty_out (vty, "BGP filters debugging is on%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -516,10 +516,10 @@ DEFUN (no_debug_bgp_filter,
        "BGP filters\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_OFF (filter, FILTER);
+    DEBUG_OFF_BGPD (filter, FILTER);
   else
     {
-      TERM_DEBUG_OFF (filter, FILTER);
+      TERM_DEBUG_OFF_BGPD (filter, FILTER);
       vty_out (vty, "BGP filters debugging is off%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -544,10 +544,10 @@ DEFUN (debug_bgp_keepalive,
        "BGP keepalives\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_ON (keepalive, KEEPALIVE);
+    DEBUG_ON_BGPD (keepalive, KEEPALIVE);
   else
     {
-      TERM_DEBUG_ON (keepalive, KEEPALIVE);
+      TERM_DEBUG_ON_BGPD (keepalive, KEEPALIVE);
       vty_out (vty, "BGP keepalives debugging is on%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -564,10 +564,10 @@ DEFUN (no_debug_bgp_keepalive,
        "BGP keepalives\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_OFF (keepalive, KEEPALIVE);
+    DEBUG_OFF_BGPD (keepalive, KEEPALIVE);
   else
     {
-      TERM_DEBUG_OFF (keepalive, KEEPALIVE);
+      TERM_DEBUG_OFF_BGPD (keepalive, KEEPALIVE);
       vty_out (vty, "BGP keepalives debugging is off%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -593,13 +593,13 @@ DEFUN (debug_bgp_update,
 {
   if (vty->node == CONFIG_NODE)
     {
-      DEBUG_ON (update, UPDATE_IN);
-      DEBUG_ON (update, UPDATE_OUT);
+      DEBUG_ON_BGPD (update, UPDATE_IN);
+      DEBUG_ON_BGPD (update, UPDATE_OUT);
     }
   else
     {
-      TERM_DEBUG_ON (update, UPDATE_IN);
-      TERM_DEBUG_ON (update, UPDATE_OUT);
+      TERM_DEBUG_ON_BGPD (update, UPDATE_IN);
+      TERM_DEBUG_ON_BGPD (update, UPDATE_OUT);
       vty_out (vty, "BGP updates debugging is on%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -620,27 +620,27 @@ DEFUN (debug_bgp_update_direct,
     {
       if (strncmp ("i", argv[0], 1) == 0)
 	{
-	  DEBUG_OFF (update, UPDATE_OUT);
-	  DEBUG_ON (update, UPDATE_IN);
+	  DEBUG_OFF_BGPD (update, UPDATE_OUT);
+	  DEBUG_ON_BGPD (update, UPDATE_IN);
 	}
       else
 	{	
-	  DEBUG_OFF (update, UPDATE_IN);
-	  DEBUG_ON (update, UPDATE_OUT);
+	  DEBUG_OFF_BGPD (update, UPDATE_IN);
+	  DEBUG_ON_BGPD (update, UPDATE_OUT);
 	}
     }
   else
     {
       if (strncmp ("i", argv[0], 1) == 0)
 	{
-	  TERM_DEBUG_OFF (update, UPDATE_OUT);
-	  TERM_DEBUG_ON (update, UPDATE_IN);
+	  TERM_DEBUG_OFF_BGPD (update, UPDATE_OUT);
+	  TERM_DEBUG_ON_BGPD (update, UPDATE_IN);
 	  vty_out (vty, "BGP updates debugging is on (inbound)%s", VTY_NEWLINE);
 	}
       else
 	{
-	  TERM_DEBUG_OFF (update, UPDATE_IN);
-	  TERM_DEBUG_ON (update, UPDATE_OUT);
+	  TERM_DEBUG_OFF_BGPD (update, UPDATE_IN);
+	  TERM_DEBUG_ON_BGPD (update, UPDATE_OUT);
 	  vty_out (vty, "BGP updates debugging is on (outbound)%s", VTY_NEWLINE);
 	}
     }
@@ -659,13 +659,13 @@ DEFUN (no_debug_bgp_update,
 {
   if (vty->node == CONFIG_NODE)
     {
-      DEBUG_OFF (update, UPDATE_IN);
-      DEBUG_OFF (update, UPDATE_OUT);
+      DEBUG_OFF_BGPD (update, UPDATE_IN);
+      DEBUG_OFF_BGPD (update, UPDATE_OUT);
     }
   else
     {
-      TERM_DEBUG_OFF (update, UPDATE_IN);
-      TERM_DEBUG_OFF (update, UPDATE_OUT);
+      TERM_DEBUG_OFF_BGPD (update, UPDATE_IN);
+      TERM_DEBUG_OFF_BGPD (update, UPDATE_OUT);
       vty_out (vty, "BGP updates debugging is off%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -689,10 +689,10 @@ DEFUN (debug_bgp_normal,
        BGP_STR)
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_ON (normal, NORMAL);
+    DEBUG_ON_BGPD (normal, NORMAL);
   else
     {
-      TERM_DEBUG_ON (normal, NORMAL);
+      TERM_DEBUG_ON_BGPD (normal, NORMAL);
       vty_out (vty, "BGP debugging is on%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -708,10 +708,10 @@ DEFUN (no_debug_bgp_normal,
        BGP_STR)
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_OFF (normal, NORMAL);
+    DEBUG_OFF_BGPD (normal, NORMAL);
   else
     {
-      TERM_DEBUG_OFF (normal, NORMAL);
+      TERM_DEBUG_OFF_BGPD (normal, NORMAL);
       vty_out (vty, "BGP debugging is off%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -735,10 +735,10 @@ DEFUN (debug_bgp_zebra,
        "BGP Zebra messages\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_ON (zebra, ZEBRA);
+    DEBUG_ON_BGPD (zebra, ZEBRA);
   else
     {
-      TERM_DEBUG_ON (zebra, ZEBRA);
+      TERM_DEBUG_ON_BGPD (zebra, ZEBRA);
       vty_out (vty, "BGP zebra debugging is on%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -755,10 +755,10 @@ DEFUN (no_debug_bgp_zebra,
        "BGP Zebra messages\n")
 {
   if (vty->node == CONFIG_NODE)
-    DEBUG_OFF (zebra, ZEBRA);
+    DEBUG_OFF_BGPD (zebra, ZEBRA);
   else
     {
-      TERM_DEBUG_OFF (zebra, ZEBRA);
+      TERM_DEBUG_OFF_BGPD (zebra, ZEBRA);
       vty_out (vty, "BGP zebra debugging is off%s", VTY_NEWLINE);
     }
   return CMD_SUCCESS;
@@ -784,16 +784,16 @@ DEFUN (no_debug_bgp_all,
        "Enable all debugging\n"
        BGP_STR)
 {
-  TERM_DEBUG_OFF (normal, NORMAL);
-  TERM_DEBUG_OFF (events, EVENTS);
-  TERM_DEBUG_OFF (keepalive, KEEPALIVE);
-  TERM_DEBUG_OFF (update, UPDATE_IN);
-  TERM_DEBUG_OFF (update, UPDATE_OUT);
-  TERM_DEBUG_OFF (as4, AS4);
-  TERM_DEBUG_OFF (as4, AS4_SEGMENT);
-  TERM_DEBUG_OFF (fsm, FSM);
-  TERM_DEBUG_OFF (filter, FILTER);
-  TERM_DEBUG_OFF (zebra, ZEBRA);
+  TERM_DEBUG_OFF_BGPD (normal, NORMAL);
+  TERM_DEBUG_OFF_BGPD (events, EVENTS);
+  TERM_DEBUG_OFF_BGPD (keepalive, KEEPALIVE);
+  TERM_DEBUG_OFF_BGPD (update, UPDATE_IN);
+  TERM_DEBUG_OFF_BGPD (update, UPDATE_OUT);
+  TERM_DEBUG_OFF_BGPD (as4, AS4);
+  TERM_DEBUG_OFF_BGPD (as4, AS4_SEGMENT);
+  TERM_DEBUG_OFF_BGPD (fsm, FSM);
+  TERM_DEBUG_OFF_BGPD (filter, FILTER);
+  TERM_DEBUG_OFF_BGPD (zebra, ZEBRA);
   vty_out (vty, "All possible debugging has been turned off%s", VTY_NEWLINE);
       
   return CMD_SUCCESS;

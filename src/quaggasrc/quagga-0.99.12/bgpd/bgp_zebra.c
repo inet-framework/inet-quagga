@@ -278,7 +278,7 @@ zebra_read_ipv4 (int command, struct_zclient *zclient, zebra_size_t length)
       ifindex = stream_getl (s);
     }
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_DISTANCE))
-    api.distance__item = stream_getc (s);
+    api.distance = stream_getc (s);
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_METRIC))
     api.metric = stream_getl (s);
   else
@@ -356,9 +356,9 @@ zebra_read_ipv6 (int command, struct_zclient *zclient, zebra_size_t length)
       ifindex = stream_getl (s);
     }
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_DISTANCE))
-    api.distance__item = stream_getc (s);
+    api.distance = stream_getc (s);
   else
-    api.distance__item = 0;
+    api.distance = 0;
   if (CHECK_FLAG (api.message, ZAPI_MESSAGE_METRIC))
     api.metric = stream_getl (s);
   else
@@ -736,7 +736,7 @@ bgp_zebra_announce (struct prefix *p, struct bgp_info *info, struct bgp *bgp)
       if (distance)
 	{
 	  SET_FLAG (api.message, ZAPI_MESSAGE_DISTANCE);
-	  api.distance__item = distance;
+	  api.distance = distance;
 	}
 
       if (BGP_DEBUG(zebra, ZEBRA))

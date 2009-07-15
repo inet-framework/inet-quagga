@@ -97,21 +97,21 @@ extern unsigned long term_bgp_debug_zebra_bgpd;
 #define BGP_DEBUG_PACKET_RECV         0x01
 #define BGP_DEBUG_PACKET_RECV_DETAIL  0x02
 
-#define CONF_DEBUG_ON(a, b)	(conf_bgp_debug_ ## a |= (BGP_DEBUG_ ## b))
-#define CONF_DEBUG_OFF(a, b)	(conf_bgp_debug_ ## a &= ~(BGP_DEBUG_ ## b))
+#define CONF_DEBUG_ON_BGPD(a, b)	(conf_bgp_debug_ ## a |= (BGP_DEBUG_ ## b))
+#define CONF_DEBUG_OFF_BGPD(a, b)	(conf_bgp_debug_ ## a &= ~(BGP_DEBUG_ ## b))
 
-#define TERM_DEBUG_ON(a, b)	(term_bgp_debug_ ## a |= (BGP_DEBUG_ ## b))
-#define TERM_DEBUG_OFF(a, b)	(term_bgp_debug_ ## a &= ~(BGP_DEBUG_ ## b))
+#define TERM_DEBUG_ON_BGPD(a, b)	(term_bgp_debug_ ## a |= (BGP_DEBUG_ ## b))
+#define TERM_DEBUG_OFF_BGPD(a, b)	(term_bgp_debug_ ## a &= ~(BGP_DEBUG_ ## b))
 
-#define DEBUG_ON(a, b) \
+#define DEBUG_ON_BGPD(a, b) \
     do { \
-	CONF_DEBUG_ON(a, b); \
-	TERM_DEBUG_ON(a, b); \
+	CONF_DEBUG_ON_BGPD(a, b); \
+	TERM_DEBUG_ON_BGPD(a, b); \
     } while (0)
-#define DEBUG_OFF(a, b) \
+#define DEBUG_OFF_BGPD(a, b) \
     do { \
-	CONF_DEBUG_OFF(a, b); \
-	TERM_DEBUG_OFF(a, b); \
+	CONF_DEBUG_OFF_BGPD(a, b); \
+	TERM_DEBUG_OFF_BGPD(a, b); \
     } while (0)
 
 #define BGP_DEBUG(a, b)		(term_bgp_debug_ ## a & BGP_DEBUG_ ## b)

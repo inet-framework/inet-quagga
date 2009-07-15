@@ -43,22 +43,20 @@ keychain_free (struct keychain *keychain)
   XFREE (MTYPE_KEYCHAIN, keychain);
 }
 
-static struct_key *
+static struct key *
 key_new (void)
 {
-  struct_key *new;
-  new = XMALLOC (MTYPE_KEY, sizeof (struct_key));
-  memset (new, 0, sizeof (struct_key));
+  struct key *new;
+  new = XMALLOC (MTYPE_KEY, sizeof (struct key));
+  memset (new, 0, sizeof (struct key));
   return new;
 }
 
 static void
-#undef	key
-key_free (struct_key *key)
+key_free (struct key *key)
 {
   XFREE (MTYPE_KEY, key);
 }
-#define	key	key__VAR
 
 struct keychain *
 keychain_lookup (const char *name)
@@ -80,8 +78,8 @@ keychain_lookup (const char *name)
 static int
 key_cmp_func (void *arg1, void *arg2)
 {
-  const struct_key *k1 = arg1;
-  const struct_key *k2 = arg2;
+  const struct key *k1 = arg1;
+  const struct key *k2 = arg2;
   
   if (k1->index > k2->index)
     return 1;
@@ -91,14 +89,12 @@ key_cmp_func (void *arg1, void *arg2)
 }
 
 static void
-#undef	key
-key_delete_func (struct_key *key)
+key_delete_func (struct key *key)
 {
   if (key->string)
     free (key->string);
   key_free (key);
 }
-#define	key	key__VAR
 
 static struct keychain *
 keychain_get (const char *name)
@@ -112,9 +108,9 @@ keychain_get (const char *name)
 
   keychain = keychain_new ();
   keychain->name = strdup (name);
-  keychain->key__item = list_new ();
-  keychain->key__item->cmp = (int (*)(void *, void *)) key_cmp_func;
-  keychain->key__item->del = (void (*)(void *)) key_delete_func;
+  keychain->key = list_new ();
+  keychain->key->cmp = (int (*)(void *, void *)) key_cmp_func;
+  keychain->key->del = (void (*)(void *)) key_delete_func;
   listnode_add (keychain_list, keychain);
 
   return keychain;
@@ -126,18 +122,18 @@ keychain_delete (struct keychain *keychain)
   if (keychain->name)
     free (keychain->name);
 
-  list_delete (keychain->key__item);
+  list_delete (keychain->key);
   listnode_delete (keychain_list, keychain);
   keychain_free (keychain);
 }
 
-static struct_key *
+static struct key *
 key_lookup (const struct keychain *keychain, u_int32_t index)
 {
   struct listnode *node;
-  struct_key *key;
+  struct key *key;
 
-  for (ALL_LIST_ELEMENTS_RO (keychain->key__item, node, key))
+  for (ALL_LIST_ELEMENTS_RO (keychain->key, node, key))
     {
       if (key->index == index)
 	return key;
@@ -145,16 +141,16 @@ key_lookup (const struct keychain *keychain, u_int32_t index)
   return NULL;
 }
 
-struct_key *
+struct key *
 key_lookup_for_accept (const struct keychain *keychain, u_int32_t index)
 {
   struct listnode *node;
-  struct_key *key;
+  struct key *key;
   time_t now;
 
   now = time (NULL);
 
-  for (ALL_LIST_ELEMENTS_RO (keychain->key__item, node, key))
+  for (ALL_LIST_ELEMENTS_RO (keychain->key, node, key))
     {
       if (key->index >= index)
 	{
@@ -169,16 +165,16 @@ key_lookup_for_accept (const struct keychain *keychain, u_int32_t index)
   return NULL;
 }
 
-struct_key *
+struct key *
 key_match_for_accept (const struct keychain *keychain, const char *auth_str)
 {
   struct listnode *node;
-  struct_key *key;
+  struct key *key;
   time_t now;
 
   now = time (NULL);
 
-  for (ALL_LIST_ELEMENTS_RO (keychain->key__item, node, key))
+  for (ALL_LIST_ELEMENTS_RO (keychain->key, node, key))
     {
       if (key->accept.start == 0 ||
 	  (key->accept.start <= now &&
@@ -189,16 +185,16 @@ key_match_for_accept (const struct keychain *keychain, const char *auth_str)
   return NULL;
 }
 
-struct_key *
+struct key *
 key_lookup_for_send (const struct keychain *keychain)
 {
   struct listnode *node;
-  struct_key *key;
+  struct key *key;
   time_t now;
 
   now = time (NULL);
 
-  for (ALL_LIST_ELEMENTS_RO (keychain->key__item, node, key))
+  for (ALL_LIST_ELEMENTS_RO (keychain->key, node, key))
     {
       if (key->send.start == 0)
 	return key;
@@ -210,10 +206,10 @@ key_lookup_for_send (const struct keychain *keychain)
   return NULL;
 }
 
-static struct_key *
+static struct key *
 key_get (const struct keychain *keychain, u_int32_t index)
 {
-  struct_key *key;
+  struct key *key;
 
   key = key_lookup (keychain, index);
 
@@ -222,22 +218,20 @@ key_get (const struct keychain *keychain, u_int32_t index)
 
   key = key_new ();
   key->index = index;
-  listnode_add_sort (keychain->key__item, key);
+  listnode_add_sort (keychain->key, key);
 
   return key;
 }
 
 static void
-#undef	key
-key_delete (struct keychain *keychain, struct_key *key)
+key_delete (struct keychain *keychain, struct key *key)
 {
-  listnode_delete (keychain->key__item, key);
+  listnode_delete (keychain->key, key);
 
   if (key->string)
     free (key->string);
   key_free (key);
 }
-#define	key	key__VAR
 
 #undef	key_chain_cmd
 DEFUN (key_chain,
@@ -290,7 +284,7 @@ DEFUN (key,
        "Key identifier number\n")
 {
   struct keychain *keychain;
-  struct_key *key;
+  struct key *key;
   u_int32_t index;
 
   keychain = vty->index;
@@ -313,7 +307,7 @@ DEFUN (no_key,
        "Key identifier number\n")
 {
   struct keychain *keychain;
-  struct_key *key;
+  struct key *key;
   u_int32_t index;
   
   keychain = vty->index;
@@ -341,7 +335,7 @@ DEFUN (key_string,
        "Set key string\n"
        "The key\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -361,7 +355,7 @@ DEFUN (no_key_string,
        "Unset key string\n"
        "The key\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -570,7 +564,7 @@ DEFUN (accept_lifetime_day_month_day_month,
        "Month of the year to expire\n"
        "Year to expire\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -593,7 +587,7 @@ DEFUN (accept_lifetime_day_month_month_day,
        "Day of th month to expire\n"
        "Year to expire\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -616,7 +610,7 @@ DEFUN (accept_lifetime_month_day_day_month,
        "Month of the year to expire\n"
        "Year to expire\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -639,7 +633,7 @@ DEFUN (accept_lifetime_month_day_month_day,
        "Day of th month to expire\n"
        "Year to expire\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -659,7 +653,7 @@ DEFUN (accept_lifetime_infinite_day_month,
        "Year to start\n"
        "Never expires")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -679,7 +673,7 @@ DEFUN (accept_lifetime_infinite_month_day,
        "Year to start\n"
        "Never expires")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -700,7 +694,7 @@ DEFUN (accept_lifetime_duration_day_month,
        "Duration of the key\n"
        "Duration seconds\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -721,7 +715,7 @@ DEFUN (accept_lifetime_duration_month_day,
        "Duration of the key\n"
        "Duration seconds\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -744,7 +738,7 @@ DEFUN (send_lifetime_day_month_day_month,
        "Month of the year to expire\n"
        "Year to expire\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -767,7 +761,7 @@ DEFUN (send_lifetime_day_month_month_day,
        "Day of th month to expire\n"
        "Year to expire\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -790,7 +784,7 @@ DEFUN (send_lifetime_month_day_day_month,
        "Month of the year to expire\n"
        "Year to expire\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -813,7 +807,7 @@ DEFUN (send_lifetime_month_day_month_day,
        "Day of th month to expire\n"
        "Year to expire\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -833,7 +827,7 @@ DEFUN (send_lifetime_infinite_day_month,
        "Year to start\n"
        "Never expires")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -853,7 +847,7 @@ DEFUN (send_lifetime_infinite_month_day,
        "Year to start\n"
        "Never expires")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -874,7 +868,7 @@ DEFUN (send_lifetime_duration_day_month,
        "Duration of the key\n"
        "Duration seconds\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -895,7 +889,7 @@ DEFUN (send_lifetime_duration_month_day,
        "Duration of the key\n"
        "Duration seconds\n")
 {
-  struct_key *key;
+  struct key *key;
 
   key = vty->index_sub;
 
@@ -935,7 +929,7 @@ static int
 keychain_config_write (struct vty *vty)
 {
   struct keychain *keychain;
-  struct_key *key;
+  struct key *key;
   struct listnode *node;
   struct listnode *knode;
   char buf[BUFSIZ];
@@ -944,7 +938,7 @@ keychain_config_write (struct vty *vty)
     {
       vty_out (vty, "key chain %s%s", keychain->name, VTY_NEWLINE);
       
-      for (ALL_LIST_ELEMENTS_RO (keychain->key__item, knode, key))
+      for (ALL_LIST_ELEMENTS_RO (keychain->key, knode, key))
 	{
 	  vty_out (vty, " key %d%s", key->index, VTY_NEWLINE);
 

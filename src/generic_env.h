@@ -12,10 +12,11 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <sys/unistd.h>
 
 /*
- * Instead of providing specific hacks for each OS, we choose the solution of 
- * insulating our code completely from the underlying OS specifics. 
+ * Instead of providing specific hacks for each OS, we choose the solution of
+ * insulating our code completely from the underlying OS specifics.
  * So we undefine everything that might get into our way, then define it
  * in the way we like.
  */
@@ -69,6 +70,7 @@
 #undef u32
 #undef s64
 #undef u64
+#undef __u32
 #undef in_addr
 #undef s_addr
 #undef s_host
@@ -159,6 +161,8 @@
 #undef SO_MAXPATHDG
 #undef SO_UPDATE_ACCEPT_CONTEXT
 #undef SO_CONNECT_TIME
+#undef SO_ATTACH_FILTER
+#undef SO_DETACH_FILTER
 #undef IP_OPTIONS
 #undef IP_MULTICAST_IF
 #undef IP_MULTICAST_TTL
@@ -429,6 +433,53 @@
 #undef si_value
 #undef si_band
 #undef si_addr
+#undef BPF_CLASS
+#undef BPF_LD
+#undef BPF_LDX
+#undef BPF_ST
+#undef BPF_STX
+#undef BPF_ALU
+#undef BPF_JMP
+#undef BPF_RET
+#undef BPF_MISC
+#undef BPF_SIZE
+#undef BPF_W
+#undef BPF_H
+#undef BPF_B
+#undef BPF_MODE
+#undef BPF_IMM
+#undef BPF_ABS
+#undef BPF_IND
+#undef BPF_MEM
+#undef BPF_LEN
+#undef BPF_MSH
+#undef BPF_OP
+#undef BPF_ADD
+#undef BPF_SUB
+#undef BPF_MUL
+#undef BPF_DIV
+#undef BPF_OR
+#undef BPF_AND
+#undef BPF_LSH
+#undef BPF_RSH
+#undef BPF_NEG
+#undef BPF_JA
+#undef BPF_JEQ
+#undef BPF_JGT
+#undef BPF_JGE
+#undef BPF_JSET
+#undef BPF_SRC
+#undef BPF_K
+#undef BPF_X
+#undef BPF_RVAL
+#undef BPF_A
+#undef BPF_MISCOP
+#undef BPF_TAX
+#undef BPF_TXA
+#undef BPF_MAXINSNS
+#undef BPF_STMT
+#undef BPF_JUMP
+
 
 #define __inline__  __inline
 
@@ -523,7 +574,7 @@ int strcasecmp(const char *s1, const char *s2);
 #  define u_int32_t   unsigned __int32
 #  define u_int64_t   unsigned __int64
 #elif defined(int8_t)
-  /* 
+  /*
    * assume u_int8_t, int8_t etc are all defined
    */
 #else /* a guess known to work on almost all (or all?) platforms */
@@ -549,6 +600,7 @@ int strcasecmp(const char *s1, const char *s2);
 #define u32         uint32_t
 #define s64         int32_t
 #define u64         uint32_t
+#define __u32       u32
 
 #define caddr_t  oppsimt_caddr_t
 typedef char *oppsimt_caddr_t;
@@ -644,6 +696,7 @@ static int oppsim_FD_IS_SET(SOCKET fd, fd_set *set)
 #define AF_UNSPEC       0
 #define AF_UNIX         1
 #define AF_INET         2
+#define	AF_INET6        10
 
 /*
  * Protocols
@@ -752,6 +805,10 @@ static int oppsim_FD_IS_SET(SOCKET fd, fd_set *set)
 #define SO_MAXPATHDG    0x700A
 #define SO_UPDATE_ACCEPT_CONTEXT 0x700B
 #define SO_CONNECT_TIME 0x700C
+
+/* Socket filtering (missing on Windows)*/
+#define SO_ATTACH_FILTER        0x70FE
+#define SO_DETACH_FILTER        0x70FF
 
 
 /*
@@ -1520,5 +1577,94 @@ struct oppsimt_in_pktinfo
 #define _IOT_ifreq     _IOT(_IOTS(char),IFNAMSIZ,_IOTS(char),16,0,0)
 #define _IOT_ifreq_short _IOT(_IOTS(char),IFNAMSIZ,_IOTS(short),1,0,0)
 #define _IOT_ifreq_int _IOT(_IOTS(char),IFNAMSIZ,_IOTS(int),1,0,0)
+
+#define ifa_cacheinfo  oppsimt_ifa_cacheinfo
+struct oppsimt_ifa_cacheinfo
+{
+	u32	ifa_prefered;
+	u32	ifa_valid;
+	u32	cstamp; /* created timestamp, hundredths of seconds */
+	u32	tstamp; /* updated timestamp, hundredths of seconds */
+};
+
+#define sock_filter oppsimt_sock_filter
+struct oppsimt_sock_filter	/* Filter block */
+{
+	u16	code;   /* Actual filter code */
+	u8	jt;	/* Jump true */
+	u8	jf;	/* Jump false */
+	u32	k;      /* Generic multiuse field */
+};
+
+#define sock_fprog oppsimt_sock_fprog
+struct oppsimt_sock_fprog	/* Required for SO_ATTACH_FILTER. */
+{
+	unsigned short		len;	/* Number of filter blocks */
+	struct sock_filter *filter;
+};
+
+/*
+ * Instruction classes
+ */
+
+#define BPF_CLASS(code) ((code) & 0x07)
+#define         BPF_LD          0x00
+#define         BPF_LDX         0x01
+#define         BPF_ST          0x02
+#define         BPF_STX         0x03
+#define         BPF_ALU         0x04
+#define         BPF_JMP         0x05
+#define         BPF_RET         0x06
+#define         BPF_MISC        0x07
+
+/* ld/ldx fields */
+#define BPF_SIZE(code)  ((code) & 0x18)
+#define         BPF_W           0x00
+#define         BPF_H           0x08
+#define         BPF_B           0x10
+#define BPF_MODE(code)  ((code) & 0xe0)
+#define         BPF_IMM         0x00
+#define         BPF_ABS         0x20
+#define         BPF_IND         0x40
+#define         BPF_MEM         0x60
+#define         BPF_LEN         0x80
+#define         BPF_MSH         0xa0
+
+/* alu/jmp fields */
+#define BPF_OP(code)    ((code) & 0xf0)
+#define         BPF_ADD         0x00
+#define         BPF_SUB         0x10
+#define         BPF_MUL         0x20
+#define         BPF_DIV         0x30
+#define         BPF_OR          0x40
+#define         BPF_AND         0x50
+#define         BPF_LSH         0x60
+#define         BPF_RSH         0x70
+#define         BPF_NEG         0x80
+#define         BPF_JA          0x00
+#define         BPF_JEQ         0x10
+#define         BPF_JGT         0x20
+#define         BPF_JGE         0x30
+#define         BPF_JSET        0x40
+#define BPF_SRC(code)   ((code) & 0x08)
+#define         BPF_K           0x00
+#define         BPF_X           0x08
+
+/* ret - BPF_K and BPF_X also apply */
+#define BPF_RVAL(code)  ((code) & 0x18)
+#define         BPF_A           0x10
+
+/* misc */
+#define BPF_MISCOP(code) ((code) & 0xf8)
+#define         BPF_TAX         0x00
+#define         BPF_TXA         0x80
+
+#define BPF_MAXINSNS 4096
+
+/*
+ * Macros for filter block array initializers.
+ */
+#define BPF_STMT(code, k) { (unsigned short)(code), 0, 0, k }
+#define BPF_JUMP(code, k, jt, jf) { (unsigned short)(code), jt, jf, k }
 
 #endif

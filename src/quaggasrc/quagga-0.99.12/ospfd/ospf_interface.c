@@ -1000,10 +1000,10 @@ ospf_vl_set_params (struct ospf_vl_data *vl_data, struct vertex *v)
 
   voi = vl_data->vl_oi;
 
-  if (voi->output_cost != v->distance__item)
+  if (voi->output_cost != v->distance)
     {
      
-      voi->output_cost = v->distance__item;
+      voi->output_cost = v->distance;
       changed = 1;
     }
 

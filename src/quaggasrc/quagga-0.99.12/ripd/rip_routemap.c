@@ -316,7 +316,7 @@ route_match_ip_next_hop_free (void *rule)
 }
 
 /* Route map commands for ip next-hop matching. */
-static struct route_map_rule_cmd route_match_ip_next_hop_cmd_ripd =
+struct route_map_rule_cmd route_match_ip_next_hop_cmd_ripd =
 {
   "ip next-hop",
   route_match_ip_next_hop,
@@ -363,7 +363,7 @@ route_match_ip_next_hop_prefix_list_free (void *rule)
   XFREE (MTYPE_ROUTE_MAP_COMPILED, rule);
 }
 
-static struct route_map_rule_cmd route_match_ip_next_hop_prefix_list_cmd_ripd =
+struct route_map_rule_cmd route_match_ip_next_hop_prefix_list_cmd_ripd =
 {
   "ip next-hop prefix-list",
   route_match_ip_next_hop_prefix_list,
@@ -409,7 +409,7 @@ route_match_ip_address_free (void *rule)
 }
 
 /* Route map commands for ip address matching. */
-static struct route_map_rule_cmd route_match_ip_address_cmd_ripd =
+struct route_map_rule_cmd route_match_ip_address_cmd_ripd =
 {
   "ip address",
   route_match_ip_address,
@@ -449,7 +449,7 @@ route_match_ip_address_prefix_list_free (void *rule)
   XFREE (MTYPE_ROUTE_MAP_COMPILED, rule);
 }
 
-static struct route_map_rule_cmd route_match_ip_address_prefix_list_cmd_ripd =
+struct route_map_rule_cmd route_match_ip_address_prefix_list_cmd_ripd =
 {
   "ip address prefix-list",
   route_match_ip_address_prefix_list,
@@ -599,7 +599,7 @@ route_set_metric_free (void *rule)
 }
 
 /* Set metric rule structure. */
-static struct route_map_rule_cmd route_set_metric_cmd_ripd = 
+struct route_map_rule_cmd route_set_metric_cmd_ripd = 
 {
   "metric",
   route_set_metric,
@@ -659,7 +659,7 @@ route_set_ip_nexthop_free (void *rule)
 }
 
 /* Route map commands for ip nexthop set. */
-static struct route_map_rule_cmd route_set_ip_nexthop_cmd_ripd =
+struct route_map_rule_cmd route_set_ip_nexthop_cmd_ripd =
 {
   "ip next-hop",
   route_set_ip_nexthop,
@@ -711,7 +711,7 @@ route_set_tag_free (void *rule)
 }
 
 /* Route map commands for tag set. */
-static struct route_map_rule_cmd route_set_tag_cmd_ripd =
+struct route_map_rule_cmd route_set_tag_cmd_ripd =
 {
   "tag",
   route_set_tag,

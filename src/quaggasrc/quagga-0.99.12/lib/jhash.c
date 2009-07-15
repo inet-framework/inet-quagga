@@ -42,8 +42,6 @@
  * the input key.
  */
 u_int32_t
-#undef	key
-#undef	key
 jhash (void *key, u_int32_t length, u_int32_t initval)
 {
   u_int32_t a, b, c, len;
@@ -102,8 +100,6 @@ jhash (void *key, u_int32_t length, u_int32_t initval)
 
   return c;
 }
-#define	key	key__VAR
-#define	key	key__VAR
 
 /* A special optimized version that handles 1 or more of u_int32_ts.
  * The length parameter here is the number of u_int32_ts in the key.

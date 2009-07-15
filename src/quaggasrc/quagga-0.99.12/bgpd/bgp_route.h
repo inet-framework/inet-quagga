@@ -137,10 +137,10 @@ struct bgp_static
 #define DISTRIBUTE_OUT_NAME(F)  ((F)->dlist[FILTER_OUT].name)
 #define DISTRIBUTE_OUT(F)       ((F)->dlist[FILTER_OUT].alist)
 
-#define PREFIX_LIST_IN_NAME(F)  ((F)->plist[FILTER_IN].name)
-#define PREFIX_LIST_IN(F)       ((F)->plist[FILTER_IN].plist)
-#define PREFIX_LIST_OUT_NAME(F) ((F)->plist[FILTER_OUT].name)
-#define PREFIX_LIST_OUT(F)      ((F)->plist[FILTER_OUT].plist)
+#define PREFIX_LIST_BGPD_IN_NAME(F)  ((F)->plist[FILTER_IN].name)
+#define PREFIX_LIST_BGPD_IN(F)       ((F)->plist[FILTER_IN].plist)
+#define PREFIX_LIST_BGPD_OUT_NAME(F) ((F)->plist[FILTER_OUT].name)
+#define PREFIX_LIST_BGPD_OUT(F)      ((F)->plist[FILTER_OUT].plist)
 
 #define FILTER_LIST_IN_NAME(F)  ((F)->aslist[FILTER_IN].name)
 #define FILTER_LIST_IN(F)       ((F)->aslist[FILTER_IN].aslist)
@@ -227,5 +227,38 @@ extern safi_t bgp_node_safi (struct vty *);
 extern void route_vty_out (struct vty *, struct prefix *, struct bgp_info *, int, safi_t);
 extern void route_vty_out_tag (struct vty *, struct prefix *, struct bgp_info *, int, safi_t);
 extern void route_vty_out_tmp (struct vty *, struct prefix *, struct attr *, safi_t);
+
+enum bgp_stats
+{
+  BGP_STATS_MAXBITLEN = 0,
+  BGP_STATS_RIB,
+  BGP_STATS_PREFIXES,
+  BGP_STATS_TOTPLEN,
+  BGP_STATS_UNAGGREGATEABLE,
+  BGP_STATS_MAX_AGGREGATEABLE,
+  BGP_STATS_AGGREGATES,
+  BGP_STATS_SPACE,
+  BGP_STATS_ASPATH_COUNT,
+  BGP_STATS_ASPATH_MAXHOPS,
+  BGP_STATS_ASPATH_TOTHOPS,
+  BGP_STATS_ASPATH_MAXSIZE,
+  BGP_STATS_ASPATH_TOTSIZE,
+  BGP_STATS_ASN_HIGHEST,
+  BGP_STATS_MAX,
+};
+
+enum bgp_pcounts
+{
+  PCOUNT_ADJ_IN = 0,
+  PCOUNT_DAMPED,
+  PCOUNT_REMOVED,
+  PCOUNT_HISTORY,
+  PCOUNT_STALE,
+  PCOUNT_VALID,
+  PCOUNT_ALL,
+  PCOUNT_COUNTED,
+  PCOUNT_PFCNT, /* the figure we display to users */
+  PCOUNT_MAX,
+};
 
 #endif /* _QUAGGA_BGP_ROUTE_H */

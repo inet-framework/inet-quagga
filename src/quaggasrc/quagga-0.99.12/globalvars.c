@@ -479,6 +479,7 @@ extern struct cmd_element no_debug_ospf_nssa_cmd_ospfd;
 extern struct cmd_element ospf_default_information_originate_always_type_metric_routemap_cmd_ospfd;
 extern struct cmd_element no_ospf_distance_ospf_cmd_ospfd;
 extern struct cmd_element ospf_abr_type_cmd_ospfd;
+extern struct cmd_element ospf_neighbor_cmd_ospfd;
 extern struct cmd_element no_ip_ospf_network_cmd_ospfd;
 extern struct cmd_element ospf_distance_ospf_external_intra_cmd_ospfd;
 extern struct cmd_element no_ospf_area_vlink_param3_cmd_ospfd;
@@ -526,6 +527,7 @@ extern struct cmd_element no_ospf_distribute_list_out_cmd_ospfd;
 extern struct cmd_element no_ospf_area_range_advertise_cmd_ospfd;
 extern struct cmd_element no_ip_ospf_retransmit_interval_cmd_ospfd;
 extern struct cmd_element debug_ospf_packet_all_cmd_ospfd;
+extern struct cmd_element no_ospf_timers_spf_cmd_ospfd;
 extern struct cmd_element show_ip_ospf_neighbor_cmd_ospfd;
 extern struct cmd_element show_ip_ospf_database_type_id_adv_router_cmd_ospfd;
 extern struct cmd_element no_ip_ospf_authentication_key_addr_cmd_ospfd;
@@ -823,6 +825,7 @@ void GlobalVars_initializeActiveSet_ospfd()
 	memcpy(&__activeVars->ospf_default_information_originate_always_type_metric_routemap_cmd__X, &ospf_default_information_originate_always_type_metric_routemap_cmd_ospfd, sizeof(ospf_default_information_originate_always_type_metric_routemap_cmd_ospfd));
 	memcpy(&__activeVars->no_ospf_distance_ospf_cmd__X, &no_ospf_distance_ospf_cmd_ospfd, sizeof(no_ospf_distance_ospf_cmd_ospfd));
 	memcpy(&__activeVars->ospf_abr_type_cmd__X, &ospf_abr_type_cmd_ospfd, sizeof(ospf_abr_type_cmd_ospfd));
+	memcpy(&__activeVars->ospf_neighbor_cmd__X, &ospf_neighbor_cmd_ospfd, sizeof(ospf_neighbor_cmd_ospfd));
 	memcpy(&__activeVars->no_ip_ospf_network_cmd__X, &no_ip_ospf_network_cmd_ospfd, sizeof(no_ip_ospf_network_cmd_ospfd));
 	memcpy(&__activeVars->ospf_distance_ospf_external_intra_cmd__X, &ospf_distance_ospf_external_intra_cmd_ospfd, sizeof(ospf_distance_ospf_external_intra_cmd_ospfd));
 	memcpy(&__activeVars->no_ospf_area_vlink_param3_cmd__X, &no_ospf_area_vlink_param3_cmd_ospfd, sizeof(no_ospf_area_vlink_param3_cmd_ospfd));
@@ -873,6 +876,7 @@ void GlobalVars_initializeActiveSet_ospfd()
 	memcpy(&__activeVars->no_ospf_area_range_advertise_cmd__X, &no_ospf_area_range_advertise_cmd_ospfd, sizeof(no_ospf_area_range_advertise_cmd_ospfd));
 	memcpy(&__activeVars->no_ip_ospf_retransmit_interval_cmd__X, &no_ip_ospf_retransmit_interval_cmd_ospfd, sizeof(no_ip_ospf_retransmit_interval_cmd_ospfd));
 	memcpy(&__activeVars->debug_ospf_packet_all_cmd__X, &debug_ospf_packet_all_cmd_ospfd, sizeof(debug_ospf_packet_all_cmd_ospfd));
+	memcpy(&__activeVars->no_ospf_timers_spf_cmd__X, &no_ospf_timers_spf_cmd_ospfd, sizeof(no_ospf_timers_spf_cmd_ospfd));
 	memcpy(&__activeVars->show_ip_ospf_neighbor_cmd__X, &show_ip_ospf_neighbor_cmd_ospfd, sizeof(show_ip_ospf_neighbor_cmd_ospfd));
 	__activeVars->term_debug_ospf_zebra__X =  0;
 	memcpy(&__activeVars->show_ip_ospf_database_type_id_adv_router_cmd__X, &show_ip_ospf_database_type_id_adv_router_cmd_ospfd, sizeof(show_ip_ospf_database_type_id_adv_router_cmd_ospfd));
@@ -1259,8 +1263,8 @@ extern struct cmd_element config_who_cmd_lib;
 extern struct cmd_element config_log_syslog_facility_cmd_lib;
 extern struct cmd_element no_ip_prefix_list_sequence_number_cmd_lib;
 extern struct cmd_element no_access_list_extended_any_host_cmd_lib;
-extern struct cmd_element access_list_extended_any_host_cmd_lib;
 extern struct cmd_element config_enable_cmd_lib;
+extern struct cmd_element access_list_extended_any_host_cmd_lib;
 extern struct cmd_element no_ip_prefix_list_description_cmd_lib;
 extern struct cmd_element no_config_log_syslog_cmd_lib;
 extern struct cmd_element no_key_chain_cmd_lib;
@@ -1350,13 +1354,13 @@ extern struct cmd_element no_rmap_description_cmd_lib;
 extern struct cmd_element no_access_list_standard_host_cmd_lib;
 extern struct cmd_element show_ip_access_list_cmd_lib;
 extern struct cmd_element rmap_continue_cmd_lib;
-extern struct cmd_element exec_timeout_sec_cmd_lib;
 extern struct cmd_element config_disable_cmd_lib;
 extern struct cmd_element access_list_exact_cmd_lib;
+extern struct cmd_element exec_timeout_sec_cmd_lib;
 extern struct cmd_element config_log_file_level_cmd_lib;
 extern struct cmd_element no_ip_prefix_list_le_cmd_lib;
-extern struct cmd_element vty_access_class_cmd_lib;
 extern struct cmd_element clear_ip_prefix_list_name_cmd_lib;
+extern struct cmd_element vty_access_class_cmd_lib;
 extern struct cmd_element ip_prefix_list_seq_ge_le_cmd_lib;
 extern struct cmd_element config_write_terminal_cmd_lib;
 extern struct cmd_element config_log_file_cmd_lib;
@@ -1381,8 +1385,8 @@ extern struct cmd_element ip_prefix_list_le_cmd_lib;
 extern struct cmd_element no_config_log_file_cmd_lib;
 extern struct cmd_element no_ipv6_distribute_list_prefix_all_cmd_lib;
 extern struct cmd_element show_memory_isis_cmd_lib;
-extern struct cmd_element no_vty_login_cmd_lib;
 extern struct cmd_element no_service_terminal_length_cmd_lib;
+extern struct cmd_element no_vty_login_cmd_lib;
 extern struct cmd_element no_access_list_standard_any_cmd_lib;
 extern struct cmd_element config_log_facility_cmd_lib;
 extern struct cmd_element show_work_queues_cmd_lib;
@@ -1430,35 +1434,10 @@ extern struct cmd_element distribute_list_prefix_cmd_lib;
 
 void GlobalVars_initializeActiveSet_lib()
 {
-	struct memory_list memory_list_zebra__T[] =  
-{
-  { MTYPE_RTADV_PREFIX,		"Router Advertisement Prefix"	},
-  { MTYPE_VRF,			"VRF"				},
-  { MTYPE_VRF_NAME,		"VRF name"			},
-  { MTYPE_NEXTHOP,		"Nexthop"			},
-  { MTYPE_RIB,			"RIB"				},
-  { MTYPE_RIB_QUEUE,		"RIB process work queue"	},
-  { MTYPE_STATIC_IPV4,		"Static IPv4 route"		},
-  { MTYPE_STATIC_IPV6,		"Static IPv6 route"		},
-  { -1, NULL },
-};
 	struct cmd_node view_node__T = 
 {
   VIEW_NODE,
   "%s> ",
-};
-	struct zebra_desc_table route_types__T[] =  {
-  DESC_ENTRY	(ZEBRA_ROUTE_SYSTEM,	"system",	'X' ),
-  DESC_ENTRY	(ZEBRA_ROUTE_KERNEL,	"kernel",	'K' ),
-  DESC_ENTRY	(ZEBRA_ROUTE_CONNECT,	"connected",	'C' ),
-  DESC_ENTRY	(ZEBRA_ROUTE_STATIC,	"static",	'S' ),
-  DESC_ENTRY	(ZEBRA_ROUTE_RIP,	"rip",		'R' ),
-  DESC_ENTRY	(ZEBRA_ROUTE_RIPNG,	"ripng",	'R' ),
-  DESC_ENTRY	(ZEBRA_ROUTE_OSPF,	"ospf",		'O' ),
-  DESC_ENTRY	(ZEBRA_ROUTE_OSPF6,	"ospf6",	'O' ),
-  DESC_ENTRY	(ZEBRA_ROUTE_ISIS,	"isis",		'I' ),
-  DESC_ENTRY	(ZEBRA_ROUTE_BGP,	"bgp",		'B' ),
-  DESC_ENTRY	(ZEBRA_ROUTE_HSLS,	"hsls",		'H' ),
 };
 	struct cmd_node access_node__T = 
 {
@@ -1507,7 +1486,6 @@ void GlobalVars_initializeActiveSet_lib()
   "%s(config)# ",
   1
 };
-	struct zebra_desc_table unknown__T =  { 0, "unknown", '?' };
 	const uint8_t md5_paddat__T[MD5_BUFLEN] =  {
 	0x80,	0,	0,	0,	0,	0,	0,	0,
 	0,	0,	0,	0,	0,	0,	0,	0,
@@ -1562,12 +1540,6 @@ void GlobalVars_initializeActiveSet_lib()
   NULL,
   NULL,
 };
-	struct memory_list memory_list_vtysh__T[] = 
-{
-  { MTYPE_VTYSH_CONFIG,		"Vtysh configuration",		},
-  { MTYPE_VTYSH_CONFIG_LINE,	"Vtysh configuration line"	},
-  { -1, NULL },
-};
 	struct cmd_node keychain_key_node__T = 
 {
   KEYCHAIN_KEY_NODE,
@@ -1585,37 +1557,12 @@ void GlobalVars_initializeActiveSet_lib()
   RESTRICTED_NODE,
   "%s$ ",
 };
-	struct zebra_desc_table command_types__T[] =  {
-  DESC_ENTRY	(ZEBRA_INTERFACE_ADD),
-  DESC_ENTRY	(ZEBRA_INTERFACE_DELETE),
-  DESC_ENTRY	(ZEBRA_INTERFACE_ADDRESS_ADD),
-  DESC_ENTRY	(ZEBRA_INTERFACE_ADDRESS_DELETE),
-  DESC_ENTRY	(ZEBRA_INTERFACE_UP),
-  DESC_ENTRY	(ZEBRA_INTERFACE_DOWN),
-  DESC_ENTRY	(ZEBRA_IPV4_ROUTE_ADD),
-  DESC_ENTRY	(ZEBRA_IPV4_ROUTE_DELETE),
-  DESC_ENTRY	(ZEBRA_IPV6_ROUTE_ADD),
-  DESC_ENTRY	(ZEBRA_IPV6_ROUTE_DELETE),
-  DESC_ENTRY	(ZEBRA_REDISTRIBUTE_ADD),
-  DESC_ENTRY	(ZEBRA_REDISTRIBUTE_DELETE),
-  DESC_ENTRY	(ZEBRA_REDISTRIBUTE_DEFAULT_ADD),
-  DESC_ENTRY	(ZEBRA_REDISTRIBUTE_DEFAULT_DELETE),
-  DESC_ENTRY	(ZEBRA_IPV4_NEXTHOP_LOOKUP),
-  DESC_ENTRY	(ZEBRA_IPV6_NEXTHOP_LOOKUP),
-  DESC_ENTRY	(ZEBRA_IPV4_IMPORT_LOOKUP),
-  DESC_ENTRY	(ZEBRA_IPV6_IMPORT_LOOKUP),
-  DESC_ENTRY	(ZEBRA_INTERFACE_RENAME),
-  DESC_ENTRY	(ZEBRA_ROUTER_ID_ADD),
-  DESC_ENTRY	(ZEBRA_ROUTER_ID_DELETE),
-  DESC_ENTRY	(ZEBRA_ROUTER_ID_UPDATE),
-};
 	memcpy(&__activeVars->rmap_show_name_cmd__X, &rmap_show_name_cmd_lib, sizeof(rmap_show_name_cmd_lib));
 	memcpy(&__activeVars->no_ip_prefix_list_seq_le_ge_cmd__X, &no_ip_prefix_list_seq_le_ge_cmd_lib, sizeof(no_ip_prefix_list_seq_le_ge_cmd_lib));
 	memcpy(&__activeVars->no_rmap_onmatch_next_cmd__X, &no_rmap_onmatch_next_cmd_lib, sizeof(no_rmap_onmatch_next_cmd_lib));
 	memcpy(&__activeVars->show_history_cmd__X, &show_history_cmd_lib, sizeof(show_history_cmd_lib));
 	memcpy(&__activeVars->show_ip_prefix_list_summary_name_cmd__X, &show_ip_prefix_list_summary_name_cmd_lib, sizeof(show_ip_prefix_list_summary_name_cmd_lib));
 	memcpy(&__activeVars->enable_password_cmd__X, &enable_password_cmd_lib, sizeof(enable_password_cmd_lib));
-	memcpy(&__activeVars->memory_list_zebra__X, &memory_list_zebra__T, sizeof(memory_list_zebra__T));
 	memcpy(&__activeVars->no_terminal_monitor_cmd__X, &no_terminal_monitor_cmd_lib, sizeof(no_terminal_monitor_cmd_lib));
 	memcpy(&__activeVars->config_terminal_length_cmd__X, &config_terminal_length_cmd_lib, sizeof(config_terminal_length_cmd_lib));
 	memcpy(&__activeVars->service_terminal_length_cmd__X, &service_terminal_length_cmd_lib, sizeof(service_terminal_length_cmd_lib));
@@ -1660,7 +1607,6 @@ void GlobalVars_initializeActiveSet_lib()
 	__activeVars->opterr__X =  1;
 	memcpy(&__activeVars->ip_prefix_list_description_cmd__X, &ip_prefix_list_description_cmd_lib, sizeof(ip_prefix_list_description_cmd_lib));
 	memcpy(&__activeVars->show_ip_prefix_list_prefix_first_match_cmd__X, &show_ip_prefix_list_prefix_first_match_cmd_lib, sizeof(show_ip_prefix_list_prefix_first_match_cmd_lib));
-	__activeVars->telnet_space_char__X =  ' ';
 	memcpy(&__activeVars->ip_prefix_list_seq_le_cmd__X, &ip_prefix_list_seq_le_cmd_lib, sizeof(ip_prefix_list_seq_le_cmd_lib));
 	memcpy(&__activeVars->send_lifetime_infinite_day_month_cmd__X, &send_lifetime_infinite_day_month_cmd_lib, sizeof(send_lifetime_infinite_day_month_cmd_lib));
 	memcpy(&__activeVars->access_list_extended_host_mask_cmd__X, &access_list_extended_host_mask_cmd_lib, sizeof(access_list_extended_host_mask_cmd_lib));
@@ -1677,12 +1623,11 @@ void GlobalVars_initializeActiveSet_lib()
 	memcpy(&__activeVars->config_who_cmd__X, &config_who_cmd_lib, sizeof(config_who_cmd_lib));
 	memcpy(&__activeVars->config_log_syslog_facility_cmd__X, &config_log_syslog_facility_cmd_lib, sizeof(config_log_syslog_facility_cmd_lib));
 	__activeVars->optopt__X =  '?';
-	memcpy(&__activeVars->route_types__X, &route_types__T, sizeof(route_types__T));
 	memcpy(&__activeVars->no_ip_prefix_list_sequence_number_cmd__X, &no_ip_prefix_list_sequence_number_cmd_lib, sizeof(no_ip_prefix_list_sequence_number_cmd_lib));
 	memcpy(&__activeVars->no_access_list_extended_any_host_cmd__X, &no_access_list_extended_any_host_cmd_lib, sizeof(no_access_list_extended_any_host_cmd_lib));
 	memcpy(&__activeVars->access_node__X, &access_node__T, sizeof(access_node__T));
-	memcpy(&__activeVars->access_list_extended_any_host_cmd__X, &access_list_extended_any_host_cmd_lib, sizeof(access_list_extended_any_host_cmd_lib));
 	memcpy(&__activeVars->config_enable_cmd__X, &config_enable_cmd_lib, sizeof(config_enable_cmd_lib));
+	memcpy(&__activeVars->access_list_extended_any_host_cmd__X, &access_list_extended_any_host_cmd_lib, sizeof(access_list_extended_any_host_cmd_lib));
 	memcpy(&__activeVars->no_ip_prefix_list_description_cmd__X, &no_ip_prefix_list_description_cmd_lib, sizeof(no_ip_prefix_list_description_cmd_lib));
 	memcpy(&__activeVars->no_config_log_syslog_cmd__X, &no_config_log_syslog_cmd_lib, sizeof(no_config_log_syslog_cmd_lib));
 	memcpy(&__activeVars->no_key_chain_cmd__X, &no_key_chain_cmd_lib, sizeof(no_key_chain_cmd_lib));
@@ -1728,7 +1673,6 @@ void GlobalVars_initializeActiveSet_lib()
 	memcpy(&__activeVars->config_terminal_no_length_cmd__X, &config_terminal_no_length_cmd_lib, sizeof(config_terminal_no_length_cmd_lib));
 	memcpy(&__activeVars->ip_prefix_list_seq_le_ge_cmd__X, &ip_prefix_list_seq_le_ge_cmd_lib, sizeof(ip_prefix_list_seq_le_ge_cmd_lib));
 	memcpy(&__activeVars->config_node__X, &config_node__T, sizeof(config_node__T));
-	memcpy(&__activeVars->unknown__X, &unknown__T, sizeof(unknown__T));
 	memcpy(&__activeVars->rmap_onmatch_next_cmd__X, &rmap_onmatch_next_cmd_lib, sizeof(rmap_onmatch_next_cmd_lib));
 	memcpy(&__activeVars->access_list_extended_mask_any_cmd__X, &access_list_extended_mask_any_cmd_lib, sizeof(access_list_extended_mask_any_cmd_lib));
 	memcpy(&__activeVars->show_memory_rip_cmd__X, &show_memory_rip_cmd_lib, sizeof(show_memory_rip_cmd_lib));
@@ -1794,24 +1738,23 @@ void GlobalVars_initializeActiveSet_lib()
 	memcpy(&__activeVars->no_if_rmap_cmd__X, &no_if_rmap_cmd_lib, sizeof(no_if_rmap_cmd_lib));
 	memcpy(&__activeVars->no_rmap_description_cmd__X, &no_rmap_description_cmd_lib, sizeof(no_rmap_description_cmd_lib));
 	memcpy(&__activeVars->no_access_list_standard_host_cmd__X, &no_access_list_standard_host_cmd_lib, sizeof(no_access_list_standard_host_cmd_lib));
-	memcpy(&__activeVars->memory_list_vtysh__X, &memory_list_vtysh__T, sizeof(memory_list_vtysh__T));
 	memcpy(&__activeVars->show_ip_access_list_cmd__X, &show_ip_access_list_cmd_lib, sizeof(show_ip_access_list_cmd_lib));
 	memcpy(&__activeVars->rmap_continue_cmd__X, &rmap_continue_cmd_lib, sizeof(rmap_continue_cmd_lib));
-	memcpy(&__activeVars->exec_timeout_sec_cmd__X, &exec_timeout_sec_cmd_lib, sizeof(exec_timeout_sec_cmd_lib));
 	memcpy(&__activeVars->config_disable_cmd__X, &config_disable_cmd_lib, sizeof(config_disable_cmd_lib));
 	memcpy(&__activeVars->access_list_exact_cmd__X, &access_list_exact_cmd_lib, sizeof(access_list_exact_cmd_lib));
+	memcpy(&__activeVars->exec_timeout_sec_cmd__X, &exec_timeout_sec_cmd_lib, sizeof(exec_timeout_sec_cmd_lib));
 	memcpy(&__activeVars->config_log_file_level_cmd__X, &config_log_file_level_cmd_lib, sizeof(config_log_file_level_cmd_lib));
 	memcpy(&__activeVars->no_ip_prefix_list_le_cmd__X, &no_ip_prefix_list_le_cmd_lib, sizeof(no_ip_prefix_list_le_cmd_lib));
-	memcpy(&__activeVars->vty_access_class_cmd__X, &vty_access_class_cmd_lib, sizeof(vty_access_class_cmd_lib));
 	memcpy(&__activeVars->clear_ip_prefix_list_name_cmd__X, &clear_ip_prefix_list_name_cmd_lib, sizeof(clear_ip_prefix_list_name_cmd_lib));
+	memcpy(&__activeVars->vty_access_class_cmd__X, &vty_access_class_cmd_lib, sizeof(vty_access_class_cmd_lib));
 	memcpy(&__activeVars->ip_prefix_list_seq_ge_le_cmd__X, &ip_prefix_list_seq_ge_le_cmd_lib, sizeof(ip_prefix_list_seq_ge_le_cmd_lib));
 	memcpy(&__activeVars->config_write_terminal_cmd__X, &config_write_terminal_cmd_lib, sizeof(config_write_terminal_cmd_lib));
 	memcpy(&__activeVars->config_log_file_cmd__X, &config_log_file_cmd_lib, sizeof(config_log_file_cmd_lib));
 	memcpy(&__activeVars->password_text_cmd__X, &password_text_cmd_lib, sizeof(password_text_cmd_lib));
 	memcpy(&__activeVars->no_access_list_standard_cmd__X, &no_access_list_standard_cmd_lib, sizeof(no_access_list_standard_cmd_lib));
 	memcpy(&__activeVars->send_lifetime_month_day_month_day_cmd__X, &send_lifetime_month_day_month_day_cmd_lib, sizeof(send_lifetime_month_day_month_day_cmd_lib));
-	memcpy(&__activeVars->keychain_key_node__X, &keychain_key_node__T, sizeof(keychain_key_node__T));
 	memcpy(&__activeVars->access_list_extended_host_host_cmd__X, &access_list_extended_host_host_cmd_lib, sizeof(access_list_extended_host_host_cmd_lib));
+	memcpy(&__activeVars->keychain_key_node__X, &keychain_key_node__T, sizeof(keychain_key_node__T));
 	memcpy(&__activeVars->no_ip_prefix_list_seq_ge_cmd__X, &no_ip_prefix_list_seq_ge_cmd_lib, sizeof(no_ip_prefix_list_seq_ge_cmd_lib));
 	memcpy(&__activeVars->access_list_extended_any_any_cmd__X, &access_list_extended_any_any_cmd_lib, sizeof(access_list_extended_any_any_cmd_lib));
 	memcpy(&__activeVars->no_rmap_continue_seq__X, &no_rmap_continue_seq_lib, sizeof(no_rmap_continue_seq_lib));
@@ -1832,8 +1775,8 @@ void GlobalVars_initializeActiveSet_lib()
 	memcpy(&__activeVars->no_ipv6_distribute_list_prefix_all_cmd__X, &no_ipv6_distribute_list_prefix_all_cmd_lib, sizeof(no_ipv6_distribute_list_prefix_all_cmd_lib));
 	__activeVars->if_rmap_add_hook__X =  NULL;
 	memcpy(&__activeVars->show_memory_isis_cmd__X, &show_memory_isis_cmd_lib, sizeof(show_memory_isis_cmd_lib));
-	memcpy(&__activeVars->no_vty_login_cmd__X, &no_vty_login_cmd_lib, sizeof(no_vty_login_cmd_lib));
 	memcpy(&__activeVars->no_service_terminal_length_cmd__X, &no_service_terminal_length_cmd_lib, sizeof(no_service_terminal_length_cmd_lib));
+	memcpy(&__activeVars->no_vty_login_cmd__X, &no_vty_login_cmd_lib, sizeof(no_vty_login_cmd_lib));
 	memcpy(&__activeVars->no_access_list_standard_any_cmd__X, &no_access_list_standard_any_cmd_lib, sizeof(no_access_list_standard_any_cmd_lib));
 	memcpy(&__activeVars->config_log_facility_cmd__X, &config_log_facility_cmd_lib, sizeof(config_log_facility_cmd_lib));
 	memcpy(&__activeVars->show_work_queues_cmd__X, &show_work_queues_cmd_lib, sizeof(show_work_queues_cmd_lib));
@@ -1842,7 +1785,6 @@ void GlobalVars_initializeActiveSet_lib()
 	memcpy(&__activeVars->restricted_node__X, &restricted_node__T, sizeof(restricted_node__T));
 	memcpy(&__activeVars->no_rmap_call_cmd__X, &no_rmap_call_cmd_lib, sizeof(no_rmap_call_cmd_lib));
 	memcpy(&__activeVars->config_terminal_cmd__X, &config_terminal_cmd_lib, sizeof(config_terminal_cmd_lib));
-	__activeVars->restricted_mode_default__X =  0;
 	memcpy(&__activeVars->banner_motd_default_cmd__X, &banner_motd_default_cmd_lib, sizeof(banner_motd_default_cmd_lib));
 	memcpy(&__activeVars->accept_lifetime_duration_month_day_cmd__X, &accept_lifetime_duration_month_day_cmd_lib, sizeof(accept_lifetime_duration_month_day_cmd_lib));
 	memcpy(&__activeVars->no_vty_access_class_cmd__X, &no_vty_access_class_cmd_lib, sizeof(no_vty_access_class_cmd_lib));
@@ -1865,11 +1807,9 @@ void GlobalVars_initializeActiveSet_lib()
 	memcpy(&__activeVars->no_ip_prefix_list_cmd__X, &no_ip_prefix_list_cmd_lib, sizeof(no_ip_prefix_list_cmd_lib));
 	memcpy(&__activeVars->no_access_list_extended_host_host_cmd__X, &no_access_list_extended_host_host_cmd_lib, sizeof(no_access_list_extended_host_host_cmd_lib));
 	memcpy(&__activeVars->accept_lifetime_month_day_month_day_cmd__X, &accept_lifetime_month_day_month_day_cmd_lib, sizeof(accept_lifetime_month_day_month_day_cmd_lib));
-	memcpy(&__activeVars->command_types__X, &command_types__T, sizeof(command_types__T));
 	memcpy(&__activeVars->no_access_list_extended_host_mask_cmd__X, &no_access_list_extended_host_mask_cmd_lib, sizeof(no_access_list_extended_host_mask_cmd_lib));
 	memcpy(&__activeVars->access_list_standard_nomask_cmd__X, &access_list_standard_nomask_cmd_lib, sizeof(access_list_standard_nomask_cmd_lib));
 	memcpy(&__activeVars->ipv6_distribute_list_cmd__X, &ipv6_distribute_list_cmd_lib, sizeof(ipv6_distribute_list_cmd_lib));
-	__activeVars->telnet_backward_char__X =  0x08;
 	memcpy(&__activeVars->access_list_remark_cmd__X, &access_list_remark_cmd_lib, sizeof(access_list_remark_cmd_lib));
 	memcpy(&__activeVars->no_ip_prefix_list_seq_cmd__X, &no_ip_prefix_list_seq_cmd_lib, sizeof(no_ip_prefix_list_seq_cmd_lib));
 	memcpy(&__activeVars->ipv6_distribute_list_prefix_cmd__X, &ipv6_distribute_list_prefix_cmd_lib, sizeof(ipv6_distribute_list_prefix_cmd_lib));
@@ -2664,7 +2604,7 @@ extern struct cmd_element neighbor_nexthop_self_cmd_bgpd;
 
 void GlobalVars_initializeActiveSet_bgpd()
 {
-	struct peer_flag_action peer_flag_action_list__T[] =  
+	struct peer_flag_action peer_flag_action_list__T[8] =  
   {
     { PEER_FLAG_PASSIVE,                  0, peer_change_reset },
     { PEER_FLAG_SHUTDOWN,                 0, peer_change_reset },
@@ -2675,7 +2615,7 @@ void GlobalVars_initializeActiveSet_bgpd()
     { PEER_FLAG_DISABLE_CONNECTED_CHECK,  0, peer_change_reset },
     { 0, 0, 0 }
   };
-	struct message orf_type_str__T[] = 
+	struct message orf_type_str__T[2] = 
 {
   { ORF_TYPE_PREFIX,		"Prefixlist"		},
   { ORF_TYPE_PREFIX_OLD,	"Prefixlist (old)"	},
@@ -2692,7 +2632,7 @@ void GlobalVars_initializeActiveSet_bgpd()
   "%s(config-router)# ",
   1,
 };
-	size_t cap_minsizes__T[] =  
+	size_t cap_minsizes__T[CAPABILITY_CODE_ORF_OLD+1] =  
 {
   [CAPABILITY_CODE_MP]		= sizeof (struct capability_mp_data),
   [CAPABILITY_CODE_REFRESH]	= CAPABILITY_CODE_REFRESH_LEN,
@@ -2722,7 +2662,7 @@ void GlobalVars_initializeActiveSet_bgpd()
   NULL,
   NULL
 };
-	struct peer_flag_action peer_af_flag_action_list__T[] =  
+	struct peer_flag_action peer_af_flag_action_list__T[15] =  
   {
     { PEER_FLAG_NEXTHOP_SELF,             1, peer_change_reset_out },
     { PEER_FLAG_SEND_COMMUNITY,           1, peer_change_reset_out },
@@ -2740,7 +2680,7 @@ void GlobalVars_initializeActiveSet_bgpd()
     { PEER_FLAG_NEXTHOP_LOCAL_UNCHANGED,  0, peer_change_reset_out },
     { 0, 0, 0 }
   };
-	struct message capcode_str__T[] = 
+	struct message capcode_str__T[8] = 
 {
   { CAPABILITY_CODE_MP,			"MultiProtocol Extensions"	},
   { CAPABILITY_CODE_REFRESH,		"Route Refresh"			},
@@ -2775,13 +2715,13 @@ void GlobalVars_initializeActiveSet_bgpd()
   "",
   1
 };
-	struct message orf_mode_str__T[] = 
+	struct message orf_mode_str__T[3] = 
 {
   { ORF_MODE_RECEIVE,	"Receive"	},
   { ORF_MODE_SEND,	"Send"		},
   { ORF_MODE_BOTH,	"Both"		},
 };
-	const char * pcount_strs__T[] = 
+	const char * pcount_strs__T[10] = 
 {
   [PCOUNT_ADJ_IN]  = "Adj-in",
   [PCOUNT_DAMPED]  = "Damped",
@@ -2806,7 +2746,7 @@ void GlobalVars_initializeActiveSet_bgpd()
   "%s(config-router-af)# ",
   1,
 };
-	const char * table_stats_strs__T[] = 
+	const char * table_stats_strs__T[BGP_STATS_MAX+1] = 
 {
   [BGP_STATS_PREFIXES]            = "Total Prefixes",
   [BGP_STATS_TOTPLEN]             = "Average prefix length",
@@ -3306,7 +3246,6 @@ void GlobalVars_initializeActiveSet_bgpd()
 	memcpy(&__activeVars->clear_bgp_ipv6_external_in_cmd__X, &clear_bgp_ipv6_external_in_cmd_bgpd, sizeof(clear_bgp_ipv6_external_in_cmd_bgpd));
 	memcpy(&__activeVars->show_ip_bgp_ipv4_neighbor_routes_cmd__X, &show_ip_bgp_ipv4_neighbor_routes_cmd_bgpd, sizeof(show_ip_bgp_ipv4_neighbor_routes_cmd_bgpd));
 	memcpy(&__activeVars->clear_bgp_ipv6_peer_cmd__X, &clear_bgp_ipv6_peer_cmd_bgpd, sizeof(clear_bgp_ipv6_peer_cmd_bgpd));
-	__activeVars->attr_str_max__X =  sizeof(attr_str)/sizeof(attr_str[0]);
 	memcpy(&__activeVars->no_neighbor_nexthop_self_cmd__X, &no_neighbor_nexthop_self_cmd_bgpd, sizeof(no_neighbor_nexthop_self_cmd_bgpd));
 	memcpy(&__activeVars->debug_bgp_as4_segment_cmd__X, &debug_bgp_as4_segment_cmd_bgpd, sizeof(debug_bgp_as4_segment_cmd_bgpd));
 	memcpy(&__activeVars->clear_bgp_ipv6_peer_group_out_cmd__X, &clear_bgp_ipv6_peer_group_out_cmd_bgpd, sizeof(clear_bgp_ipv6_peer_group_out_cmd_bgpd));

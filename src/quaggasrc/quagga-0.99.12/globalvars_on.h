@@ -300,7 +300,6 @@
 #define recent_time  recent_time__VAR
 #define show_ip_access_list_cmd  show_ip_access_list_cmd__VAR
 #define exit_address_family_cmd  exit_address_family_cmd__VAR
-#define memory_list_vtysh  memory_list_vtysh__VAR
 #define no_neighbor_attr_unchanged2_cmd  no_neighbor_attr_unchanged2_cmd__VAR
 #define no_match_metric_cmd  no_match_metric_cmd__VAR
 #define rmap_continue_cmd  rmap_continue_cmd__VAR
@@ -364,7 +363,6 @@
 #define neighbor_transparent_nexthop_cmd  neighbor_transparent_nexthop_cmd__VAR
 #define no_ospf_refresh_timer_cmd  no_ospf_refresh_timer_cmd__VAR
 #define undebug_bgp_filter_cmd  undebug_bgp_filter_cmd__VAR
-#define restricted_mode_default  restricted_mode_default__VAR
 #define no_ospf_router_id_cmd  no_ospf_router_id_cmd__VAR
 #define accept_lifetime_duration_month_day_cmd  accept_lifetime_duration_month_day_cmd__VAR
 #define banner_motd_default_cmd  banner_motd_default_cmd__VAR
@@ -492,7 +490,6 @@
 #define distribute_list_all_cmd  distribute_list_all_cmd__VAR
 #define ip_ospf_dead_interval_minimal_addr_cmd  ip_ospf_dead_interval_minimal_addr_cmd__VAR
 #define no_neighbor_nexthop_self_cmd  no_neighbor_nexthop_self_cmd__VAR
-#define attr_str_max  attr_str_max__VAR
 #define no_ospf_area_authentication_cmd  no_ospf_area_authentication_cmd__VAR
 #define debug_bgp_as4_segment_cmd  debug_bgp_as4_segment_cmd__VAR
 #define no_ospf_redistribute_source_cmd  no_ospf_redistribute_source_cmd__VAR
@@ -642,7 +639,6 @@
 #define vtyvec  vtyvec__VAR
 #define no_neighbor_description_val_cmd  no_neighbor_description_val_cmd__VAR
 #define match_ip_address_cmd  match_ip_address_cmd__VAR
-#define key  key__VAR
 #define conf_bgp_debug_events  conf_bgp_debug_events__VAR
 #define dump_keepalive  dump_keepalive__VAR
 #define no_aggregate_address_summary_as_set_cmd  no_aggregate_address_summary_as_set_cmd__VAR
@@ -812,7 +808,6 @@
 #define ospf_cost_u32_cmd  ospf_cost_u32_cmd__VAR
 #define no_ip_ospf_authentication_addr_cmd  no_ip_ospf_authentication_addr_cmd__VAR
 #define no_access_list_extended_host_mask_cmd  no_access_list_extended_host_mask_cmd__VAR
-#define command_types  command_types__VAR
 #define no_set_aspath_prepend_cmd  no_set_aspath_prepend_cmd__VAR
 #define show_ip_bgp_community4_exact_cmd  show_ip_bgp_community4_exact_cmd__VAR
 #define ip_extcommunity_list_name_standard2_cmd  ip_extcommunity_list_name_standard2_cmd__VAR
@@ -820,7 +815,6 @@
 #define ip_community_list_standard_cmd  ip_community_list_standard_cmd__VAR
 #define no_ospf_area_shortcut_cmd  no_ospf_area_shortcut_cmd__VAR
 #define clear_bgp_all_soft_out_cmd  clear_bgp_all_soft_out_cmd__VAR
-#define telnet_backward_char  telnet_backward_char__VAR
 #define no_neighbor_advertise_interval_val_cmd  no_neighbor_advertise_interval_val_cmd__VAR
 #define no_match_aspath_cmd  no_match_aspath_cmd__VAR
 #define ip_route_mask_flags2_cmd  ip_route_mask_flags2_cmd__VAR
@@ -849,7 +843,6 @@
 #define no_rmap_onmatch_next_cmd  no_rmap_onmatch_next_cmd__VAR
 #define ip_route_flags_distance2_cmd  ip_route_flags_distance2_cmd__VAR
 #define show_history_cmd  show_history_cmd__VAR
-#define memory_list_zebra  memory_list_zebra__VAR
 #define config_terminal_length_cmd  config_terminal_length_cmd__VAR
 #define bgp_default_local_preference_cmd  bgp_default_local_preference_cmd__VAR
 #define bgp_network_mask_natural_backdoor_cmd  bgp_network_mask_natural_backdoor_cmd__VAR
@@ -1013,9 +1006,9 @@
 #define show_ip_ospf_database_type_self_cmd  show_ip_ospf_database_type_self_cmd__VAR
 #define show_ip_ospf_database_type_cmd  show_ip_ospf_database_type_cmd__VAR
 #define vlink_count  vlink_count__VAR
-#define config_write_memory_cmd  config_write_memory_cmd__VAR
 #define T  T__VAR
 #define address_family_vpnv4_unicast_cmd  address_family_vpnv4_unicast_cmd__VAR
+#define config_write_memory_cmd  config_write_memory_cmd__VAR
 #define show_ip_as_path_access_list_all_cmd  show_ip_as_path_access_list_all_cmd__VAR
 #define relative_time  relative_time__VAR
 #define config_list_cmd  config_list_cmd__VAR
@@ -1034,7 +1027,6 @@
 #define clear_ip_bgp_external_soft_cmd  clear_ip_bgp_external_soft_cmd__VAR
 #define show_debugging_rip_cmd  show_debugging_rip_cmd__VAR
 #define config_node  config_node__VAR
-#define unknown  unknown__VAR
 #define no_ospf_area_vlink_authtype_cmd  no_ospf_area_vlink_authtype_cmd__VAR
 #define rmap_onmatch_next_cmd  rmap_onmatch_next_cmd__VAR
 #define clear_ip_bgp_as_soft_out_cmd  clear_ip_bgp_as_soft_out_cmd__VAR
@@ -1055,8 +1047,8 @@
 #define neighbor_default_originate_cmd  neighbor_default_originate_cmd__VAR
 #define no_rip_redistribute_type_cmd  no_rip_redistribute_type_cmd__VAR
 #define ospf_network_area_cmd  ospf_network_area_cmd__VAR
-#define route_match_metric_cmd  route_match_metric_cmd__VAR
 #define vty_node  vty_node__VAR
+#define route_match_metric_cmd  route_match_metric_cmd__VAR
 #define ip_ospf_cost_u32_inet4_cmd  ip_ospf_cost_u32_inet4_cmd__VAR
 #define retain_mode  retain_mode__VAR
 #define no_ip_route_mask_distance_cmd  no_ip_route_mask_distance_cmd__VAR
@@ -1165,7 +1157,6 @@
 #define no_bgp_distance_cmd  no_bgp_distance_cmd__VAR
 #define match_community_cmd  match_community_cmd__VAR
 #define no_bgp_bestpath_compare_router_id_cmd  no_bgp_bestpath_compare_router_id_cmd__VAR
-#define distance  distance__VAR
 #define no_bandwidth_if_cmd  no_bandwidth_if_cmd__VAR
 #define show_ip_bgp_vpnv4_all_prefix_cmd  show_ip_bgp_vpnv4_all_prefix_cmd__VAR
 #define no_set_originator_id_cmd  no_set_originator_id_cmd__VAR
@@ -1181,6 +1172,7 @@
 #define clear_ip_bgp_instance_all_in_prefix_filter_cmd  clear_ip_bgp_instance_all_in_prefix_filter_cmd__VAR
 #define no_debug_zebra_packet_direct_cmd  no_debug_zebra_packet_direct_cmd__VAR
 #define debug_ospf_packet_all_cmd  debug_ospf_packet_all_cmd__VAR
+#define no_ospf_timers_spf_cmd  no_ospf_timers_spf_cmd__VAR
 #define aggregate_address_as_set_summary_cmd  aggregate_address_as_set_summary_cmd__VAR
 #define show_ip_route_supernets_cmd  show_ip_route_supernets_cmd__VAR
 #define router_rip_cmd  router_rip_cmd__VAR
@@ -1344,7 +1336,6 @@
 #define no_debug_bgp_update_cmd  no_debug_bgp_update_cmd__VAR
 #define no_ip_protocol_cmd  no_ip_protocol_cmd__VAR
 #define no_bgp_confederation_identifier_arg_cmd  no_bgp_confederation_identifier_arg_cmd__VAR
-#define telnet_space_char  telnet_space_char__VAR
 #define clear_ip_bgp_as_cmd  clear_ip_bgp_as_cmd__VAR
 #define neighbor_attr_unchanged_cmd  neighbor_attr_unchanged_cmd__VAR
 #define send_lifetime_infinite_day_month_cmd  send_lifetime_infinite_day_month_cmd__VAR
@@ -1365,7 +1356,6 @@
 #define clear_bgp_ipv6_external_soft_in_cmd  clear_bgp_ipv6_external_soft_in_cmd__VAR
 #define debug_ospf_nssa_cmd  debug_ospf_nssa_cmd__VAR
 #define bgp_graceful_restart_stalepath_time_cmd  bgp_graceful_restart_stalepath_time_cmd__VAR
-#define route_types  route_types__VAR
 #define set_aspath_exclude_cmd  set_aspath_exclude_cmd__VAR
 #define route_match_ip_address_prefix_list_cmd  route_match_ip_address_prefix_list_cmd__VAR
 #define neighbor_passive_cmd  neighbor_passive_cmd__VAR
@@ -1460,8 +1450,8 @@
 #define zebra_debug_kernel  zebra_debug_kernel__VAR
 #define dump_bgp_routes_cmd  dump_bgp_routes_cmd__VAR
 #define route_match_community_cmd  route_match_community_cmd__VAR
-#define access_master_ipv4  access_master_ipv4__VAR
 #define no_match_aspath_val_cmd  no_match_aspath_val_cmd__VAR
+#define access_master_ipv4  access_master_ipv4__VAR
 #define no_synchronization_cmd  no_synchronization_cmd__VAR
 #define zebra_debug_rib  zebra_debug_rib__VAR
 #define neighbor_capability_dynamic_cmd  neighbor_capability_dynamic_cmd__VAR
@@ -1506,6 +1496,7 @@
 #define neighbor_allowas_in_cmd  neighbor_allowas_in_cmd__VAR
 #define no_neighbor_capability_dynamic_cmd  no_neighbor_capability_dynamic_cmd__VAR
 #define no_ip_ospf_network_cmd  no_ip_ospf_network_cmd__VAR
+#define ospf_neighbor_cmd  ospf_neighbor_cmd__VAR
 #define bgp_bestpath_aspath_ignore_cmd  bgp_bestpath_aspath_ignore_cmd__VAR
 #define show_ip_extcommunity_list_arg_cmd  show_ip_extcommunity_list_arg_cmd__VAR
 #define no_ospf_area_vlink_param3_cmd  no_ospf_area_vlink_param3_cmd__VAR
@@ -1576,8 +1567,8 @@
 #define bgp_damp_set_cmd  bgp_damp_set_cmd__VAR
 #define keychain_key_node  keychain_key_node__VAR
 #define no_dump_bgp_routes_cmd  no_dump_bgp_routes_cmd__VAR
-#define last_recent_time  last_recent_time__VAR
 #define orf_mode_str  orf_mode_str__VAR
+#define last_recent_time  last_recent_time__VAR
 #define no_aggregate_address_mask_as_set_cmd  no_aggregate_address_mask_as_set_cmd__VAR
 #define no_rmap_continue_seq  no_rmap_continue_seq__VAR
 #define show_ip_bgp_ipv4_community4_cmd  show_ip_bgp_ipv4_community4_cmd__VAR

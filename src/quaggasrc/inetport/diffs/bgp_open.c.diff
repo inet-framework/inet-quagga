@@ -1,0 +1,37 @@
+--- bgpd/bgp_open.c.orig	2009-05-08 17:46:43.000000000 +0200
++++ bgpd/bgp_open.c	2009-07-15 16:03:37.000000000 +0200
+@@ -194,14 +194,14 @@
+ 	       peer->host, afi, safi, type, mode);
+ }
+ 
+-static struct message orf_type_str[] =
++static struct message orf_type_str[2] =
+ {
+   { ORF_TYPE_PREFIX,		"Prefixlist"		},
+   { ORF_TYPE_PREFIX_OLD,	"Prefixlist (old)"	},
+ };
+ static int orf_type_str_max = sizeof(orf_type_str)/sizeof(orf_type_str[0]);
+ 
+-static struct message orf_mode_str[] =
++static struct message orf_mode_str[3] =
+ {
+   { ORF_MODE_RECEIVE,	"Receive"	},
+   { ORF_MODE_SEND,	"Send"		},
+@@ -441,7 +441,7 @@
+   return as4;
+ }
+ 
+-static struct message capcode_str[] =
++static struct message capcode_str[8] =
+ {
+   { CAPABILITY_CODE_MP,			"MultiProtocol Extensions"	},
+   { CAPABILITY_CODE_REFRESH,		"Route Refresh"			},
+@@ -455,7 +455,7 @@
+ int capcode_str_max = sizeof(capcode_str)/sizeof(capcode_str[0]);
+ 
+ /* Minimum sizes for length field of each cap (so not inc. the header) */
+-static size_t cap_minsizes[] = 
++static size_t cap_minsizes[CAPABILITY_CODE_ORF_OLD+1] = 
+ {
+   [CAPABILITY_CODE_MP]		= sizeof (struct capability_mp_data),
+   [CAPABILITY_CODE_REFRESH]	= CAPABILITY_CODE_REFRESH_LEN,

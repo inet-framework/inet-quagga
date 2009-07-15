@@ -65,7 +65,7 @@ struct rib
   u_int32_t metric;
 
   /* Distance. */
-  u_char distance__item;
+  u_char distance;
 
   /* Flags of this route.
    * This flag's definition is in lib/zebra.h ZEBRA_FLAG_* and is exposed
@@ -105,7 +105,7 @@ struct static_ipv4
   struct static_ipv4 *next;
 
   /* Administrative distance. */
-  u_char distance__item;
+  u_char distance;
 
   /* Flag for this static route's type. */
   u_char type;
