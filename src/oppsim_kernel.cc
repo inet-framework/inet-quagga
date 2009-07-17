@@ -243,6 +243,12 @@ int oppsim_setsockopt(int socket, int level, int option_name, const void *option
         return 0;
     }
 
+    if (level == SOL_SOCKET && option_name == SO_ATTACH_FILTER)
+    {
+        EV << "SO_ATTACH_FILTER option, failed" << endl;
+    	return -1;
+    }
+
     if(level == IPPROTO_IP && option_name == IP_MULTICAST_IF)
     {
         // if this assert fails, make sure Zebra is not compiled with struct ip_mreqn here
@@ -409,10 +415,10 @@ int oppsim_setsockopt(int socket, int level, int option_name, const void *option
         return 0;
     }
 
-    if (level == SOL_SOCKET && option_name == SO_ATTACH_FILTER)
+    if(level == IPPROTO_IP && option_name == IP_TOS)
     {
-    	// not implemented
-    	return -1;
+    	EV << "IP_TOS option, ignored" << endl;
+    	return 0;
     }
 
     ASSERT(false);
@@ -761,7 +767,7 @@ ssize_t nl_request(int socket, const void *message, size_t length, int flags)
     req = (struct req_t*)message;
 
     ASSERT(req->nlh.nlmsg_len >= sizeof(req_t));
-    ASSERT(req->nlh.nlmsg_pid == 0);
+    //ASSERT(req->nlh.nlmsg_pid == 0);
 
     EV << "seq=" << req->nlh.nlmsg_seq << " type=" << req->nlh.nlmsg_type << " family=" <<
             (int)req->g.rtgen_family << " flags=" << req->nlh.nlmsg_flags << endl;
@@ -1019,7 +1025,7 @@ int oppsim_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds,
     if(timeout)
     {
         limit = simTime() + (double)timeout->tv_sec + (double)timeout->tv_usec/1000000;
-        ASSERT(limit > simTime());
+        ASSERT(limit >= simTime());
     }
 
     while(!success)
@@ -1091,7 +1097,7 @@ int oppsim_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds,
         if(timeout)
         {
             simtime_t d = limit - simTime();
-            if(!dm->receiveAndHandleMessage(d, "select"))
+            if(d == 0 || !dm->receiveAndHandleMessage(d, "select"))
                return 0; // timeout received before any event arrived
         }
         else
@@ -1365,6 +1371,12 @@ int oppsim_getsockopt(int socket, int level, int option_name, void *option_value
 	{
 		ASSERT(*option_len >= sizeof(int));
 		*(int*)option_value = current_module->getSocketError(socket, true);
+		return 0;
+	}
+	if(level == SOL_SOCKET && option_name == SO_SNDBUF)
+	{
+		ASSERT(*option_len >= sizeof(int));
+		*(int*)option_value = 2048; // XXX
 		return 0;
 	}
 

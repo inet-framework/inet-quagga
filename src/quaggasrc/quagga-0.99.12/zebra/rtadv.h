@@ -73,7 +73,7 @@ struct nd_opt_adv_interval {   /* Advertisement interval option */
         uint8_t        nd_opt_ai_len;
         uint16_t       nd_opt_ai_reserved;
         uint32_t       nd_opt_ai_interval;
-} __attribute__((__packed___zebra));
+} __attribute__((__packed__));
 #else
 #ifndef HAVE_STRUCT_ND_OPT_ADV_INTERVAL_ND_OPT_AI_TYPE
 /* fields may have to be renamed */

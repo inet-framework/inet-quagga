@@ -100,3 +100,6 @@ telnet_backward_char
 route_types
 command_types
 unknown
+packed
+__packed__
+

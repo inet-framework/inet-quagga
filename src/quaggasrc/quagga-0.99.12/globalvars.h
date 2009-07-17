@@ -200,7 +200,6 @@ struct GlobalVars
 	struct cmd_element ospf_neighbor_poll_interval_priority_cmd__X;
 	struct bgp_table * bgp_nexthop_cache_table__X[AFI_MAX];
 	struct cmd_element no_aggregate_address_cmd__X;
-	struct nd_opt_adv_interval __packed____X;
 	struct_bgp_master bgp_master__X;
 	struct cmd_element show_memory_rip_cmd__X;
 	struct cmd_element no_neighbor_allowas_in_cmd__X;
@@ -1164,8 +1163,8 @@ struct GlobalVars
 	struct cmd_element no_ospf_area_vlink_param2_cmd__X;
 	struct cmd_element config_write_terminal_cmd__X;
 	struct cmd_element no_neighbor_soft_reconfiguration_cmd__X;
-	struct cmd_element password_text_cmd__X;
 	struct cmd_element no_bgp_distance_cmd__X;
+	struct cmd_element password_text_cmd__X;
 	struct cmd_element match_community_cmd__X;
 	struct cmd_element no_bgp_bestpath_compare_router_id_cmd__X;
 	struct cmd_element no_bandwidth_if_cmd__X;
@@ -1196,7 +1195,6 @@ struct GlobalVars
 	struct cmd_element no_ipv6_distribute_list_prefix_cmd__X;
 	struct cmd_element ospf_default_information_originate_type_metric_routemap_cmd__X;
 	struct cmd_element no_config_log_file_cmd__X;
-	struct capability_orf_entry packed__X;
 	struct cmd_element ospf_area_nssa_translate_cmd__X;
 	struct cmd_element ospf_dead_interval_cmd__X;
 	struct cmd_element ospf_area_stub_cmd__X;
@@ -1272,8 +1270,8 @@ struct GlobalVars
 	struct cmd_element debug_rip_packet_detail_cmd__X;
 	struct cmd_element no_ip_prefix_list_seq_le_ge_cmd__X;
 	struct cmd_element no_ip_rip_send_version_cmd__X;
-	struct cmd_element ip_as_path_cmd__X;
 	struct cmd_element set_ip_nexthop_peer_cmd__X;
+	struct cmd_element ip_as_path_cmd__X;
 	struct cmd_element show_bgp_views_cmd__X;
 	struct cmd_element no_bgp_bestpath_med_cmd__X;
 	struct cmd_element neighbor_timers_cmd__X;
@@ -2092,8 +2090,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	bgp_nexthop_cache_table  bgp_nexthop_cache_table__VAR
 #define	no_aggregate_address_cmd__VAR  (__activeVars->no_aggregate_address_cmd__X)
 #define	no_aggregate_address_cmd  no_aggregate_address_cmd__VAR
-#define	__packed____VAR  (__activeVars->__packed____X)
-#define	__packed__  __packed____VAR
 #define	bgp_master__VAR  (__activeVars->bgp_master__X)
 #define	bgp_master  bgp_master__VAR
 #define	show_memory_rip_cmd__VAR  (__activeVars->show_memory_rip_cmd__X)
@@ -4020,10 +4016,10 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	config_write_terminal_cmd  config_write_terminal_cmd__VAR
 #define	no_neighbor_soft_reconfiguration_cmd__VAR  (__activeVars->no_neighbor_soft_reconfiguration_cmd__X)
 #define	no_neighbor_soft_reconfiguration_cmd  no_neighbor_soft_reconfiguration_cmd__VAR
-#define	password_text_cmd__VAR  (__activeVars->password_text_cmd__X)
-#define	password_text_cmd  password_text_cmd__VAR
 #define	no_bgp_distance_cmd__VAR  (__activeVars->no_bgp_distance_cmd__X)
 #define	no_bgp_distance_cmd  no_bgp_distance_cmd__VAR
+#define	password_text_cmd__VAR  (__activeVars->password_text_cmd__X)
+#define	password_text_cmd  password_text_cmd__VAR
 #define	match_community_cmd__VAR  (__activeVars->match_community_cmd__X)
 #define	match_community_cmd  match_community_cmd__VAR
 #define	no_bgp_bestpath_compare_router_id_cmd__VAR  (__activeVars->no_bgp_bestpath_compare_router_id_cmd__X)
@@ -4084,8 +4080,6 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	ospf_default_information_originate_type_metric_routemap_cmd  ospf_default_information_originate_type_metric_routemap_cmd__VAR
 #define	no_config_log_file_cmd__VAR  (__activeVars->no_config_log_file_cmd__X)
 #define	no_config_log_file_cmd  no_config_log_file_cmd__VAR
-#define	packed__VAR  (__activeVars->packed__X)
-#define	packed  packed__VAR
 #define	ospf_area_nssa_translate_cmd__VAR  (__activeVars->ospf_area_nssa_translate_cmd__X)
 #define	ospf_area_nssa_translate_cmd  ospf_area_nssa_translate_cmd__VAR
 #define	ospf_dead_interval_cmd__VAR  (__activeVars->ospf_dead_interval_cmd__X)
@@ -4236,10 +4230,10 @@ void GlobalVars_initializeActiveSet_bgpd();
 #define	no_ip_prefix_list_seq_le_ge_cmd  no_ip_prefix_list_seq_le_ge_cmd__VAR
 #define	no_ip_rip_send_version_cmd__VAR  (__activeVars->no_ip_rip_send_version_cmd__X)
 #define	no_ip_rip_send_version_cmd  no_ip_rip_send_version_cmd__VAR
-#define	ip_as_path_cmd__VAR  (__activeVars->ip_as_path_cmd__X)
-#define	ip_as_path_cmd  ip_as_path_cmd__VAR
 #define	set_ip_nexthop_peer_cmd__VAR  (__activeVars->set_ip_nexthop_peer_cmd__X)
 #define	set_ip_nexthop_peer_cmd  set_ip_nexthop_peer_cmd__VAR
+#define	ip_as_path_cmd__VAR  (__activeVars->ip_as_path_cmd__X)
+#define	ip_as_path_cmd  ip_as_path_cmd__VAR
 #define	show_bgp_views_cmd__VAR  (__activeVars->show_bgp_views_cmd__X)
 #define	show_bgp_views_cmd  show_bgp_views_cmd__VAR
 #define	no_bgp_bestpath_med_cmd__VAR  (__activeVars->no_bgp_bestpath_med_cmd__X)

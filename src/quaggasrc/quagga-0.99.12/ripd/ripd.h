@@ -162,7 +162,7 @@ struct rte
   struct in_addr mask;		/* Netmask of rip route. */
   struct in_addr nexthop;	/* Next hop of rip route. */
   u_int32_t metric;		/* Metric value of rip route. */
-};
+} __attribute__ ((__packed__));
 
 /* RIP packet structure. */
 struct rip_packet
@@ -172,7 +172,7 @@ struct rip_packet
   unsigned char pad1;		/* Padding of RIP packet header. */
   unsigned char pad2;		/* Same as above. */
   struct rte rte[1];		/* Address structure. */
-};
+} __attribute__ ((__packed__));
 
 /* Buffer to read RIP packet. */
 union rip_buf

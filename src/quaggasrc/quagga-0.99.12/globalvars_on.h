@@ -189,7 +189,6 @@
 #define ospf_neighbor_poll_interval_priority_cmd  ospf_neighbor_poll_interval_priority_cmd__VAR
 #define bgp_nexthop_cache_table  bgp_nexthop_cache_table__VAR
 #define no_aggregate_address_cmd  no_aggregate_address_cmd__VAR
-#define __packed__  __packed____VAR
 #define bgp_master  bgp_master__VAR
 #define show_memory_rip_cmd  show_memory_rip_cmd__VAR
 #define no_neighbor_allowas_in_cmd  no_neighbor_allowas_in_cmd__VAR
@@ -1153,8 +1152,8 @@
 #define no_ospf_area_vlink_param2_cmd  no_ospf_area_vlink_param2_cmd__VAR
 #define config_write_terminal_cmd  config_write_terminal_cmd__VAR
 #define no_neighbor_soft_reconfiguration_cmd  no_neighbor_soft_reconfiguration_cmd__VAR
-#define password_text_cmd  password_text_cmd__VAR
 #define no_bgp_distance_cmd  no_bgp_distance_cmd__VAR
+#define password_text_cmd  password_text_cmd__VAR
 #define match_community_cmd  match_community_cmd__VAR
 #define no_bgp_bestpath_compare_router_id_cmd  no_bgp_bestpath_compare_router_id_cmd__VAR
 #define no_bandwidth_if_cmd  no_bandwidth_if_cmd__VAR
@@ -1185,7 +1184,6 @@
 #define no_ipv6_distribute_list_prefix_cmd  no_ipv6_distribute_list_prefix_cmd__VAR
 #define ospf_default_information_originate_type_metric_routemap_cmd  ospf_default_information_originate_type_metric_routemap_cmd__VAR
 #define no_config_log_file_cmd  no_config_log_file_cmd__VAR
-#define packed  packed__VAR
 #define ospf_area_nssa_translate_cmd  ospf_area_nssa_translate_cmd__VAR
 #define ospf_dead_interval_cmd  ospf_dead_interval_cmd__VAR
 #define ospf_area_stub_cmd  ospf_area_stub_cmd__VAR
@@ -1261,8 +1259,8 @@
 #define debug_rip_packet_detail_cmd  debug_rip_packet_detail_cmd__VAR
 #define no_ip_prefix_list_seq_le_ge_cmd  no_ip_prefix_list_seq_le_ge_cmd__VAR
 #define no_ip_rip_send_version_cmd  no_ip_rip_send_version_cmd__VAR
-#define ip_as_path_cmd  ip_as_path_cmd__VAR
 #define set_ip_nexthop_peer_cmd  set_ip_nexthop_peer_cmd__VAR
+#define ip_as_path_cmd  ip_as_path_cmd__VAR
 #define show_bgp_views_cmd  show_bgp_views_cmd__VAR
 #define no_bgp_bestpath_med_cmd  no_bgp_bestpath_med_cmd__VAR
 #define neighbor_timers_cmd  neighbor_timers_cmd__VAR

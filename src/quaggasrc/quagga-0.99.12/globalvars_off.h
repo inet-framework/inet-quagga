@@ -189,7 +189,6 @@
 #undef ospf_neighbor_poll_interval_priority_cmd
 #undef bgp_nexthop_cache_table
 #undef no_aggregate_address_cmd
-#undef __packed__
 #undef bgp_master
 #undef show_memory_rip_cmd
 #undef no_neighbor_allowas_in_cmd
@@ -1153,8 +1152,8 @@
 #undef no_ospf_area_vlink_param2_cmd
 #undef config_write_terminal_cmd
 #undef no_neighbor_soft_reconfiguration_cmd
-#undef password_text_cmd
 #undef no_bgp_distance_cmd
+#undef password_text_cmd
 #undef match_community_cmd
 #undef no_bgp_bestpath_compare_router_id_cmd
 #undef no_bandwidth_if_cmd
@@ -1185,7 +1184,6 @@
 #undef no_ipv6_distribute_list_prefix_cmd
 #undef ospf_default_information_originate_type_metric_routemap_cmd
 #undef no_config_log_file_cmd
-#undef packed
 #undef ospf_area_nssa_translate_cmd
 #undef ospf_dead_interval_cmd
 #undef ospf_area_stub_cmd
@@ -1261,8 +1259,8 @@
 #undef debug_rip_packet_detail_cmd
 #undef no_ip_prefix_list_seq_le_ge_cmd
 #undef no_ip_rip_send_version_cmd
-#undef ip_as_path_cmd
 #undef set_ip_nexthop_peer_cmd
+#undef ip_as_path_cmd
 #undef show_bgp_views_cmd
 #undef no_bgp_bestpath_med_cmd
 #undef neighbor_timers_cmd
