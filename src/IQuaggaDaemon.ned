@@ -12,6 +12,9 @@
 
 package org.omnetpp.inet.networklayer.quagga;
 
+//
+// Common interface for all Quagga daemons
+//
 moduleinterface IQuaggaDaemon
 {
     parameters:

@@ -1,0 +1,56 @@
+Quagga for OMNeT++
+==================
+
+Quagga (www.quagga.net; formerly called Zebra) is an open-source routing
+package for Linux and other *nix systems. Quagga supports RIP, OSPF, ISIS,
+BGP4 and OSPFv6.
+
+INET-Quagga is an effort to bring dynamic routing facility into INET
+simulations by using modified version of Quagga. It is done by placing
+a syscall emulation layer between Quagga and INET Framework components.
+Further changes
+
+Initial implementation was done by Vojta Janota. Currently the project
+is maintained by OMNeT++ developers (Tamas Borbely, Andras Varga et al.)
+
+Usage
+-----
+Please have a look at the example simulations and the QuaggaRouter compound
+module!
+
+A normal Quagga router can be configured with files in the etc/quagga/.
+A simulated Quagga router can be configured with the same files, but the
+file system root can be specified for each router in the "fsroot" module
+parameter. A router with fsroot = "r1" will read the following files:
+
+    r1/_etc_quagga_bgpd.conf
+    r1/_etc_quagga_ospfd.conf
+    r1/_etc_quagga_ripd.conf
+    r1/_etc_quagga_zebra.conf
+
+Where r1 is a subdir of the working directory. Slash has been replaced with
+underscore in the file paths to avoid deep directory trees.
+
+The source tree
+---------------
+src/                 contains the NED modules and the syscall emulation layer
+  quaggasrc/
+    quagga-0.98.5/   versions of Quagga, modified
+    quagga-0.99.12/  versions of Quagga, modified
+    quagga           symlink to selected version of quagga, e.g. quagga-0.99.12
+    inetport/        scripts to port vanilla Quagga sources into INET-Quagga
+  unittest/          unit test
+examples/            example simulations
+
+Development
+-----------
+Feel free to contribute bug reports, fixes, improvements, or example
+simulations to this project!
+
+The repository is on GitHub: http://github.com/inet-framework/inet-quagga/
+
+Enjoy!
+Andras Varga
+andras omnetpp org
+
+

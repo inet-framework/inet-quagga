@@ -12,6 +12,9 @@
 
 package org.omnetpp.inet.networklayer.quagga;
 
+//
+// Zebra daemon -- part of Quagga.
+//
 simple Zebra like IQuaggaDaemon
 {
     parameters:

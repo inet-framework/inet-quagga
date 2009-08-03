@@ -1,0 +1,43 @@
+2009-07-17  Tamas Borbely
+
+	* added support for quagga-0.99.12. (Both quagga-0.98.5 and quagga-0.99.12
+	are provided; the user can switch between them by adjusting the quagga
+	symlink in the src/quaggasrc directory).
+
+	* several bugfixes, some of them related to 64-bit support
+
+	* no longer compiles with Visual C++. (The quagga code is full of uses
+	of GCC extensions like initializing structs with field names, and it 
+	would require significant refactoring to transform such constructs to 
+	something VC++ (or any non-GNU compiler) understands).
+
+2009-06-03  Andras Varga
+
+	* ported to OMNeT++ 4.0 and matching INET Framework
+	
+2009-02-24  Rudolf Hornig
+
+	* split from the INET Framework and turned into a separate project,
+	because this codebase is a lot more sensitive to platform than the
+	base INET.
+
+2006-10-22  Vojtech Janota
+
+	* several fixes in oppsim_kernel
+	* FourRouters/bgpd now works
+
+2006-10-21  Vojtech Janota
+
+	* added bgpd to inetport
+	* added unit testing framework
+
+2006-04-04  Andras Varga
+
+	* added #undef si_pid, si_uid, si_status, si_value, si_band, and 
+	si_addr into generic_env.h, for Solaris x86 compatibility (these
+	struct siginfo field names are macros there that to refer to other 
+	struct fields) [patch from Devendra Jaisinghani]
+
+2006-03-30  Andras Varga
+
+	* ChangeLog starts with INET-20060330

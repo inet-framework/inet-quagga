@@ -12,6 +12,9 @@
 
 package org.omnetpp.inet.networklayer.quagga;
 
+//
+// Quagga OSPFv2 routing daemon.
+//
 simple Ospfd like IQuaggaDaemon
 {
     parameters:

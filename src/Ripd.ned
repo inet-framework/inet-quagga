@@ -12,6 +12,9 @@
 
 package org.omnetpp.inet.networklayer.quagga;
 
+//
+// Quagga RIP routing daemon.
+//
 simple Ripd like IQuaggaDaemon
 {
     parameters:

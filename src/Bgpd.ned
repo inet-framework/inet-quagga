@@ -12,6 +12,9 @@
 
 package org.omnetpp.inet.networklayer.quagga;
 
+//
+// Quagga BGP routing daemon.
+//
 simple Bgpd like IQuaggaDaemon
 {
     parameters:
